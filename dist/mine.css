@@ -21,6 +21,7 @@
                   'dejavu serif', 'bitstream vera serif', 'liberation serif', /* linux */
                   georgia, /* old systems */
                   serif; /* fallback */
+  --system-round: SFRounded, ui-rounded, "SF Pro Rounded", system-ui, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 /* stylelint-enable */
 /* variable settings */
@@ -136,8 +137,7 @@ html {
   font-family: var(--font-body);
   font-size: calc(var(--font-size-body) + var(--font-size-scale));
   line-height: var(--line-height-body);
-  -webkit-font-kerning: normal;
-          font-kerning: normal;
+  font-kerning: normal;
   text-rendering: optimizeLegibility;
   font-feature-settings: normal;
 }
