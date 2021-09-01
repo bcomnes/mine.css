@@ -19,6 +19,7 @@
       <a class="top-bar-link" href="/guide/">guide</a>
       <a class="top-bar-link sans style-sans current-page">sans</a>
       <a class="top-bar-link serif style-serif">serif</a>
+      <a class="top-bar-link round style-round">round</a>
       <span class="top-bar-link"><input class="dark-icon" onclick="toggleTheme()" type="image" alt="Toogle Theme" height="14" width="14" src="/light-dark.svg"></span>
       <div class="top-bar-right">
         <a class="top-bar-link" href="https://github.com/bcomnes/mine.css/">
@@ -35,16 +36,27 @@
         var page = document.querySelector('body')
         var sansButton = document.querySelector('.style-sans')
         var serifButton = document.querySelector('.style-serif')
+        var roundButton = document.querySelector('.style-round')
         var toggle = document.querySelector('.id')
 
-        function swap () {
-          page.classList.toggle('serif')
-          sansButton.classList.toggle('current-page')
-          serifButton.classList.toggle('current-page')
+        function round () {
+          page.classList.toggle('serif', false)
+          page.classList.toggle('round', true)
         }
 
-        sansButton.addEventListener('click', swap)
-        serifButton.addEventListener('click', swap)
+        function serif () {
+          page.classList.toggle('serif', true)
+          page.classList.toggle('round', false)
+        }
+
+        function sans () {
+          page.classList.toggle('serif', false)
+          page.classList.toggle('round', false)
+        }
+
+        sansButton.addEventListener('click', sans)
+        serifButton.addEventListener('click', serif)
+        roundButton.addEventListener('click', round)
       })()
     </script>
   </body>

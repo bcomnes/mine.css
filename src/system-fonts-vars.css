@@ -20,5 +20,6 @@
                   'dejavu serif', 'bitstream vera serif', 'liberation serif', /* linux */
                   georgia, /* old systems */
                   serif; /* fallback */
+  --system-round: SFRounded, ui-rounded, "SF Pro Rounded", system-ui, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 /* stylelint-enable */
