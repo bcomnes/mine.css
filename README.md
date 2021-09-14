@@ -282,7 +282,7 @@ See [this webkit blogpost](https://webkit.org/blog/8840/dark-mode-support-in-web
 
 You can see this layout style in action on the [`mine.css`][guide] website.
 
-The tow classes are:
+The two classes are:
 
 - `safe-area-inset`: This should typically be applied to `body`.  This enables mobile notch padding when nessisary.
 - `mine-layout`: Simple, responsive margins for a document.  Apply to the content body or whereever else you want a nice default margin.
