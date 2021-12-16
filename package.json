@@ -29,8 +29,8 @@
     "postcss-url": "^10.1.0",
     "rimraf": "^3.0.0",
     "sitedown": "^5.0.0",
-    "stylelint": "^13.0.0",
-    "stylelint-config-standard": "^22.0.0",
+    "stylelint": "^14.0.0",
+    "stylelint-config-standard": "^24.0.0",
     "top-bar.css": "^2.0.0"
   },
   "homepage": "https://github.com/bcomnes/mine.css",
