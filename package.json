@@ -9,7 +9,6 @@
   "contributors": [
     "Bret Comnes <bcomnes@gmail.com> (https://bret.io)"
   ],
-  "dependencies": {},
   "devDependencies": {
     "auto-changelog": "^2.0.0",
     "autoprefixer": "^10.0.1",
@@ -22,6 +21,7 @@
     "postcss": "^8.0.9",
     "postcss-browser-reporter": "^0.6.0",
     "postcss-cli": "^9.1.0",
+    "postcss-dark-theme-class": "^0.7.3",
     "postcss-extend": "^1.0.5",
     "postcss-import": "^14.0.2",
     "postcss-nesting": "^8.0.1",
@@ -43,11 +43,10 @@
   "license": "MIT",
   "type": "module",
   "module": "src/theme-switcher.js",
-  "exports": "./src/theme-switcher.js",
-  "style": "dist/mine.css",
   "exports": {
     "browser": "./src/theme-switcher.js"
   },
+  "style": "dist/mine.css",
   "repository": {
     "type": "git",
     "url": "https://github.com/bcomnes/mine.css.git"

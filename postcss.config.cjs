@@ -7,6 +7,10 @@ module.exports = (ctx) => ({
       useHash: true,
       assetsPath: 'assets'
     },
+    'postcss-dark-theme-class': {
+      darkSelector: '.dark-mode',
+      lightSelector: '.light-mode'
+    },
     'autoprefixer': {},
     'postcss-nesting': {},
     'postcss-extend': {},

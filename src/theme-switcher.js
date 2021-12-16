@@ -6,7 +6,7 @@ colorSchemeMql.addListener(setTheme)
 function setTheme (e) {
   const isDarkMode = e.matches
   const colorScheme = window.sessionStorage.getItem('color-scheme')
-  const body = document.body
+  const body = document.documentElement
   switch (colorScheme) {
     case 'dark': {
       if (isDarkMode) window.sessionStorage.setItem('color-scheme', 'automatic')

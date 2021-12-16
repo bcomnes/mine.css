@@ -64,8 +64,9 @@
   --dark-code-text: var(--dark-text);
   --dark-code-background: var(--dark-accent-background);
   --dark-code-border: var(--dark-accent-midground);
-}
-:root, .light-mode {
+
+  /* Light mode */
+
   /* main colors */
   --text: var(--light-text);
   --background: var(--light-background);
@@ -84,53 +85,53 @@
   color-scheme: light;
   supported-color-schemes: light;
 }
-.dark-mode {
-  /* main colors */
-  --text: var(--dark-text);
-  --background: var(--dark-background);
-  --layer-background: var(--dark-layer-background);
-  --accent-background: var(--dark-accent-background);
-  --accent-midground: var(--dark-accent-midground);
-  --accent-foreground: var(--dark-accent-foreground);
-
-  /* misc colors */
-  --link-text: var(--dark-link-text);
-  --mark-background: var(--dark-mark-background);
-  --code-text: var(--dark-code-text);
-  --code-background: var(--dark-code-background);
-  --code-border: var(--dark-code-border);
-
-  color-scheme: dark;
-  supported-color-schemes: dark
-}
-.dark-mode input[type="search"]::-webkit-search-cancel-button {
-    -webkit-filter: invert(100%); /* stylelint-disable-line */
-  }
 @media (prefers-color-scheme: dark) {
-  :root { /* stylelint-disable-line at-rule-no-unknown */
-  	--text: var(--dark-text);
-  	--background: var(--dark-background);
-  	--layer-background: var(--dark-layer-background);
-  	--accent-background: var(--dark-accent-background);
-  	--accent-midground: var(--dark-accent-midground);
-  	--accent-foreground: var(--dark-accent-foreground);
-  	--link-text: var(--dark-link-text);
-  	--mark-background: var(--dark-mark-background);
-  	--code-text: var(--dark-code-text);
-  	--code-background: var(--dark-code-background);
-  	--code-border: var(--dark-code-border);
+  :root:not(.light-mode) {
+    /* main colors */
+    --text: var(--dark-text);
+    --background: var(--dark-background);
+    --layer-background: var(--dark-layer-background);
+    --accent-background: var(--dark-accent-background);
+    --accent-midground: var(--dark-accent-midground);
+    --accent-foreground: var(--dark-accent-foreground);
 
-  	color-scheme: dark;
-  	supported-color-schemes: dark;
-  }
-  :root input[type="search"]::-webkit-search-cancel-button {
-    	-webkit-filter: invert(100%); 	/* stylelint-disable-line */
+    /* misc colors */
+    --link-text: var(--dark-link-text);
+    --mark-background: var(--dark-mark-background);
+    --code-text: var(--dark-code-text);
+    --code-background: var(--dark-code-background);
+    --code-border: var(--dark-code-border);
+
+    color-scheme: dark;
+    supported-color-schemes: dark
   }
 
-  .light-mode input[type="search"]::-webkit-search-cancel-button {
-    -webkit-filter: initial; /* stylelint-disable-line */
-  }
+    :root:not(.light-mode) input[type="search"]::-webkit-search-cancel-button {
+      -webkit-filter: invert(100%); /* stylelint-disable-line */
+    }
 }
+:root.dark-mode {
+    /* main colors */
+    --text: var(--dark-text);
+    --background: var(--dark-background);
+    --layer-background: var(--dark-layer-background);
+    --accent-background: var(--dark-accent-background);
+    --accent-midground: var(--dark-accent-midground);
+    --accent-foreground: var(--dark-accent-foreground);
+
+    /* misc colors */
+    --link-text: var(--dark-link-text);
+    --mark-background: var(--dark-mark-background);
+    --code-text: var(--dark-code-text);
+    --code-background: var(--dark-code-background);
+    --code-border: var(--dark-code-border);
+
+    color-scheme: dark;
+    supported-color-schemes: dark
+  }
+:root.dark-mode input[type="search"]::-webkit-search-cancel-button {
+      -webkit-filter: invert(100%); /* stylelint-disable-line */
+    }
 /* html should be at the top */
 html {
   box-sizing: border-box;
