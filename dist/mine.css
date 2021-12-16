@@ -163,12 +163,12 @@ h1, h2, h3, h4, h5, h6 {
 
   /* rep the smallies */
 }
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+:is(h1,h2,h3,h4,h5,h6) small {
     color: var(--accent-foreground);
     font-size: 0.7em;
     font-weight: 400;
   }
-h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: 0.9em; }
+:is(h1,h2,h3,h4,h5,h6) code { font-size: 0.9em; }
 h1 { font-size: 2.75em; }
 h2 { font-size: 2.25em; }
 h3 { font-size: 1.75em; }
@@ -202,12 +202,12 @@ ul, ol {
   padding: 0;
   padding-left: 2em
 }
-ul ol, ol ol { list-style-type: lower-roman; }
-ul ul, ul ol, ol ul, ol ol {
+:is(ul,ol) ol { list-style-type: lower-roman; }
+:is(ul,ol) ul, :is(ul,ol) ol {
     margin-top: 0;
     margin-bottom: 0
   }
-ul ul ol, ul ol ol, ol ul ol, ol ol ol { list-style-type: lower-alpha; }
+:is(:is(ul,ol) ul,:is(ul,ol) ol) ol { list-style-type: lower-alpha; }
 li > p { margin-top: 1em; }
 blockquote {
   margin: 0 0 1rem;
@@ -419,15 +419,15 @@ input[type=date], input[type=datetime-local], input[type=email], input[type=mont
   background-color: var(--background);
   width: 15.5em
 }
-input[type=date]:focus, input[type=datetime-local]:focus, input[type=email]:focus, input[type=month]:focus, input[type=number]:focus, input[type=password]:focus, input[type=search]:focus, input[type=tel]:focus, input[type=text]:focus, input[type=time]:focus, input[type=url]:focus, input[type=week]:focus {
+:is(input[type=date],input[type=datetime-local],input[type=email],input[type=month],input[type=number],input[type=password],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week]):focus {
     /* Form focused */
     border-color: var(--accent-foreground);
   }
-input[type=date]:disabled, input[type=datetime-local]:disabled, input[type=email]:disabled, input[type=month]:disabled, input[type=number]:disabled, input[type=password]:disabled, input[type=search]:disabled, input[type=tel]:disabled, input[type=text]:disabled, input[type=time]:disabled, input[type=url]:disabled, input[type=week]:disabled {
+:is(input[type=date],input[type=datetime-local],input[type=email],input[type=month],input[type=number],input[type=password],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week]):disabled {
     /* Form disabled */
     background-color: var(--accent-background);
   }
-input[type=date]:hover:not([disabled]), input[type=datetime-local]:hover:not([disabled]), input[type=email]:hover:not([disabled]), input[type=month]:hover:not([disabled]), input[type=number]:hover:not([disabled]), input[type=password]:hover:not([disabled]), input[type=search]:hover:not([disabled]), input[type=tel]:hover:not([disabled]), input[type=text]:hover:not([disabled]), input[type=time]:hover:not([disabled]), input[type=url]:hover:not([disabled]), input[type=week]:hover:not([disabled]) {
+:is(input[type=date],input[type=datetime-local],input[type=email],input[type=month],input[type=number],input[type=password],input[type=search],input[type=tel],input[type=text],input[type=time],input[type=url],input[type=week]):hover:not([disabled]) {
     border-color: var(--accent-foreground);
   }
 label {
