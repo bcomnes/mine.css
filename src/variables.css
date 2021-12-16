@@ -80,8 +80,8 @@
   color-scheme: dark;
   supported-color-schemes: dark;
 
-  & input[type=search]::-webkit-search-cancel-button {
-    -webkit-filter: invert(100%);
+  & input[type="search"]::-webkit-search-cancel-button {
+    -webkit-filter: invert(100%); /* stylelint-disable-line */
   }
 }
 
@@ -90,7 +90,7 @@
     @extend .dark-mode; /* stylelint-disable-line at-rule-no-unknown */
   }
 
-  .light-mode input[type=search]::-webkit-search-cancel-button {
-    -webkit-filter: initial;
+  .light-mode input[type="search"]::-webkit-search-cancel-button {
+    -webkit-filter: initial; /* stylelint-disable-line */
   }
 }
