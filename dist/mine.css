@@ -103,8 +103,8 @@
   color-scheme: dark;
   supported-color-schemes: dark
 }
-.dark-mode input[type=search]::-webkit-search-cancel-button {
-    -webkit-filter: invert(100%);
+.dark-mode input[type="search"]::-webkit-search-cancel-button {
+    -webkit-filter: invert(100%); /* stylelint-disable-line */
   }
 @media (prefers-color-scheme: dark) {
   :root { /* stylelint-disable-line at-rule-no-unknown */
@@ -123,12 +123,12 @@
   	color-scheme: dark;
   	supported-color-schemes: dark;
   }
-  :root input[type=search]::-webkit-search-cancel-button {
-    	-webkit-filter: invert(100%);
+  :root input[type="search"]::-webkit-search-cancel-button {
+    	-webkit-filter: invert(100%); 	/* stylelint-disable-line */
   }
 
-  .light-mode input[type=search]::-webkit-search-cancel-button {
-    -webkit-filter: initial;
+  .light-mode input[type="search"]::-webkit-search-cancel-button {
+    -webkit-filter: initial; /* stylelint-disable-line */
   }
 }
 /* html should be at the top */
