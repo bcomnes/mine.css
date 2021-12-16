@@ -24,6 +24,7 @@
   --system-round: SFRounded, ui-rounded, "SF Pro Rounded", system-ui, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 /* stylelint-enable */
+/* stylelint-disable color-function-notation */
 /* variable settings */
 :root {
   /* font family */
