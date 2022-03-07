@@ -6,7 +6,7 @@ html {
   font-size: calc(var(--font-size-body) + var(--font-size-scale));
   line-height: var(--line-height-body);
   font-kerning: normal;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
   font-feature-settings: normal;
 }
 
