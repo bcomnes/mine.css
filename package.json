@@ -42,6 +42,7 @@
   ],
   "license": "MIT",
   "type": "module",
+  "main": "src/theme-switcher.js",
   "module": "src/theme-switcher.js",
   "exports": {
     "browser": "./src/theme-switcher.js"
