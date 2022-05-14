@@ -43,10 +43,10 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "src/theme-switcher.js",
-  "module": "src/theme-switcher.js",
+  "main": "dist/theme-switcher.js",
+  "module": "dist/theme-switcher.js",
   "exports": {
-    "browser": "./src/theme-switcher.js"
+    "browser": "./dist/theme-switcher.js"
   },
   "style": "dist/mine.css",
   "repository": {
@@ -74,5 +74,8 @@
     "watch:site": "npm run build:site -- -w",
     "watch:mine.css": "run-s 'build:mine.css -- --watch'",
     "watch:layout.css": "run-s 'build:layout.css -- --watch'"
-  }
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }
