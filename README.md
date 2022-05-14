@@ -224,7 +224,7 @@ The theme agnostic variables are as follows:
 
 If you want to allow users to switch between light and dark, indipendent of the system theme, you can apply the `.light-mode` or `.dark-mode` class the the document body.
 
-Thought there is a subtle relationship between the class and the system preference, so it is better to use the theme switcher script ([./src/theme-switcher.js](./src/theme-switcher.js)) which handles user preference while still following the system preference.
+Thought there is a subtle relationship between the class and the system preference, so it is better to use the theme switcher script ([./src/theme-switcher.js](./dist/theme-switcher.js)) which handles user preference while still following the system preference.
 
 Usage:
 
