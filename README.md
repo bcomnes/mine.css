@@ -293,7 +293,7 @@ The two classes are:
 
 ## License
 
-[ISC](LICENSE.md)
+[ISC](LICENSE)
 
 [style]: https://css-pkg.github.io/style.css/
 [style-gh]: https://github.com/css-pkg/style.css
