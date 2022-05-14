@@ -10,6 +10,7 @@
     "Bret Comnes <bcomnes@gmail.com> (https://bret.io)"
   ],
   "devDependencies": {
+    "@siteup/cli": "^2.0.0",
     "auto-changelog": "^2.0.0",
     "autoprefixer": "^10.0.1",
     "browser-sync": "^2.26.7",
@@ -28,10 +29,10 @@
     "postcss-reporter": "^7.0.1",
     "postcss-url": "^10.1.0",
     "rimraf": "^3.0.0",
-    "sitedown": "^5.0.0",
     "stylelint": "^14.0.0",
     "stylelint-config-standard": "^25.0.0",
-    "top-bar.css": "^3.0.0"
+    "top-bar.css": "^3.0.0",
+    "uhtml-isomorphic": "^2.0.0"
   },
   "homepage": "https://github.com/bcomnes/mine.css",
   "keywords": [
@@ -42,10 +43,10 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "src/theme-switcher.js",
-  "module": "src/theme-switcher.js",
+  "main": "dist/theme-switcher.js",
+  "module": "dist/theme-switcher.js",
   "exports": {
-    "browser": "./src/theme-switcher.js"
+    "browser": "./dist/theme-switcher.js"
   },
   "style": "dist/mine.css",
   "repository": {
@@ -54,29 +55,27 @@
   },
   "scripts": {
     "build": "run-s clean build:*",
-    "build:md": "sitedown . -b public/ -l site/layout.html",
     "build:mine.css": "postcss src/index.css -o dist/mine.css",
     "build:layout.css": "postcss src/layout.css -o dist/layout.css",
-    "build:site.css": "postcss site/index.css -o public/site.css",
-    "build:static": "cpx 'site/**/*.{jpg,png,svg,ico}' public",
-    "build:js": "cpx 'src/theme-switcher.js' public",
+    "build:js": "cpx 'src/theme-switcher.js' dist",
+    "build:site": "siteup --src . --dest public --ignore 'src,package.json,*.map'",
     "clean": "rimraf 'dist/*' 'public/*' && mkdirp dist public",
     "prepare": "npm run build",
     "prepublishOnly": "git push --follow-tags && gh-release -y",
     "pretest": "run-s build",
     "start": "npm run watch",
     "test": "run-s test:*",
-    "test:stylelint": "stylelint 'src/**.css'",
+    "test:stylelint": "stylelint 'src/**.css' global.css",
     "version": "run-s prepare version:*",
     "version:changelog": "auto-changelog -p --template keepachangelog auto-changelog --breaking-pattern 'BREAKING CHANGE:'",
     "version:git": "git add CHANGELOG.md dist",
     "watch": "npm run clean && run-p build:mine.css build:layout.css && run-p watch:*",
-    "watch:static": "npm run build:static -- -w",
-    "watch:js": "npm run build:js -- -w",
     "watch:serve": "browser-sync start --server 'public' --files 'public'",
-    "watch:md": "npm run build:md -- -w",
-    "watch:site.css": "run-s 'build:site.css -- --watch'",
+    "watch:site": "npm run build:site -- -w",
     "watch:mine.css": "run-s 'build:mine.css -- --watch'",
     "watch:layout.css": "run-s 'build:layout.css -- --watch'"
-  }
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }

@@ -2,6 +2,9 @@ name: tests
 
 on: [pull_request, push]
 
+env:
+  FORCE_COLOR: 2
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -9,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14]
+        node: [lts/*]
 
     steps:
     - uses: actions/checkout@v3
@@ -29,7 +32,7 @@ jobs:
       pull-requests: write
       contents: write
     steps:
-      - uses: fastify/github-action-merge-dependabot@v3.1.5
+      - uses: fastify/github-action-merge-dependabot@v3
         if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' && contains(github.head_ref, 'dependabot/github_actions') }}
         with:
           github-token: ${{secrets.github_token}}
