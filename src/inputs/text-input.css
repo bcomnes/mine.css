@@ -3,6 +3,7 @@ input[type=search] {
   -webkit-appearance: textfield;
 }
 
+textarea,
 input[type=date],
 input[type=datetime-local],
 input[type=email],
