@@ -38,6 +38,7 @@ See how elements are styled with `mine.css`.
         <li><a href="#submit">Submit</a></li>
         <li><a href="#tel">Tel</a></li>
         <li><a href="#text">Text</a></li>
+        <li><a href="#textarea">Text Area</a></li>
         <li><a href="#time">Time</a></li>
         <li><a href="#url">URL</a></li>
         <li><a href="#week">Week</a></li>
