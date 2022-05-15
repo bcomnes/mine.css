@@ -326,12 +326,12 @@ hr {
 }
 hr::before {
     display: table;
-    content: '';
+    content: "";
   }
 hr::after {
     display: table;
     clear: both;
-    content: '';
+    content: "";
   }
 /* Remove the border on images inside links in IE 10-. */
 img {
@@ -394,22 +394,24 @@ p, blockquote, ul, ol, dl, table, pre {
 }
 /* Add the correct font size in all browsers. */
 small { font-size: 80%; }
-input[type=reset], input[type=submit], input[type=button], button {
+input[type="reset"], input[type="submit"], input[type="button"], button {
   /* Button */
 }
-input[type=checkbox] {
+input[type="checkbox"] {
   /* fix iOS Safari clipping */
   transform: translate(0);
 }
-input[type=radio] {
+input[type="radio"] {
   /* fix iOS Safari clipping */
   transform: translate(0);
 }
-input[type=search] {
+input[type="search"] {
   /* Fix search box appearance safari */
   -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
 }
-input[type=date], input[type=datetime-local], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week] {
+textarea, input[type="date"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"] {
   border-color: var(--accent-midground);
   border-radius: 5px;
   border-width: 2px;
@@ -420,15 +422,15 @@ input[type=date], input[type=datetime-local], input[type=email], input[type=mont
   background-color: var(--background);
   width: 15.5em
 }
-input[type=date]:focus, input[type=datetime-local]:focus, input[type=email]:focus, input[type=month]:focus, input[type=number]:focus, input[type=password]:focus, input[type=search]:focus, input[type=tel]:focus, input[type=text]:focus, input[type=time]:focus, input[type=url]:focus, input[type=week]:focus {
+:is(textarea,input[type="date"],input[type="datetime-local"],input[type="email"],input[type="month"],input[type="number"],input[type="password"],input[type="search"],input[type="tel"],input[type="text"],input[type="time"],input[type="url"],input[type="week"]):focus {
     /* Form focused */
     border-color: var(--accent-foreground);
   }
-input[type=date]:disabled, input[type=datetime-local]:disabled, input[type=email]:disabled, input[type=month]:disabled, input[type=number]:disabled, input[type=password]:disabled, input[type=search]:disabled, input[type=tel]:disabled, input[type=text]:disabled, input[type=time]:disabled, input[type=url]:disabled, input[type=week]:disabled {
+:is(textarea,input[type="date"],input[type="datetime-local"],input[type="email"],input[type="month"],input[type="number"],input[type="password"],input[type="search"],input[type="tel"],input[type="text"],input[type="time"],input[type="url"],input[type="week"]):disabled {
     /* Form disabled */
     background-color: var(--accent-background);
   }
-input[type=date]:hover:not([disabled]), input[type=datetime-local]:hover:not([disabled]), input[type=email]:hover:not([disabled]), input[type=month]:hover:not([disabled]), input[type=number]:hover:not([disabled]), input[type=password]:hover:not([disabled]), input[type=search]:hover:not([disabled]), input[type=tel]:hover:not([disabled]), input[type=text]:hover:not([disabled]), input[type=time]:hover:not([disabled]), input[type=url]:hover:not([disabled]), input[type=week]:hover:not([disabled]) {
+:is(textarea,input[type="date"],input[type="datetime-local"],input[type="email"],input[type="month"],input[type="number"],input[type="password"],input[type="search"],input[type="tel"],input[type="text"],input[type="time"],input[type="url"],input[type="week"]):hover:not([disabled]) {
     border-color: var(--accent-foreground);
   }
 label {

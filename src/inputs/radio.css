@@ -1,4 +1,4 @@
-input[type=radio] {
+input[type="radio"] {
   /* fix iOS Safari clipping */
   transform: translate(0);
 }

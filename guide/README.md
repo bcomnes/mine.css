@@ -1018,6 +1018,46 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 <input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10">
 ```
 
+#### <a id="textarea" href="#textarea">Text Area</a>
+
+<p>
+  <details>
+    <summary><strong>Description</strong></summary>
+    <blockquote>
+      <p>The <strong><code>&lt;textarea&gt;</code></strong> <a href="/en-US/docs/Web/HTML">HTML</a> element represents a multi-line plain-text editing control, useful when you want to allow users to enter a sizeable amount of free-form text, for example a comment on a review or feedback form. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea">mdn</a></p>
+    </blockquote>
+  </details>
+</p>
+
+<p>
+  <label style="display: block;">
+    Tell us your story:
+    <textarea style="display: block;" id="story" name="story" rows="5" cols="33">
+It was a dark and stormy night...
+    </textarea>
+  </label>
+  <label style="display: block;">Don't tell us your story:
+    <textarea style="display: block;" disabled id="story" name="story" rows="5" cols="33">
+It wasn't a dark and stormy night...
+    </textarea>
+  </label>
+</p>
+
+```html
+<label style="display: block;">
+  Tell us your story:
+  <textarea style="display: block;" id="story" name="story" rows="5" cols="33">
+It was a dark and stormy night...
+  </textarea>
+</label>
+<label style="display: block;">
+  Don't tell us your story:
+  <textarea style="display: block;" disabled id="story" name="story" rows="5" cols="33">
+It wasn't a dark and stormy night...
+  </textarea>
+</label>
+```
+
 #### <a id="time" href="#time">Time</a>
 
 <p>
