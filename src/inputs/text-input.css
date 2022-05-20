@@ -20,7 +20,7 @@ input[type="week"] {
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
-  font-size: 1.2em;
+  font-size: calc(var(--font-size-body) + var(--font-size-scale));
   padding: 0.4em;
   color: var(--text);
   background-color: var(--background);
