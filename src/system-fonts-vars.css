@@ -1,25 +1,19 @@
 /* stylelint-disable */
 /* TODO: Make sure this is up to date */
+/* https://drafts.csswg.org/css-fonts-4/#ui-rounded-def */
 :root {
-  --system-sans: system-ui, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, /* mac, ios */
-                 'segoe ui', /* windows */
-                 roboto, noto, 'droid sans', /* android */
-                'liberation sans', /* linux */
-                'lucida grande', 'helvetica neue', helvetica, /* old mac */
-                'franklin gothic medium', 'century gothic', /* old windows */
-                cantarell, oxygen, ubuntu, /* old linux */
-                sans-serif; /* fallback */
-  --system-mono:  system-ui-monospaced, menlo, /* mac */
-                  inconsolata, consolas, /* windows */
-                  'noto mono', 'droid sans mono', /* android */
-                  'liberation mono', 'dejavu sans mono', 'ubuntu mono', /* linux */
-                  monaco, 'courier new', /* older systems */
-                  monospace; /* fallback */
-  --system-serif: charter, constantia, /* mac */
+  --system-sans: system-ui, ui-sans-serif, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --system-mono: ui-monospace, system-ui-monospaced, 'SF Mono', /* mac */
+                 inconsolata, consolas, /* windows */
+                 'noto mono', 'droid sans mono', /* android */
+                 'liberation mono', 'dejavu sans mono', 'ubuntu mono', /* linux */
+                 monaco, 'courier new', /* older systems */
+                 monospace; /* fallback */
+  --system-serif: ui-serif, 'New York', charter, constantia, /* mac */
                   'lucida bright', lucidabright, 'lucida serif', lucida, /* windows */
                   'dejavu serif', 'bitstream vera serif', 'liberation serif', /* linux */
                   georgia, /* old systems */
                   serif; /* fallback */
-  --system-round: SFRounded, ui-rounded, "SF Pro Rounded", system-ui, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  --system-round: ui-rounded, SFRounded, 'SF Rounded', 'SF Pro Rounded', var(--system-sans);
 }
 /* stylelint-enable */
