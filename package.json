@@ -30,7 +30,7 @@
     "postcss-url": "^10.1.0",
     "rimraf": "^3.0.0",
     "stylelint": "^14.0.0",
-    "stylelint-config-standard": "^25.0.0",
+    "stylelint-config-standard": "^28.0.0",
     "top-bar.css": "^3.0.0",
     "uhtml-isomorphic": "^2.0.0"
   },
