@@ -28,7 +28,7 @@
     "postcss-nesting": "^10.0.0",
     "postcss-reporter": "^7.0.1",
     "postcss-url": "^10.1.0",
-    "rimraf": "^3.0.0",
+    "rimraf": "^4.1.0",
     "stylelint": "^14.0.0",
     "stylelint-config-standard": "^25.0.0",
     "top-bar.css": "^3.0.0",
