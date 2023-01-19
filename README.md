@@ -54,6 +54,18 @@ $ npm install mine.css
 @import url('https://unpkg.com/mine.css');
 ```
 
+If your bundler implements package.json `exports` resolution, you can explicitly reference the js or css exports from mine.css doing the following:
+
+```css
+/* esbuild css */
+@import 'mine.css/css';
+```
+
+```js
+/* esbuild js */
+import { toggleTheme } from 'mine.css/js';
+```
+
 ## Usage
 
 ```html
