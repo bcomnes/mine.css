@@ -1,6 +1,6 @@
 /* variables */
-@import "./system-fonts-vars.css";
-@import "./variables.css";
-@import "./document.css";
-@import "./typography/index.css";
-@import "./inputs/index.css";
+@import url("./system-fonts-vars.css");
+@import url("./variables.css");
+@import url("./document.css");
+@import url("./typography/index.css");
+@import url("./inputs/index.css");

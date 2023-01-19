@@ -1,17 +1,17 @@
-@import "./headings.css";
-@import "./paragraphs.css";
-@import "./links.css";
-@import "./lists.css";
-@import "./blockquotes.css";
-@import "./emphasis.css";
-@import "./code.css";
-@import "./keyboard.css";
-@import "./tables.css";
-@import "./horizontal-rules.css";
-@import "./images.css";
-@import "./figures.css";
-@import "./abbreviations.css";
-@import "./definitions.css";
+@import url("./headings.css");
+@import url("./paragraphs.css");
+@import url("./links.css");
+@import url("./lists.css");
+@import url("./blockquotes.css");
+@import url("./emphasis.css");
+@import url("./code.css");
+@import url("./keyboard.css");
+@import url("./tables.css");
+@import url("./horizontal-rules.css");
+@import url("./images.css");
+@import url("./figures.css");
+@import url("./abbreviations.css");
+@import url("./definitions.css");
 
 /* same margins for all typographic block elements */
 p,
