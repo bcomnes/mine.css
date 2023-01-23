@@ -58,12 +58,14 @@ If your bundler implements package.json `exports` resolution, you can explicitly
 
 ```css
 /* esbuild css */
-@import 'mine.css/css';
+@import 'mine.css/dist/mine.css';
 ```
 
 ```js
 /* esbuild js */
-import { toggleTheme } from 'mine.css/js';
+import { toggleTheme } from 'mine.css/dist/theme-switcher.js';
+/* or */
+import { toggleTheme } from 'mine.css';
 ```
 
 ## Usage

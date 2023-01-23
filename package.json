@@ -43,12 +43,14 @@
   "type": "module",
   "main": "dist/theme-switcher.js",
   "module": "dist/theme-switcher.js",
-  "exports": {
-    ".": "./dist/theme-switcher.js",
-    "./js": "./dist/theme-switcher.js",
-    "./css": "./dist/mine.css"
-  },
   "style": "dist/mine.css",
+  "exports": {
+    ".": {
+      "default":  "./dist/theme-switcher.js"
+    },
+    "./dist/theme-switcher.js": "./dist/theme-switcher.js",
+    "./dist/mine.css": "./dist/mine.css"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/bcomnes/mine.css.git"
