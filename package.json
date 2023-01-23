@@ -1,7 +1,7 @@
 {
   "name": "mine.css",
   "description": "Classless stylesheet for markdown documents evolved from style.css",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "author": "Nate Goldman <ungoldman@gmail.com>",
   "bugs": {
     "url": "https://github.com/bcomnes/mine.css/issues"
@@ -46,7 +46,7 @@
   "style": "dist/mine.css",
   "exports": {
     ".": {
-      "default":  "./dist/theme-switcher.js"
+      "default": "./dist/theme-switcher.js"
     },
     "./dist/theme-switcher.js": "./dist/theme-switcher.js",
     "./dist/mine.css": "./dist/mine.css"
