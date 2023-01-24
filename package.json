@@ -48,8 +48,7 @@
     ".": {
       "default": "./dist/theme-switcher.js"
     },
-    "./dist/theme-switcher.js": "./dist/theme-switcher.js",
-    "./dist/mine.css": "./dist/mine.css"
+    "./dist/*": "./dist/*"
   },
   "repository": {
     "type": "git",
