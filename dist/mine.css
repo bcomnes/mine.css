@@ -81,7 +81,7 @@
   supported-color-schemes: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not(.light-mode) {
+  :root:where(:not(.light-mode)) {
     /* main colors */
     --text: var(--dark-text);
     --background: var(--dark-background);
@@ -101,11 +101,11 @@
     supported-color-schemes: dark;
   }
 
-    :root:not(.light-mode) input[type="search"]::-webkit-search-cancel-button {
+    :root:where(:not(.light-mode)) input[type="search"]::-webkit-search-cancel-button {
       -webkit-filter: invert(100%); /* stylelint-disable-line */
     }
 }
-:root.dark-mode {
+:root:where(.dark-mode) {
     /* main colors */
     --text: var(--dark-text);
     --background: var(--dark-background);
@@ -124,7 +124,7 @@
     color-scheme: dark;
     supported-color-schemes: dark;
   }
-:root.dark-mode input[type="search"]::-webkit-search-cancel-button {
+:root:where(.dark-mode) input[type="search"]::-webkit-search-cancel-button {
       -webkit-filter: invert(100%); /* stylelint-disable-line */
     }
 /* html should be at the top */
