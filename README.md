@@ -2,7 +2,7 @@
 
 A classless stylesheet for HTML documents and evolution of [style.css][style].
 
-[![latest version][npm-img]][npm-url] [![Actions Status][action-img]][action-url] [![downloads][downloads-img]][npm-url][![Neocities][neocities-img]](https://mine-css.neocities.org)
+[![latest version][npm-img]][npm-url] [![Actions Status][action-img]][action-url] [![downloads][downloads-img]][npm-url] [![Neocities][neocities-img]](https://mine-css.neocities.org)
 
 [npm-img]: https://img.shields.io/npm/v/mine.css.svg
 [npm-url]: https://www.npmjs.com/package/mine.css
