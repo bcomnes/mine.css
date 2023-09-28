@@ -100,10 +100,6 @@
     color-scheme: dark;
     supported-color-schemes: dark;
   }
-
-    :root:where(:not(.light-mode)) input[type="search"]::-webkit-search-cancel-button {
-      -webkit-filter: invert(100%); /* stylelint-disable-line */
-    }
 }
 :root:where(.dark-mode) {
     /* main colors */
@@ -124,9 +120,19 @@
     color-scheme: dark;
     supported-color-schemes: dark;
   }
-:root:where(.dark-mode) input[type="search"]::-webkit-search-cancel-button {
-      -webkit-filter: invert(100%); /* stylelint-disable-line */
-    }
+@media print {
+  /* Improve printing on lighter colors by darkening them */
+  :root {
+    --print-accent-background: hsla(0deg, 0%, 83%, 100%); /* #f2f2f2 */
+    --print-accent-midground:  hsla(0deg, 0%, 72%, 100%); /* #d6d6d6 */
+    --print-accent-foreground: hsla(0deg, 0%, 35%, 100%); /* #7d7d7d */
+    --accent-background: var(--print-accent-background);
+    --accent-midground: var(--print-accent-midground);
+    --accent-foreground: var(--print-accent-foreground);
+    --light-code-background: var(--print-accent-background);
+    --light-code-border: var(--print-accent-midground);
+  }
+}
 /* html should be at the top */
 html {
   box-sizing: border-box;
