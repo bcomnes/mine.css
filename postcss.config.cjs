@@ -12,8 +12,8 @@ module.exports = (ctx) => ({
       lightSelector: '.light-mode'
     },
     'autoprefixer': {},
-    'postcss-nesting': {},
     'postcss-extend': {},
+    'postcss-nesting': {},
     'postcss-browser-reporter': {},
     'postcss-reporter': {}
   }
