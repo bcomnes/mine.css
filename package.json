@@ -10,7 +10,7 @@
     "Bret Comnes <bcomnes@gmail.com> (https://bret.io)"
   ],
   "devDependencies": {
-    "@siteup/cli": "^2.0.0",
+    "@siteup/cli": "^4.0.0-beta.0",
     "auto-changelog": "^2.0.0",
     "autoprefixer": "^10.0.1",
     "browser-sync": "^2.26.7",
