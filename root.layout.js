@@ -1,8 +1,10 @@
 import { html, render } from 'uhtml-isomorphic'
 
 export default async function RootLayout ({
-  title,
-  siteName,
+  vars: {
+    title,
+    siteName
+  },
   scripts,
   styles,
   children
