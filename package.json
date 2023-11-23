@@ -75,8 +75,5 @@
     "watch:site": "npm run build:site -- -w",
     "watch:mine.css": "run-s 'build:mine.css -- --watch'",
     "watch:layout.css": "run-s 'build:layout.css -- --watch'"
-  },
-  "files": [
-    "dist/**/*"
-  ]
+  }
 }
