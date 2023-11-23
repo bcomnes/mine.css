@@ -10,10 +10,9 @@
     "Bret Comnes <bcomnes@gmail.com> (https://bret.io)"
   ],
   "devDependencies": {
-    "@siteup/cli": "^5.0.0",
+    "top-bun": "^7.0.0",
     "auto-changelog": "^2.0.0",
     "autoprefixer": "^10.0.1",
-    "browser-sync": "^2.26.7",
     "cpx2": "^5.0.0",
     "gh-release": "^7.0.0",
     "highlight.js": "^11.2.0",
@@ -59,7 +58,7 @@
     "build:mine.css": "postcss src/index.css -o dist/mine.css",
     "build:layout.css": "postcss src/layout.css -o dist/layout.css",
     "build:js": "cpx 'src/theme-switcher.js' dist",
-    "build:site": "siteup --src . --dest public --ignore 'src,package.json,*.map'",
+    "build:site": "tb --src . --dest public --ignore 'src,package.json,*.map'",
     "clean": "rm -rf 'dist/*' 'public/*' && mkdir -p dist public",
     "prepare": "npm run build",
     "prepublishOnly": "git push --follow-tags && gh-release -y",
@@ -71,7 +70,6 @@
     "version:changelog": "auto-changelog -p --template keepachangelog auto-changelog --breaking-pattern 'BREAKING CHANGE:'",
     "version:git": "git add CHANGELOG.md dist",
     "watch": "npm run clean && run-p build:mine.css build:layout.css && run-p watch:*",
-    "watch:serve": "browser-sync start --server 'public' --files 'public'",
     "watch:site": "npm run build:site -- -w",
     "watch:mine.css": "run-s 'build:mine.css -- --watch'",
     "watch:layout.css": "run-s 'build:layout.css -- --watch'"

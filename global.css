@@ -4,7 +4,7 @@
 $top-bar-family: $system-sans;
 
 */
-@import url("top-bar.css");
+@import url("top-bar.css/top-bar.css");
 @import url("./dist/mine.css");
 @import url("./dist/layout.css");
 @import url("highlight.js/styles/github-dark-dimmed.css");
