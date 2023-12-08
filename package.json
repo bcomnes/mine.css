@@ -26,7 +26,7 @@
     "postcss-nesting": "^12.0.0",
     "postcss-reporter": "^7.0.1",
     "postcss-url": "^10.1.0",
-    "stylelint": "^15.0.0",
+    "stylelint": "^16.0.1",
     "stylelint-config-standard": "^34.0.0",
     "top-bar.css": "^3.0.0",
     "uhtml-isomorphic": "^2.0.0"
