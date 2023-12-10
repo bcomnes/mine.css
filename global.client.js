@@ -1,4 +1,4 @@
-import {toggleTheme} from './src/theme-switcher.js';
+import {toggleTheme, setType, toggleType} from './src/theme-switcher.js';
 
 window.toggleTheme = toggleTheme
 
@@ -7,6 +7,7 @@ const sansButton = document.querySelector('.style-sans')
 const serifButton = document.querySelector('.style-serif')
 const roundButton = document.querySelector('.style-round')
 const toggle = document.querySelector('.id')
+const typeToggle = document.querySelector('.type-toggle')
 
 function round () {
   page.classList.toggle('serif', false)
@@ -36,3 +37,4 @@ function sans () {
 sansButton.addEventListener('click', sans)
 serifButton.addEventListener('click', serif)
 roundButton.addEventListener('click', round)
+typeToggle.addEventListener('click', () => toggleType('body'))
