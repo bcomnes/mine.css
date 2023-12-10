@@ -53,3 +53,38 @@ export function toggleTheme () {
   }
   setTheme(mql)
 }
+
+const defaultTypeSetting = 'mine-type-scheme'
+
+export function setType (querySelector, settingsKey = defaultTypeSetting) {
+  const element = document.querySelector(querySelector)
+  const desiredType = window.sessionStorage.getItem(settingsKey)
+
+  element.classList.toggle('serif', desiredType === 'serif')
+  element.classList.toggle('round', desiredType === 'round')
+  element.classList.toggle('sans', desiredType === 'sans')
+}
+
+setType('body')
+
+export function toggleType (querySelector, settingsKey = defaultTypeSetting) {
+  const typeScheme = window.sessionStorage.getItem('mine-type-scheme')
+
+  switch (typeScheme) {
+    case 'sans': {
+      window.sessionStorage.setItem(settingsKey, 'serif')
+      break
+    }
+    case 'serif': {
+      window.sessionStorage.setItem(settingsKey, 'round')
+      break
+    }
+    case 'round':
+    default: {
+      window.sessionStorage.setItem(settingsKey, 'sans')
+      break
+    }
+  }
+
+  setType(querySelector, settingsKey)
+}
