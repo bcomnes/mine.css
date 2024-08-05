@@ -163,13 +163,14 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 
   /* rep the smallies */
-}
-:is(h1,h2,h3,h4,h5,h6) small {
+  & small {
     color: var(--accent-foreground);
     font-size: 0.7em;
     font-weight: 400;
   }
-:is(h1,h2,h3,h4,h5,h6) code { font-size: 0.9em; }
+
+  & code { font-size: 0.9em; }
+}
 h1 { font-size: 2.75em; }
 h2 { font-size: 2.25em; }
 h3 { font-size: 1.75em; }
@@ -193,31 +194,36 @@ a {
 
   /* Remove the outline on focused links when they are also active or hovered
      in all browsers (opinionated). */
-}
-a:active,a:hover {
+  &:active, &:hover {
     outline: 0;
     outline-width: 0;
   }
-a:active,a:focus,a:hover { text-decoration: underline; }
+
+  &:active, &:focus, &:hover { text-decoration: underline; }
+}
 ul, ol {
   padding: 0;
   padding-left: 2em;
-}
-:is(ul,ol) ol { list-style-type: lower-roman; }
-:is(ul,ol) ul,:is(ul,ol) ol {
+
+  & ol { list-style-type: lower-roman; }
+
+  & ul, & ol {
     margin-top: 0;
     margin-bottom: 0;
+
+    & ol { list-style-type: lower-alpha; }
   }
-:is(:is(ul,ol) ul,:is(ul,ol) ol) ol { list-style-type: lower-alpha; }
+}
 li > p { margin-top: 1em; }
 blockquote {
   margin: 0 0 1rem;
   padding: 0 1rem;
   color: var(--accent-foreground);
   border-left: 4px solid var(--accent-midground);
+
+  & > :first-child { margin-top: 0; }
+  & > :last-child { margin-bottom: 0; }
 }
-blockquote > :first-child { margin-top: 0; }
-blockquote > :last-child { margin-bottom: 0; }
 /* 1. Prevent the duplicate application of `bolder` by the next rule in Safari 6.
    2. Add the correct font weight in Chrome, Edge, and Safari. */
 b, strong {
@@ -262,22 +268,25 @@ pre {
   word-wrap: normal;
   line-height: var(--line-height-pre);
   border: 1px solid var(--code-border);
-}
-pre code {
+
+  & code {
     background: transparent;
     display: block;
     padding: 0.5em;
     line-height: inherit;
     word-wrap: normal;
     border-radius: unset;
+
+    &::before, &::after { content: normal; }
   }
-:is(pre code)::before,:is(pre code)::after { content: normal; }
-pre > code {
+
+  & > code {
     border: 0;
     font-size: 1em;
     white-space: pre;
     word-break: normal;
   }
+}
 /* Keyboard kbd shortcut key style */
 kbd {
   background-color: var(--layer-background);
@@ -301,17 +310,21 @@ table {
   overflow: auto;
   word-break: normal;
   word-break: keep-all;
-}
-table th,table td {
+
+  & th, & td {
     padding: 6px 13px;
     border: 1px solid var(--accent-midground);
   }
-table th { font-weight: bold; }
-table tr {
+
+  & th { font-weight: bold; }
+
+  & tr {
     background-color: var(--layer-background);
     border-top: 1px solid var(--accent-midground);
+
+    &:nth-child(2n) { background-color: var(--accent-background); }
   }
-:is(table tr):nth-child(2n) { background-color: var(--accent-background); }
+}
 /* 1. Add the correct box sizing in Firefox.
    2. Show the overflow in Edge and IE. */
 hr {
@@ -323,16 +336,18 @@ hr {
   margin: 1em 0;
   background-color: var(--accent-midground);
   border: 0 none;
-}
-hr::before {
+
+  &::before {
     display: table;
     content: "";
   }
-hr::after {
+
+  &::after {
     display: table;
     clear: both;
     content: "";
   }
+}
 /* Remove the border on images inside links in IE 10-. */
 img {
   border: 0;
@@ -346,17 +361,19 @@ svg:not(:root) {
 }
 figure {
   margin: 1em 0;
-}
-figure img,figure video {
+
+  & img, & video {
     background: var(--layer-background);
     border: 1px solid var(--accent-midground);
     border-radius: 5px;
     padding: 0.25em;
   }
-figure.borderless img,figure.borderless video {
+
+  &.borderless img, &.borderless video {
     border: none;
     padding: 0;
   }
+}
 figcaption {
   font-style: italic;
   font-size: 0.75em;
@@ -376,18 +393,20 @@ dfn { font-style: italic; }
 dd { margin-left: 0; }
 dl {
   padding: 0;
-}
-dl dt {
+
+  & dt {
     padding: 0;
     margin-top: 1em;
     font-size: 1em;
     font-style: italic;
     font-weight: 600;
   }
-dl dd {
+
+  & dd {
     padding: 0 1em;
     margin-bottom: 1.25em;
   }
+}
 /* same margins for all typographic block elements */
 p, blockquote, ul, ol, dl, table, pre {
   margin-top: 0;
@@ -435,51 +454,63 @@ textarea, input[type="date"], input[type="datetime-local"], input[type="email"],
   color: var(--text);
   background-color: var(--background);
   width: 15.5em;
-}
-:is(textarea,input[type="date"],input[type="datetime-local"],input[type="email"],input[type="month"],input[type="number"],input[type="password"],input[type="search"],input[type="tel"],input[type="text"],input[type="time"],input[type="url"],input[type="week"]):focus {
+
+  &:focus {
     /* Form focused */
     border-color: var(--accent-foreground);
   }
-:is(textarea,input[type="date"],input[type="datetime-local"],input[type="email"],input[type="month"],input[type="number"],input[type="password"],input[type="search"],input[type="tel"],input[type="text"],input[type="time"],input[type="url"],input[type="week"]):disabled {
+
+  &:disabled {
     /* Form disabled */
     background-color: var(--accent-background);
   }
-:is(textarea,input[type="date"],input[type="datetime-local"],input[type="email"],input[type="month"],input[type="number"],input[type="password"],input[type="search"],input[type="tel"],input[type="text"],input[type="time"],input[type="url"],input[type="week"]):hover:not([disabled]) {
+
+  &:hover:not([disabled]) {
     border-color: var(--accent-foreground);
   }
+}
 label {
   /* Input labels */
   font-weight: 600;
-}
-label.block {
+
+  &.block {
     display: block;
   }
-label.inline-block {
+
+  &.inline-block {
     display: inline-block;
   }
-label.inline-flex {
+
+  &.inline-flex {
     display: inline-flex;
   }
-label.inline-grid {
+
+  &.inline-grid {
     display: inline-grid;
   }
+}
 fieldset {
   border-radius: 5px;
   border-style: solid;
   border-width: 2px;
   border-color: var(--accent-midground);
 }
-input.block {
+input {
+  &.block {
     display: block;
   }
-input.inline-block {
+
+  &.inline-block {
     display: inline-block;
   }
-input.inline-flex {
+
+  &.inline-flex {
     display: inline-flex;
   }
-input.inline-grid {
+
+  &.inline-grid {
     display: inline-grid;
   }
+}
 
 /*# sourceMappingURL=mine.css.map */

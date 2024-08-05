@@ -13,7 +13,6 @@ module.exports = (ctx) => ({
     },
     'autoprefixer': {},
     'postcss-extend': {},
-    'postcss-nesting': {},
     'postcss-browser-reporter': {},
     'postcss-reporter': {}
   }
