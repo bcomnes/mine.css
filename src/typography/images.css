@@ -1,7 +1,7 @@
 /* Remove the border on images inside links in IE 10-. */
 img {
-  border-style: none;
   border: 0;
+  border-style: none;
   max-width: 100%;
   height: auto;
 }
