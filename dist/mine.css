@@ -164,12 +164,12 @@ h1, h2, h3, h4, h5, h6 {
 
   /* rep the smallies */
 }
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+:is(h1,h2,h3,h4,h5,h6) small {
     color: var(--accent-foreground);
     font-size: 0.7em;
     font-weight: 400;
   }
-h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: 0.9em; }
+:is(h1,h2,h3,h4,h5,h6) code { font-size: 0.9em; }
 h1 { font-size: 2.75em; }
 h2 { font-size: 2.25em; }
 h3 { font-size: 1.75em; }
@@ -194,21 +194,21 @@ a {
   /* Remove the outline on focused links when they are also active or hovered
      in all browsers (opinionated). */
 }
-a:active, a:hover {
+a:active,a:hover {
     outline: 0;
     outline-width: 0;
   }
-a:active, a:focus, a:hover { text-decoration: underline; }
+a:active,a:focus,a:hover { text-decoration: underline; }
 ul, ol {
   padding: 0;
   padding-left: 2em;
 }
-ul ol, ol ol { list-style-type: lower-roman; }
-ul ul, ol ul, ul ol, ol ol {
+:is(ul,ol) ol { list-style-type: lower-roman; }
+:is(ul,ol) ul,:is(ul,ol) ol {
     margin-top: 0;
     margin-bottom: 0;
   }
-ul ul ol, ol ul ol, ul ol ol, ol ol ol { list-style-type: lower-alpha; }
+:is(:is(ul,ol) ul,:is(ul,ol) ol) ol { list-style-type: lower-alpha; }
 li > p { margin-top: 1em; }
 blockquote {
   margin: 0 0 1rem;
@@ -271,7 +271,7 @@ pre code {
     word-wrap: normal;
     border-radius: unset;
   }
-pre code::before, pre code::after { content: normal; }
+:is(pre code)::before,:is(pre code)::after { content: normal; }
 pre > code {
     border: 0;
     font-size: 1em;
@@ -302,7 +302,7 @@ table {
   word-break: normal;
   word-break: keep-all;
 }
-table th, table td {
+table th,table td {
     padding: 6px 13px;
     border: 1px solid var(--accent-midground);
   }
@@ -311,7 +311,7 @@ table tr {
     background-color: var(--layer-background);
     border-top: 1px solid var(--accent-midground);
   }
-table tr:nth-child(2n) { background-color: var(--accent-background); }
+:is(table tr):nth-child(2n) { background-color: var(--accent-background); }
 /* 1. Add the correct box sizing in Firefox.
    2. Show the overflow in Edge and IE. */
 hr {
@@ -335,8 +335,8 @@ hr::after {
   }
 /* Remove the border on images inside links in IE 10-. */
 img {
-  border-style: none;
   border: 0;
+  border-style: none;
   max-width: 100%;
   height: auto;
 }
@@ -347,13 +347,13 @@ svg:not(:root) {
 figure {
   margin: 1em 0;
 }
-figure img, figure video {
+figure img,figure video {
     background: var(--layer-background);
     border: 1px solid var(--accent-midground);
     border-radius: 5px;
     padding: 0.25em;
   }
-figure.borderless img, figure.borderless video {
+figure.borderless img,figure.borderless video {
     border: none;
     padding: 0;
   }
