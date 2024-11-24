@@ -32,3 +32,5 @@ jobs:
       with:
         api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
         cleanup: true
+        neocities_supporter: false
+        preview_before_deploy: true
