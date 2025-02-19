@@ -9,6 +9,8 @@ $top-bar-family: $system-sans;
 @import url("./dist/layout.css");
 @import url("highlight.js/styles/github-dark-dimmed.css");
 
+@view-transition { navigation: auto; }
+
 .top-bar {
   font-family: inherit;
   margin-bottom: 0;
