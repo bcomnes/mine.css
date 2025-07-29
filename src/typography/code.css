@@ -29,7 +29,7 @@ samp {
 
 pre {
   overflow: auto;
-  word-wrap: normal;
+  overflow-wrap: normal;
   line-height: var(--line-height-pre);
   border: 1px solid var(--code-border);
 
@@ -38,7 +38,7 @@ pre {
     display: block;
     padding: 0.5em;
     line-height: inherit;
-    word-wrap: normal;
+    overflow-wrap: normal;
     border-radius: unset;
 
     &::before,
