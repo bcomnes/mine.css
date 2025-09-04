@@ -20,7 +20,7 @@
     "postcss": "^8.0.9",
     "postcss-browser-reporter": "^0.7.0",
     "postcss-cli": "^11.0.0",
-    "postcss-dark-theme-class": "^1.0.0",
+    "postcss-dark-theme-class": "^2.0.0",
     "postcss-extend": "^1.0.5",
     "postcss-import": "^16.0.0",
     "postcss-reporter": "^7.0.1",
