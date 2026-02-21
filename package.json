@@ -10,7 +10,7 @@
     "Bret Comnes <bcomnes@gmail.com> (https://bret.io)"
   ],
   "devDependencies": {
-    "top-bun": "^10.0.0",
+    "@domstack/static": "^11.0.2",
     "auto-changelog": "^2.0.0",
     "autoprefixer": "^10.0.1",
     "cpx2": "^8.0.0",
@@ -57,7 +57,7 @@
     "build:mine.css": "postcss src/index.css -o dist/mine.css",
     "build:layout.css": "postcss src/layout.css -o dist/layout.css",
     "build:js": "cpx 'src/theme-switcher.js' dist",
-    "build:site": "tb --src . --dest public --ignore 'src,package.json,*.map'",
+    "build:site": "dom --src . --dest public --ignore 'src,package.json,*.map'",
     "clean": "rm -rf 'dist/*' 'public/*' && mkdir -p dist public",
     "prepare": "npm run build",
     "prepublishOnly": "git push --follow-tags && gh-release -y",
