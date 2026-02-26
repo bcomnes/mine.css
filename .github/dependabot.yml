@@ -10,6 +10,15 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
+    groups:
+      postcss:
+        patterns:
+          - "postcss"
+          - "postcss-*"
+      stylelint:
+        patterns:
+          - "stylelint"
+          - "stylelint-*"
   # Enable updates to github actions
   - package-ecosystem: "github-actions"
     directory: "/"
