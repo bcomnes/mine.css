@@ -5,9 +5,6 @@ html {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
-  font-kerning: normal;
-  text-rendering: optimizelegibility;
-  font-feature-settings: normal;
 }
 
 /* Remove the margin in all browsers. */

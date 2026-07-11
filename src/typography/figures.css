@@ -1,5 +1,5 @@
 figure {
-  margin: 1em 0;
+  margin-block: 1em;
 
   & img,
   & video {

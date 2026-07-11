@@ -1,12 +1,4 @@
-/* Remove the border on images inside links in IE 10-. */
 img {
-  border: 0;
-  border-style: none;
   max-width: 100%;
   height: auto;
-}
-
-/* Hide the overflow in IE. */
-svg:not(:root) {
-  overflow: hidden;
 }

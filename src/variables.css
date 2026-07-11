@@ -86,7 +86,6 @@
     --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #d4d4d4 */
     --print-accent-midground: hsl(0deg, 0%, 72%, 100%); /* #b8b8b8 */
     --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #595959 */
-
     --text: var(--light-text);
     --background: var(--light-background);
     --layer-background: var(--light-layer-background);

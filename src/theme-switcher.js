@@ -1,7 +1,7 @@
 // @media (prefers-color-scheme: dark) {
 
 const colorSchemeMql = window.matchMedia('(prefers-color-scheme: dark)')
-colorSchemeMql.addListener(setTheme)
+colorSchemeMql.addEventListener('change', setTheme)
 
 function setTheme (e) {
   const isDarkMode = e.matches

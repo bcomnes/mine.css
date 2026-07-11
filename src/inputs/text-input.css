@@ -1,6 +1,4 @@
 input[type="search"] {
-  /* Fix search box appearance safari */
-  appearance: none;
   appearance: textfield;
 }
 

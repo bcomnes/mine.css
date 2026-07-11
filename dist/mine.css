@@ -121,7 +121,6 @@
     --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #d4d4d4 */
     --print-accent-midground: hsl(0deg, 0%, 72%, 100%); /* #b8b8b8 */
     --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #595959 */
-
     --text: var(--light-text);
     --background: var(--light-background);
     --layer-background: var(--light-layer-background);
@@ -143,9 +142,6 @@ html {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
-  font-kerning: normal;
-  text-rendering: optimizelegibility;
-  font-feature-settings: normal;
 }
 /* Remove the margin in all browsers. */
 body {
@@ -159,11 +155,9 @@ body {
   box-sizing: inherit;
 }
 h1, h2, h3, h4, h5, h6 {
-  /* TODO: Needed? */
   font-weight: 500;
-  line-height: 1.25em;
-  margin-bottom: 1.25rem;
-  margin-top: 2rem;
+  line-height: 1.25;
+  margin-block: 2rem 1.25rem;
   position: relative;
 
   /* rep the smallies */
@@ -183,16 +177,11 @@ h5 { font-size: 1.25em; }
 h6 {
   font-size: 1em;
   color: var(--accent-foreground);
-  letter-spacing: 00.025em;
+  letter-spacing: 0.025em;
 }
-/* tighten up body copy just a smidge */
-p { letter-spacing: -0.01em; }
-/* 1. Remove the gray background on active links in IE 10.
-   2. Remove gaps in links underline in iOS 8+ and Safari 8+. */
 a {
-  background-color: transparent; /* 1 */
   -webkit-text-decoration-skip: ink;
-          text-decoration-skip-ink: auto; /* 2 */
+          text-decoration-skip-ink: auto;
   color: var(--link-text);
   text-decoration: underline;
   text-decoration-thickness: from-font;
@@ -206,8 +195,7 @@ a {
   &:active, &:focus, &:hover { text-decoration-thickness: 0.12em; }
 }
 ul, ol {
-  padding: 0;
-  padding-left: 2em;
+  padding-inline-start: 2em;
 
   & ol { list-style-type: lower-roman; }
 
@@ -221,20 +209,16 @@ ul, ol {
 li > p { margin-top: 1em; }
 blockquote {
   margin: 0 0 1rem;
-  padding: 0 1rem;
+  padding-inline: 1rem;
   color: var(--accent-foreground);
-  border-left: 4px solid var(--accent-midground);
+  border-inline-start: 4px solid var(--accent-midground);
 
   & > :first-child { margin-top: 0; }
   & > :last-child { margin-bottom: 0; }
 }
-/* 1. Prevent the duplicate application of `bolder` by the next rule in Safari 6.
-   2. Add the correct font weight in Chrome, Edge, and Safari. */
 b, strong {
-  font-weight: inherit; /* 1 */
-  font-weight: 600; /* 2 */
+  font-weight: 600;
 }
-/* Add the correct background and color in IE 9-. */
 mark {
   background-color: var(--mark-background);
   color: var(--text);
@@ -311,7 +295,6 @@ table {
   display: block;
   width: 100%;
   overflow: auto;
-  word-break: normal;
   word-break: keep-all;
 
   & th, & td {
@@ -328,42 +311,19 @@ table {
     &:nth-child(2n) { background-color: var(--accent-background); }
   }
 }
-/* 1. Add the correct box sizing in Firefox.
-   2. Show the overflow in Edge and IE. */
 hr {
-  box-sizing: content-box; /* 1 */
-  overflow: visible; /* 2 */
-  background: transparent;
   height: 4px;
   padding: 0;
-  margin: 1em 0;
+  margin-block: 1em;
   background-color: var(--accent-midground);
-  border: 0 none;
-
-  &::before {
-    display: table;
-    content: "";
-  }
-
-  &::after {
-    display: table;
-    clear: both;
-    content: "";
-  }
-}
-/* Remove the border on images inside links in IE 10-. */
-img {
   border: 0;
-  border-style: none;
+}
+img {
   max-width: 100%;
   height: auto;
 }
-/* Hide the overflow in IE. */
-svg:not(:root) {
-  overflow: hidden;
-}
 figure {
-  margin: 1em 0;
+  margin-block: 1em;
 
   & img, & video {
     background: var(--layer-background);
@@ -383,16 +343,10 @@ figcaption {
   margin: 0;
   color: var(--accent-foreground);
 }
-/* 1. Remove the bottom border in Firefox 39-
-   2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari. */
 abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
   -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted; /* 2 */
+          text-decoration: underline dotted;
 }
-/* Add the correct font style in Android 4.3-. */
-dfn { font-style: italic; }
 dd { margin-left: 0; }
 dl {
   padding: 0;
@@ -406,7 +360,7 @@ dl {
   }
 
   & dd {
-    padding: 0 1em;
+    padding-inline: 1em;
     margin-bottom: 1.25em;
   }
 }
@@ -417,20 +371,7 @@ p, blockquote, ul, ol, dl, table, pre {
 }
 /* Add the correct font size in all browsers. */
 small { font-size: 80%; }
-input[type="reset"], input[type="submit"], input[type="button"], button {
-  /* Button */
-}
-input[type="checkbox"] {
-  /* fix iOS Safari clipping */
-  transform: translate(0);
-}
-input[type="radio"] {
-  /* fix iOS Safari clipping */
-  transform: translate(0);
-}
 input[type="search"] {
-  /* Fix search box appearance safari */
-  appearance: none;
   appearance: textfield;
 }
 [type="search"]::-webkit-search-cancel-button {
