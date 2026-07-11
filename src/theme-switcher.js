@@ -1,13 +1,10 @@
-// @media (prefers-color-scheme: dark) {
-
-const colorSchemeMql = window.matchMedia('(prefers-color-scheme: dark)')
-colorSchemeMql.addEventListener('change', setTheme)
-
 /** @param {MediaQueryList | MediaQueryListEvent} e */
 function setTheme (e) {
   const isDarkMode = e.matches
   const colorScheme = window.sessionStorage.getItem('color-scheme')
   const body = document.documentElement
+
+  /* Explicit choices collapse back to automatic once they match the OS setting. */
   switch (colorScheme) {
     case 'dark': {
       if (isDarkMode) window.sessionStorage.setItem('color-scheme', 'automatic')
@@ -29,8 +26,6 @@ function setTheme (e) {
     }
   }
 }
-
-setTheme(window.matchMedia('(prefers-color-scheme: dark)'))
 
 export function toggleTheme () {
   const mql = window.matchMedia('(prefers-color-scheme: dark)')
@@ -71,8 +66,6 @@ export function setType (querySelector, settingsKey = defaultTypeSetting) {
   element.classList.toggle('sans', desiredType === 'sans')
 }
 
-setType('body')
-
 /**
  * @param {string} querySelector
  * @param {string} settingsKey
@@ -97,4 +90,12 @@ export function toggleType (querySelector, settingsKey = defaultTypeSetting) {
   }
 
   setType(querySelector, settingsKey)
+}
+
+/* Importing the package must stay safe in SSR and build-tool processes without a DOM. */
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  const colorSchemeMql = window.matchMedia('(prefers-color-scheme: dark)')
+  colorSchemeMql.addEventListener('change', setTheme)
+  setTheme(colorSchemeMql)
+  setType('body')
 }

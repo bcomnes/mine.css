@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
+test('module imports without browser globals', async () => {
+  const module = await import(`../src/theme-switcher.js?server=${Date.now()}`)
+  assert.equal(typeof module.toggleTheme, 'function')
+  assert.equal(typeof module.toggleType, 'function')
+})
+
 test('toggleType cycles a custom storage key', async () => {
   const values = new Map([['article-type', 'sans']])
   const classes = new Set()
