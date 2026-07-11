@@ -259,6 +259,26 @@ Use the same media query for application-specific dark styles:
 }
 ```
 
+### Light and dark syntax highlighting
+
+Highlight.js themes are ordinary stylesheets, so load a light theme first and conditionally load its dark counterpart afterward. The order matters: the dark rules should win only when the browser reports a dark preference.
+
+With a CSS bundler and the `highlight.js` package installed:
+
+```css
+@import url("highlight.js/styles/github.css");
+@import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
+```
+
+The equivalent HTML works without bundling:
+
+```html
+<link rel="stylesheet" href="/path/to/highlight.js/styles/github.css">
+<link rel="stylesheet" href="/path/to/highlight.js/styles/github-dark-dimmed.css" media="(prefers-color-scheme: dark)">
+```
+
+This follows the same browser or operating-system preference as `mine.css`; no theme-switching JavaScript or mode classes are needed.
+
 Users can control the preference without a site-specific toggle:
 
 - Firefox has a built-in **Settings → General → Language and Appearance → Website appearance** control with Automatic, Light, and Dark choices.

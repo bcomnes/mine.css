@@ -1,7 +1,8 @@
 @import url("./dist/mine.css");
 @import url("./dist/layout.css");
 @import url("./dist/top-bar.css");
-@import url("highlight.js/styles/github-dark-dimmed.css");
+@import url("highlight.js/styles/github.css");
+@import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
 
 @view-transition { navigation: auto; }
 
@@ -23,7 +24,7 @@ footer a {
   }
 
   .hljs {
-    /* The screen demo uses a dark highlighter theme; print code stays monochrome. */
+    /* Screen syntax colors are unnecessary when printing code. */
     color: inherit;
     background: transparent;
   }

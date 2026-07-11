@@ -47,18 +47,25 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   const darkTokens = await page.evaluate(() => {
     const styles = getComputedStyle(document.documentElement)
     const key = document.querySelector('kbd')
-    if (!key) throw new Error('Keyboard fixture is missing')
+    const highlightedCode = document.querySelector('.hljs')
+    if (!key || !highlightedCode) throw new Error('Color-scheme fixtures are missing')
     return {
       layer: styles.getPropertyValue('--dark-layer-background').trim(),
-      keyBackground: getComputedStyle(key).backgroundImage
+      keyBackground: getComputedStyle(key).backgroundImage,
+      highlightedColor: getComputedStyle(highlightedCode).color,
+      highlightedBackground: getComputedStyle(highlightedCode).backgroundColor
     }
   })
   expect(darkTokens.layer).toBe('transparent')
   expect(darkTokens.keyBackground).toContain('linear-gradient')
+  expect(darkTokens.highlightedColor).toBe('rgb(173, 186, 199)')
+  expect(darkTokens.highlightedBackground).toBe('rgb(34, 39, 46)')
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
 
   await page.emulateMedia({ colorScheme: 'light' })
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+  await expect(page.locator('.hljs').first()).toHaveCSS('color', 'rgb(36, 41, 46)')
+  await expect(page.locator('.hljs').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)')
 })
 
 test('uses a light palette when printing from dark mode', async ({ page, siteURL }) => {
