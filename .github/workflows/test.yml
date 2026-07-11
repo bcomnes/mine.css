@@ -16,21 +16,14 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        # Exercise every Node.js line that is currently in LTS.
-        node: ['22', '24']
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v7
-    - name: Use Node.js ${{ matrix.node }}
+    - name: Use latest LTS Node.js
       uses: actions/setup-node@v6
       with:
-        node-version: ${{ matrix.node }}
+        node-version: lts/*
     - run: npm ci
     - run: npx playwright install --with-deps chromium
     - run: npm test --color=always
