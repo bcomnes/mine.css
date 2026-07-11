@@ -5,6 +5,7 @@ import test from 'node:test'
 const variables = await readFile(new URL('../src/variables.css', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../src/layout.css', import.meta.url), 'utf8')
 const topBar = await readFile(new URL('../src/top-bar.css', import.meta.url), 'utf8')
+const tronLegacy = await readFile(new URL('../src/themes/tron-legacy.css', import.meta.url), 'utf8')
 const distribution = await readFile(new URL('../dist/mine.css', import.meta.url), 'utf8')
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
 
@@ -43,6 +44,19 @@ function contrast (first, second) {
   const light = Math.max(luminance(first), luminance(second))
   const dark = Math.min(luminance(first), luminance(second))
   return (light + 0.05) / (dark + 0.05)
+}
+
+function hexToken (source, name) {
+  const match = source.match(new RegExp(`--${name}: #([0-9a-f]{6})([0-9a-f]{2})?;`, 'i'))
+  assert.ok(match, `Missing hex token --${name}`)
+  return {
+    rgb: match[1].match(/../g).map(channel => Number.parseInt(channel, 16) / 255),
+    alpha: match[2] ? Number.parseInt(match[2], 16) / 255 : 1
+  }
+}
+
+function composite ({ rgb, alpha }, background) {
+  return rgb.map((channel, index) => (channel * alpha) + (background[index] * (1 - alpha)))
 }
 
 test('theme tokens stay valid and accessible', () => {
@@ -96,4 +110,29 @@ test('top-bar sidecar uses the mine.css selector contract', () => {
   assert.match(topBar, /box-shadow: 0 2px 10px 0 rgb\(0 0 0 \/ 20%\)/)
   assert.doesNotMatch(topBar, /box-shadow:.*var\(--text/)
   assert.doesNotMatch(topBar, /\.top-bar(?:\b|-)/)
+})
+
+test('Tron Legacy defines complete, accessible light and dark palettes', () => {
+  const roles = ['text', 'background', 'layer-background', 'accent-background', 'accent-midground', 'accent-foreground', 'link-text', 'mark-background', 'code-text', 'code-background', 'code-border']
+  for (const mode of ['light', 'dark']) {
+    for (const role of roles) hexToken(tronLegacy, `${mode}-${role}`)
+  }
+
+  const lightBackground = hexToken(tronLegacy, 'light-background').rgb
+  assert.ok(contrast(hexToken(tronLegacy, 'light-text').rgb, lightBackground) >= 4.5)
+  assert.ok(contrast(hexToken(tronLegacy, 'light-link-text').rgb, lightBackground) >= 4.5)
+  assert.ok(contrast(hexToken(tronLegacy, 'light-accent-midground').rgb, lightBackground) >= 3)
+  assert.ok(contrast(hexToken(tronLegacy, 'light-accent-foreground').rgb, lightBackground) >= 4.5)
+  assert.ok(contrast(hexToken(tronLegacy, 'light-code-text').rgb, hexToken(tronLegacy, 'light-code-background').rgb) >= 4.5)
+  assert.ok(contrast(hexToken(tronLegacy, 'light-text').rgb, hexToken(tronLegacy, 'light-mark-background').rgb) >= 4.5)
+
+  const darkBackground = hexToken(tronLegacy, 'dark-background').rgb
+  assert.ok(contrast(hexToken(tronLegacy, 'dark-text').rgb, darkBackground) >= 4.5)
+  assert.ok(contrast(hexToken(tronLegacy, 'dark-link-text').rgb, darkBackground) >= 4.5)
+  assert.ok(contrast(hexToken(tronLegacy, 'dark-accent-midground').rgb, darkBackground) >= 3)
+  assert.ok(contrast(hexToken(tronLegacy, 'dark-code-text').rgb, hexToken(tronLegacy, 'dark-code-background').rgb) >= 4.5)
+  assert.ok(contrast(
+    hexToken(tronLegacy, 'dark-text').rgb,
+    composite(hexToken(tronLegacy, 'dark-mark-background'), darkBackground)
+  ) >= 4.5)
 })

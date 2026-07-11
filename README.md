@@ -327,6 +327,24 @@ The demo's sticky navigation is also available as an optional companion styleshe
 <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/top-bar.css">
 ```
 
+## Color themes
+
+Color themes are optional token overrides. Load one after `mine.css`; it will use the framework's existing `prefers-color-scheme` behavior, so no JavaScript or theme-specific classes are required.
+
+The first theme adapts the light and dark palettes from [Tron Legacy for Zed](https://github.com/bcomnes/zed-theme-tron-legacy):
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/themes/tron-legacy.css">
+```
+
+Bundlers can import the same sidecar directly:
+
+```css
+@import 'mine.css';
+@import 'mine.css/dist/themes/tron-legacy.css';
+```
+
 ## Thanks
 
 `mine.css` stands on the shoulders of giants from the excellent work found in [style.css][style]. Thank you!

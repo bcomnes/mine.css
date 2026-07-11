@@ -1,4 +1,5 @@
 @import url("./dist/mine.css");
+@import url("./dist/themes/tron-legacy.css");
 @import url("./dist/layout.css");
 @import url("./dist/top-bar.css");
 @import url("highlight.js/styles/github.css");

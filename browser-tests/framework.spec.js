@@ -81,15 +81,15 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   await gotoGuide(page, siteURL)
 
   const darkTokens = await readThemePresentation(page)
-  expect(darkTokens.layer).toBe('transparent')
-  expect(darkTokens.codeBorder).toEqual([63, 63, 63])
+  expect(darkTokens.layer).toBe('#1c2128')
+  expect(darkTokens.codeBorder).toEqual([76, 94, 118])
   expect(darkTokens.controlBorder).toEqual([107, 107, 107])
   expect(darkTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
-  expect(darkTokens.keyBackground).toContain('linear-gradient(rgb(51, 51, 51)')
+  expect(darkTokens.keyBackground).toContain('linear-gradient(rgb(36, 42, 51)')
   expect(darkTokens.keyShadow).toContain('rgba(0, 0, 0, 0.45)')
   expect(darkTokens.highlightedColor).toBe('rgb(173, 186, 199)')
   expect(darkTokens.highlightedBackground).toBe('rgb(34, 39, 46)')
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(20, 25, 31)')
   const topBar = page.locator('.mine-top-bar')
   await topBar.hover()
   await page.waitForTimeout(150)
@@ -98,8 +98,8 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   await page.emulateMedia({ colorScheme: 'light' })
   await page.waitForTimeout(200)
   const lightTokens = await readThemePresentation(page)
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
-  expect(lightTokens.codeBorder).toEqual([226, 226, 226])
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(245, 247, 250)')
+  expect(lightTokens.codeBorder).toEqual([148, 162, 180])
   expect(lightTokens.controlBorder).toEqual([148, 148, 148])
   expect(lightTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
   await topBar.hover()
@@ -134,13 +134,13 @@ test('uses a light palette when printing from dark mode', async ({ page, siteURL
 
   expect(print).toEqual({
     colorScheme: 'light',
-    bodyColor: 'rgb(18, 18, 18)',
-    bodyBackground: 'rgb(255, 255, 255)',
-    codeColor: 'rgb(18, 18, 18)',
+    bodyColor: 'rgb(45, 62, 79)',
+    bodyBackground: 'rgb(245, 247, 250)',
+    codeColor: 'rgb(26, 37, 48)',
     codeBackground: 'rgb(212, 212, 212)',
-    highlightedCodeColor: 'rgb(18, 18, 18)',
+    highlightedCodeColor: 'rgb(26, 37, 48)',
     highlightedCodeBackground: 'rgba(0, 0, 0, 0)',
-    highlightedTokenColor: 'rgb(18, 18, 18)'
+    highlightedTokenColor: 'rgb(26, 37, 48)'
   })
   await expect(page.locator('nav')).toBeHidden()
   await expect(page.locator('footer')).toBeHidden()
