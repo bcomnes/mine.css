@@ -22,8 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        # Exercise both the declared minimum and the current active LTS.
-        node: ['20', 'lts/*']
+        # Exercise every Node.js line that is currently in LTS.
+        node: ['22', '24']
 
     steps:
     - uses: actions/checkout@v7

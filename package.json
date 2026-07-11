@@ -28,11 +28,10 @@
     "releasearoni": "^0.2.0",
     "stylelint": "^17.4.0",
     "stylelint-config-standard": "^40.0.0",
-    "top-bar.css": "^3.0.0",
     "typescript": "~6.0.3"
   },
   "engines": {
-    "node": ">=20",
+    "node": ">=22",
     "npm": ">=10"
   },
   "homepage": "https://github.com/bcomnes/mine.css",
@@ -44,21 +43,14 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "dist/theme-switcher.js",
-  "module": "dist/theme-switcher.js",
   "overrides": {
     "@domstack/static": {
       "esbuild": "^0.28.1"
-    },
-    "glob": "^13.0.6"
+    }
   },
   "style": "dist/mine.css",
-  "types": "dist/theme-switcher.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/theme-switcher.d.ts",
-      "default": "./dist/theme-switcher.js"
-    },
+    ".": "./dist/mine.css",
     "./dist/*": "./dist/*"
   },
   "files": [
@@ -73,11 +65,10 @@
     "version": "releasearoni version",
     "build": "run-s clean build:assets build:site",
     "build:assets": "run-p build:assets:*",
-    "build:assets:declaration": "tsc -p declaration.tsconfig.json",
     "build:assets:mine.css": "postcss src/index.css -o dist/mine.css",
     "build:assets:layout.css": "postcss src/layout.css -o dist/layout.css",
-    "build:assets:theme-switcher": "cp src/theme-switcher.js dist/theme-switcher.js",
-    "build:site": "dom --src . --dest public --ignore 'src,types,test,browser-tests,test-results,coverage,lcov.info,package.json,playwright.config.js,tsconfig.json,declaration.tsconfig.json,eslint.config.js,*.map'",
+    "build:assets:top-bar.css": "postcss src/top-bar.css -o dist/top-bar.css",
+    "build:site": "dom --src . --dest public --ignore 'src,types,test,browser-tests,test-results,coverage,lcov.info,package.json,playwright.config.js,tsconfig.json,eslint.config.js,*.map'",
     "clean": "run-p clean:dist clean:public",
     "clean:dist": "rm -rf dist && mkdir -p dist",
     "clean:public": "rm -rf public && mkdir -p public",
@@ -92,6 +83,7 @@
     "watch": "run-s clean build:assets && run-p watch:*",
     "watch:mine.css": "npm run build:assets:mine.css -- --watch",
     "watch:layout.css": "npm run build:assets:layout.css -- --watch",
+    "watch:top-bar.css": "npm run build:assets:top-bar.css -- --watch",
     "watch:site": "npm run build:site -- -w"
   },
   "funding": {

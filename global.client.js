@@ -1,10 +1,7 @@
-import { toggleType } from './src/theme-switcher.js'
-
 const page = requiredElement('body')
 const sansButton = requiredElement('.style-sans')
 const serifButton = requiredElement('.style-serif')
 const roundButton = requiredElement('.style-round')
-const typeToggle = requiredElement('.type-toggle')
 
 /** @param {string} selector */
 function requiredElement (selector) {
@@ -41,4 +38,3 @@ function sans () {
 sansButton.addEventListener('click', sans)
 serifButton.addEventListener('click', serif)
 roundButton.addEventListener('click', round)
-typeToggle.addEventListener('click', () => toggleType('body'))

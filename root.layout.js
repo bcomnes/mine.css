@@ -43,7 +43,6 @@ export default async function RootLayout ({
           <a class="top-bar-link sans style-sans current-page">sans</a>
           <a class="top-bar-link serif style-serif">serif</a>
           <a class="top-bar-link round style-round">round</a>
-          <a class="top-bar-link type-toggle">Tt</a>
           <div class="top-bar-right">
             <a aria-label="GitHub" class="top-bar-link" href="https://github.com/bcomnes/mine.css/">
               🐈 <span class="top-bar-github-label">github</span>

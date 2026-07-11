@@ -58,18 +58,12 @@ $ npm install mine.css
 @import url('https://unpkg.com/mine.css');
 ```
 
-If your bundler implements package.json `exports` resolution, you can explicitly reference the js or css exports from mine.css doing the following:
+If your bundler implements package.json `exports` resolution, the package root resolves directly to the main stylesheet. Optional companion styles remain available by their explicit paths:
 
 ```css
-/* esbuild css */
-@import 'mine.css/dist/mine.css';
-```
-
-```js
-/* esbuild js */
-import { toggleType } from 'mine.css/dist/theme-switcher.js';
-/* or */
-import { toggleType } from 'mine.css';
+@import 'mine.css';
+@import 'mine.css/dist/layout.css';
+@import 'mine.css/dist/top-bar.css';
 ```
 
 ## Usage
@@ -301,6 +295,12 @@ The two classes are:
 
 - `safe-area-inset`: Adds at least a `1em` inline gutter and expands it where a device safe area requires more room.
 - `mine-layout`: Provides a self-contained, responsive document measure. Apply it to the main content container.
+
+The demo's sticky navigation is also available as an optional companion stylesheet. It is self-contained and follows the same light/dark browser preference as the main stylesheet.
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/top-bar.css">
+```
 
 ## Thanks
 
