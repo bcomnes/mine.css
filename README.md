@@ -58,7 +58,7 @@ $ npm install mine.css
 @import url('https://unpkg.com/mine.css');
 ```
 
-If your bundler implements package.json `exports` resolution, the package root resolves directly to the main stylesheet. Optional companion styles remain available by their explicit paths:
+The package root points to the main stylesheet. Because mine.css leaves package subpaths open, optional companion styles are also available by their explicit paths:
 
 ```css
 @import 'mine.css';

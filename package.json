@@ -48,11 +48,8 @@
       "esbuild": "^0.28.1"
     }
   },
+  "main": "dist/mine.css",
   "style": "dist/mine.css",
-  "exports": {
-    ".": "./dist/mine.css",
-    "./dist/*": "./dist/*"
-  },
   "files": [
     "dist"
   ],

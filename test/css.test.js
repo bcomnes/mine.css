@@ -82,8 +82,9 @@ test('typography and layout remain bounded', () => {
 test('package contract matches the modern distribution', () => {
   assert.deepEqual(packageJson.files, ['dist'])
   assert.deepEqual(packageJson.browserslist, ['supports css-nesting'])
-  assert.equal(packageJson.exports['.'], './dist/mine.css')
-  assert.equal('main' in packageJson, false)
+  assert.equal(packageJson.main, 'dist/mine.css')
+  assert.equal(packageJson.style, 'dist/mine.css')
+  assert.equal('exports' in packageJson, false)
   assert.equal('glob' in packageJson.overrides, false)
 })
 
