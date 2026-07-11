@@ -20,9 +20,13 @@ for (const viewport of viewports) {
       const root = getComputedStyle(document.documentElement)
       const main = document.querySelector('main')
       const fileInput = document.querySelector('input[type="file"]')
-      if (!main || !fileInput) throw new Error('Style guide fixtures are missing')
+      const blockquote = document.querySelector('blockquote')
+      if (!main || !fileInput || !blockquote) throw new Error('Style guide fixtures are missing')
+      const blockquoteStyles = getComputedStyle(blockquote)
 
       return {
+        blockquoteMarginInlineEnd: blockquoteStyles.marginInlineEnd,
+        blockquoteMarginInlineStart: blockquoteStyles.marginInlineStart,
         bodyWidth: document.body.scrollWidth,
         viewportWidth: document.documentElement.clientWidth,
         rootFont: root.fontSize,
@@ -33,6 +37,8 @@ for (const viewport of viewports) {
     })
 
     expect(metrics.bodyWidth).toBe(metrics.viewportWidth)
+    expect(metrics.blockquoteMarginInlineStart).toBe('0px')
+    expect(metrics.blockquoteMarginInlineEnd).toBe('0px')
     expect(metrics.rootFont).toBe(viewport.rootFont)
     expect(metrics.mainOverflow).toBe('visible')
     expect(metrics.mainWidth).toBeLessThanOrEqual(metrics.viewportWidth)
