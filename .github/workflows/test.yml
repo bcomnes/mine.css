@@ -1,9 +1,18 @@
 name: tests
 
-on: [pull_request, push]
+on:
+  pull_request:
+  push:
+    # Pull request branches are already covered by the pull_request event.
+    branches: [master]
 
 env:
   FORCE_COLOR: 1
+
+# Keep only the newest run for a branch or pull request after another push.
+concurrency:
+  group: tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -13,7 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node: ['lts/*']
+        # Exercise both the declared minimum and the current active LTS.
+        node: ['20', 'lts/*']
 
     steps:
     - uses: actions/checkout@v7
