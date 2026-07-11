@@ -6,6 +6,9 @@
   "bugs": {
     "url": "https://github.com/bcomnes/mine.css/issues"
   },
+  "browserslist": [
+    "supports css-nesting"
+  ],
   "contributors": [
     "Bret Comnes <bcomnes@gmail.com> (https://bret.io)"
   ],

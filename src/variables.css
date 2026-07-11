@@ -58,7 +58,6 @@
   --code-border: var(--light-code-border);
 
   color-scheme: light;
-  supported-color-schemes: light;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -79,7 +78,6 @@
     --code-border: var(--dark-code-border);
 
     color-scheme: dark;
-    supported-color-schemes: dark;
   }
 }
 
