@@ -72,13 +72,18 @@ test('uses a light palette when printing from dark mode', async ({ page, siteURL
     const root = getComputedStyle(document.documentElement)
     const body = getComputedStyle(document.body)
     const pre = document.querySelector('pre')
-    if (!pre) throw new Error('Code fixture is missing')
+    const highlightedCode = document.querySelector('.hljs')
+    const highlightedToken = highlightedCode?.querySelector('span')
+    if (!pre || !highlightedCode || !highlightedToken) throw new Error('Code fixtures are missing')
     return {
       colorScheme: root.colorScheme,
       bodyColor: body.color,
       bodyBackground: body.backgroundColor,
       codeColor: getComputedStyle(pre).color,
-      codeBackground: getComputedStyle(pre).backgroundColor
+      codeBackground: getComputedStyle(pre).backgroundColor,
+      highlightedCodeColor: getComputedStyle(highlightedCode).color,
+      highlightedCodeBackground: getComputedStyle(highlightedCode).backgroundColor,
+      highlightedTokenColor: getComputedStyle(highlightedToken).color
     }
   })
 
@@ -87,8 +92,13 @@ test('uses a light palette when printing from dark mode', async ({ page, siteURL
     bodyColor: 'rgb(18, 18, 18)',
     bodyBackground: 'rgb(255, 255, 255)',
     codeColor: 'rgb(18, 18, 18)',
-    codeBackground: 'rgb(212, 212, 212)'
+    codeBackground: 'rgb(212, 212, 212)',
+    highlightedCodeColor: 'rgb(18, 18, 18)',
+    highlightedCodeBackground: 'rgba(0, 0, 0, 0)',
+    highlightedTokenColor: 'rgb(18, 18, 18)'
   })
+  await expect(page.locator('nav')).toBeHidden()
+  await expect(page.locator('footer')).toBeHidden()
 })
 
 test('keeps keyboard focus visible', async ({ page, siteURL }) => {

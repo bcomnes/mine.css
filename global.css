@@ -75,6 +75,22 @@ footer a {
   text-decoration: none;
 }
 
+@media print {
+  .top-bar,
+  footer {
+    display: none;
+  }
+
+  .hljs {
+    color: inherit;
+    background: transparent;
+  }
+
+  .hljs * {
+    color: inherit;
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
