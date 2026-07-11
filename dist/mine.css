@@ -433,7 +433,6 @@ input[type="week"] {
   color: var(--text);
   background-color: var(--background);
   inline-size: 15.5em;
-  max-inline-size: 100%;
 
   &:focus-visible {
     border-color: var(--accent-foreground);
@@ -484,6 +483,8 @@ textarea {
   font: inherit;
 }
 input {
+  max-inline-size: 100%;
+
   &.block {
     display: block;
   }
