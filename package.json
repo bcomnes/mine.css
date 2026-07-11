@@ -14,7 +14,7 @@
   ],
   "devDependencies": {
     "@domstack/static": "^11.0.3",
-    "@playwright/test": "1.60.0",
+    "@playwright/test": "1.61.1",
     "@types/node": "^26.0.0",
     "@voxpelli/tsconfig": "^16.1.0",
     "autoprefixer": "^10.5.2",
