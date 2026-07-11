@@ -67,6 +67,18 @@ html {
   color: var(--text);
 }
 
+@media (width <= 32rem) {
+  .top-bar {
+    /* Reveal more controls before horizontal scrolling becomes necessary. */
+    gap: 0.5rem;
+  }
+
+  /* The icon and accessible label are enough in the compact navigation. */
+  .top-bar-github-label {
+    display: none;
+  }
+}
+
 footer {
   text-align: center;
   margin: 3rem auto;

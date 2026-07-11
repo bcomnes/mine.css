@@ -110,22 +110,30 @@ test('keeps keyboard focus visible', async ({ page, siteURL }) => {
   await expect(guideLink).toHaveCSS('outline-width', '2px')
 })
 
-test('keeps mobile anchors clear of the sticky navigation', async ({ page, siteURL }) => {
-  await page.setViewportSize({ width: 375, height: 812 })
+test('keeps mobile navigation usable around anchored content', async ({ page, siteURL }) => {
+  await page.setViewportSize({ width: 320, height: 800 })
   await page.goto(`${siteURL}/guide/#input-types`, { waitUntil: 'domcontentloaded' })
 
   const geometry = await page.evaluate(() => {
     const nav = document.querySelector('nav')
     const target = document.querySelector('#input-types')
-    if (!nav || !target) throw new Error('Anchor fixtures are missing')
+    const themeToggle = document.querySelector('[alt="Toggle theme"]')
+    if (!nav || !target || !themeToggle) throw new Error('Navigation fixtures are missing')
+
+    const themeBounds = themeToggle.getBoundingClientRect()
 
     return {
       navBottom: nav.getBoundingClientRect().bottom,
       navHeight: nav.getBoundingClientRect().height,
-      targetTop: target.getBoundingClientRect().top
+      targetTop: target.getBoundingClientRect().top,
+      themeLeft: themeBounds.left,
+      themeRight: themeBounds.right,
+      viewportWidth: document.documentElement.clientWidth
     }
   })
 
   expect(geometry.navHeight).toBeLessThanOrEqual(64)
   expect(geometry.targetTop).toBeGreaterThanOrEqual(geometry.navBottom)
+  expect(geometry.themeLeft).toBeGreaterThanOrEqual(0)
+  expect(geometry.themeRight).toBeLessThanOrEqual(geometry.viewportWidth)
 })

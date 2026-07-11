@@ -38,14 +38,15 @@ export default async function RootLayout ({
             <a href="/">mine.css</a>
           </div>
           <a class="top-bar-link" href="/guide/">guide</a>
+          <!-- Keep theme switching reachable before optional type controls overflow. -->
+          <span class="top-bar-link"><input class="dark-icon" onclick="toggleTheme()" type="image" alt="Toggle theme" height="14" width="14" src="/light-dark.svg"></span>
           <a class="top-bar-link sans style-sans current-page">sans</a>
           <a class="top-bar-link serif style-serif">serif</a>
           <a class="top-bar-link round style-round">round</a>
           <a class="top-bar-link type-toggle">Tt</a>
-          <span class="top-bar-link"><input class="dark-icon" onclick="toggleTheme()" type="image" alt="Toggle theme" height="14" width="14" src="/light-dark.svg"></span>
           <div class="top-bar-right">
-            <a class="top-bar-link" href="https://github.com/bcomnes/mine.css/">
-              🐈 github
+            <a aria-label="GitHub" class="top-bar-link" href="https://github.com/bcomnes/mine.css/">
+              🐈 <span class="top-bar-github-label">github</span>
             </a>
           </div>
         </nav>
