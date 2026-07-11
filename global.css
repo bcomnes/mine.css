@@ -17,7 +17,7 @@ footer a {
 
 @media print {
   /* Site chrome is useful on screen but wastes space and ink on paper. */
-  .top-bar,
+  .mine-top-bar,
   footer {
     display: none;
   }

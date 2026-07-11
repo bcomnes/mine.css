@@ -296,7 +296,7 @@ The two classes are:
 - `safe-area-inset`: Adds at least a `1em` inline gutter and expands it where a device safe area requires more room.
 - `mine-layout`: Provides a self-contained, responsive document measure. Apply it to the main content container.
 
-The demo's sticky navigation is also available as an optional companion stylesheet. It is self-contained and follows the same light/dark browser preference as the main stylesheet.
+The demo's sticky navigation is also available as an optional companion stylesheet. It is a namespaced reimplementation inspired by [top-bar.css](https://github.com/css-pkg/top-bar.css), is self-contained, and follows the same light/dark browser preference as the main stylesheet.
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/top-bar.css">

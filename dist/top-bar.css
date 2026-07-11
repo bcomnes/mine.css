@@ -1,5 +1,8 @@
+/* Reimplementation inspired by top-bar.css (ISC License): https://github.com/css-pkg/top-bar.css */
+
 /* Keep compact navigation controls on one scrollable row instead of growing a tall header. */
-.top-bar {
+
+.mine-top-bar {
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -21,48 +24,58 @@
     box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
   }
 }
-.top-bar-title,
-.top-bar-link,
-.top-bar-right {
+
+.mine-top-bar-title,
+.mine-top-bar-link,
+.mine-top-bar-right {
   flex: 0 0 auto;
   padding-block: 1rem;
   font-size: 1rem;
 }
-.top-bar-title,
-.top-bar-title a,
-.top-bar-link {
+
+.mine-top-bar-title,
+.mine-top-bar-title a,
+.mine-top-bar-link {
   color: var(--accent-foreground, #777);
   cursor: pointer;
   text-decoration: none;
 }
-.top-bar-title,
-.top-bar-title a {
+
+.mine-top-bar-title,
+.mine-top-bar-title a {
   color: var(--text, #111);
   font-weight: 600;
 }
-.top-bar-link { font-weight: 400; }
-.top-bar-link.current-page { cursor: default; }
-.top-bar-link.current-page,
-.top-bar-link.current-page:hover,
-.top-bar-link:hover {
+
+.mine-top-bar-link { font-weight: 400; }
+
+.mine-top-bar-link-current { cursor: default; }
+
+.mine-top-bar-link-current,
+.mine-top-bar-link-current:hover,
+.mine-top-bar-link:hover {
   color: var(--text, #111);
 }
-.top-bar-right { margin-inline-start: auto; }
+
+.mine-top-bar-right { margin-inline-start: auto; }
+
 html {
   /* Hash targets should land below the sticky navigation. */
   scroll-padding-block-start: 4rem;
 }
+
 @media (width <= 32rem) {
-  .top-bar {
+  .mine-top-bar {
     /* Reveal more controls before horizontal scrolling becomes necessary. */
     gap: 0.5rem;
   }
 
   /* The icon and accessible label are enough in the compact navigation. */
-  .top-bar-github-label { display: none; }
+  .mine-top-bar-github-label { display: none; }
 }
+
 @media (prefers-color-scheme: dark) {
-  .top-bar {
+  .mine-top-bar {
     background-color: hsl(0deg 0% 12% / 75%);
 
     &:hover {

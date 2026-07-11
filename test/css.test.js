@@ -4,6 +4,7 @@ import test from 'node:test'
 
 const variables = await readFile(new URL('../src/variables.css', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../src/layout.css', import.meta.url), 'utf8')
+const topBar = await readFile(new URL('../src/top-bar.css', import.meta.url), 'utf8')
 const distribution = await readFile(new URL('../dist/mine.css', import.meta.url), 'utf8')
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
 
@@ -84,4 +85,10 @@ test('package contract matches the modern distribution', () => {
   assert.equal(packageJson.exports['.'], './dist/mine.css')
   assert.equal('main' in packageJson, false)
   assert.equal('glob' in packageJson.overrides, false)
+})
+
+test('top-bar sidecar uses the mine.css selector contract', () => {
+  assert.match(topBar, /Reimplementation inspired by top-bar\.css/)
+  assert.match(topBar, /\.mine-top-bar\b/)
+  assert.doesNotMatch(topBar, /\.top-bar(?:\b|-)/)
 })
