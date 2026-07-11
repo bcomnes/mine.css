@@ -24,7 +24,7 @@ jobs:
       uses: actions/setup-node@v6
       with:
         node-version: ${{env.node-version}}
-    - run: npm i
+    - run: npm ci
     - run: npm run build
 
     - name: Deploy to neocities

@@ -20,10 +20,11 @@ jobs:
       uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node }}
-    - name: npm install && npm test
+    - name: npm ci && npm test
       run: |
-        npm i
+        npm ci
         npm test
+        git diff --exit-code -- dist
 
   automerge:
     needs: test
