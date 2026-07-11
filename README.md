@@ -101,6 +101,8 @@ npm test
 
 The test suite runs Stylelint, fast Node contract tests, and Chromium checks against the built style guide. Use `npm run test:playwright` to rebuild and run only the browser suite.
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the lint, type-check, watch, and release workflows.
+
 ### Node
 
 ```console
