@@ -85,15 +85,23 @@
 }
 
 @media print {
-  /* Improve printing on lighter colors by darkening them */
   :root {
-    --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #f2f2f2 */
-    --print-accent-midground:  hsl(0deg, 0%, 72%, 100%); /* #d6d6d6 */
-    --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #7d7d7d */
+    --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #d4d4d4 */
+    --print-accent-midground: hsl(0deg, 0%, 72%, 100%); /* #b8b8b8 */
+    --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #595959 */
+
+    --text: var(--light-text);
+    --background: var(--light-background);
+    --layer-background: var(--light-layer-background);
     --accent-background: var(--print-accent-background);
     --accent-midground: var(--print-accent-midground);
     --accent-foreground: var(--print-accent-foreground);
-    --light-code-background: var(--print-accent-background);
-    --light-code-border: var(--print-accent-midground);
+    --link-text: var(--light-link-text);
+    --mark-background: var(--light-mark-background);
+    --code-text: var(--light-code-text);
+    --code-background: var(--print-accent-background);
+    --code-border: var(--print-accent-midground);
+
+    color-scheme: light;
   }
 }
