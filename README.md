@@ -91,6 +91,16 @@ import { toggleTheme } from 'mine.css';
 
 The best way to get familiar with the look and feel of `mine.css` is to visit the [style guide][guide]. Detailed examples of every HTML element (and how to write them in markdown) are available there.
 
+## Testing
+
+```console
+npm ci
+npx playwright install chromium
+npm test
+```
+
+The test suite runs Stylelint, fast Node contract tests, and Chromium checks against the built style guide. Use `npm run test:playwright` to rebuild and run only the browser suite.
+
 ### Node
 
 ```console

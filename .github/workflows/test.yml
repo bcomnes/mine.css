@@ -23,6 +23,7 @@ jobs:
     - name: npm ci && npm test
       run: |
         npm ci
+        npx playwright install --with-deps chromium
         npm test
         git diff --exit-code -- dist
 
