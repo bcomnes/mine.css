@@ -280,4 +280,4 @@ These changes affect the visible defaults and, in the nesting case, the compatib
 | 12. Preformatted text color | `cbb0e66` |
 | 13. Legacy normalization and logical sizing | `750e300`, `4fdbbe5` |
 | 14. Documentation and style guide | `ce777bf` |
-| Behavioral coverage | `fa750b1` |
+| Behavioral and Playwright coverage | `fa750b1`, `7c95410` |
