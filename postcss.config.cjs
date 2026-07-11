@@ -6,6 +6,6 @@ module.exports = (ctx) => ({
       darkSelector: '.dark-mode',
       lightSelector: '.light-mode'
     },
-    'autoprefixer': {}
+    autoprefixer: {}
   }
 })

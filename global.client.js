@@ -1,12 +1,20 @@
-import {toggleTheme, toggleType} from './src/theme-switcher.js';
+import { toggleTheme, toggleType } from './src/theme-switcher.js'
 
-window.toggleTheme = toggleTheme
+const siteWindow = /** @type {Window & typeof globalThis & { toggleTheme: typeof toggleTheme }} */ (window)
+siteWindow.toggleTheme = toggleTheme
 
-const page = document.querySelector('body')
-const sansButton = document.querySelector('.style-sans')
-const serifButton = document.querySelector('.style-serif')
-const roundButton = document.querySelector('.style-round')
-const typeToggle = document.querySelector('.type-toggle')
+const page = requiredElement('body')
+const sansButton = requiredElement('.style-sans')
+const serifButton = requiredElement('.style-serif')
+const roundButton = requiredElement('.style-round')
+const typeToggle = requiredElement('.type-toggle')
+
+/** @param {string} selector */
+function requiredElement (selector) {
+  const element = document.querySelector(selector)
+  if (!element) throw new Error(`No element matches ${selector}`)
+  return element
+}
 
 function round () {
   page.classList.toggle('serif', false)

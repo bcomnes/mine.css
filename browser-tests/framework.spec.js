@@ -1,3 +1,5 @@
+/* global getComputedStyle */
+
 import { expect, test } from './support.js'
 
 async function gotoGuide (page, siteURL) {

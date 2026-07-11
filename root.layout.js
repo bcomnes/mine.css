@@ -1,5 +1,14 @@
 import { html, render } from 'uhtml-isomorphic'
 
+/**
+ * @typedef {object} RootLayoutProps
+ * @property {{ title?: string, siteName: string }} vars
+ * @property {string[]} [scripts]
+ * @property {string[]} [styles]
+ * @property {string | unknown} children
+ */
+
+/** @param {RootLayoutProps} props */
 export default async function RootLayout ({
   vars: {
     title,

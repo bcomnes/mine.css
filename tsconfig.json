@@ -1,0 +1,24 @@
+{
+  "extends": "@voxpelli/tsconfig/node20.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ]
+  },
+  "include": [
+    "src/**/*.js",
+    "global*.js",
+    "root.layout.js",
+    "playwright.config.js",
+    "types/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "test-results"
+  ]
+}

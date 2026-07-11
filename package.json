@@ -15,18 +15,26 @@
   "devDependencies": {
     "@domstack/static": "^11.0.3",
     "@playwright/test": "1.60.0",
-    "auto-changelog": "^2.6.0",
+    "@types/node": "^26.0.0",
+    "@voxpelli/tsconfig": "^16.1.0",
     "autoprefixer": "^10.5.2",
-    "gh-release": "^8.1.0",
     "highlight.js": "^11.2.0",
+    "neostandard": "^0.13.0",
+    "npm-run-all2": "^9.0.0",
     "postcss": "^8.0.9",
     "postcss-cli": "^11.0.0",
     "postcss-dark-theme-class": "^2.0.0",
     "postcss-import": "^16.0.0",
+    "releasearoni": "^0.2.0",
     "stylelint": "^17.4.0",
     "stylelint-config-standard": "^40.0.0",
     "top-bar.css": "^3.0.0",
+    "typescript": "~6.0.3",
     "uhtml-isomorphic": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
   },
   "homepage": "https://github.com/bcomnes/mine.css",
   "keywords": [
@@ -45,8 +53,10 @@
     }
   },
   "style": "dist/mine.css",
+  "types": "dist/theme-switcher.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/theme-switcher.d.ts",
       "default": "./dist/theme-switcher.js"
     },
     "./dist/*": "./dist/*"
@@ -59,25 +69,33 @@
     "url": "https://github.com/bcomnes/mine.css.git"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:mine.css && npm run build:layout.css && npm run build:js && npm run build:site",
-    "build:mine.css": "postcss src/index.css -o dist/mine.css",
-    "build:layout.css": "postcss src/layout.css -o dist/layout.css",
-    "build:js": "cp src/theme-switcher.js dist/theme-switcher.js",
-    "build:site": "dom --src . --dest public --ignore 'src,test,browser-tests,test-results,package.json,playwright.config.js,*.map'",
-    "clean": "rm -rf 'dist/*' 'public/*' && mkdir -p dist public",
-    "prepare": "npm run build",
-    "prepublishOnly": "git push --follow-tags && gh-release -y",
-    "pretest": "npm run build",
+    "prepublishOnly": "releasearoni",
+    "version": "releasearoni version",
+    "build": "run-s clean build:assets build:site",
+    "build:assets": "run-p build:assets:*",
+    "build:assets:declaration": "tsc -p declaration.tsconfig.json",
+    "build:assets:mine.css": "postcss src/index.css -o dist/mine.css",
+    "build:assets:layout.css": "postcss src/layout.css -o dist/layout.css",
+    "build:assets:theme-switcher": "cp src/theme-switcher.js dist/theme-switcher.js",
+    "build:site": "dom --src . --dest public --ignore 'src,types,test,browser-tests,test-results,coverage,lcov.info,package.json,playwright.config.js,tsconfig.json,declaration.tsconfig.json,eslint.config.js,*.map'",
+    "clean": "run-p clean:dist clean:public",
+    "clean:dist": "rm -rf dist && mkdir -p dist",
+    "clean:public": "rm -rf public && mkdir -p public",
     "start": "npm run watch",
-    "test": "npm run test:stylelint && npm run test:behavior && npm run test:playwright:run",
-    "test:behavior": "node --test test/*.test.js",
-    "test:playwright": "npm run build && npm run test:playwright:run",
+    "test": "run-s test:lint test:stylelint test:tsc test:node-test test:playwright",
+    "test:lint": "eslint .",
+    "test:node-test": "node --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=lcov.info --test test/*.test.js",
+    "test:playwright": "run-s build test:playwright:run",
     "test:playwright:run": "playwright test --timeout=10000",
     "test:stylelint": "stylelint 'src/**/*.css' global.css",
-    "version": "npm run prepare && npm run version:changelog && npm run version:git",
-    "version:changelog": "auto-changelog -p --template keepachangelog auto-changelog --breaking-pattern 'BREAKING CHANGE:'",
-    "version:git": "git add CHANGELOG.md dist",
-    "watch": "npm run clean && (npm run build:mine.css -- --watch & npm run build:layout.css -- --watch & npm run watch:site & wait)",
+    "test:tsc": "tsc",
+    "watch": "run-s clean build:assets && run-p watch:*",
+    "watch:mine.css": "npm run build:assets:mine.css -- --watch",
+    "watch:layout.css": "npm run build:assets:layout.css -- --watch",
     "watch:site": "npm run build:site -- -w"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/bcomnes"
   }
 }

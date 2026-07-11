@@ -3,6 +3,7 @@
 const colorSchemeMql = window.matchMedia('(prefers-color-scheme: dark)')
 colorSchemeMql.addEventListener('change', setTheme)
 
+/** @param {MediaQueryList | MediaQueryListEvent} e */
 function setTheme (e) {
   const isDarkMode = e.matches
   const colorScheme = window.sessionStorage.getItem('color-scheme')
@@ -56,8 +57,13 @@ export function toggleTheme () {
 
 const defaultTypeSetting = 'mine-type-scheme'
 
+/**
+ * @param {string} querySelector
+ * @param {string} settingsKey
+ */
 export function setType (querySelector, settingsKey = defaultTypeSetting) {
   const element = document.querySelector(querySelector)
+  if (!element) throw new Error(`No element matches ${querySelector}`)
   const desiredType = window.sessionStorage.getItem(settingsKey)
 
   element.classList.toggle('serif', desiredType === 'serif')
@@ -67,6 +73,10 @@ export function setType (querySelector, settingsKey = defaultTypeSetting) {
 
 setType('body')
 
+/**
+ * @param {string} querySelector
+ * @param {string} settingsKey
+ */
 export function toggleType (querySelector, settingsKey = defaultTypeSetting) {
   const typeScheme = window.sessionStorage.getItem(settingsKey)
 
