@@ -196,7 +196,6 @@ a {
      in all browsers (opinionated). */
   &:active, &:hover {
     outline: 0;
-    outline-width: 0;
   }
 
   &:active, &:focus, &:hover { text-decoration: underline; }
