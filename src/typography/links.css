@@ -1,9 +1,10 @@
 a {
-  /* Links remain identifiable without relying on color perception alone. */
+  /* Keep a quiet underline at rest, then strengthen it for interaction. */
   text-decoration-skip-ink: auto;
   color: var(--link-text);
   text-decoration: underline;
-  text-decoration-thickness: from-font;
+  text-decoration-color: var(--accent-midground);
+  text-decoration-thickness: 0.08em;
   text-underline-offset: 0.15em;
 
   &:focus-visible {
@@ -14,5 +15,8 @@ a {
 
   &:active,
   &:focus,
-  &:hover { text-decoration-thickness: 0.12em; }
+  &:hover {
+    text-decoration-color: currentcolor;
+    text-decoration-thickness: 0.12em;
+  }
 }

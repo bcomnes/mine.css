@@ -100,11 +100,14 @@ test('uses a light palette when printing from dark mode', async ({ page, siteURL
 
 test('keeps keyboard focus visible', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
-  const guideLink = page.getByRole('link', { name: 'guide', exact: true })
-  await guideLink.focus()
-  await expect(guideLink).toBeFocused()
-  await expect(guideLink).toHaveCSS('outline-style', 'solid')
-  await expect(guideLink).toHaveCSS('outline-width', '2px')
+  const contentLink = page.locator('main a').first()
+  await expect(contentLink).toHaveCSS('text-decoration-line', 'underline')
+  await expect(contentLink).toHaveCSS('text-decoration-color', 'rgb(117, 117, 117)')
+  const navigationLink = page.getByRole('link', { name: 'guide', exact: true })
+  await navigationLink.focus()
+  await expect(navigationLink).toBeFocused()
+  await expect(navigationLink).toHaveCSS('outline-style', 'solid')
+  await expect(navigationLink).toHaveCSS('outline-width', '2px')
 })
 
 test('keeps mobile navigation usable around anchored content', async ({ page, siteURL }) => {
