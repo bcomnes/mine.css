@@ -198,10 +198,9 @@ a {
   text-decoration-thickness: from-font;
   text-underline-offset: 0.15em;
 
-  /* Remove the outline on focused links when they are also active or hovered
-     in all browsers (opinionated). */
-  &:active, &:hover {
-    outline: 0;
+  &:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 2px;
   }
 
   &:active, &:focus, &:hover { text-decoration-thickness: 0.12em; }
@@ -449,15 +448,16 @@ textarea, input[type="date"], input[type="datetime-local"], input[type="email"],
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
-  font-size: var(--font-size-body);
   padding: 0.4em;
   color: var(--text);
   background-color: var(--background);
-  width: 15.5em;
+  inline-size: 15.5em;
+  max-inline-size: 100%;
 
-  &:focus {
-    /* Form focused */
+  &:focus-visible {
     border-color: var(--accent-foreground);
+    outline: 2px solid var(--link-text);
+    outline-offset: 2px;
   }
 
   &:disabled {
@@ -494,6 +494,10 @@ fieldset {
   border-style: solid;
   border-width: 2px;
   border-color: var(--accent-midground);
+}
+button, input, select, textarea {
+  color: inherit;
+  font: inherit;
 }
 input {
   &.block {

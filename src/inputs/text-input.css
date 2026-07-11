@@ -30,15 +30,16 @@ input[type="week"] {
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
-  font-size: var(--font-size-body);
   padding: 0.4em;
   color: var(--text);
   background-color: var(--background);
-  width: 15.5em;
+  inline-size: 15.5em;
+  max-inline-size: 100%;
 
-  &:focus {
-    /* Form focused */
+  &:focus-visible {
     border-color: var(--accent-foreground);
+    outline: 2px solid var(--link-text);
+    outline-offset: 2px;
   }
 
   &:disabled {

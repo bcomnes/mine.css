@@ -8,11 +8,9 @@ a {
   text-decoration-thickness: from-font;
   text-underline-offset: 0.15em;
 
-  /* Remove the outline on focused links when they are also active or hovered
-     in all browsers (opinionated). */
-  &:active,
-  &:hover {
-    outline: 0;
+  &:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 2px;
   }
 
   &:active,

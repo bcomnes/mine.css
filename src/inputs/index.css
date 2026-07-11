@@ -5,6 +5,14 @@
 @import url("./label.css");
 @import url("./fieldset.css");
 
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
 input {
   &.block {
     display: block;
