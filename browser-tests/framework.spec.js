@@ -200,6 +200,52 @@ test('keeps browser-native button metrics', async ({ page, siteURL }) => {
   }
 })
 
+test('spaces every input demo consistently before its source', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+  const inputExamples = [
+    'buttons',
+    'checkbox',
+    'color',
+    'date',
+    'datetime-local',
+    'email',
+    'file',
+    'image-input',
+    'month',
+    'number',
+    'password',
+    'radio',
+    'range',
+    'reset',
+    'search',
+    'submit',
+    'tel',
+    'text',
+    'textarea',
+    'time',
+    'url',
+    'week',
+    'fieldset'
+  ]
+  const gaps = await page.evaluate((ids) => ids.map(id => {
+    const heading = document.querySelector(`a#${id}`)?.parentElement
+    if (!heading) throw new Error(`Missing input heading: ${id}`)
+
+    let sibling = heading.nextElementSibling
+    while (sibling && sibling.tagName !== 'PRE') sibling = sibling.nextElementSibling
+    const fixture = sibling?.previousElementSibling
+    if (!fixture || !sibling) throw new Error(`Missing input fixture or source: ${id}`)
+
+    return sibling.getBoundingClientRect().top - fixture.getBoundingClientRect().bottom
+  }), inputExamples)
+
+  expect(gaps).toHaveLength(inputExamples.length)
+  for (const gap of gaps) {
+    expect(gap).toBeGreaterThan(0)
+    expect(gap).toBeCloseTo(gaps[0], 1)
+  }
+})
+
 test('keeps mobile navigation usable around anchored content', async ({ page, siteURL }) => {
   await page.setViewportSize({ width: 320, height: 800 })
   await page.goto(`${siteURL}/guide/#input-types`, { waitUntil: 'domcontentloaded' })
