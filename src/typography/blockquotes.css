@@ -1,5 +1,5 @@
 blockquote {
-  margin: 0 0 1rem;
+  margin-block: 0 1rem;
   padding-inline: 1rem;
   color: var(--accent-foreground);
   border-inline-start: 4px solid var(--accent-midground);

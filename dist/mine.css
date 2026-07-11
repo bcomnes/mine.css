@@ -219,7 +219,7 @@ ol {
 }
 li > p { margin-top: 1em; }
 blockquote {
-  margin: 0 0 1rem;
+  margin-block: 0 1rem;
   padding-inline: 1rem;
   color: var(--accent-foreground);
   border-inline-start: 4px solid var(--accent-midground);
@@ -313,7 +313,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   display: block;
-  width: 100%;
+  inline-size: 100%;
   overflow: auto;
   word-break: keep-all;
 
@@ -340,8 +340,8 @@ hr {
   border: 0;
 }
 img {
-  max-width: 100%;
-  height: auto;
+  max-inline-size: 100%;
+  block-size: auto;
 }
 figure {
   margin-block: 1em;
@@ -370,13 +370,13 @@ abbr[title] {
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;
 }
-dd { margin-left: 0; }
+dd { margin-inline-start: 0; }
 dl {
   padding: 0;
 
   & dt {
     padding: 0;
-    margin-top: 1em;
+    margin-block-start: 1em;
     font-size: 1em;
     font-style: italic;
     font-weight: 600;
@@ -384,7 +384,7 @@ dl {
 
   & dd {
     padding-inline: 1em;
-    margin-bottom: 1.25em;
+    margin-block-end: 1.25em;
   }
 }
 /* same margins for all typographic block elements */

@@ -5,7 +5,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   display: block;
-  width: 100%;
+  inline-size: 100%;
   overflow: auto;
   word-break: keep-all;
 

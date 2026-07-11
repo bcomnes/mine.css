@@ -2,13 +2,14 @@
   box-sizing: border-box;
   inline-size: 100%;
   max-inline-size: 46em;
-  margin: 2em auto;
+  margin-block: 2em;
+  margin-inline: auto;
   padding-inline: 1em;
   overflow-wrap: break-word;
 }
 
-.mine-layout > *:first-child { margin-top: 0 !important; }
-.mine-layout > *:last-child { margin-bottom: 0 !important; }
+.mine-layout > *:first-child { margin-block-start: 0 !important; }
+.mine-layout > *:last-child { margin-block-end: 0 !important; }
 
 /* Keep content clear of notches without discarding the ordinary gutter. */
 .safe-area-inset {
