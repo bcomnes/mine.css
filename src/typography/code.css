@@ -20,12 +20,10 @@ code {
   border-radius: 5px;
 }
 
-a code,
+a code { color: var(--link-text); }
+
 pre,
-kbd,
-samp {
-  color: var(--link-text);
-}
+samp { color: var(--code-text); }
 
 pre {
   overflow: auto;
