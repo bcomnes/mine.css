@@ -41,9 +41,35 @@
   text-decoration: none;
 }
 
+/* Keep generous hit targets while drawing feedback tightly around their labels. */
+
+.mine-top-bar-label {
+  border-radius: 0.2em;
+  transition: background-color 0.1s ease, box-shadow 0.1s ease;
+}
+
+.mine-top-bar-title a,
+.mine-top-bar-link {
+  background-color: transparent;
+  box-shadow: none;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: transparent;
+    box-shadow: none;
+
+    .mine-top-bar-label {
+      background-color: color-mix(in srgb, currentcolor 8%, transparent);
+      box-shadow: 0 0 0 0.14em color-mix(in srgb, currentcolor 8%, transparent);
+    }
+  }
+}
+
 .mine-top-bar-title,
 .mine-top-bar-title a {
-  color: var(--text, #111);
+  /* Keep the site identity aligned with the active theme's link color. */
+  color: var(--link-text, #08f);
   font-weight: 600;
 }
 

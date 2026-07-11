@@ -49,6 +49,7 @@ test('theme tokens stay valid and accessible', () => {
   assert.doesNotMatch(variables, /var\(--transparent\)/)
   assert.match(variables, /--dark-layer-background: transparent;/)
   assert.ok(contrast(hslToRgb(hslToken('light-link-text')), [1, 1, 1]) >= 4.5)
+  assert.ok(contrast(hslToRgb(hslToken('light-link-text')), hslToRgb(hslToken('light-text'))) >= 3)
   assert.ok(contrast(hslToRgb(hslToken('light-accent-foreground')), [1, 1, 1]) >= 4.5)
   assert.ok(contrast(hslToRgb(hslToken('light-accent-midground')), [1, 1, 1]) >= 3)
   assert.ok(contrast(

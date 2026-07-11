@@ -1,11 +1,11 @@
 a {
-  /* Keep a quiet underline at rest, then strengthen it for interaction. */
+  /* Link and body colors differ by more than 3:1; interaction adds a second cue. */
   text-decoration-skip-ink: auto;
   color: var(--link-text);
-  text-decoration: underline;
-  text-decoration-color: var(--accent-midground);
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.15em;
+  text-decoration: none;
+  border-radius: 0.2em;
+  box-decoration-break: clone;
+  transition: background-color 0.1s ease, box-shadow 0.1s ease;
 
   &:focus-visible {
     /* Use an outline instead of changing layout or clipping the focus indicator. */
@@ -16,7 +16,8 @@ a {
   &:active,
   &:focus,
   &:hover {
-    text-decoration-color: currentcolor;
-    text-decoration-thickness: 0.12em;
+    /* A soft halo adds a non-color cue without shifting surrounding text. */
+    background-color: color-mix(in srgb, currentcolor 8%, transparent);
+    box-shadow: 0 0 0 0.14em color-mix(in srgb, currentcolor 8%, transparent);
   }
 }

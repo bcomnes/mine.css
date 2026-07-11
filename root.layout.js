@@ -37,15 +37,15 @@ export default async function RootLayout ({
       <body>
         <nav class="mine-top-bar">
           <div class="mine-top-bar-title">
-            <a href="/">mine.css</a>
+            <a href="/"><span class="mine-top-bar-label">mine.css</span></a>
           </div>
-          <a class="mine-top-bar-link" href="/guide/">guide</a>
-          <a class="mine-top-bar-link mine-top-bar-link-current sans style-sans">sans</a>
-          <a class="mine-top-bar-link serif style-serif">serif</a>
-          <a class="mine-top-bar-link round style-round">round</a>
+          <a class="mine-top-bar-link" href="/guide/"><span class="mine-top-bar-label">guide</span></a>
+          <a class="mine-top-bar-link mine-top-bar-link-current sans style-sans"><span class="mine-top-bar-label">sans</span></a>
+          <a class="mine-top-bar-link serif style-serif"><span class="mine-top-bar-label">serif</span></a>
+          <a class="mine-top-bar-link round style-round"><span class="mine-top-bar-label">round</span></a>
           <div class="mine-top-bar-right">
             <a aria-label="GitHub" class="mine-top-bar-link" href="https://github.com/bcomnes/mine.css/">
-              🐈 <span class="mine-top-bar-github-label">github</span>
+              <span class="mine-top-bar-label">🐈 <span class="mine-top-bar-github-label">github</span></span>
             </a>
           </div>
         </nav>

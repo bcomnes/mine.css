@@ -100,10 +100,53 @@ test('uses a light palette when printing from dark mode', async ({ page, siteURL
 
 test('keeps keyboard focus visible', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
-  const contentLink = page.locator('main a').first()
-  await expect(contentLink).toHaveCSS('text-decoration-line', 'underline')
-  await expect(contentLink).toHaveCSS('text-decoration-color', 'rgb(117, 117, 117)')
+  const contentLink = page.locator('main a[href="http://dev.nodeca.com"]')
+  await expect(contentLink).toHaveCSS('text-decoration-line', 'none')
+  await contentLink.hover()
+  const hoverPresentation = await contentLink.evaluate(element => {
+    const styles = getComputedStyle(element)
+    return {
+      background: styles.backgroundColor,
+      radius: styles.borderRadius,
+      shadow: styles.boxShadow,
+      textDecoration: styles.textDecorationLine
+    }
+  })
+  expect(hoverPresentation.textDecoration).toBe('none')
+  expect(hoverPresentation.background).not.toBe('rgba(0, 0, 0, 0)')
+  expect(hoverPresentation.radius).not.toBe('0px')
+  expect(hoverPresentation.shadow).not.toBe('none')
+
+  const navigationColors = await page.evaluate(() => {
+    const titleLink = document.querySelector('.mine-top-bar-title a')
+    const contentLink = document.querySelector('main a[href="http://dev.nodeca.com"]')
+    if (!titleLink || !contentLink) throw new Error('Link fixtures are missing')
+    return {
+      title: getComputedStyle(titleLink).color,
+      content: getComputedStyle(contentLink).color
+    }
+  })
+  expect(navigationColors.title).toBe(navigationColors.content)
+
   const navigationLink = page.getByRole('link', { name: 'guide', exact: true })
+  await navigationLink.hover()
+  const navigationHover = await navigationLink.evaluate(element => {
+    const label = element.querySelector('.mine-top-bar-label')
+    if (!label) throw new Error('Navigation label fixture is missing')
+    const controlStyles = getComputedStyle(element)
+    const labelStyles = getComputedStyle(label)
+    return {
+      controlBackground: controlStyles.backgroundColor,
+      controlShadow: controlStyles.boxShadow,
+      labelBackground: labelStyles.backgroundColor,
+      labelShadow: labelStyles.boxShadow
+    }
+  })
+  expect(navigationHover.controlBackground).toBe('rgba(0, 0, 0, 0)')
+  expect(navigationHover.controlShadow).toBe('none')
+  expect(navigationHover.labelBackground).not.toBe('rgba(0, 0, 0, 0)')
+  expect(navigationHover.labelShadow).not.toBe('none')
+
   await navigationLink.focus()
   await expect(navigationLink).toBeFocused()
   await expect(navigationLink).toHaveCSS('outline-style', 'solid')

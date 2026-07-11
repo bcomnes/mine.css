@@ -133,7 +133,7 @@ You can override defaults directly with CSS variables. Here are the default vari
   --light-accent-background: hsl(0deg, 0%, 95%, 100%); /* #f2f2f2 */
   --light-accent-midground: hsl(0deg, 0%, 46%, 100%); /* #757575 */
   --light-accent-foreground: hsl(0deg, 0%, 40%, 100%); /* #666 */
-  --light-link-text: hsl(210deg, 100%, 40%, 100%); /* #06c */
+  --light-link-text: hsl(210deg, 100%, 45%, 100%); /* #0073e6 */
   --light-mark-background: hsl(60deg, 100%, 50%, 100%); /* #ff0 */
   --light-code-text: var(--light-text);
   --light-code-background: var(--light-accent-background);
