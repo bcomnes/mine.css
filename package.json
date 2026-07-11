@@ -72,7 +72,7 @@
     "start": "npm run watch",
     "test": "run-s test:lint test:stylelint test:tsc test:node-test test:playwright",
     "test:lint": "eslint .",
-    "test:node-test": "node --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=lcov.info --test test/*.test.js",
+    "test:node-test": "node --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=lcov.info --test",
     "test:playwright": "run-s build test:playwright:run",
     "test:playwright:run": "playwright test --timeout=10000",
     "test:stylelint": "stylelint 'src/**/*.css' global.css",
