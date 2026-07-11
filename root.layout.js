@@ -1,11 +1,11 @@
-import { html, render } from 'uhtml-isomorphic'
+import { html, raw, render } from 'fragtml'
 
 /**
  * @typedef {object} RootLayoutProps
  * @property {{ title?: string, siteName: string }} vars
  * @property {string[]} [scripts]
  * @property {string[]} [styles]
- * @property {string | unknown} children
+ * @property {import('fragtml/types.js').HtmlRenderable} children
  */
 
 /** @param {RootLayoutProps} props */
@@ -18,7 +18,7 @@ export default async function RootLayout ({
   styles,
   children
 }) {
-  return render(String, html`
+  return render(html`
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -51,7 +51,10 @@ export default async function RootLayout ({
           </div>
         </nav>
         <main class="markdown-body mine-layout">
-          ${typeof children === 'string' ? html([children]) : children /* Support both uhtml and string children. Optional. */}
+          ${typeof children === 'string'
+            // The static-site builder has already rendered Markdown to trusted HTML.
+            ? raw(children)
+            : children}
         </main>
         <footer>
           <a href="https://github.com/bcomnes/mine.css/issues"><small>💌</small></a>
