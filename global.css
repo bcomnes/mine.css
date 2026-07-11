@@ -12,7 +12,10 @@ $top-bar-family: $system-sans;
 @view-transition { navigation: auto; }
 
 .top-bar {
+  align-items: center;
   font-family: inherit;
+  display: flex;
+  gap: 1rem;
   margin-bottom: 0;
   margin-top: 0;
   backdrop-filter: contrast(100%) blur(10px);
@@ -28,6 +31,20 @@ $top-bar-family: $system-sans;
   }
 }
 
+.top-bar-title,
+.top-bar-link,
+.top-bar-right {
+  flex: 0 0 auto;
+}
+
+.top-bar-right {
+  margin-left: auto;
+}
+
+html {
+  scroll-padding-block-start: 4rem;
+}
+
 .dark-mode:not(.light-mode) .top-bar {
   background-color: hsl(0deg 0% 12% / 75%);
 
@@ -39,6 +56,7 @@ $top-bar-family: $system-sans;
 .top-bar-link {
   font-weight: 400;
   color: var(--accent-foreground);
+  margin-left: 0;
 }
 
 .top-bar-link.current-page,

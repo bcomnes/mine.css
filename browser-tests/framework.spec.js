@@ -99,3 +99,23 @@ test('keeps keyboard focus visible', async ({ page, siteURL }) => {
   await expect(guideLink).toHaveCSS('outline-style', 'solid')
   await expect(guideLink).toHaveCSS('outline-width', '2px')
 })
+
+test('keeps mobile anchors clear of the sticky navigation', async ({ page, siteURL }) => {
+  await page.setViewportSize({ width: 375, height: 812 })
+  await page.goto(`${siteURL}/guide/#input-types`, { waitUntil: 'domcontentloaded' })
+
+  const geometry = await page.evaluate(() => {
+    const nav = document.querySelector('nav')
+    const target = document.querySelector('#input-types')
+    if (!nav || !target) throw new Error('Anchor fixtures are missing')
+
+    return {
+      navBottom: nav.getBoundingClientRect().bottom,
+      navHeight: nav.getBoundingClientRect().height,
+      targetTop: target.getBoundingClientRect().top
+    }
+  })
+
+  expect(geometry.navHeight).toBeLessThanOrEqual(64)
+  expect(geometry.targetTop).toBeGreaterThanOrEqual(geometry.navBottom)
+})
