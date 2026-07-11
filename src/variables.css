@@ -31,7 +31,7 @@
   /* dark colors */
   --dark-text: white;
   --dark-background: hsl(0deg, 0%, 12%, 100%); /* #1f1f1f from safari */
-  --dark-layer-background: var(--transparent);
+  --dark-layer-background: transparent;
   --dark-accent-background: hsl(0deg, 0%, 20%, 100%); /* #333 */
   --dark-accent-midground: hsl(0deg, 0%, 30%, 100%); /* #4d4d4d */
   --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
