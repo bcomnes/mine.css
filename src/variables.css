@@ -44,7 +44,7 @@
   --dark-code-background: var(--dark-accent-background);
   --dark-code-border: var(--dark-accent-midground);
 
-  /* Semantic aliases default to light and are rebound by media/class overrides. */
+  /* Semantic aliases default to light and are rebound by browser media preferences. */
 
   /* main colors */
   --text: var(--light-text);
@@ -87,7 +87,7 @@
 
 @media print {
   :root {
-    /* Force every active alias light so an explicit dark class cannot leak to paper. */
+    /* Force every active alias light so a dark browser preference cannot leak to paper. */
     --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #d4d4d4 */
     --print-accent-midground: hsl(0deg, 0%, 72%, 100%); /* #b8b8b8 */
     --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #595959 */

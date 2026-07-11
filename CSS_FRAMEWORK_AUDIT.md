@@ -281,3 +281,7 @@ These changes affect the visible defaults and, in the nesting case, the compatib
 | 13. Legacy normalization and logical sizing | `750e300`, `4fdbbe5` |
 | 14. Documentation and style guide | `ce777bf` |
 | Behavioral and Playwright coverage | `fa750b1`, `7c95410` |
+
+## Post-audit simplification
+
+The framework now treats the browser's `prefers-color-scheme` value as the only light/dark source of truth. The generated `.light-mode`/`.dark-mode` selectors, JavaScript theme state, and demo toggle were removed so browser and operating-system preferences cannot disagree with site-local state. The README documents Firefox's built-in website appearance control, device appearance settings, and Dark Reader as an optional color-transforming fallback for per-site overrides.

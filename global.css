@@ -47,14 +47,6 @@ html {
   scroll-padding-block-start: 4rem;
 }
 
-.dark-mode:not(.light-mode) .top-bar {
-  background-color: hsl(0deg 0% 12% / 75%);
-
-  &:hover {
-    box-shadow: 0 2px 10px 0 hsl(0deg 0% 5% / 20%);
-  }
-}
-
 .top-bar-link {
   font-weight: 400;
   color: var(--accent-foreground);
@@ -69,7 +61,7 @@ html {
 
 @media (width <= 32rem) {
   .top-bar {
-    /* Reveal more controls before horizontal scrolling becomes necessary. */
+    /* Reveal more type controls before horizontal scrolling becomes necessary. */
     gap: 0.5rem;
   }
 
@@ -154,6 +146,17 @@ footer a {
   animation-fill-mode: both;
 }
 
-:not(.light-mode).dark-mode .dark-icon {
-  filter: invert(95%);
+/* Keep demo-only chrome on the same browser preference as the framework tokens. */
+@media (prefers-color-scheme: dark) {
+  .top-bar {
+    background-color: hsl(0deg 0% 12% / 75%);
+
+    &:hover {
+      box-shadow: 0 2px 10px 0 hsl(0deg 0% 5% / 20%);
+    }
+  }
+
+  .dark-icon {
+    filter: invert(95%);
+  }
 }

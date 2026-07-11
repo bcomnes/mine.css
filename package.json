@@ -23,7 +23,6 @@
     "npm-run-all2": "^9.0.0",
     "postcss": "^8.0.9",
     "postcss-cli": "^11.0.0",
-    "postcss-dark-theme-class": "^2.0.0",
     "postcss-import": "^16.0.0",
     "releasearoni": "^0.2.0",
     "stylelint": "^17.4.0",

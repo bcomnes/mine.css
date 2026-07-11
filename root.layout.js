@@ -24,6 +24,8 @@ export default async function RootLayout ({
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Let built-in controls and the initial canvas adopt the browser preference before CSS loads. -->
+        <meta name="color-scheme" content="light dark">
         <title>${title ? `${title} | ` : ''}${siteName}</title>
         ${scripts
           ? scripts.map(script => html`<script src="${script}" type='module'></script>`)
@@ -38,8 +40,6 @@ export default async function RootLayout ({
             <a href="/">mine.css</a>
           </div>
           <a class="top-bar-link" href="/guide/">guide</a>
-          <!-- Keep theme switching reachable before optional type controls overflow. -->
-          <span class="top-bar-link"><input class="dark-icon" onclick="toggleTheme()" type="image" alt="Toggle theme" height="14" width="14" src="/light-dark.svg"></span>
           <a class="top-bar-link sans style-sans current-page">sans</a>
           <a class="top-bar-link serif style-serif">serif</a>
           <a class="top-bar-link round style-round">round</a>

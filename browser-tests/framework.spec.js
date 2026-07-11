@@ -40,12 +40,9 @@ for (const viewport of viewports) {
   })
 }
 
-test('switches an automatic dark theme to explicit light', async ({ page, siteURL }) => {
+test('follows the browser color-scheme preference', async ({ page, siteURL }) => {
   await page.emulateMedia({ colorScheme: 'dark' })
   await gotoGuide(page, siteURL)
-
-  const root = page.locator('html')
-  await expect(root).toHaveClass(/dark-mode/)
 
   const darkTokens = await page.evaluate(() => {
     const styles = getComputedStyle(document.documentElement)
@@ -58,9 +55,9 @@ test('switches an automatic dark theme to explicit light', async ({ page, siteUR
   })
   expect(darkTokens.layer).toBe('transparent')
   expect(darkTokens.keyBackground).toContain('linear-gradient')
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
 
-  await page.getByRole('button', { name: 'Toggle theme' }).click()
-  await expect(root).toHaveClass(/light-mode/)
+  await page.emulateMedia({ colorScheme: 'light' })
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
 })
 
@@ -117,23 +114,23 @@ test('keeps mobile navigation usable around anchored content', async ({ page, si
   const geometry = await page.evaluate(() => {
     const nav = document.querySelector('nav')
     const target = document.querySelector('#input-types')
-    const themeToggle = document.querySelector('[alt="Toggle theme"]')
-    if (!nav || !target || !themeToggle) throw new Error('Navigation fixtures are missing')
+    const roundControl = document.querySelector('.style-round')
+    if (!nav || !target || !roundControl) throw new Error('Navigation fixtures are missing')
 
-    const themeBounds = themeToggle.getBoundingClientRect()
+    const roundBounds = roundControl.getBoundingClientRect()
 
     return {
       navBottom: nav.getBoundingClientRect().bottom,
       navHeight: nav.getBoundingClientRect().height,
       targetTop: target.getBoundingClientRect().top,
-      themeLeft: themeBounds.left,
-      themeRight: themeBounds.right,
+      roundLeft: roundBounds.left,
+      roundRight: roundBounds.right,
       viewportWidth: document.documentElement.clientWidth
     }
   })
 
   expect(geometry.navHeight).toBeLessThanOrEqual(64)
   expect(geometry.targetTop).toBeGreaterThanOrEqual(geometry.navBottom)
-  expect(geometry.themeLeft).toBeGreaterThanOrEqual(0)
-  expect(geometry.themeRight).toBeLessThanOrEqual(geometry.viewportWidth)
+  expect(geometry.roundLeft).toBeGreaterThanOrEqual(0)
+  expect(geometry.roundRight).toBeLessThanOrEqual(geometry.viewportWidth)
 })

@@ -1,7 +1,4 @@
-import { toggleTheme, toggleType } from './src/theme-switcher.js'
-
-const siteWindow = /** @type {Window & typeof globalThis & { toggleTheme: typeof toggleTheme }} */ (window)
-siteWindow.toggleTheme = toggleTheme
+import { toggleType } from './src/theme-switcher.js'
 
 const page = requiredElement('body')
 const sansButton = requiredElement('.style-sans')

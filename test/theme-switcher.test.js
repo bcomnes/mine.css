@@ -3,7 +3,7 @@ import test from 'node:test'
 
 test('module imports without browser globals', async () => {
   const module = await import(`../src/theme-switcher.js?server=${Date.now()}`)
-  assert.equal(typeof module.toggleTheme, 'function')
+  assert.equal('toggleTheme' in module, false)
   assert.equal(typeof module.toggleType, 'function')
 })
 
@@ -18,13 +18,7 @@ test('toggleType cycles a custom storage key', async () => {
       }
     }
   }
-  const mediaQuery = {
-    matches: false,
-    addEventListener () {}
-  }
-
   globalThis.window = {
-    matchMedia: () => mediaQuery,
     sessionStorage: {
       getItem: key => values.get(key) ?? null,
       setItem: (key, value) => values.set(key, value)

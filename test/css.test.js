@@ -4,6 +4,7 @@ import test from 'node:test'
 
 const variables = await readFile(new URL('../src/variables.css', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../src/layout.css', import.meta.url), 'utf8')
+const distribution = await readFile(new URL('../dist/mine.css', import.meta.url), 'utf8')
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
 
 function hslToken (name) {
@@ -61,6 +62,12 @@ test('print declares a complete light-facing palette', () => {
     assert.match(print, new RegExp(`--${token}:`), `Print is missing --${token}`)
   }
   assert.match(print, /color-scheme: light;/)
+})
+
+test('color schemes only follow the browser preference', () => {
+  assert.match(variables, /@media \(prefers-color-scheme: dark\)/)
+  assert.doesNotMatch(distribution, /\.(?:dark|light)-mode/)
+  assert.equal('postcss-dark-theme-class' in packageJson.devDependencies, false)
 })
 
 test('typography and layout remain bounded', () => {

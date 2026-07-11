@@ -67,9 +67,9 @@ If your bundler implements package.json `exports` resolution, you can explicitly
 
 ```js
 /* esbuild js */
-import { toggleTheme } from 'mine.css/dist/theme-switcher.js';
+import { toggleType } from 'mine.css/dist/theme-switcher.js';
 /* or */
-import { toggleTheme } from 'mine.css';
+import { toggleType } from 'mine.css';
 ```
 
 ## Usage
@@ -80,6 +80,7 @@ import { toggleTheme } from 'mine.css';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <title>Hello World</title>
     <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
   </head>
@@ -207,8 +208,7 @@ If you want to implement other styles that follow the light/dark mode pattern in
 The theme agnostic variables are as follows:
 
 ```css
-:root,
-.light-mode {
+:root {
   /* main colors */
   --text: var(--light-text);
   --background: var(--light-background);
@@ -225,61 +225,53 @@ The theme agnostic variables are as follows:
   --code-border: var(--light-code-border);
 }
 
-.dark-mode {
-  /* main colors */
-  --text: var(--dark-text);
-  --background: var(--dark-background);
-  --layer-background: var(--dark-layer-background);
-  --accent-background: var(--dark-accent-background);
-  --accent-midground: var(--dark-accent-midground);
-  --accent-foreground: var(--dark-accent-foreground);
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* main colors */
+    --text: var(--dark-text);
+    --background: var(--dark-background);
+    --layer-background: var(--dark-layer-background);
+    --accent-background: var(--dark-accent-background);
+    --accent-midground: var(--dark-accent-midground);
+    --accent-foreground: var(--dark-accent-foreground);
 
-  /* misc colors */
-  --link-text: var(--dark-link-text);
-  --mark-background: var(--dark-mark-background);
-  --code-text: var(--dark-code-text);
-  --code-background: var(--dark-code-background);
-  --code-border: var(--dark-code-border);
+    /* misc colors */
+    --link-text: var(--dark-link-text);
+    --mark-background: var(--dark-mark-background);
+    --code-text: var(--dark-code-text);
+    --code-background: var(--dark-code-background);
+    --code-border: var(--dark-code-border);
+  }
 }
 ```
 
-## Overriding the system theme
+## Following the user's color preference
 
-If you want to allow users to switch between light and dark independently of the system theme, apply the `.light-mode` or `.dark-mode` class to the document root.
+`mine.css` deliberately follows the browser's `prefers-color-scheme` value and does not provide JavaScript or class-based light/dark overrides. This keeps one source of truth: the preference the user has already chosen in their operating system or browser.
 
-There is a subtle relationship between the class and the system preference, so it is better to use the theme switcher script ([./src/theme-switcher.js](./dist/theme-switcher.js)), which handles a user override while still following the system preference.
-
-Usage:
+Add the color-scheme metadata before your styles so browser-provided controls and the initial canvas can use the preferred palette immediately:
 
 ```html
-<script type="module">
-  import { toggleTheme } from 'https://unpkg.com/bcomnes/mine.css@^10.0.0?module';
-
-  window.toggleTheme = toggleTheme
-</script>
+<meta name="color-scheme" content="light dark">
 ```
 
-The `toggleTheme` export is exclusively offered as an ESM module.  If you need CJS, just vendor it.
-
-See [global.client.js](./global.client.js) and [root.layout.js](./root.layout.js) for this site's integration.
-
-Additionally, when using `theme-switcher.js`, you can easily target dark mode using the following selector:
-
-```css
-.dark-mode:not(.light-mode) {
-  /* additional dark mode styles go here */
-}
-```
-
-and the document root will stay in sync with the system preference or user override. Otherwise, define the corresponding styles in the dark-mode media query:
+Use the same media query for application-specific dark styles:
 
 ```css
 @media (prefers-color-scheme: dark) {
   :root {
-    /* duplicate your dark mode styles here if not using theme-switcher.js */
+    /* additional dark-mode styles */
   }
 }
 ```
+
+Users can control the preference without a site-specific toggle:
+
+- Firefox has a built-in **Settings → General → Language and Appearance → Website appearance** control with Automatic, Light, and Dark choices.
+- Chrome, Edge, Safari, and Firefox can follow the operating system or device appearance setting.
+- For a per-site override in browsers without a website-appearance control, [Dark Reader](https://darkreader.org/) supports Chrome, Firefox, Safari, and Edge. It analyzes and transforms page colors rather than changing `prefers-color-scheme`, so prefer the browser/OS setting when possible and use Dark Reader when you intentionally want that transformation.
+
+References: [MDN `prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-color-scheme), [Firefox website appearance](https://support.mozilla.org/en-US/kb/change-website-appearance-settings-firefox), [Chrome dark mode](https://support.google.com/chrome/answer/9275525), [Edge appearance](https://support.microsoft.com/en-us/edge/use-the-dark-theme-in-microsoft-edge), and [macOS Appearance](https://support.apple.com/guide/mac-help/use-a-light-or-dark-appearance-mchl52e1c2d2/mac).
 
 ## Dark mode images
 
