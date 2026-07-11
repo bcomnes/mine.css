@@ -13,21 +13,15 @@
     "Bret Comnes <bcomnes@gmail.com> (https://bret.io)"
   ],
   "devDependencies": {
-    "@domstack/static": "^11.0.2",
-    "auto-changelog": "^2.0.0",
-    "autoprefixer": "^10.0.1",
-    "cpx2": "^9.0.0",
+    "@domstack/static": "^11.0.3",
+    "auto-changelog": "^2.6.0",
+    "autoprefixer": "^10.5.2",
     "gh-release": "^8.1.0",
     "highlight.js": "^11.2.0",
-    "npm-run-all": "^4.1.5",
     "postcss": "^8.0.9",
-    "postcss-browser-reporter": "^0.7.0",
     "postcss-cli": "^11.0.0",
     "postcss-dark-theme-class": "^2.0.0",
-    "postcss-extend": "^1.0.5",
     "postcss-import": "^16.0.0",
-    "postcss-reporter": "^7.0.1",
-    "postcss-url": "^10.1.0",
     "stylelint": "^17.4.0",
     "stylelint-config-standard": "^40.0.0",
     "top-bar.css": "^3.0.0",
@@ -44,6 +38,11 @@
   "type": "module",
   "main": "dist/theme-switcher.js",
   "module": "dist/theme-switcher.js",
+  "overrides": {
+    "@domstack/static": {
+      "esbuild": "^0.28.1"
+    }
+  },
   "style": "dist/mine.css",
   "exports": {
     ".": {
@@ -59,24 +58,22 @@
     "url": "https://github.com/bcomnes/mine.css.git"
   },
   "scripts": {
-    "build": "run-s clean build:*",
+    "build": "npm run clean && npm run build:mine.css && npm run build:layout.css && npm run build:js && npm run build:site",
     "build:mine.css": "postcss src/index.css -o dist/mine.css",
     "build:layout.css": "postcss src/layout.css -o dist/layout.css",
-    "build:js": "cpx 'src/theme-switcher.js' dist",
+    "build:js": "cp src/theme-switcher.js dist/theme-switcher.js",
     "build:site": "dom --src . --dest public --ignore 'src,package.json,*.map'",
     "clean": "rm -rf 'dist/*' 'public/*' && mkdir -p dist public",
     "prepare": "npm run build",
     "prepublishOnly": "git push --follow-tags && gh-release -y",
-    "pretest": "run-s build",
+    "pretest": "npm run build",
     "start": "npm run watch",
-    "test": "run-s test:*",
+    "test": "npm run test:stylelint",
     "test:stylelint": "stylelint 'src/**/*.css' global.css",
-    "version": "run-s prepare version:*",
+    "version": "npm run prepare && npm run version:changelog && npm run version:git",
     "version:changelog": "auto-changelog -p --template keepachangelog auto-changelog --breaking-pattern 'BREAKING CHANGE:'",
     "version:git": "git add CHANGELOG.md dist",
-    "watch": "npm run clean && run-p build:mine.css build:layout.css && run-p watch:*",
-    "watch:site": "npm run build:site -- -w",
-    "watch:mine.css": "run-s 'build:mine.css -- --watch'",
-    "watch:layout.css": "run-s 'build:layout.css -- --watch'"
+    "watch": "npm run clean && (npm run build:mine.css -- --watch & npm run build:layout.css -- --watch & npm run watch:site & wait)",
+    "watch:site": "npm run build:site -- -w"
   }
 }

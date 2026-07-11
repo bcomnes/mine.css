@@ -151,10 +151,17 @@ body {
 }
 /* apply a natural box layout model to all elements, but allowing components to change
    https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 500;
   line-height: 1.25;
   margin-block: 2rem 1.25rem;
@@ -192,14 +199,18 @@ a {
     outline-offset: 2px;
   }
 
-  &:active, &:focus, &:hover { text-decoration-thickness: 0.12em; }
+  &:active,
+  &:focus,
+  &:hover { text-decoration-thickness: 0.12em; }
 }
-ul, ol {
+ul,
+ol {
   padding-inline-start: 2em;
 
   & ol { list-style-type: lower-roman; }
 
-  & ul, & ol {
+  & ul,
+  & ol {
     margin-top: 0;
     margin-bottom: 0;
 
@@ -216,7 +227,8 @@ blockquote {
   & > :first-child { margin-top: 0; }
   & > :last-child { margin-bottom: 0; }
 }
-b, strong {
+b,
+strong {
   font-weight: 600;
 }
 mark {
@@ -225,7 +237,8 @@ mark {
 }
 /* Prevent `sub` and `sup` elements from affecting the line height in
    all browsers. */
-sub, sup {
+sub,
+sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
@@ -235,7 +248,10 @@ sub { bottom: -0.25em; }
 sup { top: -0.5em; }
 /* 1. Correct the inheritance and scaling of font size in all browsers.
    2. Correct the odd `em` font sizing in all browsers. */
-code, pre, kbd, samp {
+code,
+pre,
+kbd,
+samp {
   font-family: var(--font-code); /* 1 */
   font-size: 90%; /* 2 */
   color: var(--code-text);
@@ -244,12 +260,14 @@ code {
   padding: 0.2em 0.4em;
   margin: 0;
 }
-pre, code {
+pre,
+code {
   background-color: var(--code-background);
   border-radius: 5px;
 }
 a code { color: var(--link-text); }
-pre, samp { color: var(--code-text); }
+pre,
+samp { color: var(--code-text); }
 pre {
   overflow: auto;
   overflow-wrap: normal;
@@ -264,7 +282,8 @@ pre {
     overflow-wrap: normal;
     border-radius: unset;
 
-    &::before, &::after { content: normal; }
+    &::before,
+    &::after { content: normal; }
   }
 
   & > code {
@@ -288,7 +307,8 @@ kbd {
   margin: 0 1px;
   padding: 5px 5px 1px;
 }
-td, th { padding: 0; }
+td,
+th { padding: 0; }
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -297,7 +317,8 @@ table {
   overflow: auto;
   word-break: keep-all;
 
-  & th, & td {
+  & th,
+  & td {
     padding: 6px 13px;
     border: 1px solid var(--accent-midground);
   }
@@ -325,14 +346,16 @@ img {
 figure {
   margin-block: 1em;
 
-  & img, & video {
+  & img,
+  & video {
     background: var(--layer-background);
     border: 1px solid var(--accent-midground);
     border-radius: 5px;
     padding: 0.25em;
   }
 
-  &.borderless img, &.borderless video {
+  &.borderless img,
+  &.borderless video {
     border: none;
     padding: 0;
   }
@@ -365,7 +388,13 @@ dl {
   }
 }
 /* same margins for all typographic block elements */
-p, blockquote, ul, ol, dl, table, pre {
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
   margin-top: 0;
   margin-bottom: 1.25em;
 }
@@ -383,7 +412,19 @@ input[type="search"] {
     height: 20px;
     width: 20px;
 }
-textarea, input[type="date"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"] {
+textarea,
+input[type="date"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"] {
   border-color: var(--accent-midground);
   border-radius: 5px;
   border-width: 2px;
@@ -435,7 +476,10 @@ fieldset {
   border-width: 2px;
   border-color: var(--accent-midground);
 }
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   color: inherit;
   font: inherit;
 }
