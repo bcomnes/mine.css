@@ -4,6 +4,8 @@ Audit date: 2026-07-10
 Reviewed commit: `3e423a0` (`master`)  
 Scope: framework CSS, optional layout CSS, theme/type switcher, generated distribution, style guide, documentation, package contents, and build/test setup.
 
+> Resolution status: all findings below describe the audited base commit. They have been addressed on `bret/lean-modern-cleanup`; the mapping at the end of this report records the implementation commits.
+
 ## Executive summary
 
 `mine.css` is pleasantly small and easy to follow. Its source organization, central theme tokens, restrained selector specificity, readable measure, responsive images, scrollable code/tables, and reliance on native controls are all good foundations.
@@ -259,3 +261,23 @@ These changes affect the visible defaults and, in the nesting case, the compatib
 - The 320px and 2560px style-guide checks had no page-level horizontal overflow when both `mine.css` and `layout.css` were loaded.
 - The browser check did confirm the invalid dark layer token and missing `kbd` gradient.
 - Existing working-tree changes to `dist/mine.css` and `dist/mine.css.map` were present before this audit; this report does not propose treating them as audit edits.
+
+## Resolution map
+
+| Finding | Resolution commit |
+| --- | --- |
+| 1. Invalid dark layer token | `39e8699` |
+| 2. Theme contrast | `17fa854`, `07f907c` |
+| 3. Print palette | `a977982` |
+| 4. Custom type key | `f8c2db8` |
+| 5. Layout clipping | `b1391a2` |
+| 6. Safe-area and standalone layout | `332d1be` |
+| 7. Unbounded typography | `23e9976` |
+| 8. Browser contract | `99b45ab` |
+| 9. Form typography, focus, and narrow inputs | `d1607a8`, `3a9ec30` |
+| 10. Package contents | `238a51b` |
+| 11. Toolchain security and reproducibility | `5d6037e`, `6a8cf82` |
+| 12. Preformatted text color | `cbb0e66` |
+| 13. Legacy normalization | `750e300` |
+| 14. Documentation and style guide | `ce777bf` |
+| Behavioral coverage | `fa750b1` |
