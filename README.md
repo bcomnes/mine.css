@@ -27,6 +27,10 @@ Some differences from [style.css][style]:
 - Minor stylistic differences
 - [CHANGELOG.md](./CHANGELOG.md)
 
+## Browser support
+
+The distributed stylesheet uses native CSS nesting. The package's Browserslist contract is `supports css-nesting`; older browsers should use a separately transpiled build.
+
 ## Install
 
 [![download style.css][dl-sans-img]][dl-sans-url]
@@ -41,7 +45,7 @@ Some differences from [style.css][style]:
 
 ```html
 <!-- CDN Production (specific release) -->
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^4.0.0">
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
 ```
 
 ```sh
@@ -77,7 +81,7 @@ import { toggleTheme } from 'mine.css';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello World</title>
-    <link rel="stylesheet" href="https://unpkg.com/mine.css@^4.0.0">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
   </head>
   <body>
     <h1>Hooray!</h1>
@@ -108,8 +112,7 @@ You can override defaults directly with CSS variables. Here are the default vari
   --font-code: var(--system-mono);
 
   /* font size and spacing */
-  --font-size-body: 14px;
-  --font-size-scale: 0.25vw;
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.125rem);
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */
@@ -117,27 +120,27 @@ You can override defaults directly with CSS variables. Here are the default vari
   --line-height-pre: 1.45;
 
   /* light colors */
-  --light-text: hsla(0, 0%, 7%, 1); /* #111 */
+  --light-text: hsl(0deg, 0%, 7%, 100%); /* #111 */
   --light-background: white;
-  --light-layer-background: hsla(0, 0%, 100%, 0); /* #fff */
-  --light-accent-background: hsla(0, 0%, 95%, 1); /* #f2f2f2 */
-  --light-accent-midground: hsla(0, 0%, 84%, 1); /* #d6d6d6 */
-  --light-accent-foreground: hsla(0, 0%, 49%, 1); /* #7d7d7d */
-  --light-link-text: hsla(208, 100%, 50%, 1); /* #08f */
-  --light-mark-background: hsla(60, 100%, 50%, 1); /* #ff0 */
+  --light-layer-background: hsl(0deg, 0%, 100%, 0%);
+  --light-accent-background: hsl(0deg, 0%, 95%, 100%); /* #f2f2f2 */
+  --light-accent-midground: hsl(0deg, 0%, 46%, 100%); /* #757575 */
+  --light-accent-foreground: hsl(0deg, 0%, 40%, 100%); /* #666 */
+  --light-link-text: hsl(210deg, 100%, 40%, 100%); /* #06c */
+  --light-mark-background: hsl(60deg, 100%, 50%, 100%); /* #ff0 */
   --light-code-text: var(--light-text);
   --light-code-background: var(--light-accent-background);
   --light-code-border: var(--light-accent-midground);
 
   /* dark colors */
   --dark-text: white;
-  --dark-background: hsla(0, 0%, 12%, 1); /* #1f1f1f from safari */
-  --dark-layer-background: var(--transparent);
-  --dark-accent-background: hsla(0, 0%, 20%, 1); /* #333 */
-  --dark-accent-midground: hsla(0, 0%, 30%, 1); /* #4d4d4d */
-  --dark-accent-foreground: hsla(0, 0%, 60%, 1); /* #999 */
-  --dark-link-text: hsl(206, 100%, 70%); /* #66bdff */
-  --dark-mark-background: hsla(58, 66%, 30%, 1); /* #7f7c1a */
+  --dark-background: hsl(0deg, 0%, 12%, 100%); /* #1f1f1f */
+  --dark-layer-background: transparent;
+  --dark-accent-background: hsl(0deg, 0%, 20%, 100%); /* #333 */
+  --dark-accent-midground: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
+  --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
+  --dark-link-text: hsl(206deg, 100%, 70%, 100%); /* #66bdff */
+  --dark-mark-background: hsl(58deg, 66%, 30%, 100%); /* #7f7c1a */
   --dark-code-text: var(--dark-text);
   --dark-code-background: var(--dark-accent-background);
   --dark-code-border: var(--dark-accent-midground);
@@ -152,7 +155,7 @@ You can override settings like so:
 @import 'mine.css';
 
 :root {
-  --font-size-body: 14px;
+  --font-size-body: 1rem;
 }
 ```
 
@@ -171,8 +174,8 @@ If you want to use the font stacks to override global font settings, you can do 
 To customize colors, override the color variable for dark and light mode:
 
 ```css
-:root{
-  --light-text: red
+:root {
+  --light-text: red;
   --light-background: blue;
 
   --dark-text: blue;
@@ -185,7 +188,7 @@ If you want to implement other styles that follow the light/dark mode pattern in
 
 ```css
 .some-class {
-  color: var(--accent-foreground)
+  color: var(--accent-foreground);
 }
 ```
 
@@ -226,25 +229,19 @@ The theme agnostic variables are as follows:
   --code-background: var(--dark-code-background);
   --code-border: var(--dark-code-border);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    @extend .dark-mode; /* stylelint-disable-line at-rule-no-unknown */
-  }
-}
 ```
 
 ## Overriding the system theme
 
-If you want to allow users to switch between light and dark, indipendent of the system theme, you can apply the `.light-mode` or `.dark-mode` class the the document body.
+If you want to allow users to switch between light and dark independently of the system theme, apply the `.light-mode` or `.dark-mode` class to the document root.
 
-Thought there is a subtle relationship between the class and the system preference, so it is better to use the theme switcher script ([./src/theme-switcher.js](./dist/theme-switcher.js)) which handles user preference while still following the system preference.
+There is a subtle relationship between the class and the system preference, so it is better to use the theme switcher script ([./src/theme-switcher.js](./dist/theme-switcher.js)), which handles a user override while still following the system preference.
 
 Usage:
 
 ```html
 <script type="module">
-  import { toggleTheme } from 'https://unpkg.com/bcomnes/mine.css@^4.0.0?module';
+  import { toggleTheme } from 'https://unpkg.com/bcomnes/mine.css@^10.0.0?module';
 
   window.toggleTheme = toggleTheme
 </script>
@@ -252,7 +249,7 @@ Usage:
 
 The `toggleTheme` export is exclusively offered as an ESM module.  If you need CJS, just vendor it.
 
-See [./site/](./site/) for examples of this in action.
+See [global.client.js](./global.client.js) and [root.layout.js](./root.layout.js) for this site's integration.
 
 Additionally, when using `theme-switcher.js`, you can easily target dark mode using the following selector:
 
@@ -262,7 +259,7 @@ Additionally, when using `theme-switcher.js`, you can easily target dark mode us
 }
 ```
 
-and the body tag will stay in sync with the system preferenc or user override.  Otherwise you need to define duplicate css rules in the dark mode media query:
+and the document root will stay in sync with the system preference or user override. Otherwise, define the corresponding styles in the dark-mode media query:
 
 ```css
 @media (prefers-color-scheme: dark) {
@@ -287,19 +284,19 @@ See [this webkit blogpost](https://webkit.org/blog/8840/dark-mode-support-in-web
 
 ## Layout
 
-`mine.css` doesn't include any layout css, thought it does ship a simple layout css file that provides basic layout for a page and supports [`safe-area` that accommodates cell phone notches and whatnot](https://webkit.org/blog/7929/designing-websites-for-iphone-x/).
+`mine.css` does not include page layout by default, but it ships a small companion stylesheet with a readable document measure and safe-area support for notched displays.
 
 ```html
 <!-- CDN Production (specific release) -->
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^4.0.0/dist/layout.css">
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/layout.css">
 ```
 
 You can see this layout style in action on the [`mine.css`][guide] website.
 
 The two classes are:
 
-- `safe-area-inset`: This should typically be applied to `body`.  This enables mobile notch padding when nessisary.
-- `mine-layout`: Simple, responsive margins for a document.  Apply to the content body or whereever else you want a nice default margin.
+- `safe-area-inset`: Adds at least a `1em` inline gutter and expands it where a device safe area requires more room.
+- `mine-layout`: Provides a self-contained, responsive document measure. Apply it to the main content container.
 
 ## Thanks
 
@@ -307,7 +304,7 @@ The two classes are:
 
 ## License
 
-[ISC](LICENSE)
+[MIT](LICENSE)
 
 [style]: https://css-pkg.github.io/style.css/
 [style-gh]: https://github.com/css-pkg/style.css
