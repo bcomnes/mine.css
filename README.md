@@ -131,7 +131,8 @@ You can override defaults directly with CSS variables. Here are the default vari
   --light-background: white;
   --light-layer-background: hsl(0deg, 0%, 100%, 0%);
   --light-accent-background: hsl(0deg, 0%, 95%, 100%); /* #f2f2f2 */
-  --light-accent-midground: hsl(0deg, 0%, 46%, 100%); /* #757575 */
+  --light-accent-midground: hsl(0deg, 0%, 84%, 100%); /* #d6d6d6 */
+  --light-control-border: hsl(0deg, 0%, 58%, 100%); /* #949494 */
   --light-accent-foreground: hsl(0deg, 0%, 40%, 100%); /* #666 */
   --light-link-text: hsl(210deg, 100%, 45%, 100%); /* #0073e6 */
   --light-mark-background: hsl(60deg, 100%, 50%, 100%); /* #ff0 */
@@ -144,7 +145,8 @@ You can override defaults directly with CSS variables. Here are the default vari
   --dark-background: hsl(0deg, 0%, 12%, 100%); /* #1f1f1f */
   --dark-layer-background: transparent;
   --dark-accent-background: hsl(0deg, 0%, 20%, 100%); /* #333 */
-  --dark-accent-midground: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
+  --dark-accent-midground: hsl(0deg, 0%, 30%, 100%); /* #4d4d4d */
+  --dark-control-border: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
   --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
   --dark-link-text: hsl(206deg, 100%, 70%, 100%); /* #66bdff */
   --dark-mark-background: hsl(58deg, 66%, 30%, 100%); /* #7f7c1a */
@@ -210,6 +212,7 @@ The theme agnostic variables are as follows:
   --accent-background: var(--light-accent-background);
   --accent-midground: var(--light-accent-midground);
   --accent-foreground: var(--light-accent-foreground);
+  --control-border: var(--light-control-border);
 
   /* misc colors */
   --link-text: var(--light-link-text);
@@ -228,6 +231,7 @@ The theme agnostic variables are as follows:
     --accent-background: var(--dark-accent-background);
     --accent-midground: var(--dark-accent-midground);
     --accent-foreground: var(--dark-accent-foreground);
+    --control-border: var(--dark-control-border);
 
     /* misc colors */
     --link-text: var(--dark-link-text);

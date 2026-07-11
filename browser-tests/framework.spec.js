@@ -54,8 +54,12 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
     const styles = getComputedStyle(document.documentElement)
     const key = document.querySelector('kbd')
     const highlightedCode = document.querySelector('.hljs')
-    if (!key || !highlightedCode) throw new Error('Color-scheme fixtures are missing')
+    const textInput = document.querySelector('input[type="text"]')
+    const codeBlock = document.querySelector('pre')
+    if (!key || !highlightedCode || !textInput || !codeBlock) throw new Error('Color-scheme fixtures are missing')
     return {
+      codeBorder: getComputedStyle(codeBlock).borderColor,
+      controlBorder: getComputedStyle(textInput).borderColor,
       layer: styles.getPropertyValue('--dark-layer-background').trim(),
       keyBackground: getComputedStyle(key).backgroundImage,
       highlightedColor: getComputedStyle(highlightedCode).color,
@@ -63,6 +67,8 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
     }
   })
   expect(darkTokens.layer).toBe('transparent')
+  expect(darkTokens.codeBorder).toBe('rgb(77, 77, 77)')
+  expect(darkTokens.controlBorder).toBe('rgb(107, 107, 107)')
   expect(darkTokens.keyBackground).toContain('linear-gradient')
   expect(darkTokens.highlightedColor).toBe('rgb(173, 186, 199)')
   expect(darkTokens.highlightedBackground).toBe('rgb(34, 39, 46)')
@@ -70,6 +76,8 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
 
   await page.emulateMedia({ colorScheme: 'light' })
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+  await expect(page.locator('pre').first()).toHaveCSS('border-color', 'rgb(214, 214, 214)')
+  await expect(page.locator('input[type="text"]').first()).toHaveCSS('border-color', 'rgb(148, 148, 148)')
   await expect(page.locator('.hljs').first()).toHaveCSS('color', 'rgb(36, 41, 46)')
   await expect(page.locator('.hljs').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)')
 })
@@ -164,6 +172,32 @@ test('keeps keyboard focus visible', async ({ page, siteURL }) => {
   await expect(navigationLink).toBeFocused()
   await expect(navigationLink).toHaveCSS('outline-style', 'solid')
   await expect(navigationLink).toHaveCSS('outline-width', '2px')
+})
+
+test('keeps browser-native button metrics', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+  const metrics = await page.evaluate(() => {
+    const bodyStyles = getComputedStyle(document.body)
+    const controls = [
+      document.querySelector('button'),
+      document.querySelector('input[type="button"]'),
+      document.querySelector('input[type="reset"]'),
+      document.querySelector('input[type="submit"]')
+    ]
+    if (controls.some(control => !control)) throw new Error('Button fixtures are missing')
+    return {
+      bodyFontSize: bodyStyles.fontSize,
+      controls: controls.map(control => {
+        const styles = getComputedStyle(control)
+        return { fontSize: styles.fontSize, lineHeight: styles.lineHeight }
+      })
+    }
+  })
+
+  for (const control of metrics.controls) {
+    expect(control.fontSize).not.toBe(metrics.bodyFontSize)
+    expect(control.lineHeight).toBe('normal')
+  }
 })
 
 test('keeps mobile navigation usable around anchored content', async ({ page, siteURL }) => {
