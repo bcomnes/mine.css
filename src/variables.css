@@ -32,7 +32,7 @@
   --dark-background: hsl(0deg, 0%, 12%, 100%); /* #1f1f1f from safari */
   --dark-layer-background: transparent;
   --dark-accent-background: hsl(0deg, 0%, 20%, 100%); /* #333 */
-  --dark-accent-midground: hsl(0deg, 0%, 40%, 100%); /* #666 */
+  --dark-accent-midground: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
   --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
   --dark-link-text: hsl(206deg, 100%, 70%); /* #66bdff */
   --dark-mark-background: hsl(58deg, 66%, 30%, 100%); /* #7f7c1a */
