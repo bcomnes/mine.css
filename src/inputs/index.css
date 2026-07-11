@@ -2,6 +2,7 @@
 @import url("./label.css");
 @import url("./fieldset.css");
 
+/* Keep native controls in the active sans/serif/round type scheme. */
 button,
 input,
 select,
@@ -11,6 +12,7 @@ textarea {
 }
 
 input {
+  /* Fixed-size controls must still fit inside narrow document gutters. */
   max-inline-size: 100%;
 
   &.block {

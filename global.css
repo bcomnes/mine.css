@@ -11,6 +11,7 @@ $top-bar-family: $system-sans;
 
 @view-transition { navigation: auto; }
 
+/* Keep the compact controls on one scrollable row instead of growing a tall header. */
 .top-bar {
   align-items: center;
   font-family: inherit;
@@ -42,6 +43,7 @@ $top-bar-family: $system-sans;
 }
 
 html {
+  /* Hash targets should land below the sticky navigation. */
   scroll-padding-block-start: 4rem;
 }
 
@@ -76,12 +78,14 @@ footer a {
 }
 
 @media print {
+  /* Site chrome is useful on screen but wastes space and ink on paper. */
   .top-bar,
   footer {
     display: none;
   }
 
   .hljs {
+    /* The screen demo uses a dark highlighter theme; print code stays monochrome. */
     color: inherit;
     background: transparent;
   }

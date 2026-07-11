@@ -1,6 +1,9 @@
 .mine-layout {
+  /* Stay standalone: padding must not depend on mine.css supplying border-box. */
   box-sizing: border-box;
   inline-size: 100%;
+
+  /* A bounded measure matters more for reading than filling a wide viewport. */
   max-inline-size: 46em;
   margin-block: 2em;
   margin-inline: auto;
@@ -8,6 +11,7 @@
   overflow-wrap: break-word;
 }
 
+/* Avoid adding empty space at the document wrapper's outer edges. */
 .mine-layout > *:first-child { margin-block-start: 0 !important; }
 .mine-layout > *:last-child { margin-block-end: 0 !important; }
 

@@ -1,4 +1,5 @@
 a {
+  /* Links remain identifiable without relying on color perception alone. */
   text-decoration-skip-ink: auto;
   color: var(--link-text);
   text-decoration: underline;
@@ -6,6 +7,7 @@ a {
   text-underline-offset: 0.15em;
 
   &:focus-visible {
+    /* Use an outline instead of changing layout or clipping the focus indicator. */
     outline: 2px solid currentcolor;
     outline-offset: 2px;
   }

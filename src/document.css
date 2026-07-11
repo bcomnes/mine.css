@@ -1,5 +1,4 @@
-/* html should be at the top */
-
+/* Establish the public typography and box model before component rules consume it. */
 html {
   box-sizing: border-box;
   font-family: var(--font-body);
@@ -7,14 +6,14 @@ html {
   line-height: var(--line-height-body);
 }
 
-/* Remove the margin in all browsers. */
+/* Let the optional layout stylesheet own page gutters instead of browser defaults. */
 body {
   margin: 0;
   background-color: var(--background);
   color: var(--text);
 }
 
-/* apply a natural box layout model to all elements, but allowing components to change
+/* Inherit border-box so components can opt into another model when they need one.
    https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
 *,
 *::before,

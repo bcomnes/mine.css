@@ -19,6 +19,8 @@
   --light-background: white;
   --light-layer-background: hsl(0deg, 0%, 100%, 0%); /* #fff */
   --light-accent-background: hsl(0deg, 0%, 95%, 100%); /* #f2f2f2 */
+
+  /* Midground doubles as the control boundary, so it must retain 3:1 contrast. */
   --light-accent-midground: hsl(0deg, 0%, 46%, 100%); /* #757575 */
   --light-accent-foreground: hsl(0deg, 0%, 40%, 100%); /* #666 */
   --light-link-text: hsl(210deg, 100%, 40%, 100%); /* #06c */
@@ -32,6 +34,8 @@
   --dark-background: hsl(0deg, 0%, 12%, 100%); /* #1f1f1f from safari */
   --dark-layer-background: transparent;
   --dark-accent-background: hsl(0deg, 0%, 20%, 100%); /* #333 */
+
+  /* Keep dark control boundaries distinct from the page and input backgrounds. */
   --dark-accent-midground: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
   --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
   --dark-link-text: hsl(206deg, 100%, 70%); /* #66bdff */
@@ -40,7 +44,7 @@
   --dark-code-background: var(--dark-accent-background);
   --dark-code-border: var(--dark-accent-midground);
 
-  /* Light mode */
+  /* Semantic aliases default to light and are rebound by media/class overrides. */
 
   /* main colors */
   --text: var(--light-text);
@@ -83,6 +87,7 @@
 
 @media print {
   :root {
+    /* Force every active alias light so an explicit dark class cannot leak to paper. */
     --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #d4d4d4 */
     --print-accent-midground: hsl(0deg, 0%, 72%, 100%); /* #b8b8b8 */
     --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #595959 */

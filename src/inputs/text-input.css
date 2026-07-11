@@ -2,6 +2,7 @@ input[type="search"] {
   appearance: textfield;
 }
 
+/* Recolor the WebKit clear affordance without replacing its native behavior. */
 [type="search"]::-webkit-search-cancel-button {
     appearance: none;
     background-color: var(--accent-foreground);
@@ -24,6 +25,7 @@ input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"] {
+  /* The boundary remains visible in both palettes; focus gets a separate outline. */
   border-color: var(--accent-midground);
   border-radius: 5px;
   border-width: 2px;
@@ -40,7 +42,7 @@ input[type="week"] {
   }
 
   &:disabled {
-    /* Form disabled */
+    /* Preserve legibility while making the non-interactive state visibly quieter. */
     background-color: var(--accent-background);
   }
 
