@@ -278,6 +278,6 @@ These changes affect the visible defaults and, in the nesting case, the compatib
 | 10. Package contents | `238a51b` |
 | 11. Toolchain security and reproducibility | `5d6037e`, `6a8cf82` |
 | 12. Preformatted text color | `cbb0e66` |
-| 13. Legacy normalization | `750e300` |
+| 13. Legacy normalization and logical sizing | `750e300`, `4fdbbe5` |
 | 14. Documentation and style guide | `ce777bf` |
 | Behavioral coverage | `fa750b1` |
