@@ -6,9 +6,8 @@
   --font-body: var(--system-sans);
   --font-code: var(--system-mono);
 
-  /* font size and spacing */
-  --font-size-body: 14px;
-  --font-size-scale: 0.25vw;
+  /* Respect the reader's default size while allowing a small, bounded scale. */
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.125rem);
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */

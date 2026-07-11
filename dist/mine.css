@@ -25,9 +25,8 @@
   --font-body: var(--system-sans);
   --font-code: var(--system-mono);
 
-  /* font size and spacing */
-  --font-size-body: 14px;
-  --font-size-scale: 0.25vw;
+  /* Respect the reader's default size while allowing a small, bounded scale. */
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.125rem);
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */
@@ -145,7 +144,7 @@
 html {
   box-sizing: border-box;
   font-family: var(--font-body);
-  font-size: calc(var(--font-size-body) + var(--font-size-scale));
+  font-size: var(--font-size-body);
   line-height: var(--line-height-body);
   font-kerning: normal;
   text-rendering: optimizelegibility;
@@ -458,7 +457,7 @@ textarea, input[type="date"], input[type="datetime-local"], input[type="email"],
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
-  font-size: calc(var(--font-size-body) + var(--font-size-scale));
+  font-size: var(--font-size-body);
   padding: 0.4em;
   color: var(--text);
   background-color: var(--background);
