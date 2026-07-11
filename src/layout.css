@@ -1,20 +1,20 @@
 .mine-layout {
-  width: 100%;
-  max-width: 46em;
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 46em;
   margin: 2em auto;
-  padding: 0 1em;
+  padding-inline: 1em;
   overflow-wrap: break-word;
 }
 
 .mine-layout > *:first-child { margin-top: 0 !important; }
 .mine-layout > *:last-child { margin-bottom: 0 !important; }
 
-/* Mobile gutter padding */
+/* Keep content clear of notches without discarding the ordinary gutter. */
 .safe-area-inset {
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  padding: env(safe-area-inset-top) max(1em, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(1em, env(safe-area-inset-left));
 }
 
-/* style.css site specific stuff */
-.serif { font-family: var(--system-serif); }
-.sans { font-family: var(--system-sans); }
-.round { font-family: var(--system-round); }
+.serif { font-family: var(--system-serif, ui-serif, serif); }
+.sans { font-family: var(--system-sans, system-ui, sans-serif); }
+.round { font-family: var(--system-round, ui-rounded, system-ui, sans-serif); }
