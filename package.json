@@ -50,7 +50,8 @@
   "overrides": {
     "@domstack/static": {
       "esbuild": "^0.28.1"
-    }
+    },
+    "glob": "^13.0.6"
   },
   "style": "dist/mine.css",
   "types": "dist/theme-switcher.d.ts",
