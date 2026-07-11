@@ -68,7 +68,7 @@ export function setType (querySelector, settingsKey = defaultTypeSetting) {
 setType('body')
 
 export function toggleType (querySelector, settingsKey = defaultTypeSetting) {
-  const typeScheme = window.sessionStorage.getItem('mine-type-scheme')
+  const typeScheme = window.sessionStorage.getItem(settingsKey)
 
   switch (typeScheme) {
     case 'sans': {
