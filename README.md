@@ -26,6 +26,7 @@ Some differences from [style.css][style]:
 - Use post-css build pipeline
 - Minor stylistic differences
 - [CHANGELOG.md](./CHANGELOG.md)
+- [Migrating from v10 to v11](./MIGRATION.md)
 
 ## Browser support
 

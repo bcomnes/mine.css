@@ -1,0 +1,4 @@
+interface:
+  display_name: "Migrate mine.css to v11"
+  short_description: "Upgrade sites and themes to mine.css v11"
+  default_prompt: "Use $migrate-mine-css-v11 to upgrade this project to mine.css v11 and verify the result."
