@@ -7,6 +7,13 @@ kbd {
   border: 1px solid var(--accent-midground);
   border-radius: 2px;
   box-shadow: 0 1px 0 var(--accent-midground); /* depth */
+
+  @media (prefers-color-scheme: dark) {
+    /* Keep the illuminated face above a real shadow in the dark palette. */
+    background-image: linear-gradient(var(--accent-background), var(--layer-background) 75%);
+    box-shadow: 0 1px 0 rgb(0 0 0 / 45%);
+  }
+
   color: var(--text);
   display: inline-block;
   line-height: 0.95em;

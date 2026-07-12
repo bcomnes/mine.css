@@ -6,6 +6,36 @@ async function gotoGuide (page, siteURL) {
   await page.goto(`${siteURL}/guide/`, { waitUntil: 'domcontentloaded' })
 }
 
+async function readThemePresentation (page) {
+  return page.evaluate(() => {
+    const toRgb = (value) => {
+      const canvas = document.createElement('canvas')
+      canvas.width = canvas.height = 1
+      const context = canvas.getContext('2d')
+      if (!context) throw new Error('Canvas context is unavailable')
+      context.fillStyle = value
+      context.fillRect(0, 0, 1, 1)
+      return [...context.getImageData(0, 0, 1, 1).data.slice(0, 3)]
+    }
+    const styles = getComputedStyle(document.documentElement)
+    const key = document.querySelector('kbd')
+    const highlightedCode = document.querySelector('.hljs')
+    const textInput = document.querySelector('input[type="text"]')
+    const codeBlock = document.querySelector('pre')
+    if (!key || !highlightedCode || !textInput || !codeBlock) throw new Error('Color-scheme fixtures are missing')
+    return {
+      codeBorder: toRgb(getComputedStyle(codeBlock).borderColor),
+      controlBorder: toRgb(getComputedStyle(textInput).borderColor),
+      controlShadow: getComputedStyle(textInput).boxShadow,
+      layer: styles.getPropertyValue('--dark-layer-background').trim(),
+      keyBackground: getComputedStyle(key).backgroundImage,
+      keyShadow: getComputedStyle(key).boxShadow,
+      highlightedColor: getComputedStyle(highlightedCode).color,
+      highlightedBackground: getComputedStyle(highlightedCode).backgroundColor
+    }
+  })
+}
+
 const viewports = [
   { name: 'phone', width: 320, height: 800, rootFont: '16px' },
   { name: 'wide desktop', width: 2560, height: 1000, rootFont: '18px' }
@@ -50,34 +80,24 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   await page.emulateMedia({ colorScheme: 'dark' })
   await gotoGuide(page, siteURL)
 
-  const darkTokens = await page.evaluate(() => {
-    const styles = getComputedStyle(document.documentElement)
-    const key = document.querySelector('kbd')
-    const highlightedCode = document.querySelector('.hljs')
-    const textInput = document.querySelector('input[type="text"]')
-    const codeBlock = document.querySelector('pre')
-    if (!key || !highlightedCode || !textInput || !codeBlock) throw new Error('Color-scheme fixtures are missing')
-    return {
-      codeBorder: getComputedStyle(codeBlock).borderColor,
-      controlBorder: getComputedStyle(textInput).borderColor,
-      layer: styles.getPropertyValue('--dark-layer-background').trim(),
-      keyBackground: getComputedStyle(key).backgroundImage,
-      highlightedColor: getComputedStyle(highlightedCode).color,
-      highlightedBackground: getComputedStyle(highlightedCode).backgroundColor
-    }
-  })
+  const darkTokens = await readThemePresentation(page)
   expect(darkTokens.layer).toBe('transparent')
-  expect(darkTokens.codeBorder).toBe('rgb(77, 77, 77)')
-  expect(darkTokens.controlBorder).toBe('rgb(107, 107, 107)')
-  expect(darkTokens.keyBackground).toContain('linear-gradient')
+  expect(darkTokens.codeBorder).toEqual([63, 63, 63])
+  expect(darkTokens.controlBorder).toEqual([80, 80, 80])
+  expect(darkTokens.controlShadow).toContain('rgb(107, 107, 107)')
+  expect(darkTokens.keyBackground).toContain('linear-gradient(rgb(51, 51, 51)')
+  expect(darkTokens.keyShadow).toContain('rgba(0, 0, 0, 0.45)')
   expect(darkTokens.highlightedColor).toBe('rgb(173, 186, 199)')
   expect(darkTokens.highlightedBackground).toBe('rgb(34, 39, 46)')
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
 
   await page.emulateMedia({ colorScheme: 'light' })
+  await page.waitForTimeout(200)
+  const lightTokens = await readThemePresentation(page)
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
-  await expect(page.locator('pre').first()).toHaveCSS('border-color', 'rgb(214, 214, 214)')
-  await expect(page.locator('input[type="text"]').first()).toHaveCSS('border-color', 'rgb(148, 148, 148)')
+  expect(lightTokens.codeBorder).toEqual([226, 226, 226])
+  expect(lightTokens.controlBorder).toEqual([185, 185, 185])
+  expect(lightTokens.controlShadow).toContain('rgb(148, 148, 148)')
   await expect(page.locator('.hljs').first()).toHaveCSS('color', 'rgb(36, 41, 46)')
   await expect(page.locator('.hljs').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)')
 })

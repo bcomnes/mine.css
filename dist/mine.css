@@ -275,12 +275,13 @@ pre {
   overflow: auto;
   overflow-wrap: normal;
   line-height: var(--line-height-pre);
-  border: 1px solid var(--code-border);
+  border: 1px solid color-mix(in srgb, var(--code-border) 70%, var(--background));
 
-  /* Code panels sit just above the page while their contents remain flat. */
+  /* Soft highlight and shade pairs give the panel depth without a dark frame. */
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 8%),
-    0 1px 2px rgb(0 0 0 / 8%);
+    inset 0 1px 0 rgb(255 255 255 / 24%),
+    inset 0 -1px 0 rgb(0 0 0 / 4%),
+    0 2px 5px rgb(0 0 0 / 11%);
 
   & code {
     background: transparent;
@@ -309,6 +310,13 @@ kbd {
   border: 1px solid var(--accent-midground);
   border-radius: 2px;
   box-shadow: 0 1px 0 var(--accent-midground); /* depth */
+
+  @media (prefers-color-scheme: dark) {
+    /* Keep the illuminated face above a real shadow in the dark palette. */
+    background-image: linear-gradient(var(--accent-background), var(--layer-background) 75%);
+    box-shadow: 0 1px 0 rgb(0 0 0 / 45%);
+  }
+
   color: var(--text);
   display: inline-block;
   line-height: 0.95em;
@@ -441,19 +449,20 @@ input[type="time"],
 input[type="url"],
 input[type="week"] {
   /* A thin boundary and inset lighting make editable fields feel gently recessed. */
-  border-color: var(--control-border);
-  border-radius: 6px;
+  border-color: color-mix(in srgb, var(--control-border) 65%, var(--background));
+  border-radius: 7px;
   border-width: 1px;
   border-style: solid;
   padding: 0.4em;
   color: var(--text);
   background-color: var(--background);
-  background-image: linear-gradient(rgb(0 0 0 / 5%), transparent 0.65em);
+  background-image: linear-gradient(rgb(0 0 0 / 3%), transparent 0.6em);
   box-shadow:
-    inset 0 1px 2px rgb(0 0 0 / 16%),
-    inset 0 -1px 0 rgb(255 255 255 / 10%),
-    0 1px 1px rgb(0 0 0 / 5%);
+    inset 0 1px 2px rgb(0 0 0 / 18%),
+    inset 0 -1px 0 var(--control-border),
+    0 1px 3px rgb(0 0 0 / 8%);
   inline-size: 15.5em;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
   &:focus-visible {
     border-color: var(--accent-foreground);
@@ -469,8 +478,16 @@ input[type="week"] {
   }
 
   &:hover:not([disabled]) {
-    border-color: var(--accent-foreground);
+    border-color: color-mix(in srgb, var(--accent-foreground) 65%, var(--background));
   }
+}
+/* Tall controls expose directional gradients as a stripe, so use an even inset. */
+textarea:not(:disabled) {
+  background-image: none;
+  box-shadow:
+    inset 0 0 3px rgb(0 0 0 / 14%),
+    inset 0 -1px 0 var(--control-border),
+    0 1px 3px rgb(0 0 0 / 10%);
 }
 label {
   /* Input labels */
@@ -493,15 +510,16 @@ label {
   }
 }
 fieldset {
-  border-radius: 5px;
+  border-radius: 7px;
   border-style: solid;
   border-width: 1px;
-  border-color: var(--accent-midground);
+  border-color: color-mix(in srgb, var(--accent-midground) 70%, var(--background));
 
-  /* A quiet lower shadow lifts the group without turning it into a card. */
+  /* A broad, low-contrast bevel recalls older panel styling without a hard edge. */
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 10%),
-    0 1px 2px rgb(0 0 0 / 8%);
+    inset 0 1px 0 rgb(255 255 255 / 26%),
+    inset 0 -1px 0 rgb(0 0 0 / 4%),
+    0 2px 5px rgb(0 0 0 / 11%);
 }
 input {
   /* Fixed-size controls must still fit inside narrow document gutters. */
