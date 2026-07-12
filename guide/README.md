@@ -347,8 +347,19 @@ The reference defining the URL location can be later in the document.
 ## <a id="figures" href="#figures">Figures</a>
 
 <figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Helsinki_z00.jpg/1920px-Helsinki_z00.jpg" alt="Helsinki">
-  <figcaption>Panoramic view of <a href="//commons.wikimedia.org/wiki/Helsinki" title="Helsinki">Helsinki</a>, Finland from the Ateljee bar of <a href="https://en.wikipedia.org/wiki/Hotel_Torni" title="en:Hotel Torni">Hotel Torni</a>.</figcaption>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Helsinki_z00.jpg/1920px-Helsinki_z00.jpg"
+    alt="Helsinki">
+  <figcaption>
+    Panoramic view of
+    <a
+      href="//commons.wikimedia.org/wiki/Helsinki"
+      title="Helsinki">Helsinki</a>,
+    Finland from the Ateljee bar of
+    <a
+      href="https://en.wikipedia.org/wiki/Hotel_Torni"
+      title="en:Hotel Torni">Hotel Torni</a>.
+  </figcaption>
 </figure>
 
 <figure class="borderless">
@@ -356,13 +367,28 @@ The reference defining the URL location can be later in the document.
     <source srcset="/img/fork-dark.png" media="(prefers-color-scheme: dark)">
     <img src="/img/fork-light.png" alt="Screenshot of Fork.app">
   </picture>
-  <figcaption>Light and dark mode images with the <code>&lt;picture&gt;</code> tag.</figcaption>
+  <figcaption>
+    Light and dark mode images with the
+    <code>&lt;picture&gt;</code>
+    tag.
+  </figcaption>
 </figure>
 
 ```html
 <figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Helsinki_z00.jpg/1920px-Helsinki_z00.jpg" alt="Helsinki">
-  <figcaption>Panoramic view of <a href="//commons.wikimedia.org/wiki/Helsinki" title="Helsinki">Helsinki</a>, Finland from the Ateljee bar of <a href="https://en.wikipedia.org/wiki/Hotel_Torni" title="en:Hotel Torni">Hotel Torni</a>.</figcaption>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Helsinki_z00.jpg/1920px-Helsinki_z00.jpg"
+    alt="Helsinki">
+  <figcaption>
+    Panoramic view of
+    <a
+      href="//commons.wikimedia.org/wiki/Helsinki"
+      title="Helsinki">Helsinki</a>,
+    Finland from the Ateljee bar of
+    <a
+      href="https://en.wikipedia.org/wiki/Hotel_Torni"
+      title="en:Hotel Torni">Hotel Torni</a>.
+  </figcaption>
 </figure>
 
 <figure class="borderless">
@@ -370,7 +396,11 @@ The reference defining the URL location can be later in the document.
     <source srcset="/img/fork-dark.png" media="(prefers-color-scheme: dark)">
     <img src="/img/fork-light.png" alt="Screenshot of Fork.app">
   </picture>
-  <figcaption>Light and dark mode images with the <code>&lt;picture&gt;</code> tag.</figcaption>
+  <figcaption>
+    Light and dark mode images with the
+    <code>&lt;picture&gt;</code>
+    tag.
+  </figcaption>
 </figure>
 ```
 
@@ -634,7 +664,11 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 <label class="block" for="trip-start">Date:</label>
 <input type="date" name="trip-start" id="trip-start" value="2020-08-15">
 <label class="block" for="placeholder-date">Date (Placeholder):</label>
-<input type="date" name="placeholder-date" id="placeholder-date" placeholder="2020-08-25">
+<input
+  type="date"
+  name="placeholder-date"
+  id="placeholder-date"
+  placeholder="2020-08-25">
 <label class="block" for="trip-end">Date (Disabled):</label>
 <input disabled type="date" name="trip-end" id="trip-end" value="2020-08-25">
 ```
@@ -787,7 +821,12 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 ```html
 <label class="block" for="pass">Password:</label>
-<input placeholder="••••••••" type="password" name="pass" id="pass" minlength="8">
+<input
+  placeholder="••••••••"
+  type="password"
+  name="pass"
+  id="pass"
+  minlength="8">
 ```
 
 #### <a id="radio" href="#radio">Radio</a>
@@ -857,7 +896,15 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </div>
 
 <div>
-  <input disabled type="range" name="cowbell" id="cowbell" min="0" max="100" value="90" step="10">
+  <input
+    disabled
+    type="range"
+    name="cowbell"
+    id="cowbell"
+    min="0"
+    max="100"
+    value="90"
+    step="10">
   <label for="cowbell">Cowbell (Disabled)</label>
 </div>
 ```
@@ -1005,7 +1052,13 @@ It was a dark and stormy night...
 </label>
 <label style="display: block;">
   Don't tell us your story:
-  <textarea style="display: block;" disabled id="story-disabled" name="story-disabled" rows="5" cols="33">
+  <textarea
+    style="display: block;"
+    disabled
+    id="story-disabled"
+    name="story-disabled"
+    rows="5"
+    cols="33">
 It wasn't a dark and stormy night...
   </textarea>
 </label>
@@ -1052,7 +1105,14 @@ It wasn't a dark and stormy night...
 
 ```html
 <label for="url">Enter an https:// URL:</label>
-<input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30" required>
+<input
+  type="url"
+  name="url"
+  id="url"
+  placeholder="https://example.com"
+  pattern="https://.*"
+  size="30"
+  required>
 ```
 
 #### <a id="week" href="#week">Week</a>
@@ -1075,7 +1135,16 @@ It wasn't a dark and stormy night...
 
 ```html
 <label class="block" for="week-example">Week:</label>
-<input class="block" placeholder="2018-W18" value="2017-W01" type="week" name="week-example" id="week-example" min="2018-W18" max="2018-W26" required>
+<input
+  class="block"
+  placeholder="2018-W18"
+  value="2017-W01"
+  type="week"
+  name="week-example"
+  id="week-example"
+  min="2018-W18"
+  max="2018-W26"
+  required>
 ```
 
 ### <a id="fieldset" href="#fieldset">Fieldset</a>
@@ -1111,4 +1180,3 @@ It wasn't a dark and stormy night...
   </fieldset>
 </form>
 ```
-
