@@ -335,7 +335,7 @@ The demo's sticky navigation is also available as an optional companion styleshe
 
 [MIT](LICENSE)
 
-[style]: https://css-pkg.github.io/style.css/
+[style]: https://ungoldman.com/style.css/
 [style-gh]: https://github.com/css-pkg/style.css
 [guide]: https://mine-css.neocities.org/guide/
 
