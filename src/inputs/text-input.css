@@ -26,7 +26,7 @@ input[type="time"],
 input[type="url"],
 input[type="week"] {
   /* A thin boundary and inset lighting make editable fields feel gently recessed. */
-  border-color: color-mix(in srgb, var(--control-border) 65%, var(--background));
+  border-color: var(--control-border);
   border-radius: 7px;
   border-width: 1px;
   border-style: solid;
@@ -36,7 +36,7 @@ input[type="week"] {
   background-image: linear-gradient(rgb(0 0 0 / 3%), transparent 0.6em);
   box-shadow:
     inset 0 1px 2px rgb(0 0 0 / 18%),
-    inset 0 -1px 0 var(--control-border),
+    inset 0 -1px 0 rgb(255 255 255 / 12%),
     0 1px 3px rgb(0 0 0 / 8%);
   inline-size: 15.5em;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -64,6 +64,6 @@ textarea:not(:disabled) {
   background-image: none;
   box-shadow:
     inset 0 0 3px rgb(0 0 0 / 14%),
-    inset 0 -1px 0 var(--control-border),
+    inset 0 -1px 0 rgb(255 255 255 / 12%),
     0 1px 3px rgb(0 0 0 / 10%);
 }
