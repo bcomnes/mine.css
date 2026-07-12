@@ -261,6 +261,7 @@ test('keeps mobile navigation usable around anchored content', async ({ page, si
     return {
       navBottom: nav.getBoundingClientRect().bottom,
       navHeight: nav.getBoundingClientRect().height,
+      navScrollbarWidth: getComputedStyle(nav).scrollbarWidth,
       targetTop: target.getBoundingClientRect().top,
       roundLeft: roundBounds.left,
       roundRight: roundBounds.right,
@@ -269,6 +270,7 @@ test('keeps mobile navigation usable around anchored content', async ({ page, si
   })
 
   expect(geometry.navHeight).toBeLessThanOrEqual(64)
+  expect(geometry.navScrollbarWidth).toBe('none')
   expect(geometry.targetTop).toBeGreaterThanOrEqual(geometry.navBottom)
   expect(geometry.roundLeft).toBeGreaterThanOrEqual(0)
   expect(geometry.roundRight).toBeLessThanOrEqual(geometry.viewportWidth)

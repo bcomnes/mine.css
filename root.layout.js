@@ -45,7 +45,7 @@ export default async function RootLayout ({
           <a class="mine-top-bar-link round style-round"><span class="mine-top-bar-label">round</span></a>
           <div class="mine-top-bar-right">
             <a aria-label="GitHub" class="mine-top-bar-link" href="https://github.com/bcomnes/mine.css/">
-              <span class="mine-top-bar-label">🐈 <span class="mine-top-bar-github-label">github</span></span>
+              <span class="mine-top-bar-label">github</span>
             </a>
           </div>
         </nav>

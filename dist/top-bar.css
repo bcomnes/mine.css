@@ -11,6 +11,7 @@
   margin-block: 0;
   padding-inline: 1rem;
   overflow-x: auto;
+  scrollbar-width: none; /* Preserve scrolling without adding persistent chrome. */
   font-family: inherit;
   -webkit-backdrop-filter: contrast(100%) blur(10px);
           backdrop-filter: contrast(100%) blur(10px);
@@ -24,6 +25,8 @@
     box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
   }
 }
+
+.mine-top-bar::-webkit-scrollbar { display: none; }
 
 .mine-top-bar-title,
 .mine-top-bar-link,
@@ -95,9 +98,6 @@ html {
     /* Reveal more controls before horizontal scrolling becomes necessary. */
     gap: 0.5rem;
   }
-
-  /* The icon and accessible label are enough in the compact navigation. */
-  .mine-top-bar-github-label { display: none; }
 }
 
 @media (prefers-color-scheme: dark) {
