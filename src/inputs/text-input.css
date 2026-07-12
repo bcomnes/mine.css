@@ -25,14 +25,19 @@ input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"] {
-  /* The boundary remains visible in both palettes; focus gets a separate outline. */
+  /* A thin boundary and inset lighting make editable fields feel gently recessed. */
   border-color: var(--control-border);
-  border-radius: 5px;
-  border-width: 2px;
+  border-radius: 6px;
+  border-width: 1px;
   border-style: solid;
   padding: 0.4em;
   color: var(--text);
   background-color: var(--background);
+  background-image: linear-gradient(rgb(0 0 0 / 5%), transparent 0.65em);
+  box-shadow:
+    inset 0 1px 2px rgb(0 0 0 / 16%),
+    inset 0 -1px 0 rgb(255 255 255 / 10%),
+    0 1px 1px rgb(0 0 0 / 5%);
   inline-size: 15.5em;
 
   &:focus-visible {
@@ -44,6 +49,8 @@ input[type="week"] {
   &:disabled {
     /* Preserve legibility while making the non-interactive state visibly quieter. */
     background-color: var(--accent-background);
+    background-image: none;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
   }
 
   &:hover:not([disabled]) {
