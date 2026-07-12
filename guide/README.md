@@ -252,12 +252,16 @@ console.log(foo(5)); console.log(foo(5)); console.log(foo(5)); console.log(foo(5
 
 <kbd>ctrl</kbd><kbd>alt</kbd><kbd>delete</kbd>
 
+<kbd title="Command">⌘</kbd><kbd title="Option">⌥</kbd><kbd title="Shift">⇧</kbd>
+
 <kbd>q</kbd><kbd>w</kbd><kbd>e</kbd><kbd>r</kbd><kbd>t</kbd><kbd>y</kbd>
 
 <kbd>a</kbd><kbd>z</kbd><kbd>e</kbd><kbd>r</kbd><kbd>t</kbd><kbd>y</kbd>
 
 ```html
 <kbd>ctrl</kbd><kbd>alt</kbd><kbd>delete</kbd>
+
+<kbd title="Command">⌘</kbd><kbd title="Option">⌥</kbd><kbd title="Shift">⇧</kbd>
 
 <kbd>q</kbd><kbd>w</kbd><kbd>e</kbd><kbd>r</kbd><kbd>t</kbd><kbd>y</kbd>
 
