@@ -81,15 +81,15 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   await gotoGuide(page, siteURL)
 
   const darkTokens = await readThemePresentation(page)
-  expect(darkTokens.layer).toBe('#1c2128')
-  expect(darkTokens.codeBorder).toEqual([76, 94, 118])
+  expect(darkTokens.layer).toBe('transparent')
+  expect(darkTokens.codeBorder).toEqual([63, 63, 63])
   expect(darkTokens.controlBorder).toEqual([107, 107, 107])
   expect(darkTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
-  expect(darkTokens.keyBackground).toContain('linear-gradient(rgb(36, 42, 51)')
+  expect(darkTokens.keyBackground).toContain('linear-gradient(rgb(51, 51, 51)')
   expect(darkTokens.keyShadow).toContain('rgba(0, 0, 0, 0.45)')
   expect(darkTokens.highlightedColor).toBe('rgb(173, 186, 199)')
   expect(darkTokens.highlightedBackground).toBe('rgb(34, 39, 46)')
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(20, 25, 31)')
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
   const topBar = page.locator('.mine-top-bar')
   await topBar.hover()
   await page.waitForTimeout(150)
@@ -98,8 +98,8 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   await page.emulateMedia({ colorScheme: 'light' })
   await page.waitForTimeout(200)
   const lightTokens = await readThemePresentation(page)
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(245, 247, 250)')
-  expect(lightTokens.codeBorder).toEqual([148, 162, 180])
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+  expect(lightTokens.codeBorder).toEqual([226, 226, 226])
   expect(lightTokens.controlBorder).toEqual([148, 148, 148])
   expect(lightTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
   await topBar.hover()
@@ -109,9 +109,50 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   await expect(page.locator('.hljs').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)')
 })
 
-test('uses a light palette when printing from dark mode', async ({ page, siteURL }) => {
-  await page.emulateMedia({ colorScheme: 'dark', media: 'print' })
+test('switches the Tron document and Highlight.js palettes together', async ({ page, siteURL }) => {
+  await page.emulateMedia({ colorScheme: 'light' })
   await gotoGuide(page, siteURL)
+
+  const root = page.locator('html')
+  const menu = page.getByLabel('color theme')
+  const highlightedCode = page.locator('.hljs').first()
+  const keyword = page.locator('.hljs-keyword').first()
+  const string = page.locator('.hljs-string').first()
+
+  expect(await root.getAttribute('data-mine-theme')).toBeNull()
+  await expect(menu).toHaveValue('default')
+  await menu.selectOption('tron')
+
+  await expect(root).toHaveAttribute('data-mine-theme', 'tron')
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(245, 247, 250)')
+  await expect(highlightedCode).toHaveCSS('color', 'rgb(26, 37, 48)')
+  await expect(highlightedCode).toHaveCSS('background-color', 'rgb(232, 236, 242)')
+  await expect(keyword).toHaveCSS('color', 'rgb(26, 95, 138)')
+  await expect(string).toHaveCSS('color', 'rgb(217, 30, 24)')
+
+  await page.emulateMedia({ colorScheme: 'dark' })
+  await page.waitForTimeout(200)
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(20, 25, 31)')
+  await expect(highlightedCode).toHaveCSS('color', 'rgb(218, 227, 241)')
+  await expect(highlightedCode).toHaveCSS('background-color', 'rgb(28, 33, 40)')
+  await expect(keyword).toHaveCSS('color', 'rgb(38, 127, 181)')
+  await expect(string).toHaveCSS('color', 'rgb(255, 65, 13)')
+
+  await page.reload({ waitUntil: 'domcontentloaded' })
+  await expect(root).toHaveAttribute('data-mine-theme', 'tron')
+  await expect(menu).toHaveValue('tron')
+
+  await menu.selectOption('default')
+  expect(await root.getAttribute('data-mine-theme')).toBeNull()
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
+  await expect(highlightedCode).toHaveCSS('background-color', 'rgb(34, 39, 46)')
+})
+
+test('uses the selected theme light palette when printing from dark mode', async ({ page, siteURL }) => {
+  await page.emulateMedia({ colorScheme: 'dark' })
+  await gotoGuide(page, siteURL)
+  await page.getByLabel('color theme').selectOption('tron')
+  await page.emulateMedia({ colorScheme: 'dark', media: 'print' })
 
   const print = await page.evaluate(() => {
     const root = getComputedStyle(document.documentElement)
@@ -281,24 +322,33 @@ test('keeps mobile navigation usable around anchored content', async ({ page, si
     const nav = document.querySelector('nav')
     const target = document.querySelector('#input-types')
     const roundControl = document.querySelector('.style-round')
-    if (!nav || !target || !roundControl) throw new Error('Navigation fixtures are missing')
+    const themeControl = document.querySelector('.mine-top-bar-select')
+    if (!nav || !target || !roundControl || !themeControl) throw new Error('Navigation fixtures are missing')
 
     const roundBounds = roundControl.getBoundingClientRect()
+    nav.scrollLeft = nav.scrollWidth
+    const themeBounds = themeControl.getBoundingClientRect()
 
     return {
       navBottom: nav.getBoundingClientRect().bottom,
       navHeight: nav.getBoundingClientRect().height,
       navScrollbarWidth: getComputedStyle(nav).scrollbarWidth,
+      navScrollableWidth: nav.scrollWidth - nav.clientWidth,
       targetTop: target.getBoundingClientRect().top,
       roundLeft: roundBounds.left,
       roundRight: roundBounds.right,
+      themeLeft: themeBounds.left,
+      themeRight: themeBounds.right,
       viewportWidth: document.documentElement.clientWidth
     }
   })
 
   expect(geometry.navHeight).toBeLessThanOrEqual(64)
   expect(geometry.navScrollbarWidth).toBe('none')
+  expect(geometry.navScrollableWidth).toBeGreaterThan(0)
   expect(geometry.targetTop).toBeGreaterThanOrEqual(geometry.navBottom)
   expect(geometry.roundLeft).toBeGreaterThanOrEqual(0)
   expect(geometry.roundRight).toBeLessThanOrEqual(geometry.viewportWidth)
+  expect(geometry.themeLeft).toBeGreaterThanOrEqual(0)
+  expect(geometry.themeRight).toBeLessThanOrEqual(geometry.viewportWidth)
 })

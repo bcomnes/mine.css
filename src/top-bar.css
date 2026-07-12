@@ -30,10 +30,19 @@
 
 .mine-top-bar-title,
 .mine-top-bar-link,
+.mine-top-bar-theme,
 .mine-top-bar-right {
   flex: 0 0 auto;
   padding-block: 1rem;
   font-size: 1rem;
+}
+
+/* Preserve the platform menu while matching the surrounding navigation type. */
+.mine-top-bar-select {
+  max-inline-size: 7rem;
+  color: var(--text, #111);
+  font: inherit;
+  cursor: pointer;
 }
 
 .mine-top-bar-title,

@@ -2,6 +2,7 @@ const page = requiredElement('body')
 const sansButton = requiredElement('.style-sans')
 const serifButton = requiredElement('.style-serif')
 const roundButton = requiredElement('.style-round')
+const themeSelect = /** @type {HTMLSelectElement} */ (requiredElement('.mine-top-bar-select'))
 
 /** @param {string} selector */
 function requiredElement (selector) {
@@ -35,6 +36,27 @@ function sans () {
   roundButton.classList.toggle('mine-top-bar-link-current', false)
 }
 
+/** @param {'default' | 'tron'} theme */
+function setTheme (theme) {
+  if (theme === 'tron') {
+    document.documentElement.dataset['mineTheme'] = theme
+  } else {
+    delete document.documentElement.dataset['mineTheme']
+  }
+  themeSelect.value = theme
+}
+
+// The head bootstrap restores this attribute before paint; synchronize the menu with it.
+setTheme(document.documentElement.dataset['mineTheme'] === 'tron' ? 'tron' : 'default')
+
 sansButton.addEventListener('click', sans)
 serifButton.addEventListener('click', serif)
 roundButton.addEventListener('click', round)
+themeSelect.addEventListener('change', () => {
+  const theme = themeSelect.value === 'tron' ? 'tron' : 'default'
+  setTheme(theme)
+  try {
+    if (theme === 'tron') localStorage.setItem('mine-theme', theme)
+    else localStorage.removeItem('mine-theme')
+  } catch {}
+})

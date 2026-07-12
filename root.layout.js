@@ -26,6 +26,13 @@ export default async function RootLayout ({
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Let built-in controls and the initial canvas adopt the browser preference before CSS loads. -->
         <meta name="color-scheme" content="light dark">
+        <!-- Restore the named palette before styles load so navigation does not flash the default theme. -->
+        <script>${raw(`
+          try {
+            const theme = localStorage.getItem('mine-theme')
+            if (theme === 'tron') document.documentElement.dataset.mineTheme = theme
+          } catch {}
+        `)}</script>
         <title>${title ? `${title} | ` : ''}${siteName}</title>
         ${scripts
           ? scripts.map(script => html`<script src="${script}" type='module'></script>`)
@@ -43,6 +50,12 @@ export default async function RootLayout ({
           <a class="mine-top-bar-link mine-top-bar-link-current sans style-sans"><span class="mine-top-bar-label">sans</span></a>
           <a class="mine-top-bar-link serif style-serif"><span class="mine-top-bar-label">serif</span></a>
           <a class="mine-top-bar-link round style-round"><span class="mine-top-bar-label">round</span></a>
+          <label class="mine-top-bar-theme">
+            <select class="mine-top-bar-select" aria-label="color theme">
+              <option value="default">default</option>
+              <option value="tron">tron</option>
+            </select>
+          </label>
           <div class="mine-top-bar-right">
             <a aria-label="GitHub" class="mine-top-bar-link" href="https://github.com/bcomnes/mine.css/">
               <span class="mine-top-bar-label">github</span>

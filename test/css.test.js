@@ -109,11 +109,13 @@ test('top-bar sidecar uses the mine.css selector contract', () => {
   assert.match(topBar, /background-color: color-mix\(in srgb, var\(--background, white\) 75%, transparent\)/)
   assert.match(topBar, /box-shadow: 0 2px 10px 0 rgb\(0 0 0 \/ 20%\)/)
   assert.doesNotMatch(topBar, /box-shadow:.*var\(--text/)
+  assert.match(topBar, /\.mine-top-bar-select\b/)
   assert.doesNotMatch(topBar, /\.top-bar(?:\b|-)/)
 })
 
 test('Tron Legacy defines complete, accessible light and dark palettes', () => {
-  const roles = ['text', 'background', 'layer-background', 'accent-background', 'accent-midground', 'accent-foreground', 'link-text', 'mark-background', 'code-text', 'code-background', 'code-border']
+  assert.match(tronLegacy, /:root\[data-mine-theme="tron"\]/)
+  const roles = ['text', 'background', 'layer-background', 'accent-background', 'accent-midground', 'control-border', 'accent-foreground', 'link-text', 'mark-background', 'code-text', 'code-background', 'code-border']
   for (const mode of ['light', 'dark']) {
     for (const role of roles) hexToken(tronLegacy, `${mode}-${role}`)
   }
@@ -122,6 +124,7 @@ test('Tron Legacy defines complete, accessible light and dark palettes', () => {
   assert.ok(contrast(hexToken(tronLegacy, 'light-text').rgb, lightBackground) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'light-link-text').rgb, lightBackground) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'light-accent-midground').rgb, lightBackground) >= 3)
+  assert.ok(contrast(hexToken(tronLegacy, 'light-control-border').rgb, lightBackground) >= 3)
   assert.ok(contrast(hexToken(tronLegacy, 'light-accent-foreground').rgb, lightBackground) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'light-code-text').rgb, hexToken(tronLegacy, 'light-code-background').rgb) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'light-text').rgb, hexToken(tronLegacy, 'light-mark-background').rgb) >= 4.5)
@@ -130,9 +133,26 @@ test('Tron Legacy defines complete, accessible light and dark palettes', () => {
   assert.ok(contrast(hexToken(tronLegacy, 'dark-text').rgb, darkBackground) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'dark-link-text').rgb, darkBackground) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'dark-accent-midground').rgb, darkBackground) >= 3)
+  assert.ok(contrast(hexToken(tronLegacy, 'dark-control-border').rgb, darkBackground) >= 3)
   assert.ok(contrast(hexToken(tronLegacy, 'dark-code-text').rgb, hexToken(tronLegacy, 'dark-code-background').rgb) >= 4.5)
   assert.ok(contrast(
     hexToken(tronLegacy, 'dark-text').rgb,
     composite(hexToken(tronLegacy, 'dark-mark-background'), darkBackground)
   ) >= 4.5)
+})
+
+test('Tron Legacy covers standard Highlight.js scopes without changing typography', () => {
+  const syntaxRoles = ['foreground', 'background', 'comment', 'keyword', 'title', 'function', 'attribute', 'literal', 'number', 'property', 'string', 'escape', 'regexp', 'special', 'variable-special', 'addition', 'deletion']
+  for (const role of syntaxRoles) {
+    const declarations = tronLegacy.match(new RegExp(`--tron-hljs-${role}: #[0-9a-f]{6};`, 'gi')) ?? []
+    assert.equal(declarations.length, 2, `Expected light and dark Highlight.js values for ${role}`)
+  }
+
+  const scopes = ['subst', 'keyword', 'operator', 'title', 'attr', 'literal', 'number', 'regexp', 'string', 'built_in', 'comment', 'name', 'section', 'bullet', 'emphasis', 'strong', 'addition', 'deletion', 'property', 'punctuation', 'tag']
+  for (const scope of scopes) {
+    assert.match(tronLegacy, new RegExp(`\\.hljs-${scope}\\b`), `Missing Highlight.js scope ${scope}`)
+  }
+
+  assert.match(tronLegacy, /\.hljs \{\n {2}display: block;\n {2}overflow-x: auto;\n {2}padding: 0\.5em;/)
+  assert.doesNotMatch(tronLegacy, /^\s*(?:border|font-family|font-size|line-height|margin):/m)
 })

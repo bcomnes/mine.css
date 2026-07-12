@@ -329,13 +329,19 @@ The demo's sticky navigation is also available as an optional companion styleshe
 
 ## Color themes
 
-Color themes are optional token overrides. Load one after `mine.css`; it will use the framework's existing `prefers-color-scheme` behavior, so no JavaScript or theme-specific classes are required.
+Color themes are optional, named token overrides. Load a theme after `mine.css` and select it with `data-mine-theme` on the document root. The theme still uses the framework's existing `prefers-color-scheme` behavior, so choosing a palette does not create a separate light/dark override.
 
 The first theme adapts the light and dark palettes from [Tron Legacy for Zed](https://github.com/bcomnes/zed-theme-tron-legacy):
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/themes/tron-legacy.css">
+<!doctype html>
+<html lang="en" data-mine-theme="tron">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/themes/tron-legacy.css">
+  </head>
+  <body>...</body>
+</html>
 ```
 
 Bundlers can import the same sidecar directly:
@@ -344,6 +350,26 @@ Bundlers can import the same sidecar directly:
 @import 'mine.css';
 @import 'mine.css/dist/themes/tron-legacy.css';
 ```
+
+Remove the attribute to return to the default palette. A menu can switch named themes without changing the user's light/dark preference:
+
+```html
+<select aria-label="color theme" id="mine-theme">
+  <option value="default">default</option>
+  <option value="tron">tron</option>
+</select>
+<script type="module">
+  const menu = document.querySelector('#mine-theme')
+  menu.addEventListener('change', () => {
+    if (menu.value === 'tron') document.documentElement.dataset.mineTheme = 'tron'
+    else delete document.documentElement.dataset.mineTheme
+  })
+</script>
+```
+
+The Tron sidecar also contains language-agnostic Highlight.js colors adapted from the same Zed syntax palette. It provides both light and dark variants and switches them with `prefers-color-scheme`; Highlight.js itself remains responsible for producing the `.hljs-*` markup.
+
+When a site offers both the default and Tron choices, load its default Highlight.js styles before `tron-legacy.css`. The sidecar is deliberately scoped, so its syntax colors win only while `data-mine-theme="tron"` is selected.
 
 ## Thanks
 

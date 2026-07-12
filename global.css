@@ -1,9 +1,9 @@
 @import url("./dist/mine.css");
-@import url("./dist/themes/tron-legacy.css");
 @import url("./dist/layout.css");
 @import url("./dist/top-bar.css");
 @import url("highlight.js/styles/github.css");
 @import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
+@import url("./dist/themes/tron-legacy.css");
 
 @view-transition { navigation: auto; }
 
@@ -30,7 +30,10 @@ footer a {
     background: transparent;
   }
 
-  .hljs * {
+  .hljs *,
+  .hljs [class^="hljs-"],
+  .hljs [class*=" hljs-"] {
     color: inherit;
+    background: transparent;
   }
 }

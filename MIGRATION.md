@@ -124,6 +124,31 @@ The equivalent bundler imports are:
 @import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
 ```
 
+### Keep named themes separate from light and dark mode
+
+v11 theme sidecars may use `data-mine-theme` to select a named palette. This is
+not a light/dark override: every named theme still supplies both palettes and
+lets `prefers-color-scheme` choose between them.
+
+For example, load and select the optional Tron theme with:
+
+```html
+<!doctype html>
+<html lang="en" data-mine-theme="tron">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^11">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^11/dist/themes/tron-legacy.css">
+  </head>
+  <body>...</body>
+</html>
+```
+
+Remove the attribute to use mine.css's default palette. The Tron sidecar also
+provides matching light and dark Highlight.js scope colors. If the site offers
+both default and Tron choices, load the default Highlight.js styles first and
+the Tron sidecar afterward; its scoped syntax rules win only while Tron is
+selected.
+
 ## Rename top-bar selectors
 
 The optional top bar is now a small, namespaced reimplementation inspired by

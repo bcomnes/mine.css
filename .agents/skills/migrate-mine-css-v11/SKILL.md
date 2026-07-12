@@ -29,6 +29,7 @@ Identify:
 - optional layout and top-bar usage;
 - mine.css custom-property overrides;
 - syntax-highlighting styles and application-specific dark styles;
+- named theme sidecars and `data-mine-theme` selectors;
 - the consuming project's browser-support policy.
 
 Run the project's existing checks and capture representative light and dark
@@ -54,6 +55,9 @@ distinguish from regressions.
    dark color sources, and the new `--control-border` tokens.
 7. Review assumptions affected by the wider `.mine-layout`, visible overflow,
    safe-area gutters, native button appearance, and native CSS nesting.
+8. Preserve named palette selection separately from light/dark mode. A
+   `data-mine-theme` value may select a sidecar such as Tron, but each named
+   theme must still follow `prefers-color-scheme` for its light and dark values.
 
 Keep edits scoped to the migration. Preserve application-specific branding and
 behavior unless it conflicts with the removed v10 API.
@@ -62,6 +66,8 @@ behavior unless it conflicts with the removed v10 API.
 
 - Do not restore the deleted mine.css theme-switcher JavaScript.
 - Do not recreate class-based light/dark overrides; follow the browser setting.
+- Do not treat `data-mine-theme` as a light/dark switch. It selects a named
+  palette only.
 - Do not add custom button styling merely to reproduce v10. v11 intentionally
   keeps native buttons.
 - Do not assume the optional layout or top bar is bundled into the main
