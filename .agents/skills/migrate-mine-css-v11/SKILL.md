@@ -61,9 +61,10 @@ distinguish from regressions.
    `data-mine-theme` value may select a sidecar such as Tron, but each named
    theme must still follow `prefers-color-scheme` for its light and dark values.
 9. Keep optional Highlight.js palettes separate from document palettes. The
-   Tron syntax sidecar lives at `dist/highlight.js/tron-legacy.css` and uses
-   `data-hljs-theme="tron"`; set both attributes only when the application wants
-   one control to change both palettes.
+   adaptive Tron syntax sidecar lives at `dist/highlight.js/tron-legacy.css`
+   and uses `data-hljs-theme="tron"`; its fixed light and dark counterparts can
+   be imported directly when the application owns syntax-mode selection. Set
+   both theme attributes only when one control should change both palettes.
 
 Keep edits scoped to the migration. Preserve application-specific branding and
 behavior unless it conflicts with the removed v10 API.

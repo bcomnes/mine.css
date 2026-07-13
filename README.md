@@ -374,8 +374,10 @@ Remove the attribute to return to the default palette. A menu can switch named t
 </script>
 ```
 
-The matching Highlight.js theme is a separate sidecar with its own
-`data-hljs-theme` selector. This keeps document and syntax palettes independent:
+The matching Highlight.js themes are separate sidecars with their own
+`data-hljs-theme` selector. This keeps document and syntax palettes independent.
+The convenience entry point composes the fixed light and dark stylesheets using
+`prefers-color-scheme`:
 
 ```html
 <html lang="en" data-hljs-theme="tron">
@@ -385,9 +387,19 @@ The matching Highlight.js theme is a separate sidecar with its own
 </html>
 ```
 
-It provides light and dark variants selected by `prefers-color-scheme`;
+Consumers that want to control the syntax mode themselves can import a fixed
+variant instead:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy-light.css">
+<!-- or -->
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy-dark.css">
+```
+
+The fixed files contain no color-scheme media query. They can be loaded
+directly, arranged with `<link media>`, or switched by application code.
 Highlight.js itself remains responsible for producing the `.hljs-*` markup.
-Sites may select either Tron theme alone, or set both attributes when the
+Sites may select either Tron theme alone, or set both theme attributes when the
 document and syntax palettes should change together. When offering a default
 Highlight.js choice too, load its styles before the Tron Highlight.js sidecar.
 
