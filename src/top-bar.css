@@ -40,6 +40,9 @@
 /* Preserve the platform menu while matching the surrounding navigation type. */
 .mine-top-bar-select {
   max-inline-size: 7rem;
+
+  /* Retain the native menu chrome, but avoid its overly bright dark-mode edge. */
+  border-color: var(--control-border, #949494);
   color: var(--text, #111);
   font: inherit;
   cursor: pointer;

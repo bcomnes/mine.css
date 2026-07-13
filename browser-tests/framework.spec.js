@@ -22,7 +22,8 @@ async function readThemePresentation (page) {
     const highlightedCode = document.querySelector('.hljs')
     const textInput = document.querySelector('input[type="text"]')
     const codeBlock = document.querySelector('pre')
-    if (!key || !highlightedCode || !textInput || !codeBlock) throw new Error('Color-scheme fixtures are missing')
+    const themeControl = document.querySelector('.mine-top-bar-select')
+    if (!key || !highlightedCode || !textInput || !codeBlock || !themeControl) throw new Error('Color-scheme fixtures are missing')
     return {
       codeBorder: toRgb(getComputedStyle(codeBlock).borderColor),
       controlBorder: toRgb(getComputedStyle(textInput).borderColor),
@@ -31,7 +32,8 @@ async function readThemePresentation (page) {
       keyBackground: getComputedStyle(key).backgroundImage,
       keyShadow: getComputedStyle(key).boxShadow,
       highlightedColor: getComputedStyle(highlightedCode).color,
-      highlightedBackground: getComputedStyle(highlightedCode).backgroundColor
+      highlightedBackground: getComputedStyle(highlightedCode).backgroundColor,
+      themeControlBorder: toRgb(getComputedStyle(themeControl).borderColor)
     }
   })
 }
@@ -84,6 +86,7 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   expect(darkTokens.layer).toBe('transparent')
   expect(darkTokens.codeBorder).toEqual([63, 63, 63])
   expect(darkTokens.controlBorder).toEqual([107, 107, 107])
+  expect(darkTokens.themeControlBorder).toEqual(darkTokens.controlBorder)
   expect(darkTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
   expect(darkTokens.keyBackground).toContain('linear-gradient(rgb(51, 51, 51)')
   expect(darkTokens.keyShadow).toContain('rgba(0, 0, 0, 0.45)')
@@ -101,6 +104,7 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
   expect(lightTokens.codeBorder).toEqual([226, 226, 226])
   expect(lightTokens.controlBorder).toEqual([148, 148, 148])
+  expect(lightTokens.themeControlBorder).toEqual(lightTokens.controlBorder)
   expect(lightTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
   await topBar.hover()
   await page.waitForTimeout(150)
