@@ -8,7 +8,7 @@ class-based theme overrides, or copied the old top-bar markup need to migrate.
 
 ## Upgrade
 
-Once v11 is published, update the dependency and its lockfile:
+Update the dependency and its lockfile:
 
 ```sh
 npm install mine.css@^11
