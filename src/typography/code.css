@@ -32,10 +32,7 @@ pre {
   border: 1px solid color-mix(in srgb, var(--code-border) 70%, var(--background));
 
   /* Soft highlight and shade pairs give the panel depth without a dark frame. */
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 24%),
-    inset 0 -1px 0 rgb(0 0 0 / 4%),
-    0 2px 5px rgb(0 0 0 / 11%);
+  box-shadow: var(--surface-shadow);
 
   & code {
     background: transparent;

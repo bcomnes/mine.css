@@ -127,6 +127,12 @@ You can override defaults directly with CSS variables. Here are the default vari
   --line-height-body: 1.75;
   --line-height-pre: 1.45;
 
+  /* raised surface depth */
+  --surface-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 24%),
+    inset 0 -1px 0 rgb(0 0 0 / 4%),
+    0 2px 5px rgb(0 0 0 / 11%);
+
   /* light colors */
   --light-text: hsl(0deg, 0%, 7%, 100%); /* #111 */
   --light-background: white;
@@ -166,6 +172,7 @@ You can override settings like so:
 
 :root {
   --font-size-body: 1rem;
+  --surface-shadow: none;
 }
 ```
 

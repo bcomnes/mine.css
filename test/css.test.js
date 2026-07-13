@@ -5,6 +5,9 @@ import test from 'node:test'
 const variables = await readFile(new URL('../src/variables.css', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../src/layout.css', import.meta.url), 'utf8')
 const topBar = await readFile(new URL('../src/top-bar.css', import.meta.url), 'utf8')
+const fieldset = await readFile(new URL('../src/inputs/fieldset.css', import.meta.url), 'utf8')
+const code = await readFile(new URL('../src/typography/code.css', import.meta.url), 'utf8')
+const figures = await readFile(new URL('../src/typography/figures.css', import.meta.url), 'utf8')
 const tronLegacy = await readFile(new URL('../src/themes/tron-legacy.css', import.meta.url), 'utf8')
 const distribution = await readFile(new URL('../dist/mine.css', import.meta.url), 'utf8')
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
@@ -78,6 +81,15 @@ test('print declares a complete light-facing palette', () => {
     assert.match(print, new RegExp(`--${token}:`), `Print is missing --${token}`)
   }
   assert.match(print, /color-scheme: light;/)
+  assert.match(print, /--surface-shadow: none;/)
+})
+
+test('raised surfaces share one customizable shadow', () => {
+  assert.match(variables, /--surface-shadow:/)
+  for (const [name, source] of [['fieldset', fieldset], ['code', code], ['figures', figures]]) {
+    assert.match(source, /box-shadow: var\(--surface-shadow\);/, `${name} does not use --surface-shadow`)
+    assert.doesNotMatch(source, /inset 0 1px 0 rgb\(255 255 255/, `${name} duplicates the surface shadow`)
+  }
 })
 
 test('color schemes only follow the browser preference', () => {

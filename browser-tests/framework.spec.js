@@ -158,15 +158,20 @@ test('uses the selected theme light palette when printing from dark mode', async
     const root = getComputedStyle(document.documentElement)
     const body = getComputedStyle(document.body)
     const pre = document.querySelector('pre')
+    const fieldset = document.querySelector('fieldset')
+    const framedImage = document.querySelector('figure:not(.borderless) img')
     const highlightedCode = document.querySelector('.hljs')
     const highlightedToken = highlightedCode?.querySelector('span')
-    if (!pre || !highlightedCode || !highlightedToken) throw new Error('Code fixtures are missing')
+    if (!pre || !fieldset || !framedImage || !highlightedCode || !highlightedToken) throw new Error('Print fixtures are missing')
     return {
       colorScheme: root.colorScheme,
       bodyColor: body.color,
       bodyBackground: body.backgroundColor,
       codeColor: getComputedStyle(pre).color,
       codeBackground: getComputedStyle(pre).backgroundColor,
+      codeShadow: getComputedStyle(pre).boxShadow,
+      fieldsetShadow: getComputedStyle(fieldset).boxShadow,
+      framedImageShadow: getComputedStyle(framedImage).boxShadow,
       highlightedCodeColor: getComputedStyle(highlightedCode).color,
       highlightedCodeBackground: getComputedStyle(highlightedCode).backgroundColor,
       highlightedTokenColor: getComputedStyle(highlightedToken).color
@@ -179,6 +184,9 @@ test('uses the selected theme light palette when printing from dark mode', async
     bodyBackground: 'rgb(245, 247, 250)',
     codeColor: 'rgb(26, 37, 48)',
     codeBackground: 'rgb(212, 212, 212)',
+    codeShadow: 'none',
+    fieldsetShadow: 'none',
+    framedImageShadow: 'none',
     highlightedCodeColor: 'rgb(26, 37, 48)',
     highlightedCodeBackground: 'rgba(0, 0, 0, 0)',
     highlightedTokenColor: 'rgb(26, 37, 48)'

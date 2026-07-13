@@ -52,7 +52,8 @@ distinguish from regressions.
    If the top bar is used, apply every selector rename and add
    `.mine-top-bar-label` around visible link labels.
 6. Remove `--font-size-scale` overrides. Review `--font-size-body`, light and
-   dark color sources, and the new `--control-border` tokens.
+   dark color sources, the new `--control-border` tokens, and the shared
+   `--surface-shadow` used by raised panels.
 7. Review assumptions affected by the wider `.mine-layout`, visible overflow,
    safe-area gutters, native button appearance, and native CSS nesting.
 8. Preserve named palette selection separately from light/dark mode. A

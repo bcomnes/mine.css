@@ -222,6 +222,18 @@ When overriding colors, define both the light and dark source variables. Use
 the theme-agnostic variables such as `--text`, `--background`,
 `--control-border`, and `--code-background` in component rules.
 
+Raised fieldsets, code panels, and framed media now share one customizable
+depth recipe. It uses translucent black and white, so it adapts without
+separate light and dark values:
+
+```css
+:root {
+  --surface-shadow: none;
+}
+```
+
+Print automatically sets `--surface-shadow` to `none`.
+
 ## Account for layout and visual changes
 
 The optional `.mine-layout` measure grows from `46em` to `56em`. It uses
