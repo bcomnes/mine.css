@@ -20,11 +20,17 @@ Check out the [style guide][guide] to see what it looks like.
 
 Some differences from [style.css][style]:
 
-- CSS Variables
-- Dark Mode
-- Remove some old browser support
-- Use post-css build pipeline
-- Minor stylistic differences
+- Custom properties for typography, semantic colors, control borders, and
+  raised-surface depth
+- Browser-controlled light and dark palettes, a dedicated print palette, and
+  optional named color themes
+- Bounded fluid type instead of an indefinitely viewport-scaled base font size
+- Modern keyboard-focus treatment, responsive overflow, and consistent form
+  spacing
+- A modern browser baseline with native CSS nesting and fewer legacy
+  normalization rules
+- A CSS-only package with optional layout, top-bar, named-theme, and
+  Highlight.js sidecars
 - [CHANGELOG.md](./CHANGELOG.md)
 - [Migrating from v10 to v11](./MIGRATION.md)
 
