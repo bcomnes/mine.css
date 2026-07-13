@@ -1,6 +1,9 @@
 fieldset {
-  border-radius: 5px;
+  border-radius: 7px;
   border-style: solid;
-  border-width: 2px;
-  border-color: var(--accent-midground);
+  border-width: 1px;
+  border-color: color-mix(in srgb, var(--accent-midground) 70%, var(--background));
+
+  /* A broad, low-contrast bevel recalls older panel styling without a hard edge. */
+  box-shadow: var(--surface-shadow);
 }

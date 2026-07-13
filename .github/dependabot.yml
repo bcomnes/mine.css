@@ -1,16 +1,31 @@
-# Basic dependabot.yml file with
-# minimum configuration for two package managers
-
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 updates:
-  # Enable version updates for npm
   - package-ecosystem: "npm"
-    # Look for `package.json` and `lock` files in the `root` directory
     directory: "/"
-    # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 1
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
     groups:
+      tooling:
+        patterns:
+          - "neostandard"
+          - "npm-run-all2"
+          - "releasearoni"
+      typescript:
+        patterns:
+          - "typescript"
+          - "@types/node"
+          - "@voxpelli/tsconfig"
+      playwright:
+        patterns:
+          - "@playwright/test"
       postcss:
         patterns:
           - "postcss"
@@ -19,8 +34,9 @@ updates:
         patterns:
           - "stylelint"
           - "stylelint-*"
-  # Enable updates to github actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 1

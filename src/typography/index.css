@@ -1,5 +1,4 @@
 @import url("./headings.css");
-@import url("./paragraphs.css");
 @import url("./links.css");
 @import url("./lists.css");
 @import url("./blockquotes.css");
@@ -19,10 +18,16 @@ blockquote,
 ul,
 ol,
 dl,
-table,
-pre {
+table {
   margin-top: 0;
   margin-bottom: 1.25em;
+}
+
+pre {
+  /* Source blocks need leading space even after non-typographic demos. Root units
+     keep that rhythm aligned while the code itself renders at a smaller size. */
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 /* Add the correct font size in all browsers. */

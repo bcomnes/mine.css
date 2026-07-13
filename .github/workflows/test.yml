@@ -1,38 +1,44 @@
 name: tests
 
-on: [pull_request, push]
+on:
+  pull_request:
+  push:
+    # Pull request branches are already covered by the pull_request event.
+    branches: [master]
 
 env:
-  FORCE_COLOR: 2
+  FORCE_COLOR: 1
+
+# Keep only the newest run for a branch or pull request after another push.
+concurrency:
+  group: tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [lts/*]
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v7
-    - name: Use Node.js ${{ matrix.node }}
+    - name: Use latest LTS Node.js
       uses: actions/setup-node@v6
       with:
-        node-version: ${{ matrix.node }}
-    - name: npm install && npm test
-      run: |
-        npm i
-        npm test
+        node-version: lts/*
+    - run: npm ci
+    - run: npx playwright install --with-deps chromium
+    - run: npm test --color=always
+    - run: git diff --exit-code -- dist
 
   automerge:
     needs: test
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/github_actions/actions/') }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
       contents: write
     steps:
-      - uses: fastify/github-action-merge-dependabot@v3
-        if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' && contains(github.head_ref, 'dependabot/github_actions') }}
-        with:
-          github-token: ${{secrets.github_token}}
+      - name: Merge first-party GitHub Actions Dependabot PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge "$PR_URL" --squash --delete-branch

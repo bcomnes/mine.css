@@ -6,23 +6,33 @@
   --font-body: var(--system-sans);
   --font-code: var(--system-mono);
 
-  /* font size and spacing */
-  --font-size-body: 14px;
-  --font-size-scale: 0.25vw;
+  /* Respect the reader's default size while allowing a small, bounded scale. */
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.125rem);
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */
   --line-height-body: 1.75;
   --line-height-pre: 1.45;
 
+  /* Raised surfaces share one theme-neutral depth recipe. */
+  --surface-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 24%),
+    inset 0 -1px 0 rgb(0 0 0 / 4%),
+    0 2px 5px rgb(0 0 0 / 11%);
+
   /* light colors */
   --light-text: hsl(0deg, 0%, 7%, 100%); /* #111 */
   --light-background: white;
   --light-layer-background: hsl(0deg, 0%, 100%, 0%); /* #fff */
   --light-accent-background: hsl(0deg, 0%, 95%, 100%); /* #f2f2f2 */
+
+  /* Decorative boundaries stay quiet; form controls use a distinct AA token. */
   --light-accent-midground: hsl(0deg, 0%, 84%, 100%); /* #d6d6d6 */
-  --light-accent-foreground: hsl(0deg, 0%, 49%, 100%); /* #7d7d7d */
-  --light-link-text: hsl(208deg, 100%, 50%, 100%); /* #08f */
+  --light-control-border: hsl(0deg, 0%, 58%, 100%); /* #949494 */
+  --light-accent-foreground: hsl(0deg, 0%, 40%, 100%); /* #666 */
+
+  /* Push links toward the lightest blue that still clears AA on white. */
+  --light-link-text: hsl(210deg, 100%, 45%, 100%); /* #0073e6 */
   --light-mark-background: hsl(60deg, 100%, 50%, 100%); /* #ff0 */
   --light-code-text: var(--light-text);
   --light-code-background: var(--light-accent-background);
@@ -31,9 +41,10 @@
   /* dark colors */
   --dark-text: white;
   --dark-background: hsl(0deg, 0%, 12%, 100%); /* #1f1f1f from safari */
-  --dark-layer-background: var(--transparent);
+  --dark-layer-background: transparent;
   --dark-accent-background: hsl(0deg, 0%, 20%, 100%); /* #333 */
   --dark-accent-midground: hsl(0deg, 0%, 30%, 100%); /* #4d4d4d */
+  --dark-control-border: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
   --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
   --dark-link-text: hsl(206deg, 100%, 70%); /* #66bdff */
   --dark-mark-background: hsl(58deg, 66%, 30%, 100%); /* #7f7c1a */
@@ -41,7 +52,7 @@
   --dark-code-background: var(--dark-accent-background);
   --dark-code-border: var(--dark-accent-midground);
 
-  /* Light mode */
+  /* Semantic aliases default to light and are rebound by browser media preferences. */
 
   /* main colors */
   --text: var(--light-text);
@@ -50,6 +61,7 @@
   --accent-background: var(--light-accent-background);
   --accent-midground: var(--light-accent-midground);
   --accent-foreground: var(--light-accent-foreground);
+  --control-border: var(--light-control-border);
 
   /* misc colors */
   --link-text: var(--light-link-text);
@@ -59,7 +71,6 @@
   --code-border: var(--light-code-border);
 
   color-scheme: light;
-  supported-color-schemes: light;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -71,6 +82,7 @@
     --accent-background: var(--dark-accent-background);
     --accent-midground: var(--dark-accent-midground);
     --accent-foreground: var(--dark-accent-foreground);
+    --control-border: var(--dark-control-border);
 
     /* misc colors */
     --link-text: var(--dark-link-text);
@@ -80,20 +92,29 @@
     --code-border: var(--dark-code-border);
 
     color-scheme: dark;
-    supported-color-schemes: dark;
   }
 }
 
 @media print {
-  /* Improve printing on lighter colors by darkening them */
   :root {
-    --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #f2f2f2 */
-    --print-accent-midground:  hsl(0deg, 0%, 72%, 100%); /* #d6d6d6 */
-    --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #7d7d7d */
+    /* Force every active alias light so a dark browser preference cannot leak to paper. */
+    --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #d4d4d4 */
+    --print-accent-midground: hsl(0deg, 0%, 72%, 100%); /* #b8b8b8 */
+    --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #595959 */
+    --text: var(--light-text);
+    --background: var(--light-background);
+    --layer-background: var(--light-layer-background);
     --accent-background: var(--print-accent-background);
     --accent-midground: var(--print-accent-midground);
     --accent-foreground: var(--print-accent-foreground);
-    --light-code-background: var(--print-accent-background);
-    --light-code-border: var(--print-accent-midground);
+    --control-border: var(--print-accent-midground);
+    --link-text: var(--light-link-text);
+    --mark-background: var(--light-mark-background);
+    --code-text: var(--light-code-text);
+    --code-background: var(--print-accent-background);
+    --code-border: var(--print-accent-midground);
+    --surface-shadow: none;
+
+    color-scheme: light;
   }
 }

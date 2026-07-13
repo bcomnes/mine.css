@@ -1,51 +1,12 @@
-/* @import '../../style.scss';
-@import 'top-bar.css/source/top-bar.scss';
-
-$top-bar-family: $system-sans;
-
-*/
-@import url("top-bar.css/top-bar.css");
 @import url("./dist/mine.css");
 @import url("./dist/layout.css");
-@import url("highlight.js/styles/github-dark-dimmed.css");
+@import url("./dist/top-bar.css");
+@import url("highlight.js/styles/github.css");
+@import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
+@import url("./dist/themes/tron-legacy.css");
+@import url("./dist/highlight.js/tron-legacy.css");
 
 @view-transition { navigation: auto; }
-
-.top-bar {
-  font-family: inherit;
-  margin-bottom: 0;
-  margin-top: 0;
-  backdrop-filter: contrast(100%) blur(10px);
-  background-color: hsl(360deg 100% 100% / 75%);
-  transition: box-shadow 0.1s ease-in-out;
-  position: sticky;
-  top: 0;
-  z-index: 1; /* float over interactive content below */
-
-  &:hover {
-    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
-    transition: box-shadow 0.1s ease-in-out;
-  }
-}
-
-.dark-mode:not(.light-mode) .top-bar {
-  background-color: hsl(0deg 0% 12% / 75%);
-
-  &:hover {
-    box-shadow: 0 2px 10px 0 hsl(0deg 0% 5% / 20%);
-  }
-}
-
-.top-bar-link {
-  font-weight: 400;
-  color: var(--accent-foreground);
-}
-
-.top-bar-link.current-page,
-.top-bar-link.current-page:hover,
-.top-bar-link:hover {
-  color: var(--text);
-}
 
 footer {
   text-align: center;
@@ -57,53 +18,23 @@ footer a {
   text-decoration: none;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+@media print {
+  /* Site chrome is useful on screen but wastes space and ink on paper. */
+  .mine-top-bar,
+  footer {
+    display: none;
   }
 
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spin-click {
-  from {
-    transform: rotate(360deg);
+  .hljs {
+    /* Screen syntax colors are unnecessary when printing code. */
+    color: inherit;
+    background: transparent;
   }
 
-  to {
-    transform: rotate(540deg);
+  .hljs *,
+  .hljs [class^="hljs-"],
+  .hljs [class*=" hljs-"] {
+    color: inherit;
+    background: transparent;
   }
-}
-
-@keyframes spin-reverse {
-  from {
-    transform: rotate(360deg);
-  }
-
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-.dark-icon {
-  animation-name: spin-reverse;
-  animation-duration: 0.2s;
-}
-
-.dark-icon:hover {
-  animation-name: spin;
-  animation-duration: 0.2s;
-  animation-fill-mode: forwards;
-}
-
-.dark-icon:active {
-  animation-name: spin-click;
-  animation-duration: 0.2s;
-  animation-fill-mode: both;
-}
-
-:not(.light-mode).dark-mode .dark-icon {
-  filter: invert(95%);
 }

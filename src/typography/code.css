@@ -20,18 +20,19 @@ code {
   border-radius: 5px;
 }
 
-a code,
+a code { color: var(--link-text); }
+
 pre,
-kbd,
-samp {
-  color: var(--link-text);
-}
+samp { color: var(--code-text); }
 
 pre {
   overflow: auto;
   overflow-wrap: normal;
   line-height: var(--line-height-pre);
-  border: 1px solid var(--code-border);
+  border: 1px solid color-mix(in srgb, var(--code-border) 70%, var(--background));
+
+  /* Soft highlight and shade pairs give the panel depth without a dark frame. */
+  box-shadow: var(--surface-shadow);
 
   & code {
     background: transparent;

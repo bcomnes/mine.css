@@ -1,4 +1,0 @@
-input[type="checkbox"] {
-  /* fix iOS Safari clipping */
-  transform: translate(0);
-}

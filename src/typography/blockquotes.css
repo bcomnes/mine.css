@@ -1,8 +1,11 @@
 blockquote {
-  margin: 0 0 1rem;
-  padding: 0 1rem;
+  margin-block: 0 1rem;
+
+  /* Reset the browser's default inline indentation without assuming LTR. */
+  margin-inline: 0;
+  padding-inline: 1rem;
   color: var(--accent-foreground);
-  border-left: 4px solid var(--accent-midground);
+  border-inline-start: 4px solid var(--accent-midground);
 
   & > :first-child { margin-top: 0; }
   & > :last-child { margin-bottom: 0; }

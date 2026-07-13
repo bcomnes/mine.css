@@ -4,11 +4,9 @@ h3,
 h4,
 h5,
 h6 {
-  /* TODO: Needed? */
   font-weight: 500;
-  line-height: 1.25em;
-  margin-bottom: 1.25rem;
-  margin-top: 2rem;
+  line-height: 1.25;
+  margin-block: 2rem 1.25rem;
   position: relative;
 
   /* rep the smallies */
@@ -30,5 +28,5 @@ h5 { font-size: 1.25em; }
 h6 {
   font-size: 1em;
   color: var(--accent-foreground);
-  letter-spacing: 00.025em;
+  letter-spacing: 0.025em;
 }

@@ -1,9 +1,8 @@
 input[type="search"] {
-  /* Fix search box appearance safari */
-  appearance: none;
   appearance: textfield;
 }
 
+/* Recolor the WebKit clear affordance without replacing its native behavior. */
 [type="search"]::-webkit-search-cancel-button {
     appearance: none;
     background-color: var(--accent-foreground);
@@ -26,27 +25,45 @@ input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"] {
-  border-color: var(--accent-midground);
-  border-radius: 5px;
-  border-width: 2px;
+  /* A thin boundary and inset lighting make editable fields feel gently recessed. */
+  border-color: var(--control-border);
+  border-radius: 7px;
+  border-width: 1px;
   border-style: solid;
-  font-size: calc(var(--font-size-body) + var(--font-size-scale));
   padding: 0.4em;
   color: var(--text);
   background-color: var(--background);
-  width: 15.5em;
+  background-image: linear-gradient(rgb(0 0 0 / 3%), transparent 0.6em);
+  box-shadow:
+    inset 0 1px 2px rgb(0 0 0 / 18%),
+    inset 0 -1px 0 rgb(255 255 255 / 12%),
+    0 1px 3px rgb(0 0 0 / 8%);
+  inline-size: 15.5em;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
-  &:focus {
-    /* Form focused */
+  &:focus-visible {
     border-color: var(--accent-foreground);
+    outline: 2px solid var(--link-text);
+    outline-offset: 2px;
   }
 
   &:disabled {
-    /* Form disabled */
+    /* Preserve legibility while making the non-interactive state visibly quieter. */
     background-color: var(--accent-background);
+    background-image: none;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
   }
 
   &:hover:not([disabled]) {
-    border-color: var(--accent-foreground);
+    border-color: color-mix(in srgb, var(--accent-foreground) 65%, var(--background));
   }
+}
+
+/* Tall controls expose directional gradients as a stripe, so use an even inset. */
+textarea:not(:disabled) {
+  background-image: none;
+  box-shadow:
+    inset 0 0 3px rgb(0 0 0 / 14%),
+    inset 0 -1px 0 rgb(255 255 255 / 12%),
+    0 1px 3px rgb(0 0 0 / 10%);
 }

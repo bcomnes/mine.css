@@ -24,7 +24,7 @@ See how elements are styled with `mine.css`.
         <li><a href="#checkbox">Checkbox</a></li>
         <li><a href="#color">Color</a></li>
         <li><a href="#date">Date</a></li>
-        <li><a href="#datetime-local">Datetie Local</a></li>
+        <li><a href="#datetime-local">Datetime Local</a></li>
         <li><a href="#email">Email</a></li>
         <li><a href="#file">File</a></li>
         <li><a href="#image-input">Image</a></li>
@@ -252,12 +252,16 @@ console.log(foo(5)); console.log(foo(5)); console.log(foo(5)); console.log(foo(5
 
 <kbd>ctrl</kbd><kbd>alt</kbd><kbd>delete</kbd>
 
+<kbd title="Command">⌘</kbd><kbd title="Option">⌥</kbd><kbd title="Shift">⇧</kbd>
+
 <kbd>q</kbd><kbd>w</kbd><kbd>e</kbd><kbd>r</kbd><kbd>t</kbd><kbd>y</kbd>
 
 <kbd>a</kbd><kbd>z</kbd><kbd>e</kbd><kbd>r</kbd><kbd>t</kbd><kbd>y</kbd>
 
 ```html
 <kbd>ctrl</kbd><kbd>alt</kbd><kbd>delete</kbd>
+
+<kbd title="Command">⌘</kbd><kbd title="Option">⌥</kbd><kbd title="Shift">⇧</kbd>
 
 <kbd>q</kbd><kbd>w</kbd><kbd>e</kbd><kbd>r</kbd><kbd>t</kbd><kbd>y</kbd>
 
@@ -347,8 +351,19 @@ The reference defining the URL location can be later in the document.
 ## <a id="figures" href="#figures">Figures</a>
 
 <figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Helsinki_z00.jpg/1920px-Helsinki_z00.jpg" alt="Helsinki">
-  <figcaption>Panoramic view of <a href="//commons.wikimedia.org/wiki/Helsinki" title="Helsinki">Helsinki</a>, Finland from the Ateljee bar of <a href="https://en.wikipedia.org/wiki/Hotel_Torni" title="en:Hotel Torni">Hotel Torni</a>.</figcaption>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Helsinki_z00.jpg/1920px-Helsinki_z00.jpg"
+    alt="Helsinki">
+  <figcaption>
+    Panoramic view of
+    <a
+      href="//commons.wikimedia.org/wiki/Helsinki"
+      title="Helsinki">Helsinki</a>,
+    Finland from the Ateljee bar of
+    <a
+      href="https://en.wikipedia.org/wiki/Hotel_Torni"
+      title="en:Hotel Torni">Hotel Torni</a>.
+  </figcaption>
 </figure>
 
 <figure class="borderless">
@@ -356,15 +371,28 @@ The reference defining the URL location can be later in the document.
     <source srcset="/img/fork-dark.png" media="(prefers-color-scheme: dark)">
     <img src="/img/fork-light.png" alt="Screenshot of Fork.app">
   </picture>
-  <figcaption>Light and dark mode images with the <code>&lt;picture&gt;</code> tag.</figcaption>
+  <figcaption>
+    Light and dark mode images with the
+    <code>&lt;picture&gt;</code>
+    tag.
+  </figcaption>
 </figure>
-
-**Note:** Light/Dark mode override cannot correctly select the correct image, so `srcset` will only be honored when the system mode is changed.
 
 ```html
 <figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Helsinki_z00.jpg/1920px-Helsinki_z00.jpg" alt="Helsinki">
-  <figcaption>Panoramic view of <a href="//commons.wikimedia.org/wiki/Helsinki" title="Helsinki">Helsinki</a>, Finland from the Ateljee bar of <a href="https://en.wikipedia.org/wiki/Hotel_Torni" title="en:Hotel Torni">Hotel Torni</a>.</figcaption>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Helsinki_z00.jpg/1920px-Helsinki_z00.jpg"
+    alt="Helsinki">
+  <figcaption>
+    Panoramic view of
+    <a
+      href="//commons.wikimedia.org/wiki/Helsinki"
+      title="Helsinki">Helsinki</a>,
+    Finland from the Ateljee bar of
+    <a
+      href="https://en.wikipedia.org/wiki/Hotel_Torni"
+      title="en:Hotel Torni">Hotel Torni</a>.
+  </figcaption>
 </figure>
 
 <figure class="borderless">
@@ -372,7 +400,11 @@ The reference defining the URL location can be later in the document.
     <source srcset="/img/fork-dark.png" media="(prefers-color-scheme: dark)">
     <img src="/img/fork-light.png" alt="Screenshot of Fork.app">
   </picture>
-  <figcaption>Light and dark mode images with the <code>&lt;picture&gt;</code> tag.</figcaption>
+  <figcaption>
+    Light and dark mode images with the
+    <code>&lt;picture&gt;</code>
+    tag.
+  </figcaption>
 </figure>
 ```
 
@@ -534,17 +566,14 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="checkbox" href="#checkbox">Checkbox</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>checkbox</code> are rendered by default as boxes that are checked (ticked) when activated, like you might see in an official government paper form. The exact appearance depends upon the operating system configuration under which the browser is running. Generally this is a square but it may have rounded corners. A checkbox allows you to select single values for submission in a form (or not). –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
-<p>
-  <div>
+<div>
     <input type="checkbox" name="scales" id="scales" checked>
     <label for="scales">Scales</label>
   </div>
@@ -557,8 +586,7 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
   <div>
     <input disabled type="checkbox" name="teeth" id="teeth">
     <label for="teeth">Teeth (Disabled)</label>
-  </div>
-</p>
+</div>
 
 ```html
 <div>
@@ -579,18 +607,15 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="color" href="#color">Color</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
   <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>color</code> provide a user interface element that lets a user specify a color, either by using a visual color picker interface or by entering the color into a text field in <code>#rrggbb</code> hexadecimal format. Only simple colors (without alpha channel) are allowed though CSS colors has more formats, e.g. color names, functional notations and a hexadecimal format with an alpha channel.</p>
   <p>The element’s presentation may vary substantially from one browser and/or platform to another—it might be a simple textual input that automatically validates to ensure that the color information is entered in the proper format, or a platform-standard color picker, or some kind of custom color picker window. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color">mdn</a></p>
   </blockquote>
-  </details>
-</p>
+</details>
 
-<p>
-  <div>
+<div>
     <input type="color" name="head" id="color-head" value="#e66465">
     <label for="color-head">Head</label>
   </div>
@@ -602,8 +627,7 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
   <div>
     <input disabled type="color" name="foot" id="color-foot" value="#0083f5">
     <label for="color-foot">Footer (Disabled)</label>
-  </div>
-</p>
+</div>
 
 ```html
 <div>
@@ -623,15 +647,13 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="date" href="#date">Date</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
   <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of <code>type="date"</code> create input fields that let the user enter a date, either with a textbox that validates the input or a special date picker interface.</p>
   <p>The resulting value includes the year, month, and day, but not the time. The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time">time</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local">datetime-local</a> input types support time and date+time input. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date">mdn</a></p>
   </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="trip-start">Date:</label>
@@ -646,21 +668,23 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 <label class="block" for="trip-start">Date:</label>
 <input type="date" name="trip-start" id="trip-start" value="2020-08-15">
 <label class="block" for="placeholder-date">Date (Placeholder):</label>
-<input type="date" name="placeholder-date" id="placeholder-date" placeholder="2020-08-25">
+<input
+  type="date"
+  name="placeholder-date"
+  id="placeholder-date"
+  placeholder="2020-08-25">
 <label class="block" for="trip-end">Date (Disabled):</label>
 <input disabled type="date" name="trip-end" id="trip-end" value="2020-08-25">
 ```
 
 #### <a id="datetime-local" href="#datetime-local">Datetime Local</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>datetime-local</code> create input controls that let the user easily enter both a date and a time, including the year, month, and day as well as the time in hours and minutes. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="meeting-time">Datetime Local:</label>
@@ -678,14 +702,12 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="email" href="#email">Email</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>email</code> are used to let the user enter and edit an e-mail address, or, if the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple"><code>multiple</code></a> attribute is specified, a list of e-mail addresses. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="email-example">Email:</label>
@@ -701,14 +723,12 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="file" href="#file">File</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements with <code>type="file"</code> let the user choose one or more files from their device storage. Once chosen, the files can be uploaded to a server using <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms">form submission</a>, or manipulated using JavaScript code and <a href="https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications">the File API</a>. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="avatar">Avatar:</label>
@@ -730,14 +750,12 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="image-input" href="#image-input">Image</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>image</code> are used to create graphical submit buttons, i.e. submit buttons that take the form of an image rather than text. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <div class="paragraph">
   <input class="dark-icon" type="image" alt="Login" src="/light-dark.svg">
@@ -749,14 +767,12 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="month" href="#month">Month</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>month</code> create input fields that let the user enter a month and year allowing a month and year to be easily entered. The value is a string whose value is in the format “YYYY-MM”, where YYYY is the four-digit year and MM is the month number. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="start-month">Month:</label>
@@ -772,14 +788,12 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="number" href="#number">Number</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>number</code> are used to let the user enter a number. They include built-in validation to reject non-numerical entries. The browser may opt to provide stepper arrows to let the user increase and decrease the value using their mouse or by simply tapping with a fingertip. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="number-example">Number (10-100):</label>
@@ -795,14 +809,12 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="password" href="#password">Password</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>password</code> provide a way for the user to securely enter a password. The element is presented as a one-line plain text editor control in which the text is obscured so that it cannot be read, usually by replacing each character with a symbol such as the asterisk ("*") or a dot ("•"). This character will vary depending on the <a href="https://developer.mozilla.org/en-US/docs/Glossary/user_agent">user agent</a> and OS. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="pass">Password:</label>
@@ -813,22 +825,24 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 ```html
 <label class="block" for="pass">Password:</label>
-<input placeholder="••••••••" type="password" name="pass" id="pass" minlength="8">
+<input
+  placeholder="••••••••"
+  type="password"
+  name="pass"
+  id="pass"
+  minlength="8">
 ```
 
 #### <a id="radio" href="#radio">Radio</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>radio</code> are generally used in <code>radio groups</code>—collections of radio buttons describing a set of related options. Only one radio button in a given group can be selected at the same time. Radio buttons are typically rendered as small circles, which are filled or highlighted when selected. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
-<p>
-  <div>
+<div>
     <input type="radio" name="drone" value="huey" id="huey" checked>
     <label for="huey">Huey</label>
   </div>
@@ -841,8 +855,7 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
   <div>
     <input disabled type="radio" name="drone" value="louie" id="louie">
     <label for="louie">Louie</label>
-  </div>
-</p>
+</div>
 
 ```html
 <div>
@@ -863,17 +876,14 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 #### <a id="range" href="#range">Range</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>range</code> let the user specify a numeric value which must be no less than a given value, and no more than another given value. The precise value, however, is not considered important. This is typically represented using a slider or dial control rather than a text entry box like the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number">number</a> input type. Because this kind of widget is imprecise, it shouldn’t typically be used unless the control’s exact value isn’t important. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
-<p>
-  <div>
+<div>
     <input type="range" name="volume" id="volume" min="0" max="11">
     <label for="volume">Volume</label>
   </div>
@@ -881,8 +891,7 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
   <div>
     <input disabled type="range" name="cowbell" id="cowbell" min="0" max="100" value="90" step="10">
     <label for="cowbell">Cowbell (Disabled)</label>
-  </div>
-</p>
+</div>
 
 ```html
 <div>
@@ -891,33 +900,37 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </div>
 
 <div>
-  <input disabled type="range" name="cowbell" id="cowbell" min="0" max="100" value="90" step="10">
+  <input
+    disabled
+    type="range"
+    name="cowbell"
+    id="cowbell"
+    min="0"
+    max="100"
+    value="90"
+    step="10">
   <label for="cowbell">Cowbell (Disabled)</label>
 </div>
 ```
 
 #### <a id="reset" href="#reset">Reset</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>"reset"</code>  are rendered as buttons, with a default <a href="https://developer.mozilla.org/en-US/docs/Web/Events/click"><code>click</code></a> event handler that resets all of the inputs in the form to
 their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/reset">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
-<p>
-  <form>
+<form>
     <div class="controls">
       <label for="id">User ID:</label>
       <input type="text" name="id" id="id" />
       <input type="reset" value="Reset">
       <input disabled type="reset" value="Reset (Disabled)">
     </div>
-  </form>
-</p>
+</form>
 
 ```html
 <form>
@@ -932,14 +945,12 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 
 #### <a id="search" href="#search">Search</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a>  elements of type <code>search</code> are text fields designed for the user to enter search queries into. These are functionally identical to <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text"><code>text</code></a> inputs, but may be styled differently by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search">user agent</a>. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <input placeholder="Search..." type="search" name="search">
@@ -952,14 +963,12 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 
 #### <a id="submit" href="#submit">Submit</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>submit</code> are rendered as buttons. When the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/click"><code>click</code></a> event occurs (typically because the user clicked the button), the <a href="https://developer.mozilla.org/en-US/docs/Glossary/user_agent">user agent</a> attempts to submit the form to the server. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <input type="submit" value="Submit">
@@ -973,14 +982,12 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 
 #### <a id="tel" href="#tel">Tel</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>tel</code> are used to let the user enter and edit a telephone number. Unlike <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email"><code>&lt;input type="email"&gt;</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url"><code>&lt;input type="url"&gt;</code></a> , the input value is not automatically validated to a particular format before the form can be submitted, because formats for telephone numbers vary so much around the world. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="phone">Tel:</label>
@@ -998,14 +1005,12 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 
 #### <a id="text" href="#text">Text</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>text</code> create basic single-line text fields. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label for="name">Name (4 to 8 characters):</label>
@@ -1021,14 +1026,12 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 
 #### <a id="textarea" href="#textarea">Text Area</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p>The <strong><code>&lt;textarea&gt;</code></strong> <a href="/en-US/docs/Web/HTML">HTML</a> element represents a multi-line plain-text editing control, useful when you want to allow users to enter a sizeable amount of free-form text, for example a comment on a review or feedback form. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label style="display: block;">
@@ -1038,7 +1041,7 @@ It was a dark and stormy night...
     </textarea>
   </label>
   <label style="display: block;">Don't tell us your story:
-    <textarea style="display: block;" disabled id="story" name="story" rows="5" cols="33">
+    <textarea style="display: block;" disabled id="story-disabled" name="story-disabled" rows="5" cols="33">
 It wasn't a dark and stormy night...
     </textarea>
   </label>
@@ -1053,7 +1056,13 @@ It was a dark and stormy night...
 </label>
 <label style="display: block;">
   Don't tell us your story:
-  <textarea style="display: block;" disabled id="story" name="story" rows="5" cols="33">
+  <textarea
+    style="display: block;"
+    disabled
+    id="story-disabled"
+    name="story-disabled"
+    rows="5"
+    cols="33">
 It wasn't a dark and stormy night...
   </textarea>
 </label>
@@ -1061,14 +1070,12 @@ It wasn't a dark and stormy night...
 
 #### <a id="time" href="#time">Time</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
-      <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>time</code> create input fields designed to let the user easily enter a time (hours and minutes, and optionally seconds). The control’s user interface will vary from browser to browser. Support is good in modern browsers, with Safari being the sole major browser not yet implementing it; in Safari, and any other browsers that don’t support <code>&lt;time&gt;</code>, it degrades gracefully to <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text"><code>&lt;input type="text"&gt;</code></a>. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time">mdn</a></p>
+      <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>time</code> let users enter a time. The control’s interface varies by browser and operating system. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="appt">Choose a time for your meeting:</label>
@@ -1080,20 +1087,18 @@ It wasn't a dark and stormy night...
 
 ```html
 <label for="appt">Choose a time for your meeting:</label>
-<input type="time" id="appt" name="appt" id="appt" min="09:00" max="18:00" required>
+<input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
 <small>Office hours are 9am to 6pm</small>
 ```
 
 #### <a id="url" href="#url">URL</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>url</code> are used to let the user enter and edit a URL. –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="url-example">Enter an https:// URL:</label>
@@ -1104,19 +1109,24 @@ It wasn't a dark and stormy night...
 
 ```html
 <label for="url">Enter an https:// URL:</label>
-<input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30" required>
+<input
+  type="url"
+  name="url"
+  id="url"
+  placeholder="https://example.com"
+  pattern="https://.*"
+  size="30"
+  required>
 ```
 
 #### <a id="week" href="#week">Week</a>
 
-<p>
-  <details>
+<details>
     <summary><strong>Description</strong></summary>
     <blockquote>
       <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> elements of type <code>week</code> create input fields allowing easy entry of a year plus the <a href="https://en.wikipedia.org/wiki/ISO_8601#Week_dates">ISO 8601 week number</a> during that year (i.e., week 1 to <a href="https://en.wikipedia.org/wiki/ISO_8601#Week_dates">52 or 53</a>). –<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week">mdn</a></p>
     </blockquote>
-  </details>
-</p>
+</details>
 
 <p>
   <label class="block" for="week-example">Week:</label>
@@ -1129,13 +1139,21 @@ It wasn't a dark and stormy night...
 
 ```html
 <label class="block" for="week-example">Week:</label>
-<input class="block" placeholder="2018-W18" value="2017-W01" type="week" for="week-example" id="week-example" min="2018-W18" max="2018-W26" required>
+<input
+  class="block"
+  placeholder="2018-W18"
+  value="2017-W01"
+  type="week"
+  name="week-example"
+  id="week-example"
+  min="2018-W18"
+  max="2018-W26"
+  required>
 ```
 
 ### <a id="fieldset" href="#fieldset">Fieldset</a>
 
-<p>
-  <form style="display: inline-block;">
+<form style="display: inline-block;">
     <fieldset>
       <legend>Log into your account:</legend>
       <div>
@@ -1148,8 +1166,7 @@ It wasn't a dark and stormy night...
       </div>
       <input style="width:100%" type="submit" value="Login">
     </fieldset>
-  </form>
-</p>
+</form>
 
 ```html
 <form style="display: inline-block;">
@@ -1167,6 +1184,3 @@ It wasn't a dark and stormy night...
   </fieldset>
 </form>
 ```
-
-
-

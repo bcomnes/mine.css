@@ -6,29 +6,33 @@
   "bugs": {
     "url": "https://github.com/bcomnes/mine.css/issues"
   },
+  "browserslist": [
+    "supports css-nesting"
+  ],
   "contributors": [
     "Bret Comnes <bcomnes@gmail.com> (https://bret.io)"
   ],
   "devDependencies": {
-    "@domstack/static": "^11.0.2",
-    "auto-changelog": "^2.0.0",
-    "autoprefixer": "^10.0.1",
-    "cpx2": "^9.0.0",
-    "gh-release": "^8.1.0",
+    "@domstack/static": "^11.0.3",
+    "@playwright/test": "1.61.1",
+    "@types/node": "^26.0.0",
+    "@voxpelli/tsconfig": "^16.1.0",
+    "autoprefixer": "^10.5.2",
+    "fragtml": "^0.0.9",
     "highlight.js": "^11.2.0",
-    "npm-run-all": "^4.1.5",
+    "neostandard": "^0.13.0",
+    "npm-run-all2": "^9.0.0",
     "postcss": "^8.0.9",
-    "postcss-browser-reporter": "^0.7.0",
     "postcss-cli": "^11.0.0",
-    "postcss-dark-theme-class": "^2.0.0",
-    "postcss-extend": "^1.0.5",
     "postcss-import": "^16.0.0",
-    "postcss-reporter": "^7.0.1",
-    "postcss-url": "^10.1.0",
+    "releasearoni": "^0.2.0",
     "stylelint": "^17.4.0",
     "stylelint-config-standard": "^40.0.0",
-    "top-bar.css": "^3.0.0",
-    "uhtml-isomorphic": "^2.0.0"
+    "typescript": "~6.0.3"
+  },
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10"
   },
   "homepage": "https://github.com/bcomnes/mine.css",
   "keywords": [
@@ -39,38 +43,60 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "dist/theme-switcher.js",
-  "module": "dist/theme-switcher.js",
-  "style": "dist/mine.css",
-  "exports": {
-    ".": {
-      "default": "./dist/theme-switcher.js"
-    },
-    "./dist/*": "./dist/*"
+  "overrides": {
+    "@domstack/static": {
+      "esbuild": "^0.28.1"
+    }
   },
+  "main": "dist/mine.css",
+  "style": "dist/mine.css",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/bcomnes/mine.css.git"
   },
   "scripts": {
-    "build": "run-s clean build:*",
-    "build:mine.css": "postcss src/index.css -o dist/mine.css",
-    "build:layout.css": "postcss src/layout.css -o dist/layout.css",
-    "build:js": "cpx 'src/theme-switcher.js' dist",
-    "build:site": "dom --src . --dest public --ignore 'src,package.json,*.map'",
-    "clean": "rm -rf 'dist/*' 'public/*' && mkdir -p dist public",
-    "prepare": "npm run build",
-    "prepublishOnly": "git push --follow-tags && gh-release -y",
-    "pretest": "run-s build",
+    "prepublishOnly": "releasearoni",
+    "version": "releasearoni version",
+    "build": "run-s clean build:assets build:site",
+    "build:assets": "run-p build:assets:*",
+    "build:assets:mine.css": "postcss src/index.css -o dist/mine.css",
+    "build:assets:layout.css": "postcss src/layout.css -o dist/layout.css",
+    "build:assets:tron-legacy-highlight-dark.css": "postcss src/highlight.js/tron-legacy-dark.css -o dist/highlight.js/tron-legacy-dark.css",
+    "build:assets:tron-legacy-highlight.css": "postcss src/highlight.js/tron-legacy.css -o dist/highlight.js/tron-legacy.css",
+    "build:assets:tron-legacy-highlight-light.css": "postcss src/highlight.js/tron-legacy-light.css -o dist/highlight.js/tron-legacy-light.css",
+    "build:assets:tron-legacy.css": "postcss src/themes/tron-legacy.css -o dist/themes/tron-legacy.css",
+    "build:assets:top-bar.css": "postcss src/top-bar.css -o dist/top-bar.css",
+    "build:site": "dom --src . --dest public --ignore 'src,types,test,browser-tests,test-results,coverage,lcov.info,package.json,playwright.config.js,tsconfig.json,eslint.config.js,*.map'",
+    "clean": "run-p clean:dist clean:public",
+    "clean:dist": "rm -rf dist && mkdir -p dist/highlight.js dist/themes",
+    "clean:public": "rm -rf public && mkdir -p public",
     "start": "npm run watch",
-    "test": "run-s test:*",
+    "test": "run-s test:lint test:stylelint test:tsc test:node-test test:playwright",
+    "test:lint": "eslint .",
+    "test:node-test": "node --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=lcov.info --test",
+    "test:playwright": "run-s build test:playwright:run",
+    "test:playwright:run": "playwright test --timeout=10000",
     "test:stylelint": "stylelint 'src/**/*.css' global.css",
-    "version": "run-s prepare version:*",
-    "version:changelog": "auto-changelog -p --template keepachangelog auto-changelog --breaking-pattern 'BREAKING CHANGE:'",
-    "version:git": "git add CHANGELOG.md dist",
-    "watch": "npm run clean && run-p build:mine.css build:layout.css && run-p watch:*",
-    "watch:site": "npm run build:site -- -w",
-    "watch:mine.css": "run-s 'build:mine.css -- --watch'",
-    "watch:layout.css": "run-s 'build:layout.css -- --watch'"
+    "test:tsc": "tsc",
+    "watch": "run-s clean build:assets && run-p watch:*",
+    "watch:mine.css": "npm run build:assets:mine.css -- --watch",
+    "watch:layout.css": "npm run build:assets:layout.css -- --watch",
+    "watch:tron-legacy-highlight-dark.css": "npm run build:assets:tron-legacy-highlight-dark.css -- --watch",
+    "watch:tron-legacy-highlight.css": "npm run build:assets:tron-legacy-highlight.css -- --watch",
+    "watch:tron-legacy-highlight-light.css": "npm run build:assets:tron-legacy-highlight-light.css -- --watch",
+    "watch:tron-legacy.css": "npm run build:assets:tron-legacy.css -- --watch",
+    "watch:top-bar.css": "npm run build:assets:top-bar.css -- --watch",
+    "watch:site": "npm run build:site -- -w"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/bcomnes"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.2": true
   }
 }

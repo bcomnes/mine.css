@@ -1,7 +1,6 @@
 ul,
 ol {
-  padding: 0;
-  padding-left: 2em;
+  padding-inline-start: 2em;
 
   & ol { list-style-type: lower-roman; }
 

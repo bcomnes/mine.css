@@ -1,11 +1,11 @@
-@import url("./buttons.css");
-@import url("./checkbox.css");
-@import url("./radio.css");
 @import url("./text-input.css");
 @import url("./label.css");
 @import url("./fieldset.css");
 
 input {
+  /* Fixed-size controls must still fit inside narrow document gutters. */
+  max-inline-size: 100%;
+
   &.block {
     display: block;
   }
@@ -21,4 +21,12 @@ input {
   &.inline-grid {
     display: inline-grid;
   }
+}
+
+/* Keep text-entry controls in the active type scheme; buttons retain native metrics. */
+input:not([type="button"], [type="file"], [type="image"], [type="reset"], [type="submit"]),
+select,
+textarea {
+  color: inherit;
+  font: inherit;
 }

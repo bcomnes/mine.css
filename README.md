@@ -26,6 +26,11 @@ Some differences from [style.css][style]:
 - Use post-css build pipeline
 - Minor stylistic differences
 - [CHANGELOG.md](./CHANGELOG.md)
+- [Migrating from v10 to v11](./MIGRATION.md)
+
+## Browser support
+
+The distributed stylesheet uses native CSS nesting. The package's Browserslist contract is `supports css-nesting`; older browsers should use a separately transpiled build.
 
 ## Install
 
@@ -41,7 +46,7 @@ Some differences from [style.css][style]:
 
 ```html
 <!-- CDN Production (specific release) -->
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^4.0.0">
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
 ```
 
 ```sh
@@ -54,18 +59,12 @@ $ npm install mine.css
 @import url('https://unpkg.com/mine.css');
 ```
 
-If your bundler implements package.json `exports` resolution, you can explicitly reference the js or css exports from mine.css doing the following:
+The package root points to the main stylesheet. Because mine.css leaves package subpaths open, optional companion styles are also available by their explicit paths:
 
 ```css
-/* esbuild css */
-@import 'mine.css/dist/mine.css';
-```
-
-```js
-/* esbuild js */
-import { toggleTheme } from 'mine.css/dist/theme-switcher.js';
-/* or */
-import { toggleTheme } from 'mine.css';
+@import 'mine.css';
+@import 'mine.css/dist/layout.css';
+@import 'mine.css/dist/top-bar.css';
 ```
 
 ## Usage
@@ -76,8 +75,9 @@ import { toggleTheme } from 'mine.css';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <title>Hello World</title>
-    <link rel="stylesheet" href="https://unpkg.com/mine.css@^4.0.0">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
   </head>
   <body>
     <h1>Hooray!</h1>
@@ -86,6 +86,18 @@ import { toggleTheme } from 'mine.css';
 ```
 
 The best way to get familiar with the look and feel of `mine.css` is to visit the [style guide][guide]. Detailed examples of every HTML element (and how to write them in markdown) are available there.
+
+## Testing
+
+```console
+npm ci
+npx playwright install chromium
+npm test
+```
+
+The test suite runs Stylelint, fast Node contract tests, and Chromium checks against the built style guide. Use `npm run test:playwright` to rebuild and run only the browser suite.
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the lint, type-check, watch, and release workflows.
 
 ### Node
 
@@ -108,36 +120,43 @@ You can override defaults directly with CSS variables. Here are the default vari
   --font-code: var(--system-mono);
 
   /* font size and spacing */
-  --font-size-body: 14px;
-  --font-size-scale: 0.25vw;
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.125rem);
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */
   --line-height-body: 1.75;
   --line-height-pre: 1.45;
 
+  /* raised surface depth */
+  --surface-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 24%),
+    inset 0 -1px 0 rgb(0 0 0 / 4%),
+    0 2px 5px rgb(0 0 0 / 11%);
+
   /* light colors */
-  --light-text: hsla(0, 0%, 7%, 1); /* #111 */
+  --light-text: hsl(0deg, 0%, 7%, 100%); /* #111 */
   --light-background: white;
-  --light-layer-background: hsla(0, 0%, 100%, 0); /* #fff */
-  --light-accent-background: hsla(0, 0%, 95%, 1); /* #f2f2f2 */
-  --light-accent-midground: hsla(0, 0%, 84%, 1); /* #d6d6d6 */
-  --light-accent-foreground: hsla(0, 0%, 49%, 1); /* #7d7d7d */
-  --light-link-text: hsla(208, 100%, 50%, 1); /* #08f */
-  --light-mark-background: hsla(60, 100%, 50%, 1); /* #ff0 */
+  --light-layer-background: hsl(0deg, 0%, 100%, 0%);
+  --light-accent-background: hsl(0deg, 0%, 95%, 100%); /* #f2f2f2 */
+  --light-accent-midground: hsl(0deg, 0%, 84%, 100%); /* #d6d6d6 */
+  --light-control-border: hsl(0deg, 0%, 58%, 100%); /* #949494 */
+  --light-accent-foreground: hsl(0deg, 0%, 40%, 100%); /* #666 */
+  --light-link-text: hsl(210deg, 100%, 45%, 100%); /* #0073e6 */
+  --light-mark-background: hsl(60deg, 100%, 50%, 100%); /* #ff0 */
   --light-code-text: var(--light-text);
   --light-code-background: var(--light-accent-background);
   --light-code-border: var(--light-accent-midground);
 
   /* dark colors */
   --dark-text: white;
-  --dark-background: hsla(0, 0%, 12%, 1); /* #1f1f1f from safari */
-  --dark-layer-background: var(--transparent);
-  --dark-accent-background: hsla(0, 0%, 20%, 1); /* #333 */
-  --dark-accent-midground: hsla(0, 0%, 30%, 1); /* #4d4d4d */
-  --dark-accent-foreground: hsla(0, 0%, 60%, 1); /* #999 */
-  --dark-link-text: hsl(206, 100%, 70%); /* #66bdff */
-  --dark-mark-background: hsla(58, 66%, 30%, 1); /* #7f7c1a */
+  --dark-background: hsl(0deg, 0%, 12%, 100%); /* #1f1f1f */
+  --dark-layer-background: transparent;
+  --dark-accent-background: hsl(0deg, 0%, 20%, 100%); /* #333 */
+  --dark-accent-midground: hsl(0deg, 0%, 30%, 100%); /* #4d4d4d */
+  --dark-control-border: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
+  --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
+  --dark-link-text: hsl(206deg, 100%, 70%, 100%); /* #66bdff */
+  --dark-mark-background: hsl(58deg, 66%, 30%, 100%); /* #7f7c1a */
   --dark-code-text: var(--dark-text);
   --dark-code-background: var(--dark-accent-background);
   --dark-code-border: var(--dark-accent-midground);
@@ -152,7 +171,8 @@ You can override settings like so:
 @import 'mine.css';
 
 :root {
-  --font-size-body: 14px;
+  --font-size-body: 1rem;
+  --surface-shadow: none;
 }
 ```
 
@@ -171,8 +191,8 @@ If you want to use the font stacks to override global font settings, you can do 
 To customize colors, override the color variable for dark and light mode:
 
 ```css
-:root{
-  --light-text: red
+:root {
+  --light-text: red;
   --light-background: blue;
 
   --dark-text: blue;
@@ -185,15 +205,14 @@ If you want to implement other styles that follow the light/dark mode pattern in
 
 ```css
 .some-class {
-  color: var(--accent-foreground)
+  color: var(--accent-foreground);
 }
 ```
 
 The theme agnostic variables are as follows:
 
 ```css
-:root,
-.light-mode {
+:root {
   /* main colors */
   --text: var(--light-text);
   --background: var(--light-background);
@@ -201,6 +220,7 @@ The theme agnostic variables are as follows:
   --accent-background: var(--light-accent-background);
   --accent-midground: var(--light-accent-midground);
   --accent-foreground: var(--light-accent-foreground);
+  --control-border: var(--light-control-border);
 
   /* misc colors */
   --link-text: var(--light-link-text);
@@ -210,67 +230,74 @@ The theme agnostic variables are as follows:
   --code-border: var(--light-code-border);
 }
 
-.dark-mode {
-  /* main colors */
-  --text: var(--dark-text);
-  --background: var(--dark-background);
-  --layer-background: var(--dark-layer-background);
-  --accent-background: var(--dark-accent-background);
-  --accent-midground: var(--dark-accent-midground);
-  --accent-foreground: var(--dark-accent-foreground);
-
-  /* misc colors */
-  --link-text: var(--dark-link-text);
-  --mark-background: var(--dark-mark-background);
-  --code-text: var(--dark-code-text);
-  --code-background: var(--dark-code-background);
-  --code-border: var(--dark-code-border);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
-    @extend .dark-mode; /* stylelint-disable-line at-rule-no-unknown */
+    /* main colors */
+    --text: var(--dark-text);
+    --background: var(--dark-background);
+    --layer-background: var(--dark-layer-background);
+    --accent-background: var(--dark-accent-background);
+    --accent-midground: var(--dark-accent-midground);
+    --accent-foreground: var(--dark-accent-foreground);
+    --control-border: var(--dark-control-border);
+
+    /* misc colors */
+    --link-text: var(--dark-link-text);
+    --mark-background: var(--dark-mark-background);
+    --code-text: var(--dark-code-text);
+    --code-background: var(--dark-code-background);
+    --code-border: var(--dark-code-border);
   }
 }
 ```
 
-## Overriding the system theme
+## Following the user's color preference
 
-If you want to allow users to switch between light and dark, indipendent of the system theme, you can apply the `.light-mode` or `.dark-mode` class the the document body.
+`mine.css` deliberately follows the browser's `prefers-color-scheme` value and does not provide JavaScript or class-based light/dark overrides. This keeps one source of truth: the preference the user has already chosen in their operating system or browser.
 
-Thought there is a subtle relationship between the class and the system preference, so it is better to use the theme switcher script ([./src/theme-switcher.js](./dist/theme-switcher.js)) which handles user preference while still following the system preference.
-
-Usage:
+Add the color-scheme metadata before your styles so browser-provided controls and the initial canvas can use the preferred palette immediately:
 
 ```html
-<script type="module">
-  import { toggleTheme } from 'https://unpkg.com/bcomnes/mine.css@^4.0.0?module';
-
-  window.toggleTheme = toggleTheme
-</script>
+<meta name="color-scheme" content="light dark">
 ```
 
-The `toggleTheme` export is exclusively offered as an ESM module.  If you need CJS, just vendor it.
-
-See [./site/](./site/) for examples of this in action.
-
-Additionally, when using `theme-switcher.js`, you can easily target dark mode using the following selector:
-
-```css
-.dark-mode:not(.light-mode) {
-  /* additional dark mode styles go here */
-}
-```
-
-and the body tag will stay in sync with the system preferenc or user override.  Otherwise you need to define duplicate css rules in the dark mode media query:
+Use the same media query for application-specific dark styles:
 
 ```css
 @media (prefers-color-scheme: dark) {
   :root {
-    /* duplicate your dark mode styles here if not using theme-switcher.js */
+    /* additional dark-mode styles */
   }
 }
 ```
+
+### Light and dark syntax highlighting
+
+Highlight.js themes are ordinary stylesheets, so load a light theme first and conditionally load its dark counterpart afterward. The order matters: the dark rules should win only when the browser reports a dark preference.
+
+With a CSS bundler and the `highlight.js` package installed:
+
+```css
+@import url("highlight.js/styles/github.css");
+@import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
+```
+
+The equivalent HTML works without bundling:
+
+```html
+<link rel="stylesheet" href="/path/to/highlight.js/styles/github.css">
+<link rel="stylesheet" href="/path/to/highlight.js/styles/github-dark-dimmed.css" media="(prefers-color-scheme: dark)">
+```
+
+This follows the same browser or operating-system preference as `mine.css`; no theme-switching JavaScript or mode classes are needed.
+
+Users can control the preference without a site-specific toggle:
+
+- Firefox has a built-in **Settings → General → Language and Appearance → Website appearance** control with Automatic, Light, and Dark choices.
+- Chrome, Edge, Safari, and Firefox can follow the operating system or device appearance setting.
+- For a per-site override in browsers without a website-appearance control, [Dark Reader](https://darkreader.org/) supports Chrome, Firefox, Safari, and Edge. It analyzes and transforms page colors rather than changing `prefers-color-scheme`, so prefer the browser/OS setting when possible and use Dark Reader when you intentionally want that transformation.
+
+References: [MDN `prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-color-scheme), [Firefox website appearance](https://support.mozilla.org/en-US/kb/change-website-appearance-settings-firefox), [Chrome dark mode](https://support.google.com/chrome/answer/9275525), [Edge appearance](https://support.microsoft.com/en-us/edge/use-the-dark-theme-in-microsoft-edge), and [macOS Appearance](https://support.apple.com/guide/mac-help/use-a-light-or-dark-appearance-mchl52e1c2d2/mac).
 
 ## Dark mode images
 
@@ -287,19 +314,94 @@ See [this webkit blogpost](https://webkit.org/blog/8840/dark-mode-support-in-web
 
 ## Layout
 
-`mine.css` doesn't include any layout css, thought it does ship a simple layout css file that provides basic layout for a page and supports [`safe-area` that accommodates cell phone notches and whatnot](https://webkit.org/blog/7929/designing-websites-for-iphone-x/).
+`mine.css` does not include page layout by default, but it ships a small companion stylesheet with a readable document measure and safe-area support for notched displays.
 
 ```html
 <!-- CDN Production (specific release) -->
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^4.0.0/dist/layout.css">
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/layout.css">
 ```
 
 You can see this layout style in action on the [`mine.css`][guide] website.
 
 The two classes are:
 
-- `safe-area-inset`: This should typically be applied to `body`.  This enables mobile notch padding when nessisary.
-- `mine-layout`: Simple, responsive margins for a document.  Apply to the content body or whereever else you want a nice default margin.
+- `safe-area-inset`: Adds at least a `1em` inline gutter and expands it where a device safe area requires more room.
+- `mine-layout`: Provides a self-contained, responsive document measure. Apply it to the main content container.
+
+The demo's sticky navigation is also available as an optional companion stylesheet. It is a namespaced reimplementation inspired by [top-bar.css](https://github.com/css-pkg/top-bar.css), is self-contained, and follows the same light/dark browser preference as the main stylesheet.
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/top-bar.css">
+```
+
+## Color themes
+
+Color themes are optional, named token overrides. Load a theme after `mine.css` and select it with `data-mine-theme` on the document root. The theme still uses the framework's existing `prefers-color-scheme` behavior, so choosing a palette does not create a separate light/dark override.
+
+The first theme adapts the light and dark palettes from [Tron Legacy for Zed](https://github.com/bcomnes/zed-theme-tron-legacy):
+
+```html
+<!doctype html>
+<html lang="en" data-mine-theme="tron">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/themes/tron-legacy.css">
+  </head>
+  <body>...</body>
+</html>
+```
+
+Bundlers can import the same sidecar directly:
+
+```css
+@import 'mine.css';
+@import 'mine.css/dist/themes/tron-legacy.css';
+```
+
+Remove the attribute to return to the default palette. A menu can switch named themes without changing the user's light/dark preference:
+
+```html
+<select aria-label="color theme" id="mine-theme">
+  <option value="default">default</option>
+  <option value="tron">tron</option>
+</select>
+<script type="module">
+  const menu = document.querySelector('#mine-theme')
+  menu.addEventListener('change', () => {
+    if (menu.value === 'tron') document.documentElement.dataset.mineTheme = 'tron'
+    else delete document.documentElement.dataset.mineTheme
+  })
+</script>
+```
+
+The matching Highlight.js themes are separate sidecars with their own
+`data-hljs-theme` selector. This keeps document and syntax palettes independent.
+The convenience entry point composes the fixed light and dark stylesheets using
+`prefers-color-scheme`:
+
+```html
+<html lang="en" data-hljs-theme="tron">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy.css">
+  </head>
+</html>
+```
+
+Consumers that want to control the syntax mode themselves can import a fixed
+variant instead:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy-light.css">
+<!-- or -->
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy-dark.css">
+```
+
+The fixed files contain no color-scheme media query. They can be loaded
+directly, arranged with `<link media>`, or switched by application code.
+Highlight.js itself remains responsible for producing the `.hljs-*` markup.
+Sites may select either Tron theme alone, or set both theme attributes when the
+document and syntax palettes should change together. When offering a default
+Highlight.js choice too, load its styles before the Tron Highlight.js sidecar.
 
 ## Thanks
 
@@ -307,9 +409,9 @@ The two classes are:
 
 ## License
 
-[ISC](LICENSE)
+[MIT](LICENSE)
 
-[style]: https://css-pkg.github.io/style.css/
+[style]: https://ungoldman.com/style.css/
 [style-gh]: https://github.com/css-pkg/style.css
 [guide]: https://mine-css.neocities.org/guide/
 
