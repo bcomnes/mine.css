@@ -29,7 +29,8 @@ Identify:
 - optional layout and top-bar usage;
 - mine.css custom-property overrides;
 - syntax-highlighting styles and application-specific dark styles;
-- named theme sidecars and `data-mine-theme` selectors;
+- named document and syntax theme sidecars, including `data-mine-theme` and
+  `data-hljs-theme` selectors;
 - the consuming project's browser-support policy.
 
 Run the project's existing checks and capture representative light and dark
@@ -59,6 +60,10 @@ distinguish from regressions.
 8. Preserve named palette selection separately from light/dark mode. A
    `data-mine-theme` value may select a sidecar such as Tron, but each named
    theme must still follow `prefers-color-scheme` for its light and dark values.
+9. Keep optional Highlight.js palettes separate from document palettes. The
+   Tron syntax sidecar lives at `dist/highlight.js/tron-legacy.css` and uses
+   `data-hljs-theme="tron"`; set both attributes only when the application wants
+   one control to change both palettes.
 
 Keep edits scoped to the migration. Preserve application-specific branding and
 behavior unless it conflicts with the removed v10 API.
@@ -69,6 +74,8 @@ behavior unless it conflicts with the removed v10 API.
 - Do not recreate class-based light/dark overrides; follow the browser setting.
 - Do not treat `data-mine-theme` as a light/dark switch. It selects a named
   palette only.
+- Do not assume `data-mine-theme` also selects a Highlight.js palette. Syntax
+  themes have their own sidecar and `data-hljs-theme` selector.
 - Do not add custom button styling merely to reproduce v10. v11 intentionally
   keeps native buttons.
 - Do not assume the optional layout or top bar is bundled into the main

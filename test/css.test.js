@@ -9,6 +9,7 @@ const fieldset = await readFile(new URL('../src/inputs/fieldset.css', import.met
 const code = await readFile(new URL('../src/typography/code.css', import.meta.url), 'utf8')
 const figures = await readFile(new URL('../src/typography/figures.css', import.meta.url), 'utf8')
 const tronLegacy = await readFile(new URL('../src/themes/tron-legacy.css', import.meta.url), 'utf8')
+const tronLegacyHighlight = await readFile(new URL('../src/highlight.js/tron-legacy.css', import.meta.url), 'utf8')
 const distribution = await readFile(new URL('../dist/mine.css', import.meta.url), 'utf8')
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
 
@@ -154,17 +155,19 @@ test('Tron Legacy defines complete, accessible light and dark palettes', () => {
 })
 
 test('Tron Legacy covers standard Highlight.js scopes without changing typography', () => {
+  assert.doesNotMatch(tronLegacy, /(?:hljs|data-hljs-theme)/i)
+  assert.match(tronLegacyHighlight, /:root\[data-hljs-theme="tron"\]/)
   const syntaxRoles = ['foreground', 'background', 'comment', 'keyword', 'title', 'function', 'attribute', 'literal', 'number', 'property', 'string', 'escape', 'regexp', 'special', 'variable-special', 'addition', 'deletion']
   for (const role of syntaxRoles) {
-    const declarations = tronLegacy.match(new RegExp(`--tron-hljs-${role}: #[0-9a-f]{6};`, 'gi')) ?? []
+    const declarations = tronLegacyHighlight.match(new RegExp(`--tron-hljs-${role}: #[0-9a-f]{6};`, 'gi')) ?? []
     assert.equal(declarations.length, 2, `Expected light and dark Highlight.js values for ${role}`)
   }
 
   const scopes = ['subst', 'keyword', 'operator', 'title', 'attr', 'literal', 'number', 'regexp', 'string', 'built_in', 'comment', 'name', 'section', 'bullet', 'emphasis', 'strong', 'addition', 'deletion', 'property', 'punctuation', 'tag']
   for (const scope of scopes) {
-    assert.match(tronLegacy, new RegExp(`\\.hljs-${scope}\\b`), `Missing Highlight.js scope ${scope}`)
+    assert.match(tronLegacyHighlight, new RegExp(`\\.hljs-${scope}\\b`), `Missing Highlight.js scope ${scope}`)
   }
 
-  assert.match(tronLegacy, /\.hljs \{\n {2}display: block;\n {2}overflow-x: auto;\n {2}padding: 0\.5em;/)
-  assert.doesNotMatch(tronLegacy, /^\s*(?:border|font-family|font-size|line-height|margin):/m)
+  assert.match(tronLegacyHighlight, /\.hljs \{\n {2}display: block;\n {2}overflow-x: auto;\n {2}padding: 0\.5em;/)
+  assert.doesNotMatch(tronLegacyHighlight, /^\s*(?:border|font-family|font-size|line-height|margin):/m)
 })

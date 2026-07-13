@@ -374,9 +374,22 @@ Remove the attribute to return to the default palette. A menu can switch named t
 </script>
 ```
 
-The Tron sidecar also contains language-agnostic Highlight.js colors adapted from the same Zed syntax palette. It provides both light and dark variants and switches them with `prefers-color-scheme`; Highlight.js itself remains responsible for producing the `.hljs-*` markup.
+The matching Highlight.js theme is a separate sidecar with its own
+`data-hljs-theme` selector. This keeps document and syntax palettes independent:
 
-When a site offers both the default and Tron choices, load its default Highlight.js styles before `tron-legacy.css`. The sidecar is deliberately scoped, so its syntax colors win only while `data-mine-theme="tron"` is selected.
+```html
+<html lang="en" data-hljs-theme="tron">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy.css">
+  </head>
+</html>
+```
+
+It provides light and dark variants selected by `prefers-color-scheme`;
+Highlight.js itself remains responsible for producing the `.hljs-*` markup.
+Sites may select either Tron theme alone, or set both attributes when the
+document and syntax palettes should change together. When offering a default
+Highlight.js choice too, load its styles before the Tron Highlight.js sidecar.
 
 ## Thanks
 

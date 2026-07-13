@@ -143,11 +143,21 @@ For example, load and select the optional Tron theme with:
 </html>
 ```
 
-Remove the attribute to use mine.css's default palette. The Tron sidecar also
-provides matching light and dark Highlight.js scope colors. If the site offers
-both default and Tron choices, load the default Highlight.js styles first and
-the Tron sidecar afterward; its scoped syntax rules win only while Tron is
-selected.
+Remove the attribute to use mine.css's default palette. Matching Highlight.js
+colors now live in a separate sidecar and use their own selector:
+
+```html
+<html lang="en" data-hljs-theme="tron">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^11/dist/highlight.js/tron-legacy.css">
+  </head>
+</html>
+```
+
+The two themes can be selected independently. A site that changes both from
+one menu should update both `data-mine-theme` and `data-hljs-theme`. If the site
+also offers default Highlight.js colors, load those styles before the Tron
+Highlight.js sidecar.
 
 ## Rename top-bar selectors
 

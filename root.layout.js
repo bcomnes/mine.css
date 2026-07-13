@@ -30,7 +30,10 @@ export default async function RootLayout ({
         <script>${raw(`
           try {
             const theme = localStorage.getItem('mine-theme')
-            if (theme === 'tron') document.documentElement.dataset.mineTheme = theme
+            if (theme === 'tron') {
+              document.documentElement.dataset.mineTheme = theme
+              document.documentElement.dataset.hljsTheme = theme
+            }
           } catch {}
         `)}</script>
         <title>${title ? `${title} | ` : ''}${siteName}</title>

@@ -40,8 +40,10 @@ function sans () {
 function setTheme (theme) {
   if (theme === 'tron') {
     document.documentElement.dataset['mineTheme'] = theme
+    document.documentElement.dataset['hljsTheme'] = theme
   } else {
     delete document.documentElement.dataset['mineTheme']
+    delete document.documentElement.dataset['hljsTheme']
   }
   themeSelect.value = theme
 }

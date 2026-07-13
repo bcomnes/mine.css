@@ -109,7 +109,7 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   await expect(page.locator('.hljs').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)')
 })
 
-test('switches the Tron document and Highlight.js palettes together', async ({ page, siteURL }) => {
+test('switches the separate Tron document and Highlight.js palettes together in the demo', async ({ page, siteURL }) => {
   await page.emulateMedia({ colorScheme: 'light' })
   await gotoGuide(page, siteURL)
 
@@ -124,6 +124,7 @@ test('switches the Tron document and Highlight.js palettes together', async ({ p
   await menu.selectOption('tron')
 
   await expect(root).toHaveAttribute('data-mine-theme', 'tron')
+  await expect(root).toHaveAttribute('data-hljs-theme', 'tron')
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(245, 247, 250)')
   await expect(highlightedCode).toHaveCSS('color', 'rgb(26, 37, 48)')
   await expect(highlightedCode).toHaveCSS('background-color', 'rgb(232, 236, 242)')
@@ -140,12 +141,33 @@ test('switches the Tron document and Highlight.js palettes together', async ({ p
 
   await page.reload({ waitUntil: 'domcontentloaded' })
   await expect(root).toHaveAttribute('data-mine-theme', 'tron')
+  await expect(root).toHaveAttribute('data-hljs-theme', 'tron')
   await expect(menu).toHaveValue('tron')
 
   await menu.selectOption('default')
   expect(await root.getAttribute('data-mine-theme')).toBeNull()
+  expect(await root.getAttribute('data-hljs-theme')).toBeNull()
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
   await expect(highlightedCode).toHaveCSS('background-color', 'rgb(34, 39, 46)')
+})
+
+test('selects the Tron document and Highlight.js themes independently', async ({ page, siteURL }) => {
+  await page.emulateMedia({ colorScheme: 'light' })
+  await gotoGuide(page, siteURL)
+
+  const body = page.locator('body')
+  const highlightedCode = page.locator('.hljs').first()
+
+  await page.evaluate(() => { document.documentElement.dataset.mineTheme = 'tron' })
+  await expect(body).toHaveCSS('background-color', 'rgb(245, 247, 250)')
+  await expect(highlightedCode).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+
+  await page.evaluate(() => {
+    delete document.documentElement.dataset.mineTheme
+    document.documentElement.dataset.hljsTheme = 'tron'
+  })
+  await expect(body).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+  await expect(highlightedCode).toHaveCSS('background-color', 'rgb(232, 236, 242)')
 })
 
 test('uses the selected theme light palette when printing from dark mode', async ({ page, siteURL }) => {
