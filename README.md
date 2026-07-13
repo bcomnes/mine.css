@@ -16,18 +16,6 @@ Make a plain HTML page look good and readable with zero effort!  Serves as a nic
 
 Check out the [style guide][guide] to see what it looks like.
 
-## Differences
-
-Some differences from [style.css][style]:
-
-- CSS Variables
-- Dark Mode
-- Remove some old browser support
-- Use post-css build pipeline
-- Minor stylistic differences
-- [CHANGELOG.md](./CHANGELOG.md)
-- [Migrating from v10 to v11](./MIGRATION.md)
-
 ## Browser support
 
 The distributed stylesheet uses native CSS nesting. The package's Browserslist contract is `supports css-nesting`; older browsers should use a separately transpiled build.
