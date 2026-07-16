@@ -173,6 +173,56 @@ test('keeps a source-less video frame visible', async ({ page, siteURL }) => {
   expect(presentation.display).toBe('block')
 })
 
+test('keeps hidden and assistive-only content trustworthy', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const presentation = await page.evaluate(() => {
+    const hiddenVideo = document.createElement('video')
+    hiddenVideo.hidden = true
+
+    const invalidHiddenValue = document.createElement('div')
+    invalidHiddenValue.setAttribute('hidden', 'future-value')
+    invalidHiddenValue.style.display = 'grid'
+
+    const searchable = document.createElement('section')
+    searchable.setAttribute('hidden', 'UNTIL-FOUND')
+    searchable.textContent = 'Searchable collapsed content'
+
+    const skipLink = document.createElement('a')
+    skipLink.className = 'visually-hidden'
+    skipLink.href = '#main'
+    skipLink.textContent = 'Skip to main content'
+
+    document.body.append(hiddenVideo, invalidHiddenValue, searchable, skipLink)
+
+    const skipStyles = getComputedStyle(skipLink)
+    return {
+      hiddenVideo: getComputedStyle(hiddenVideo).display,
+      invalidHiddenValue: getComputedStyle(invalidHiddenValue).display,
+      searchableContentVisibility: getComputedStyle(searchable).contentVisibility,
+      searchableDisplay: getComputedStyle(searchable).display,
+      skipBlockSize: skipStyles.blockSize,
+      skipClipPath: skipStyles.clipPath,
+      skipInlineSize: skipStyles.inlineSize,
+      skipPosition: skipStyles.position
+    }
+  })
+
+  expect(presentation.hiddenVideo).toBe('none')
+  expect(presentation.invalidHiddenValue).toBe('none')
+  expect(presentation.searchableDisplay).not.toBe('none')
+  expect(presentation.searchableContentVisibility).toBe('hidden')
+  expect(presentation.skipPosition).toBe('absolute')
+  expect(presentation.skipInlineSize).toBe('1px')
+  expect(presentation.skipBlockSize).toBe('1px')
+  expect(presentation.skipClipPath).toBe('inset(50%)')
+
+  const skipLink = page.getByRole('link', { name: 'Skip to main content' })
+  await skipLink.focus()
+  await expect(skipLink).toHaveCSS('position', 'static')
+  await expect(skipLink).toHaveCSS('clip-path', 'none')
+})
+
 test('bounds and wraps prose without changing preformatted code', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
 
@@ -213,6 +263,29 @@ test('bounds and wraps prose without changing preformatted code', async ({ page,
   expect(wrapping.codeWrap).toBe('normal')
   expect(wrapping.codeOverflows).toBe(true)
   expect(wrapping.codeKeepsWidth).toBe(true)
+})
+
+test('keeps fragment targets below the sticky top bar', async ({ page, siteURL }) => {
+  await page.goto(`${siteURL}/guide/#textarea`, { waitUntil: 'domcontentloaded' })
+
+  const positions = await page.evaluate(() => {
+    const target = document.querySelector('#textarea')
+    const topBar = document.querySelector('.mine-top-bar')
+    if (!target || !topBar) throw new Error('Fragment fixtures are missing')
+    return {
+      targetTop: target.getBoundingClientRect().top,
+      topBarBottom: topBar.getBoundingClientRect().bottom
+    }
+  })
+
+  expect(positions.targetTop).toBeGreaterThanOrEqual(positions.topBarBottom)
+})
+
+test('offsets keyboard focus indicators from their controls', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+  await page.keyboard.press('Tab')
+
+  await expect(page.locator(':focus-visible')).toHaveCSS('outline-offset', '2px')
 })
 
 test('switches the separate Tron document and Highlight.js palettes together in the demo', async ({ page, siteURL }) => {

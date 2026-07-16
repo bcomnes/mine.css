@@ -75,6 +75,21 @@ The package root points to the main stylesheet. Because mine.css leaves package 
 
 The best way to get familiar with the look and feel of `mine.css` is to visit the [style guide][guide]. Detailed examples of every HTML element (and how to write them in markdown) are available there.
 
+## Accessibility
+
+The native `hidden` attribute stays authoritative even when an element receives
+a component `display` style. Mine.css leaves `hidden="until-found"` alone so
+supporting browsers can reveal matching content during find-in-page or fragment
+navigation.
+
+Use `.visually-hidden` when content should remain available to assistive
+technology without being painted. A focusable element using the class becomes
+visible while focused or active, which makes it suitable for skip links:
+
+```html
+<a class="visually-hidden" href="#main">Skip to main content</a>
+```
+
 ## Testing
 
 ```console

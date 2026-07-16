@@ -112,9 +112,9 @@ select.mine-top-bar-select {
 
 .mine-top-bar-right { margin-inline-start: auto; }
 
-html {
-  /* Hash targets should land below the sticky navigation. */
-  scroll-padding-block-start: 4rem;
+:target {
+  /* Override the document default so fragments clear the sticky navigation. */
+  scroll-margin-block-start: 4rem;
 }
 
 @media (width <= 32rem) {

@@ -29,3 +29,30 @@ body {
 *::after {
   box-sizing: inherit;
 }
+
+[hidden]:not([hidden="until-found" i]) {
+  /* Keep component display rules from accidentally revealing irrelevant content.
+     Preserve the searchable hidden-until-found state for supporting browsers. */
+  display: none !important;
+}
+
+.visually-hidden:not(:focus, :active) {
+  /* Keep assistive text available while reducing its visual box to one clipped pixel.
+     Focusable content such as skip links returns to normal flow when interacted with. */
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  /* Separate native and customized focus rings from the focused element. */
+  outline-offset: 2px;
+}
+
+:target {
+  /* Leave enough preceding context when navigating directly to a fragment. */
+  scroll-margin-block-start: 3rem;
+}
