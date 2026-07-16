@@ -1159,7 +1159,7 @@ test('keeps form control fixtures valid and internally consistent', async ({ pag
   })
 })
 
-test('keeps empty temporal inputs at the single-line control height', async ({ page, siteURL }) => {
+test('assigns empty temporal inputs the single-line minimum', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
 
   const controls = await page.evaluate(() => {

@@ -148,6 +148,11 @@ test('single-line controls keep a content-independent minimum height', () => {
   }
 })
 
+test('WebKit temporal value boxes keep their height while empty', () => {
+  assert.match(textInput, /input::-webkit-date-and-time-value \{[\s\S]*height: 1\.5em;/)
+  assert.match(textInput, /bugs\.webkit\.org\/show_bug\.cgi\?id=198959/)
+})
+
 test('horizontal rules use a themed hairline with an embossed bevel', () => {
   assert.match(horizontalRules, /block-size: 1px;/)
   assert.match(horizontalRules, /margin-block: 2\.5rem;/)

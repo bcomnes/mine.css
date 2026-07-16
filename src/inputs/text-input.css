@@ -133,9 +133,16 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 select:not([multiple]) {
-  /* Keep empty and populated single-line controls the same height, including
-     WebKit date/time controls that omit their internal placeholder text. */
+  /* Keep the authored box independent of whether a single-line control has content. */
   min-block-size: calc(1lh + 0.8em + 2px);
+}
+
+input::-webkit-date-and-time-value {
+  /* WebKit otherwise collapses this internal box while a temporal value is empty.
+     Keep the native picker intact and size only the engine-owned value box.
+     https://bugs.webkit.org/show_bug.cgi?id=198959 */
+  /* stylelint-disable-next-line property-layout-mappings */
+  height: 1.5em;
 }
 
 /* Tall controls expose directional gradients as a stripe, so use an even inset. */
