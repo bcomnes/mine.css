@@ -117,7 +117,8 @@ test('typography and layout remain bounded', () => {
   assert.match(variables, /round\(nearest, calc\(.+\), 1px\)/)
   assert.doesNotMatch(variables, /--font-size-scale:/)
   assert.doesNotMatch(layout, /overflow: hidden/)
-  assert.match(layout, /max\(1em, env\(safe-area-inset-right\)\)/)
+  assert.match(layout, /padding-right: max\(1em, env\(safe-area-inset-right\)\)/)
+  assert.match(layout, /padding-left: max\(1em, env\(safe-area-inset-left\)\)/)
   assert.match(layout, /box-sizing: border-box/)
 })
 
@@ -192,7 +193,7 @@ test('Tron Legacy covers standard Highlight.js scopes without changing typograph
     assert.match(tronLegacyHighlightRules, new RegExp(`\\.hljs-${scope}\\b`), `Missing Highlight.js scope ${scope}`)
   }
 
-  assert.match(tronLegacyHighlightRules, /\.hljs \{\n {2}display: block;\n {2}overflow-x: auto;\n {2}padding: 1em;/)
+  assert.match(tronLegacyHighlightRules, /\.hljs \{\n {2}display: block;\n(?:\n {2}\/\*.*\*\/\n)? {2}overflow-x: auto;\n {2}padding: 1em;/)
   assert.doesNotMatch(tronLegacyHighlightRules, /pre code\.hljs \{[^}]*padding:/)
   assert.doesNotMatch(tronLegacyHighlightRules, /^\s*(?:border|font-family|font-size|line-height|margin):/m)
 })

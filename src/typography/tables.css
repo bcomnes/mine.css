@@ -11,7 +11,8 @@ table {
 
   & th,
   & td {
-    padding: 6px 13px;
+    padding-block: 6px;
+    padding-inline: 13px;
     border: 1px solid var(--accent-midground);
   }
 
@@ -19,7 +20,7 @@ table {
 
   & tr {
     background-color: var(--layer-background);
-    border-top: 1px solid var(--accent-midground);
+    border-block-start: 1px solid var(--accent-midground);
 
     &:nth-child(2n) { background-color: var(--accent-background); }
   }

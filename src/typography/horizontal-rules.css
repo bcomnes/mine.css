@@ -1,5 +1,5 @@
 hr {
-  height: 4px;
+  block-size: 4px;
   padding: 0;
   margin-block: 1em;
   background-color: var(--accent-midground);

@@ -210,14 +210,14 @@ width. Supporting browsers snap the fluid value to whole CSS pixels:
 
 ```css
 :root {
-  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.25rem);
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vi), 1.25rem);
 }
 
 @supports (font-size: round(1rem, 1px)) {
   :root {
     --font-size-body: clamp(
       1rem,
-      round(nearest, calc(0.95rem + 0.2vw), 1px),
+      round(nearest, calc(0.95rem + 0.2vi), 1px),
       1.25rem
     );
   }

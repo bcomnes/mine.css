@@ -20,7 +20,13 @@
 /* Keep content clear of notches without discarding the ordinary gutter. */
 
 .safe-area-inset {
-  padding: env(safe-area-inset-top) max(1em, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(1em, env(safe-area-inset-left));
+  /* Safe-area variables describe physical viewport edges, not writing-mode axes. */
+  /* stylelint-disable property-layout-mappings, declaration-block-no-redundant-longhand-properties */
+  padding-top: env(safe-area-inset-top);
+  padding-right: max(1em, env(safe-area-inset-right));
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: max(1em, env(safe-area-inset-left));
+  /* stylelint-enable property-layout-mappings, declaration-block-no-redundant-longhand-properties */
 }
 
 .serif { font-family: var(--system-serif, ui-serif, serif); }

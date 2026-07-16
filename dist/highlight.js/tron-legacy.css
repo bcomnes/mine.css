@@ -9,6 +9,8 @@
  */
 :where(:root[data-hljs-theme="tron"]) .hljs {
   display: block;
+
+  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
   overflow-x: auto;
   padding: 1em;
   color: var(--tron-hljs-foreground);
@@ -147,6 +149,8 @@
  */
 :where(:root[data-hljs-theme="tron"]) .hljs {
   display: block;
+
+  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
   overflow-x: auto;
   padding: 1em;
   color: var(--tron-hljs-foreground);

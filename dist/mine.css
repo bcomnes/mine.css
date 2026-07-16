@@ -26,14 +26,14 @@
   --font-code: var(--system-mono);
 
   /* Respect the reader's default size while allowing a slightly wider bounded scale. */
-  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.25rem);
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vi), 1.25rem);
 
   @supports (font-size: round(1rem, 1px)) {
     /* Snap the fluid value to whole CSS pixels while leaving clamp in charge
        of the minimum and maximum. */
     --font-size-body: clamp(
       1rem,
-      round(nearest, calc(0.95rem + 0.2vw), 1px),
+      round(nearest, calc(0.95rem + 0.2vi), 1px),
       1.25rem
     );
   }
@@ -238,13 +238,12 @@ ol {
 
   & ul,
   & ol {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-block: 0;
 
     & ol { list-style-type: lower-alpha; }
   }
 }
-li > p { margin-top: 1em; }
+li > p { margin-block-start: 1em; }
 blockquote {
   margin-block: 0 1rem;
 
@@ -254,8 +253,8 @@ blockquote {
   color: var(--accent-foreground);
   border-inline-start: 4px solid var(--accent-midground);
 
-  & > :first-child { margin-top: 0; }
-  & > :last-child { margin-bottom: 0; }
+  & > :first-child { margin-block-start: 0; }
+  & > :last-child { margin-block-end: 0; }
 }
 b,
 strong {
@@ -274,8 +273,8 @@ sup {
   position: relative;
   vertical-align: baseline;
 }
-sub { bottom: -0.25em; }
-sup { top: -0.5em; }
+sub { inset-block-end: -0.25em; }
+sup { inset-block-start: -0.5em; }
 /* 1. Correct the inheritance and scaling of font size in all browsers.
    2. Correct the odd `em` font sizing in all browsers. */
 code,
@@ -287,7 +286,8 @@ samp {
   color: var(--code-text);
 }
 code {
-  padding: 0.2em 0.4em;
+  padding-block: 0.2em;
+  padding-inline: 0.4em;
   margin: 0;
 }
 pre,
@@ -344,8 +344,10 @@ kbd {
   color: var(--text);
   display: inline-block;
   line-height: 0.95em;
-  margin: 0 1px;
-  padding: 5px 5px 1px;
+  margin-block: 0;
+  margin-inline: 1px;
+  padding-block: 5px 1px;
+  padding-inline: 5px;
 }
 td,
 th { padding: 0; }
@@ -359,7 +361,8 @@ table {
 
   & th,
   & td {
-    padding: 6px 13px;
+    padding-block: 6px;
+    padding-inline: 13px;
     border: 1px solid var(--accent-midground);
   }
 
@@ -367,13 +370,13 @@ table {
 
   & tr {
     background-color: var(--layer-background);
-    border-top: 1px solid var(--accent-midground);
+    border-block-start: 1px solid var(--accent-midground);
 
     &:nth-child(2n) { background-color: var(--accent-background); }
   }
 }
 hr {
-  height: 4px;
+  block-size: 4px;
   padding: 0;
   margin-block: 1em;
   background-color: var(--accent-midground);
@@ -448,14 +451,12 @@ ul,
 ol,
 dl,
 table {
-  margin-top: 0;
-  margin-bottom: 1.25em;
+  margin-block: 0 1.25em;
 }
 pre {
   /* Source blocks need leading space even after non-typographic demos. Root units
      keep that rhythm aligned while the code itself renders at a smaller size. */
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+  margin-block: 1.25rem;
 }
 /* Add the correct font size in all browsers. */
 small { font-size: 80%; }
@@ -469,8 +470,8 @@ input[type="search"] {
   -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
           mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
   background-size: 20px 20px;
-  height: 20px;
-  width: 20px;
+  block-size: 20px;
+  inline-size: 20px;
 }
 select,
 textarea,
@@ -596,7 +597,8 @@ select[multiple] option {
   /* Give listbox rows the same breathing room as text inside a field. */
   border-block: 1px solid var(--background);
   border-radius: 4px;
-  padding: calc(0.2em - 1px) 0;
+  padding-block: calc(0.2em - 1px);
+  padding-inline: 0;
 
   &:checked {
     /* Match the soft link-hover tint instead of painting a heavy solid band. */

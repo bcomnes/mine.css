@@ -1,3 +1,19 @@
 {
-  "extends": "stylelint-config-standard"
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "declaration-property-max-values": {
+      "margin": 1,
+      "padding": 1
+    },
+    "property-layout-mappings": [
+      "flow-relative",
+      {
+        "ignoreProperties": [
+          "overflow-x"
+        ]
+      }
+    ],
+    "unit-layout-mappings": "flow-relative",
+    "value-keyword-layout-mappings": "flow-relative"
+  }
 }

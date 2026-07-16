@@ -6,11 +6,10 @@ ol {
 
   & ul,
   & ol {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-block: 0;
 
     & ol { list-style-type: lower-alpha; }
   }
 }
 
-li > p { margin-top: 1em; }
+li > p { margin-block-start: 1em; }

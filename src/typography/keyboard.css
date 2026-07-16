@@ -17,6 +17,8 @@ kbd {
   color: var(--text);
   display: inline-block;
   line-height: 0.95em;
-  margin: 0 1px;
-  padding: 5px 5px 1px;
+  margin-block: 0;
+  margin-inline: 1px;
+  padding-block: 5px 1px;
+  padding-inline: 5px;
 }

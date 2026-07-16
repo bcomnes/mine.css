@@ -10,7 +10,8 @@ samp {
 }
 
 code {
-  padding: 0.2em 0.4em;
+  padding-block: 0.2em;
+  padding-inline: 0.4em;
   margin: 0;
 }
 

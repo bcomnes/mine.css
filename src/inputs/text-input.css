@@ -8,8 +8,8 @@ input[type="search"] {
   background-color: var(--accent-foreground);
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
   background-size: 20px 20px;
-  height: 20px;
-  width: 20px;
+  block-size: 20px;
+  inline-size: 20px;
 }
 
 select,
@@ -139,7 +139,8 @@ select[multiple] option {
   /* Give listbox rows the same breathing room as text inside a field. */
   border-block: 1px solid var(--background);
   border-radius: 4px;
-  padding: calc(0.2em - 1px) 0;
+  padding-block: calc(0.2em - 1px);
+  padding-inline: 0;
 
   &:checked {
     /* Match the soft link-hover tint instead of painting a heavy solid band. */

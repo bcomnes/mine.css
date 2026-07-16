@@ -108,7 +108,7 @@ You can override defaults directly with CSS variables. Here are the default vari
   --font-code: var(--system-mono);
 
   /* font size and spacing */
-  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.25rem);
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vi), 1.25rem);
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */
@@ -158,7 +158,7 @@ You can override defaults directly with CSS variables. Here are the default vari
   :root {
     --font-size-body: clamp(
       1rem,
-      round(nearest, calc(0.95rem + 0.2vw), 1px),
+      round(nearest, calc(0.95rem + 0.2vi), 1px),
       1.25rem
     );
   }

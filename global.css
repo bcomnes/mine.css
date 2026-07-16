@@ -10,7 +10,8 @@
 
 footer {
   text-align: center;
-  margin: 3rem auto;
+  margin-block: 3rem;
+  margin-inline: auto;
 }
 
 footer a {
