@@ -6,8 +6,6 @@
 @import url("./dist/themes/tron-legacy.css");
 @import url("./dist/highlight.js/tron-legacy.css");
 
-@view-transition { navigation: auto; }
-
 footer {
   text-align: center;
   margin-block: 3rem;

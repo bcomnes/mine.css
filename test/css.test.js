@@ -6,6 +6,7 @@ const variables = await readFile(new URL('../src/variables.css', import.meta.url
 const documentStyles = await readFile(new URL('../src/document.css', import.meta.url), 'utf8')
 const systemFonts = await readFile(new URL('../src/system-fonts-vars.css', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../src/layout.css', import.meta.url), 'utf8')
+const siteStyles = await readFile(new URL('../global.css', import.meta.url), 'utf8')
 const topBar = await readFile(new URL('../src/top-bar.css', import.meta.url), 'utf8')
 const fieldset = await readFile(new URL('../src/inputs/fieldset.css', import.meta.url), 'utf8')
 const textInput = await readFile(new URL('../src/inputs/text-input.css', import.meta.url), 'utf8')
@@ -159,6 +160,13 @@ test('package contract matches the modern distribution', () => {
   assert.equal(packageJson.style, 'dist/mine.css')
   assert.equal('exports' in packageJson, false)
   assert.equal('glob' in packageJson.overrides, false)
+})
+
+test('core motion enhancements honor the reader preference', () => {
+  assert.match(documentStyles, /@media \(prefers-reduced-motion: no-preference\) \{[\s\S]*@view-transition \{ navigation: auto; \}/)
+  assert.match(documentStyles, /interpolate-size: allow-keywords;/)
+  assert.match(documentStyles, /&:focus-within \{[\s\S]*scroll-behavior: smooth;/)
+  assert.doesNotMatch(siteStyles, /@view-transition/)
 })
 
 test('top-bar sidecar uses the mine.css selector contract', () => {

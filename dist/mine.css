@@ -204,6 +204,20 @@ body {
   /* Leave enough preceding context when navigating directly to a fragment. */
   scroll-margin-block-start: 3rem;
 }
+@media (prefers-reduced-motion: no-preference) {
+  /* Let same-origin navigations participate without requiring site JavaScript. */
+  @view-transition { navigation: auto; }
+
+  html {
+    /* Make intrinsic size keywords available to authored transitions. */
+    interpolate-size: allow-keywords;
+
+    &:focus-within {
+      /* Smooth deliberate in-page navigation without affecting browser find. */
+      scroll-behavior: smooth;
+    }
+  }
+}
 h1,
 h2,
 h3,

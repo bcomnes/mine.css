@@ -90,6 +90,28 @@ visible while focused or active, which makes it suitable for skip links:
 <a class="visually-hidden" href="#main">Skip to main content</a>
 ```
 
+## Motion
+
+When the reader has not requested reduced motion, mine.css enables same-origin
+cross-document view transitions, allows intrinsic size keywords to interpolate,
+and smoothly scrolls deliberate in-page navigation while the document has
+focus. Readers whose browser or operating system reports
+`prefers-reduced-motion: reduce` receive none of these enhancements.
+
+To disable the motion defaults for every reader, override them after importing
+mine.css:
+
+```css
+@import 'mine.css';
+
+@view-transition { navigation: none; }
+
+html {
+  interpolate-size: numeric-only;
+  scroll-behavior: auto;
+}
+```
+
 ## Testing
 
 ```console
