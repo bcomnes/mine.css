@@ -274,6 +274,8 @@ console.log(foo(5)); console.log(foo(5)); console.log(foo(5)); console.log(foo(5
 
 ## <a id="tables" href="#tables">Tables</a>
 
+### Markdown table
+
 | Option | Description |
 | ------ | ----------- |
 | data   | path to data files to supply the data that will be passed into templates. |
@@ -288,7 +290,7 @@ console.log(foo(5)); console.log(foo(5)); console.log(foo(5)); console.log(foo(5
 | ext    | extension to be used for dest files. |
 ```
 
-Right aligned columns
+### Right-aligned Markdown columns
 
 | Option | Description |
 | ------:| -----------:|
@@ -302,6 +304,136 @@ Right aligned columns
 | data   | path to data files to supply the data that will be passed into templates. |
 | engine | engine to be used for processing templates. Handlebars is the default. |
 | ext    | extension to be used for dest files. |
+```
+
+### Accessible responsive HTML table
+
+Wrap a table that may overflow in a named, keyboard-focusable region. Reference
+the table caption from `aria-labelledby` so the scrolling region has an
+accessible name.
+
+<div role="region" aria-labelledby="template-options-caption" tabindex="0">
+  <table>
+    <caption id="template-options-caption">Template engine options</caption>
+    <thead>
+      <tr>
+        <th scope="col">Option</th>
+        <th scope="col">Type</th>
+        <th scope="col">Default</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">data</th>
+        <td>string</td>
+        <td>—</td>
+        <td>Path to data files supplied to templates.</td>
+      </tr>
+      <tr>
+        <th scope="row">engine</th>
+        <td>string</td>
+        <td>handlebars</td>
+        <td>Rendering engine used to process templates.</td>
+      </tr>
+      <tr>
+        <th scope="row">ext</th>
+        <td>string</td>
+        <td>.html</td>
+        <td>File extension used for generated documents.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+```html
+<div role="region" aria-labelledby="template-options-caption" tabindex="0">
+  <table>
+    <caption id="template-options-caption">Template engine options</caption>
+    <thead>
+      <tr>
+        <th scope="col">Option</th>
+        <th scope="col">Type</th>
+        <th scope="col">Default</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">data</th>
+        <td>string</td>
+        <td>—</td>
+        <td>Path to data files supplied to templates.</td>
+      </tr>
+      <tr>
+        <th scope="row">engine</th>
+        <td>string</td>
+        <td>handlebars</td>
+        <td>Rendering engine used to process templates.</td>
+      </tr>
+      <tr>
+        <th scope="row">ext</th>
+        <td>string</td>
+        <td>.html</td>
+        <td>File extension used for generated documents.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+Cells can still opt into alignment without changing the responsive structure:
+
+<div role="region" aria-labelledby="release-metrics-caption" tabindex="0">
+  <table>
+    <caption id="release-metrics-caption">Release metrics</caption>
+    <thead>
+      <tr>
+        <th scope="col">Version</th>
+        <th scope="col" style="text-align: end;">Downloads</th>
+        <th scope="col" style="text-align: end;">Bundle size</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">11.0.0</th>
+        <td style="text-align: end;">12,480</td>
+        <td style="text-align: end;">9.8 kB</td>
+      </tr>
+      <tr>
+        <th scope="row">10.2.0</th>
+        <td style="text-align: end;">10,315</td>
+        <td style="text-align: end;">9.4 kB</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+```html
+<div role="region" aria-labelledby="release-metrics-caption" tabindex="0">
+  <table>
+    <caption id="release-metrics-caption">Release metrics</caption>
+    <thead>
+      <tr>
+        <th scope="col">Version</th>
+        <th scope="col" style="text-align: end;">Downloads</th>
+        <th scope="col" style="text-align: end;">Bundle size</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">11.0.0</th>
+        <td style="text-align: end;">12,480</td>
+        <td style="text-align: end;">9.8 kB</td>
+      </tr>
+      <tr>
+        <th scope="row">10.2.0</th>
+        <td style="text-align: end;">10,315</td>
+        <td style="text-align: end;">9.4 kB</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 ```
 
 ## <a id="horizontal-rules" href="#horizontal-rules">Horizontal Rules</a>
