@@ -42,7 +42,8 @@ async function readThemePresentation (page) {
 
 const viewports = [
   { name: 'phone', width: 320, height: 800, rootFont: '16px' },
-  { name: 'wide desktop', width: 2560, height: 1000, rootFont: '18px' }
+  { name: 'medium desktop', width: 900, height: 900, rootFont: '17px' },
+  { name: 'wide desktop', width: 2560, height: 1000, rootFont: '20px' }
 ]
 
 for (const viewport of viewports) {
@@ -80,6 +81,7 @@ for (const viewport of viewports) {
     expect(metrics.blockquoteMarginInlineStart).toBe('0px')
     expect(metrics.blockquoteMarginInlineEnd).toBe('0px')
     expect(metrics.rootFont).toBe(viewport.rootFont)
+    expect(Number.isInteger(Number.parseFloat(metrics.rootFont))).toBe(true)
     expect(metrics.mainOverflow).toBe('visible')
     expect(metrics.mainWidth).toBeLessThanOrEqual(metrics.viewportWidth)
     expect(metrics.fileInputWidth).toBeLessThanOrEqual(metrics.mainWidth)

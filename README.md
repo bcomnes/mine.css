@@ -108,7 +108,7 @@ You can override defaults directly with CSS variables. Here are the default vari
   --font-code: var(--system-mono);
 
   /* font size and spacing */
-  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.125rem);
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.25rem);
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */
@@ -152,6 +152,16 @@ You can override defaults directly with CSS variables. Here are the default vari
   --dark-code-text: var(--dark-text);
   --dark-code-background: var(--dark-accent-background);
   --dark-code-border: var(--dark-accent-midground);
+}
+
+@supports (font-size: round(1rem, 1px)) {
+  :root {
+    --font-size-body: clamp(
+      1rem,
+      round(nearest, calc(0.95rem + 0.2vw), 1px),
+      1.25rem
+    );
+  }
 }
 ```
 

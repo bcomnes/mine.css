@@ -6,8 +6,18 @@
   --font-body: var(--system-sans);
   --font-code: var(--system-mono);
 
-  /* Respect the reader's default size while allowing a small, bounded scale. */
-  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.125rem);
+  /* Respect the reader's default size while allowing a slightly wider bounded scale. */
+  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vw), 1.25rem);
+
+  @supports (font-size: round(1rem, 1px)) {
+    /* Snap the fluid value to whole CSS pixels while leaving clamp in charge
+       of the minimum and maximum. */
+    --font-size-body: clamp(
+      1rem,
+      round(nearest, calc(0.95rem + 0.2vw), 1px),
+      1.25rem
+    );
+  }
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */

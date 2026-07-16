@@ -113,7 +113,8 @@ test('color schemes only follow the browser preference', () => {
 })
 
 test('typography and layout remain bounded', () => {
-  assert.match(variables, /--font-size-body: clamp\(1rem, calc\(.+\), 1\.125rem\);/)
+  assert.match(variables, /--font-size-body: clamp\(1rem, calc\(.+\), 1\.25rem\);\n\n {2}@supports \(font-size: round\(1rem, 1px\)\)/)
+  assert.match(variables, /round\(nearest, calc\(.+\), 1px\)/)
   assert.doesNotMatch(variables, /--font-size-scale:/)
   assert.doesNotMatch(layout, /overflow: hidden/)
   assert.match(layout, /max\(1em, env\(safe-area-inset-right\)\)/)
