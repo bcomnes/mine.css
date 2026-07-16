@@ -16,6 +16,8 @@
   --light-control-border: #6b7e96;
   --light-accent-foreground: #526073;
   --light-link-text: #1a5f8a;
+  --light-valid: #5a8b2c;
+  --light-invalid: #cc0033;
   --light-mark-background: #dbb200;
   --light-code-text: #1a2530;
   --light-code-background: #e8ecf2;
@@ -30,6 +32,8 @@
   --dark-control-border: #647c9b;
   --dark-accent-foreground: #647c9b;
   --dark-link-text: #6ee2ff;
+  --dark-valid: #c7f026;
+  --dark-invalid: #f92672;
   --dark-mark-background: #ff660040;
   --dark-code-text: #dae3f1;
   --dark-code-background: #1c2128;

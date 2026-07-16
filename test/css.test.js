@@ -73,15 +73,25 @@ test('theme tokens stay valid and accessible', () => {
   assert.ok(contrast(hslToRgb(hslToken('light-link-text')), hslToRgb(hslToken('light-text'))) >= 3)
   assert.ok(contrast(hslToRgb(hslToken('light-accent-foreground')), [1, 1, 1]) >= 4.5)
   assert.ok(contrast(hslToRgb(hslToken('light-control-border')), [1, 1, 1]) >= 3)
+  assert.ok(contrast(hslToRgb(hslToken('light-valid')), [1, 1, 1]) >= 3)
+  assert.ok(contrast(hslToRgb(hslToken('light-invalid')), [1, 1, 1]) >= 3)
   assert.ok(contrast(
     hslToRgb(hslToken('dark-control-border')),
+    hslToRgb(hslToken('dark-background'))
+  ) >= 3)
+  assert.ok(contrast(
+    hslToRgb(hslToken('dark-valid')),
+    hslToRgb(hslToken('dark-background'))
+  ) >= 3)
+  assert.ok(contrast(
+    hslToRgb(hslToken('dark-invalid')),
     hslToRgb(hslToken('dark-background'))
   ) >= 3)
 })
 
 test('print declares a complete light-facing palette', () => {
   const print = variables.slice(variables.indexOf('@media print'))
-  for (const token of ['text', 'background', 'layer-background', 'link-text', 'mark-background', 'code-text', 'code-background', 'code-border']) {
+  for (const token of ['text', 'background', 'layer-background', 'link-text', 'valid', 'invalid', 'mark-background', 'code-text', 'code-background', 'code-border']) {
     assert.match(print, new RegExp(`--${token}:`), `Print is missing --${token}`)
   }
   assert.match(print, /color-scheme: light;/)
@@ -132,7 +142,7 @@ test('top-bar sidecar uses the mine.css selector contract', () => {
 
 test('Tron Legacy defines complete, accessible light and dark palettes', () => {
   assert.match(tronLegacy, /:root\[data-mine-theme="tron"\]/)
-  const roles = ['text', 'background', 'layer-background', 'accent-background', 'accent-midground', 'control-border', 'accent-foreground', 'link-text', 'mark-background', 'code-text', 'code-background', 'code-border']
+  const roles = ['text', 'background', 'layer-background', 'accent-background', 'accent-midground', 'control-border', 'accent-foreground', 'link-text', 'valid', 'invalid', 'mark-background', 'code-text', 'code-background', 'code-border']
   for (const mode of ['light', 'dark']) {
     for (const role of roles) hexToken(tronLegacy, `${mode}-${role}`)
   }
@@ -142,6 +152,8 @@ test('Tron Legacy defines complete, accessible light and dark palettes', () => {
   assert.ok(contrast(hexToken(tronLegacy, 'light-link-text').rgb, lightBackground) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'light-accent-midground').rgb, lightBackground) >= 3)
   assert.ok(contrast(hexToken(tronLegacy, 'light-control-border').rgb, lightBackground) >= 3)
+  assert.ok(contrast(hexToken(tronLegacy, 'light-valid').rgb, lightBackground) >= 3)
+  assert.ok(contrast(hexToken(tronLegacy, 'light-invalid').rgb, lightBackground) >= 3)
   assert.ok(contrast(hexToken(tronLegacy, 'light-accent-foreground').rgb, lightBackground) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'light-code-text').rgb, hexToken(tronLegacy, 'light-code-background').rgb) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'light-text').rgb, hexToken(tronLegacy, 'light-mark-background').rgb) >= 4.5)
@@ -151,6 +163,8 @@ test('Tron Legacy defines complete, accessible light and dark palettes', () => {
   assert.ok(contrast(hexToken(tronLegacy, 'dark-link-text').rgb, darkBackground) >= 4.5)
   assert.ok(contrast(hexToken(tronLegacy, 'dark-accent-midground').rgb, darkBackground) >= 3)
   assert.ok(contrast(hexToken(tronLegacy, 'dark-control-border').rgb, darkBackground) >= 3)
+  assert.ok(contrast(hexToken(tronLegacy, 'dark-valid').rgb, darkBackground) >= 3)
+  assert.ok(contrast(hexToken(tronLegacy, 'dark-invalid').rgb, darkBackground) >= 3)
   assert.ok(contrast(hexToken(tronLegacy, 'dark-code-text').rgb, hexToken(tronLegacy, 'dark-code-background').rgb) >= 4.5)
   assert.ok(contrast(
     hexToken(tronLegacy, 'dark-text').rgb,

@@ -53,7 +53,8 @@ for (const viewport of viewports) {
       const main = document.querySelector('main')
       const fileInput = document.querySelector('input[type="file"]')
       const blockquote = document.querySelector('blockquote')
-      if (!main || !fileInput || !blockquote) throw new Error('Style guide fixtures are missing')
+      const textarea = document.querySelector('textarea')
+      if (!main || !fileInput || !blockquote || !textarea) throw new Error('Style guide fixtures are missing')
       const blockquoteStyles = getComputedStyle(blockquote)
 
       return {
@@ -64,7 +65,9 @@ for (const viewport of viewports) {
         rootFont: root.fontSize,
         mainWidth: main.getBoundingClientRect().width,
         mainOverflow: getComputedStyle(main).overflow,
-        fileInputWidth: fileInput.getBoundingClientRect().width
+        fileInputWidth: fileInput.getBoundingClientRect().width,
+        textareaDisplay: getComputedStyle(textarea).display,
+        textareaWidth: textarea.getBoundingClientRect().width
       }
     })
 
@@ -75,6 +78,8 @@ for (const viewport of viewports) {
     expect(metrics.mainOverflow).toBe('visible')
     expect(metrics.mainWidth).toBeLessThanOrEqual(metrics.viewportWidth)
     expect(metrics.fileInputWidth).toBeLessThanOrEqual(metrics.mainWidth)
+    expect(metrics.textareaDisplay).toBe('block')
+    expect(metrics.textareaWidth).toBeLessThanOrEqual(metrics.mainWidth)
   })
 }
 
@@ -302,9 +307,220 @@ test('keeps browser-native button metrics', async ({ page, siteURL }) => {
   }
 })
 
-test('spaces every input demo consistently before its source', async ({ page, siteURL }) => {
+test('matches select controls to textual input surfaces', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
-  const inputExamples = [
+  await page.locator('main a[href="http://dev.nodeca.com"]').hover()
+  /* Let the link's hover transition settle before comparing its final tint. */
+  await page.waitForTimeout(150)
+
+  const presentation = await page.evaluate(() => {
+    const readControl = (selector) => {
+      const element = document.querySelector(selector)
+      if (!element) throw new Error(`Missing control fixture: ${selector}`)
+      const styles = getComputedStyle(element)
+      const bounds = element.getBoundingClientRect()
+      return {
+        appearance: styles.appearance,
+        backgroundColor: styles.backgroundColor,
+        backgroundImage: styles.backgroundImage,
+        borderColor: styles.borderColor,
+        borderRadius: styles.borderRadius,
+        boxShadow: styles.boxShadow,
+        color: styles.color,
+        height: bounds.height,
+        paddingBlockEnd: Number.parseFloat(styles.paddingBlockEnd),
+        paddingBlockStart: Number.parseFloat(styles.paddingBlockStart),
+        paddingInlineEnd: Number.parseFloat(styles.paddingInlineEnd),
+        paddingInlineStart: Number.parseFloat(styles.paddingInlineStart),
+        width: bounds.width
+      }
+    }
+
+    const link = document.querySelector('main a[href="http://dev.nodeca.com"]')
+    if (!link) throw new Error('Link palette fixture is missing')
+
+    return {
+      datalistInput: readControl('#browser-choice'),
+      disabledSelect: readControl('#destination-disabled'),
+      disabledText: readControl('#name-disabled'),
+      linkHoverBackground: getComputedStyle(link).backgroundColor,
+      multipleSelect: readControl('#multiple-select'),
+      multipleOptions: [...document.querySelectorAll('#multiple-select option')]
+        .map(option => {
+          const styles = getComputedStyle(option)
+          return {
+            backgroundColor: styles.backgroundColor,
+            borderBlockStartColor: styles.borderBlockStartColor,
+            borderBlockStartWidth: Number.parseFloat(styles.borderBlockStartWidth),
+            borderRadius: styles.borderRadius,
+            color: styles.color,
+            paddingBlockStart: Number.parseFloat(styles.paddingBlockStart),
+            selected: option.selected
+          }
+        }),
+      multipleSelectOverflow: {
+        clientHeight: document.querySelector('#multiple-select').clientHeight,
+        scrollHeight: document.querySelector('#multiple-select').scrollHeight
+      },
+      select: readControl('#destination'),
+      text: readControl('#name-populated'),
+      topBarSelect: readControl('.mine-top-bar-select')
+    }
+  })
+
+  for (const property of [
+    'appearance',
+    'backgroundColor',
+    'backgroundImage',
+    'borderColor',
+    'borderRadius',
+    'boxShadow',
+    'height',
+    'paddingBlockEnd',
+    'paddingBlockStart',
+    'paddingInlineEnd',
+    'paddingInlineStart',
+    'width'
+  ]) {
+    expect(presentation.select[property]).toBe(presentation.text[property])
+    expect(presentation.disabledSelect[property]).toBe(presentation.disabledText[property])
+  }
+  expect(presentation.select.appearance).toBe('auto')
+  expect(presentation.select.paddingInlineEnd).toBe(presentation.select.paddingInlineStart)
+  expect(presentation.datalistInput).toEqual(presentation.text)
+  expect(presentation.multipleSelect.width).toBe(presentation.text.width)
+  expect(presentation.multipleSelect.borderColor).toBe(presentation.text.borderColor)
+  expect(presentation.multipleSelect.borderRadius).toBe(presentation.text.borderRadius)
+  expect(presentation.multipleSelect.paddingInlineStart).toBe(presentation.text.paddingInlineStart)
+  expect(presentation.multipleSelect.backgroundImage).toBe('none')
+  expect(presentation.multipleSelect.height).toBeGreaterThan(presentation.text.height)
+  expect(presentation.multipleSelectOverflow.scrollHeight).toBe(presentation.multipleSelectOverflow.clientHeight)
+  const selectedOptions = presentation.multipleOptions.filter(option => option.selected)
+  const unselectedOptions = presentation.multipleOptions.filter(option => !option.selected)
+  expect(selectedOptions).toHaveLength(2)
+  expect(selectedOptions[0].backgroundColor).toBe(presentation.linkHoverBackground)
+  expect(selectedOptions[0].borderBlockStartColor).toBe(presentation.multipleSelect.backgroundColor)
+  expect(selectedOptions[0].borderBlockStartWidth).toBe(1)
+  expect(selectedOptions[0].borderRadius).not.toBe('0px')
+  expect(selectedOptions[0].color).toBe(presentation.text.color)
+  expect(selectedOptions[0].paddingBlockStart).toBeGreaterThan(0)
+  expect(unselectedOptions).toHaveLength(1)
+  expect(unselectedOptions[0].backgroundColor).toBe('rgba(0, 0, 0, 0)')
+  expect(presentation.topBarSelect.height).toBeLessThan(presentation.text.height)
+  expect(presentation.topBarSelect.width).toBeLessThan(presentation.text.width)
+  expect(presentation.topBarSelect.borderRadius).toBe(presentation.text.borderRadius)
+  expect(presentation.topBarSelect.backgroundImage).toContain('linear-gradient')
+  expect(presentation.topBarSelect.boxShadow).toBe(presentation.text.boxShadow)
+  expect(presentation.topBarSelect.paddingInlineEnd).toBe(presentation.topBarSelect.paddingInlineStart)
+
+  await page.emulateMedia({ colorScheme: 'dark' })
+  await page.waitForTimeout(150)
+  const darkSelection = await page.evaluate(() => {
+    const option = document.querySelector('#multiple-select option:checked')
+    const link = document.querySelector('main a[href="http://dev.nodeca.com"]')
+    if (!option || !link) throw new Error('Multiple-select palette fixtures are missing')
+    return {
+      background: getComputedStyle(option).backgroundColor,
+      color: getComputedStyle(option).color,
+      link: getComputedStyle(link).backgroundColor,
+      text: getComputedStyle(document.body).color
+    }
+  })
+  expect(darkSelection.background).toBe(darkSelection.link)
+  expect(darkSelection.color).toBe(darkSelection.text)
+})
+
+test('reveals constrained validity after user interaction', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const readValidity = () => page.evaluate(() => {
+    const email = document.querySelector('#validation-email')
+    const url = document.querySelector('#validation-url')
+    if (!email || !url) throw new Error('Validation fixtures are missing')
+
+    const resolveColor = (token) => {
+      const probe = document.createElement('span')
+      probe.style.color = `var(${token})`
+      document.body.append(probe)
+      const color = getComputedStyle(probe).color
+      probe.remove()
+      return color
+    }
+
+    return {
+      colors: {
+        control: resolveColor('--control-border'),
+        invalid: resolveColor('--invalid'),
+        valid: resolveColor('--valid')
+      },
+      email: {
+        backgroundImage: getComputedStyle(email).backgroundImage,
+        border: getComputedStyle(email).borderColor,
+        boxShadow: getComputedStyle(email).boxShadow,
+        invalid: email.matches(':invalid'),
+        stateColor: getComputedStyle(email).getPropertyValue('--control-state').trim(),
+        userInvalid: email.matches(':user-invalid')
+      },
+      tokens: {
+        invalid: getComputedStyle(document.documentElement).getPropertyValue('--invalid').trim(),
+        valid: getComputedStyle(document.documentElement).getPropertyValue('--valid').trim()
+      },
+      url: {
+        backgroundImage: getComputedStyle(url).backgroundImage,
+        border: getComputedStyle(url).borderColor,
+        boxShadow: getComputedStyle(url).boxShadow,
+        stateColor: getComputedStyle(url).getPropertyValue('--control-state').trim(),
+        userValid: url.matches(':user-valid'),
+        valid: url.matches(':valid')
+      }
+    }
+  })
+
+  const pending = await readValidity()
+  expect(pending.email.invalid).toBe(true)
+  expect(pending.url.valid).toBe(true)
+  expect(pending.email.userInvalid).toBe(false)
+  expect(pending.url.userValid).toBe(false)
+  expect(pending.email.stateColor).toBe('')
+  expect(pending.url.stateColor).toBe('')
+  expect(pending.email.border).toBe(pending.colors.control)
+  expect(pending.url.border).toBe(pending.colors.control)
+
+  await page.locator('#validation-email').fill('still-not-an-email')
+  await page.locator('#validation-url').fill('https://example.com/docs')
+  await page.locator('#validation-form input[type="submit"]').click()
+  await page.waitForTimeout(200)
+
+  const interacted = await readValidity()
+  expect(interacted.email.userInvalid).toBe(true)
+  expect(interacted.url.userValid).toBe(true)
+  expect(interacted.email.border).toBe(interacted.colors.invalid)
+  expect(interacted.url.border).toBe(interacted.colors.valid)
+  expect(interacted.email.stateColor).toBe(interacted.tokens.invalid)
+  expect(interacted.url.stateColor).toBe(interacted.tokens.valid)
+  expect(interacted.email.backgroundImage).not.toBe(pending.email.backgroundImage)
+  expect(interacted.url.backgroundImage).not.toBe(pending.url.backgroundImage)
+  expect(interacted.email.boxShadow).not.toBe(pending.email.boxShadow)
+  expect(interacted.url.boxShadow).not.toBe(pending.url.boxShadow)
+  expect(interacted.email.boxShadow).not.toBe(interacted.url.boxShadow)
+
+  await page.emulateMedia({ colorScheme: 'dark' })
+  await page.waitForTimeout(200)
+  const dark = await readValidity()
+  expect(dark.email.border).toBe(dark.colors.invalid)
+  expect(dark.url.border).toBe(dark.colors.valid)
+  expect(dark.email.stateColor).toBe(dark.tokens.invalid)
+  expect(dark.url.stateColor).toBe(dark.tokens.valid)
+  expect(dark.colors.invalid).not.toBe(interacted.colors.invalid)
+  expect(dark.colors.valid).not.toBe(interacted.colors.valid)
+  expect(dark.email.boxShadow).not.toBe(interacted.email.boxShadow)
+  expect(dark.url.boxShadow).not.toBe(interacted.url.boxShadow)
+})
+
+test('spaces every form control demo consistently before its source', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+  const formControlExamples = [
+    'hidden',
     'buttons',
     'checkbox',
     'color',
@@ -327,25 +543,226 @@ test('spaces every input demo consistently before its source', async ({ page, si
     'time',
     'url',
     'week',
-    'fieldset'
+    'select',
+    'datalist',
+    'output',
+    'meter',
+    'progress',
+    'fieldset',
+    'validation',
+    'readonly',
+    'multiple',
+    'indeterminate'
   ]
   const gaps = await page.evaluate((ids) => ids.map(id => {
     const heading = document.querySelector(`a#${id}`)?.parentElement
-    if (!heading) throw new Error(`Missing input heading: ${id}`)
+    if (!heading) throw new Error(`Missing form control heading: ${id}`)
 
     let sibling = heading.nextElementSibling
     while (sibling && sibling.tagName !== 'PRE') sibling = sibling.nextElementSibling
     const fixture = sibling?.previousElementSibling
-    if (!fixture || !sibling) throw new Error(`Missing input fixture or source: ${id}`)
+    if (!fixture || !sibling) throw new Error(`Missing form control fixture or source: ${id}`)
 
     return sibling.getBoundingClientRect().top - fixture.getBoundingClientRect().bottom
-  }), inputExamples)
+  }), formControlExamples)
 
-  expect(gaps).toHaveLength(inputExamples.length)
+  expect(gaps).toHaveLength(formControlExamples.length)
   for (const gap of gaps) {
     expect(gap).toBeGreaterThan(0)
     expect(gap).toBeCloseTo(gaps[0], 1)
   }
+})
+
+test('keeps form control fixtures valid and internally consistent', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const audit = await page.evaluate(() => {
+    const main = document.querySelector('main')
+    if (!main) throw new Error('Guide content is missing')
+
+    const ids = [...main.querySelectorAll('button[id], datalist[id], input[id], meter[id], output[id], progress[id], select[id], textarea[id]')]
+      .map(element => element.id)
+    const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))]
+    const missingLabelTargets = [...main.querySelectorAll('label[for]')]
+      .map(label => label.getAttribute('for'))
+      .filter(id => !id || !document.getElementById(id))
+    const placeholderTypes = new Set([
+      'email',
+      'number',
+      'password',
+      'search',
+      'tel',
+      'text',
+      'url'
+    ])
+    const invalidPlaceholderTypes = [...main.querySelectorAll('input[placeholder]')]
+      .filter(input => !placeholderTypes.has(input.type))
+      .map(input => input.type)
+    const stateGroups = [
+      ['scales', 'horns', 'teeth'],
+      ['color-head', 'color-body', 'color-foot'],
+      ['trip-start', 'empty-date', 'trip-end'],
+      ['meeting-time', 'meeting-time-empty', 'meeting-time-disabled'],
+      ['email-populated', 'email-placeholder', 'email-disabled'],
+      ['avatar', 'avatar-disabled'],
+      ['image-login', 'image-login-disabled'],
+      ['start-month', 'empty-month', 'end-month'],
+      ['number-populated', 'number-placeholder', 'number-disabled'],
+      ['password-populated', 'password-placeholder', 'password-disabled'],
+      ['huey', 'dewey', 'louie'],
+      ['volume', 'cowbell'],
+      ['search-populated', 'search-placeholder', 'search-disabled'],
+      ['phone-populated', 'phone-placeholder', 'phone-disabled'],
+      ['name-populated', 'name-placeholder', 'name-disabled'],
+      ['story', 'story-placeholder', 'story-disabled'],
+      ['appt', 'appt-empty', 'appt-disabled'],
+      ['url-populated', 'url-placeholder', 'url-disabled'],
+      ['week-example', 'week-empty', 'week-disabled'],
+      ['destination', 'destination-disabled'],
+      ['validation-email', 'validation-url']
+    ]
+    const inconsistentHeights = stateGroups.flatMap((group) => {
+      const controls = group.map(id => document.getElementById(id))
+      if (controls.some(control => !control)) return [group]
+      const heights = controls.map(control => control.getBoundingClientRect().height)
+      return heights.every(height => height === heights[0]) ? [] : [group]
+    })
+    const defaultTextInput = document.getElementById('user-id')
+    const explicitTextInput = document.getElementById('name-populated')
+    const defaultTextMismatch = !defaultTextInput ||
+      !explicitTextInput ||
+      defaultTextInput.hasAttribute('type') ||
+      defaultTextInput.type !== 'text' ||
+      defaultTextInput.getBoundingClientRect().height !== explicitTextInput.getBoundingClientRect().height
+    const activeImageInput = document.getElementById('image-login')
+    const disabledImageInput = document.getElementById('image-login-disabled')
+    const imageInputOpacity = {
+      active: activeImageInput && getComputedStyle(activeImageInput).opacity,
+      disabled: disabledImageInput && getComputedStyle(disabledImageInput).opacity
+    }
+    const hiddenInput = document.querySelector('input[name="csrf-token"]')
+    const indeterminateCheckbox = /** @type {HTMLInputElement | null} */ (document.getElementById('indeterminate-checkbox'))
+    const quantity = /** @type {HTMLInputElement | null} */ (document.getElementById('quantity'))
+    const quantityOutput = /** @type {HTMLOutputElement | null} */ (document.getElementById('quantity-output'))
+    const multipleTypes = [...main.querySelectorAll('[multiple]')]
+      .map(element => element.tagName === 'INPUT' ? element.type : element.tagName.toLowerCase())
+    const fixtureIds = [
+      'hidden',
+      'buttons',
+      'checkbox',
+      'color',
+      'date',
+      'datetime-local',
+      'email',
+      'file',
+      'image-input',
+      'month',
+      'number',
+      'password',
+      'radio',
+      'range',
+      'reset',
+      'search',
+      'submit',
+      'tel',
+      'text',
+      'textarea',
+      'time',
+      'url',
+      'week',
+      'select',
+      'datalist',
+      'output',
+      'meter',
+      'progress',
+      'fieldset',
+      'validation',
+      'readonly',
+      'multiple',
+      'indeterminate'
+    ]
+    const fixtureSelector = 'button, datalist, input, label, legend, meter, option, optgroup, output, progress, select, small, textarea'
+    const projectControls = root => [...root.querySelectorAll(fixtureSelector)]
+      .map(control => ({
+        attributes: [...control.attributes]
+          .map(attribute => [attribute.name, attribute.value])
+          .sort(([first], [second]) => first.localeCompare(second)),
+        tag: control.tagName.toLowerCase(),
+        text: control.tagName === 'INPUT'
+          ? ''
+          : control.textContent?.replace(/\s+/g, ' ').trim()
+      }))
+    const fixtureMismatches = fixtureIds.flatMap((id) => {
+      const heading = document.querySelector(`a#${id}`)?.parentElement
+      if (!heading) return [id]
+
+      let source = heading.nextElementSibling
+      while (source && source.tagName !== 'PRE') source = source.nextElementSibling
+      if (!source) return [id]
+
+      const fixtureControls = []
+      let fixture = heading.nextElementSibling
+      while (fixture && fixture !== source) {
+        if (fixture.tagName !== 'DETAILS') {
+          fixtureControls.push(...fixture.querySelectorAll(fixtureSelector))
+        }
+        fixture = fixture.nextElementSibling
+      }
+
+      const template = document.createElement('template')
+      template.innerHTML = source.textContent || ''
+      const actual = projectControls({ querySelectorAll: () => fixtureControls })
+      const documented = projectControls(template.content)
+      return JSON.stringify(actual) === JSON.stringify(documented) ? [] : [id]
+    })
+
+    return {
+      defaultTextMismatch,
+      duplicateIds,
+      fixtureMismatches,
+      hiddenInputDisplay: hiddenInput && getComputedStyle(hiddenInput).display,
+      imageInputOpacity,
+      indeterminateState: indeterminateCheckbox?.indeterminate,
+      inconsistentHeights,
+      invalidPlaceholderTypes,
+      missingLabelTargets,
+      multipleTypes,
+      outputState: {
+        input: quantity?.value,
+        output: quantityOutput?.value
+      }
+    }
+  })
+
+  expect(audit).toEqual({
+    defaultTextMismatch: false,
+    duplicateIds: [],
+    fixtureMismatches: [],
+    hiddenInputDisplay: 'none',
+    imageInputOpacity: {
+      active: '1',
+      disabled: '0.5'
+    },
+    indeterminateState: true,
+    inconsistentHeights: [],
+    invalidPlaceholderTypes: [],
+    missingLabelTargets: [],
+    multipleTypes: ['email', 'file', 'select'],
+    outputState: {
+      input: '40',
+      output: '40'
+    }
+  })
+})
+
+test('wires the form control demonstrations', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const quantity = page.locator('#quantity')
+  await quantity.focus()
+  await quantity.press('ArrowRight')
+  await expect(page.locator('#quantity-output')).toHaveText('41')
+  expect(await page.locator('#indeterminate-checkbox').evaluate(element => /** @type {HTMLInputElement} */ (element).indeterminate)).toBe(true)
 })
 
 test('keeps mobile navigation usable around anchored content', async ({ page, siteURL }) => {

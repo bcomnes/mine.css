@@ -2,8 +2,10 @@
 @import url("./label.css");
 @import url("./fieldset.css");
 
-input {
-  /* Fixed-size controls must still fit inside narrow document gutters. */
+input,
+select,
+textarea {
+  /* Fixed-size controls and their display helpers should behave consistently. */
   max-inline-size: 100%;
 
   &.block {
@@ -21,6 +23,11 @@ input {
   &.inline-grid {
     display: inline-grid;
   }
+}
+
+input[type="image"]:disabled {
+  /* Browsers disable activation without consistently painting a disabled state. */
+  opacity: 0.5;
 }
 
 /* Keep text-entry controls in the active type scheme; buttons retain native metrics. */

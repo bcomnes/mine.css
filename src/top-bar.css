@@ -37,11 +37,15 @@
   font-size: 1rem;
 }
 
-/* Preserve the platform menu while matching the surrounding navigation type. */
-.mine-top-bar-select {
+/* Keep the theme menu compact while sharing the standard select surface. */
+select.mine-top-bar-select {
   max-inline-size: 7rem;
+  inline-size: auto;
+  min-block-size: 0;
+  block-size: 1.65em;
+  padding-block: 0;
 
-  /* Retain the native menu chrome, but avoid its overly bright dark-mode edge. */
+  /* Use the standard select surface at a compact navigation height. */
   border-color: var(--control-border, #949494);
   color: var(--text, #111);
   font: inherit;

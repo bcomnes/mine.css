@@ -4,15 +4,17 @@ input[type="search"] {
 
 /* Recolor the WebKit clear affordance without replacing its native behavior. */
 [type="search"]::-webkit-search-cancel-button {
-    appearance: none;
-    background-color: var(--accent-foreground);
-    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
-    background-size: 20px 20px;
-    height: 20px;
-    width: 20px;
+  appearance: none;
+  background-color: var(--accent-foreground);
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+  background-size: 20px 20px;
+  height: 20px;
+  width: 20px;
 }
 
+select,
 textarea,
+input:not([type]),
 input[type="date"],
 input[type="datetime-local"],
 input[type="email"],
@@ -25,7 +27,7 @@ input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"] {
-  /* A thin boundary and inset lighting make editable fields feel gently recessed. */
+  /* A thin boundary and inset lighting make textual and selection controls feel gently recessed. */
   border-color: var(--control-border);
   border-radius: 7px;
   border-width: 1px;
@@ -40,6 +42,13 @@ input[type="week"] {
     0 1px 3px rgb(0 0 0 / 8%);
   inline-size: 15.5em;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &::placeholder {
+    /* Avoid Safari's platform-dependent placeholder paint and opacity. */
+    color: var(--accent-foreground);
+    -webkit-text-fill-color: var(--accent-foreground);
+    opacity: 1;
+  }
 
   &:focus-visible {
     border-color: var(--accent-foreground);
@@ -57,13 +66,89 @@ input[type="week"] {
   &:hover:not([disabled]) {
     border-color: color-mix(in srgb, var(--accent-foreground) 65%, var(--background));
   }
+
+  &:user-valid:is(
+    [required],
+    [pattern],
+    [min],
+    [max],
+    [minlength],
+    [maxlength],
+    [step],
+    [type="email"],
+    [type="url"]
+  ):not(:disabled, [readonly]) {
+    /* Confirm constrained values only after the browser records user interaction. */
+    --control-state: var(--valid);
+  }
+
+  &:user-invalid:not(:disabled, [readonly]) {
+    /* Avoid marking untouched required fields as errors while keeping invalid feedback native. */
+    --control-state: var(--invalid);
+  }
+
+  &:user-valid:is(
+    [required],
+    [pattern],
+    [min],
+    [max],
+    [minlength],
+    [maxlength],
+    [step],
+    [type="email"],
+    [type="url"]
+  ):not(:disabled, [readonly]),
+  &:user-invalid:not(:disabled, [readonly]) {
+    /* Carry the state color through the recessed lighting instead of adding a flat ring. */
+    border-color: var(--control-state);
+    background-image: linear-gradient(
+      color-mix(in srgb, var(--control-state) 8%, transparent),
+      transparent 0.7em
+    );
+    box-shadow:
+      inset 0 1px 2px color-mix(in srgb, var(--control-state) 22%, transparent),
+      inset 0 -1px 0 color-mix(in srgb, var(--control-state) 9%, transparent),
+      0 1px 3px color-mix(in srgb, var(--control-state) 11%, transparent);
+  }
+}
+
+input:not([type]),
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+select:not([multiple]) {
+  /* Keep empty and populated single-line text controls the same height. */
+  min-block-size: calc(1lh + 0.8em + 2px);
 }
 
 /* Tall controls expose directional gradients as a stripe, so use an even inset. */
+select[multiple]:not(:disabled),
 textarea:not(:disabled) {
   background-image: none;
   box-shadow:
     inset 0 0 3px rgb(0 0 0 / 14%),
     inset 0 -1px 0 rgb(255 255 255 / 12%),
     0 1px 3px rgb(0 0 0 / 10%);
+}
+
+select[multiple] option {
+  /* Give listbox rows the same breathing room as text inside a field. */
+  border-block: 1px solid var(--background);
+  border-radius: 4px;
+  padding: calc(0.2em - 1px) 0;
+
+  &:checked {
+    /* Match the soft link-hover tint instead of painting a heavy solid band. */
+    color: var(--text);
+    background: color-mix(in srgb, var(--link-text) 8%, transparent);
+  }
+}
+
+select[multiple]:disabled option:checked {
+  color: var(--accent-foreground);
+  background: var(--accent-background);
 }

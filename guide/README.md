@@ -530,12 +530,25 @@ Duplicated footnote reference[^second].
 
 ## <a id="input-types" href="#input-types">Input Types</a>
 
-Mine.css offers improved default styling of built in HTML form inputs with dark mode override support.
+Mine.css offers improved default styling of built-in HTML form controls that follows the browser's light and dark preferences.
 
 - [`<input>` element][input]
 - [HTML5 input types](https://developer.mozilla.org/en-US/docs/Learn/Forms/HTML5_input_types)
 
 [input]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+
+#### <a id="hidden" href="#hidden">Hidden</a>
+
+Hidden inputs submit data without rendering an interactive control.
+
+<p>
+  This example includes a hidden CSRF token; the input itself is not visible.
+  <input type="hidden" name="csrf-token" value="example-token">
+</p>
+
+```html
+<input type="hidden" name="csrf-token" value="example-token">
+```
 
 #### <a id="buttons" href="#buttons">Button</a>
 
@@ -549,19 +562,15 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </details>
 
 <p>
-  <input type="button" value="Button">
-  <input type="button" value="Button">
-  <input type="button" value="Button">
-  <button>Button Element</button>
-  <input disabled type="button" value="Input Button">
+  <input type="button" value="Input Button">
+  <button type="button">Button Element</button>
+  <input disabled type="button" value="Input Button (Disabled)">
 </p>
 
 ```html
-<input type="button" value="Button">
-<input type="button" value="Button">
-<input type="button" value="Button">
-<button>Hey Hi</button>
-<input disabled type="button" value="Disabled Button">
+<input type="button" value="Input Button">
+<button type="button">Button Element</button>
+<input disabled type="button" value="Input Button (Disabled)">
 ```
 
 #### <a id="checkbox" href="#checkbox">Checkbox</a>
@@ -574,18 +583,18 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </details>
 
 <div>
-    <input type="checkbox" name="scales" id="scales" checked>
-    <label for="scales">Scales</label>
-  </div>
+  <input type="checkbox" name="scales" id="scales" checked>
+  <label for="scales">Scales</label>
+</div>
 
-  <div>
-    <input type="checkbox" name="horns" id="horns">
-    <label for="horns">Horns</label>
-  </div>
+<div>
+  <input type="checkbox" name="horns" id="horns">
+  <label for="horns">Horns</label>
+</div>
 
-  <div>
-    <input disabled type="checkbox" name="teeth" id="teeth">
-    <label for="teeth">Teeth (Disabled)</label>
+<div>
+  <input disabled type="checkbox" name="teeth" id="teeth">
+  <label for="teeth">Teeth (Disabled)</label>
 </div>
 
 ```html
@@ -616,17 +625,18 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </details>
 
 <div>
-    <input type="color" name="head" id="color-head" value="#e66465">
-    <label for="color-head">Head</label>
-  </div>
+  <input type="color" name="head" id="color-head" value="#e66465">
+  <label for="color-head">Head</label>
+</div>
 
-  <div>
-    <input type="color" name="body" id="color-body" value="#f6b73c">
-    <label for="color-body">Body</label>
-  </div>
-  <div>
-    <input disabled type="color" name="foot" id="color-foot" value="#0083f5">
-    <label for="color-foot">Footer (Disabled)</label>
+<div>
+  <input type="color" name="body" id="color-body" value="#f6b73c">
+  <label for="color-body">Body</label>
+</div>
+
+<div>
+  <input disabled type="color" name="foot" id="color-foot" value="#0083f5">
+  <label for="color-foot">Footer (Disabled)</label>
 </div>
 
 ```html
@@ -658,8 +668,8 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 <p>
   <label class="block" for="trip-start">Date:</label>
   <input type="date" name="trip-start" id="trip-start" value="2020-08-15">
-  <label class="block" for="placeholder-date">Date (Placeholder):</label>
-  <input type="date" name="placeholder-date" id="placeholder-date" placeholder="2020-08-25">
+  <label class="block" for="empty-date">Date (Empty):</label>
+  <input type="date" name="empty-date" id="empty-date">
   <label class="block" for="trip-end">Date (Disabled):</label>
   <input disabled type="date" name="trip-end" id="trip-end" value="2020-08-25">
 </p>
@@ -667,12 +677,8 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 ```html
 <label class="block" for="trip-start">Date:</label>
 <input type="date" name="trip-start" id="trip-start" value="2020-08-15">
-<label class="block" for="placeholder-date">Date (Placeholder):</label>
-<input
-  type="date"
-  name="placeholder-date"
-  id="placeholder-date"
-  placeholder="2020-08-25">
+<label class="block" for="empty-date">Date (Empty):</label>
+<input type="date" name="empty-date" id="empty-date">
 <label class="block" for="trip-end">Date (Disabled):</label>
 <input disabled type="date" name="trip-end" id="trip-end" value="2020-08-25">
 ```
@@ -688,16 +694,56 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 <p>
   <label class="block" for="meeting-time">Datetime Local:</label>
-  <input type="datetime-local" name="meeting-time" id="meeting-time" value="2018-06-12T19:30" min="2018-06-07T00:00" max="2018-06-14T00:00">
-  <label class="block" for="meeting-time-placeholder">Datetime (Placeholder):</label>
-  <input type="datetime-local" name="meeting-time-placeholder" id="meeting-time-placeholder" placeholder="2018-06-12T19:30" min="2018-06-07T00:00" max="2018-06-14T00:00">
-  <label class="block" for="meeting-time-end">Datetime (Disabled):</label>
-  <input disabled type="datetime-local" name="meeting-time-end" id="meeting-time-end" value="2018-06-12T19:30" min="2018-06-07T00:00" max="2018-06-14T00:00">
+  <input
+    type="datetime-local"
+    name="meeting-time"
+    id="meeting-time"
+    value="2018-06-12T19:30"
+    min="2018-06-07T00:00"
+    max="2018-06-14T00:00">
+  <label class="block" for="meeting-time-empty">Datetime Local (Empty):</label>
+  <input
+    type="datetime-local"
+    name="meeting-time-empty"
+    id="meeting-time-empty"
+    min="2018-06-07T00:00"
+    max="2018-06-14T00:00">
+  <label class="block" for="meeting-time-disabled">Datetime Local (Disabled):</label>
+  <input
+    disabled
+    type="datetime-local"
+    name="meeting-time-disabled"
+    id="meeting-time-disabled"
+    value="2018-06-13T12:00"
+    min="2018-06-07T00:00"
+    max="2018-06-14T00:00">
 </p>
 
 ```html
-<label for="start">Start date:</label>
-<input type="date" id="start" name="trip-start" value="2020-08-15">
+<label class="block" for="meeting-time">Datetime Local:</label>
+<input
+  type="datetime-local"
+  name="meeting-time"
+  id="meeting-time"
+  value="2018-06-12T19:30"
+  min="2018-06-07T00:00"
+  max="2018-06-14T00:00">
+<label class="block" for="meeting-time-empty">Datetime Local (Empty):</label>
+<input
+  type="datetime-local"
+  name="meeting-time-empty"
+  id="meeting-time-empty"
+  min="2018-06-07T00:00"
+  max="2018-06-14T00:00">
+<label class="block" for="meeting-time-disabled">Datetime Local (Disabled):</label>
+<input
+  disabled
+  type="datetime-local"
+  name="meeting-time-disabled"
+  id="meeting-time-disabled"
+  value="2018-06-13T12:00"
+  min="2018-06-07T00:00"
+  max="2018-06-14T00:00">
 ```
 
 #### <a id="email" href="#email">Email</a>
@@ -710,15 +756,47 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </details>
 
 <p>
-  <label class="block" for="email-example">Email:</label>
-  <input placeholder="bob@example.com" type="email" id="email-example" name="email-example">
-  <label class="block" for="email-repeat">Email (Disabled):</label>
-  <input placeholder="bob@example.com" disabled type="email" name="email-repeat" id="email-repeat">
+  <label class="block" for="email-populated">Email:</label>
+  <input
+    type="email"
+    name="email-populated"
+    id="email-populated"
+    value="bob@example.com">
+  <label class="block" for="email-placeholder">Email (Placeholder):</label>
+  <input
+    type="email"
+    name="email-placeholder"
+    id="email-placeholder"
+    placeholder="bob@example.com">
+  <label class="block" for="email-disabled">Email (Disabled):</label>
+  <input
+    disabled
+    type="email"
+    name="email-disabled"
+    id="email-disabled"
+    value="bob@example.com">
 </p>
 
 ```html
-<label for="email">Email:</label>
-<input type="email" name="email" id="email">
+<label class="block" for="email-populated">Email:</label>
+<input
+  type="email"
+  name="email-populated"
+  id="email-populated"
+  value="bob@example.com">
+<label class="block" for="email-placeholder">Email (Placeholder):</label>
+<input
+  type="email"
+  name="email-placeholder"
+  id="email-placeholder"
+  placeholder="bob@example.com">
+<label class="block" for="email-disabled">Email (Disabled):</label>
+<input
+  disabled
+  type="email"
+  name="email-disabled"
+  id="email-disabled"
+  value="bob@example.com">
 ```
 
 #### <a id="file" href="#file">File</a>
@@ -732,20 +810,34 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 <p>
   <label class="block" for="avatar">Avatar:</label>
-  <input type="file"
-         name="avatar"
-         id="avatar"
-         accept="image/png, image/jpeg">
+  <input
+    type="file"
+    name="avatar"
+    id="avatar"
+    accept="image/png, image/jpeg">
   <label class="block" for="avatar-disabled">Avatar (Disabled):</label>
-  <input type="file"
-         disabled
-         name="avatar-disabled"
-         id="avatar-disabled"
-         accept="image/png, image/jpeg">
+  <input
+    disabled
+    type="file"
+    name="avatar-disabled"
+    id="avatar-disabled"
+    accept="image/png, image/jpeg">
 </p>
 
 ```html
-<input type="file" id="avatar" name="avatar" id="avatar" accept="image/png, image/jpeg">
+<label class="block" for="avatar">Avatar:</label>
+<input
+  type="file"
+  name="avatar"
+  id="avatar"
+  accept="image/png, image/jpeg">
+<label class="block" for="avatar-disabled">Avatar (Disabled):</label>
+<input
+  disabled
+  type="file"
+  name="avatar-disabled"
+  id="avatar-disabled"
+  accept="image/png, image/jpeg">
 ```
 
 #### <a id="image-input" href="#image-input">Image</a>
@@ -757,12 +849,42 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
     </blockquote>
 </details>
 
+Browsers do not consistently distinguish disabled image inputs visually, so Mine.css reduces their opacity.
+
 <div class="paragraph">
-  <input class="dark-icon" type="image" alt="Login" src="/light-dark.svg">
+  <input
+    class="dark-icon"
+    type="image"
+    name="login"
+    id="image-login"
+    alt="Login"
+    src="/light-dark.svg">
+  <input
+    disabled
+    class="dark-icon"
+    type="image"
+    name="login-disabled"
+    id="image-login-disabled"
+    alt="Login (Disabled)"
+    src="/light-dark.svg">
 </div>
 
 ```html
-<input class="dark-icon" type="image" id="image" alt="Login" src="/light-dark.svg">
+<input
+  class="dark-icon"
+  type="image"
+  name="login"
+  id="image-login"
+  alt="Login"
+  src="/light-dark.svg">
+<input
+  disabled
+  class="dark-icon"
+  type="image"
+  name="login-disabled"
+  id="image-login-disabled"
+  alt="Login (Disabled)"
+  src="/light-dark.svg">
 ```
 
 #### <a id="month" href="#month">Month</a>
@@ -776,14 +898,20 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 <p>
   <label class="block" for="start-month">Month:</label>
-  <input type="month" name="start-month" id="start-month" min="2018-03" placeholder="2020-08">
+  <input type="month" name="start-month" id="start-month" value="2020-08" min="2018-03">
+  <label class="block" for="empty-month">Month (Empty):</label>
+  <input type="month" name="empty-month" id="empty-month" min="2018-03">
   <label class="block" for="end-month">Month (Disabled):</label>
-  <input disabled type="month" name="end-month" id="end-month" min="2018-03" placeholder="2020-08">
+  <input disabled type="month" name="end-month" id="end-month" value="2020-09" min="2018-03">
 </p>
 
 ```html
-<label for="start">Month:</label>
-<input type="month" id="start" name="start" min="2018-03" value="2020-08">
+<label class="block" for="start-month">Month:</label>
+<input type="month" name="start-month" id="start-month" value="2020-08" min="2018-03">
+<label class="block" for="empty-month">Month (Empty):</label>
+<input type="month" name="empty-month" id="empty-month" min="2018-03">
+<label class="block" for="end-month">Month (Disabled):</label>
+<input disabled type="month" name="end-month" id="end-month" value="2020-09" min="2018-03">
 ```
 
 #### <a id="number" href="#number">Number</a>
@@ -796,15 +924,21 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </details>
 
 <p>
-  <label class="block" for="number-example">Number (10-100):</label>
-  <input type="number" name="number-example" id="number-example" min="10" max="100" placeholder="12">
-  <label class="block" for="number-disabled">Number (disabled):</label>
-  <input disabled type="number" name="number-disabled" id="number-disabled" min="2" max="100" value="5">
+  <label class="block" for="number-populated">Number (10-100):</label>
+  <input type="number" name="number-populated" id="number-populated" value="42" min="10" max="100">
+  <label class="block" for="number-placeholder">Number (Placeholder):</label>
+  <input type="number" name="number-placeholder" id="number-placeholder" placeholder="12" min="10" max="100">
+  <label class="block" for="number-disabled">Number (Disabled):</label>
+  <input disabled type="number" name="number-disabled" id="number-disabled" value="50" min="10" max="100">
 </p>
 
 ```html
-<label class="block" for="number">Number (10-100):</label>
-<input type="number" name="number" id="number" min="10" max="100" placeholder="12">
+<label class="block" for="number-populated">Number (10-100):</label>
+<input type="number" name="number-populated" id="number-populated" value="42" min="10" max="100">
+<label class="block" for="number-placeholder">Number (Placeholder):</label>
+<input type="number" name="number-placeholder" id="number-placeholder" placeholder="12" min="10" max="100">
+<label class="block" for="number-disabled">Number (Disabled):</label>
+<input disabled type="number" name="number-disabled" id="number-disabled" value="50" min="10" max="100">
 ```
 
 #### <a id="password" href="#password">Password</a>
@@ -817,19 +951,41 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </details>
 
 <p>
-  <label class="block" for="pass">Password:</label>
-  <input placeholder="••••••••" type="password" name="pass" id="pass" minlength="8">
-  <label class="block" for="pass-disabled">Password (Disabled):</label>
-  <input disabled placeholder="••••••••" type="password" name="pass-disabled" id="pass-disabled" minlength="8">
+  <label class="block" for="password-populated">Password:</label>
+  <input type="password" name="password-populated" id="password-populated" value="correct-horse" minlength="8">
+  <label class="block" for="password-placeholder">Password (Placeholder):</label>
+  <input
+    type="password"
+    name="password-placeholder"
+    id="password-placeholder"
+    placeholder="8+ characters"
+    minlength="8">
+  <label class="block" for="password-disabled">Password (Disabled):</label>
+  <input disabled type="password" name="password-disabled" id="password-disabled" value="correct-horse" minlength="8">
 </p>
 
 ```html
-<label class="block" for="pass">Password:</label>
+<label class="block" for="password-populated">Password:</label>
 <input
-  placeholder="••••••••"
   type="password"
-  name="pass"
-  id="pass"
+  name="password-populated"
+  id="password-populated"
+  value="correct-horse"
+  minlength="8">
+<label class="block" for="password-placeholder">Password (Placeholder):</label>
+<input
+  type="password"
+  name="password-placeholder"
+  id="password-placeholder"
+  placeholder="8+ characters"
+  minlength="8">
+<label class="block" for="password-disabled">Password (Disabled):</label>
+<input
+  disabled
+  type="password"
+  name="password-disabled"
+  id="password-disabled"
+  value="correct-horse"
   minlength="8">
 ```
 
@@ -843,18 +999,18 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </details>
 
 <div>
-    <input type="radio" name="drone" value="huey" id="huey" checked>
-    <label for="huey">Huey</label>
-  </div>
+  <input type="radio" name="drone" value="huey" id="huey" checked>
+  <label for="huey">Huey</label>
+</div>
 
-  <div>
-    <input type="radio" name="drone" value="dewey" id="dewey">
-    <label for="dewey">Dewey</label>
-  </div>
+<div>
+  <input type="radio" name="drone" value="dewey" id="dewey">
+  <label for="dewey">Dewey</label>
+</div>
 
-  <div>
-    <input disabled type="radio" name="drone" value="louie" id="louie">
-    <label for="louie">Louie</label>
+<div>
+  <input disabled type="radio" name="drone" value="louie" id="louie">
+  <label for="louie">Louie (Disabled)</label>
 </div>
 
 ```html
@@ -870,7 +1026,7 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 
 <div>
   <input disabled type="radio" name="drone" value="louie" id="louie">
-  <label for="louie">Louie</label>
+  <label for="louie">Louie (Disabled)</label>
 </div>
 ```
 
@@ -884,13 +1040,13 @@ Mine.css offers improved default styling of built in HTML form inputs with dark 
 </details>
 
 <div>
-    <input type="range" name="volume" id="volume" min="0" max="11">
-    <label for="volume">Volume</label>
-  </div>
+  <input type="range" name="volume" id="volume" min="0" max="11">
+  <label for="volume">Volume</label>
+</div>
 
-  <div>
-    <input disabled type="range" name="cowbell" id="cowbell" min="0" max="100" value="90" step="10">
-    <label for="cowbell">Cowbell (Disabled)</label>
+<div>
+  <input disabled type="range" name="cowbell" id="cowbell" min="0" max="100" value="90" step="10">
+  <label for="cowbell">Cowbell (Disabled)</label>
 </div>
 
 ```html
@@ -925,8 +1081,8 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 
 <form>
     <div class="controls">
-      <label for="id">User ID:</label>
-      <input type="text" name="id" id="id" />
+      <label for="user-id">User ID:</label>
+      <input name="user-id" id="user-id">
       <input type="reset" value="Reset">
       <input disabled type="reset" value="Reset (Disabled)">
     </div>
@@ -935,8 +1091,8 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 ```html
 <form>
   <div class="controls">
-    <label for="id">User ID:</label>
-    <input type="text" name="id" id="id" />
+    <label for="user-id">User ID:</label>
+    <input name="user-id" id="user-id">
     <input type="reset" value="Reset">
     <input disabled type="reset" value="Reset (Disabled)">
   </div>
@@ -953,12 +1109,21 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 </details>
 
 <p>
-  <input placeholder="Search..." type="search" name="search">
-  <input placeholder="Search..." disabled type="search" name="search-disabled">
+  <label class="block" for="search-populated">Search:</label>
+  <input type="search" name="search-populated" id="search-populated" value="mine.css">
+  <label class="block" for="search-placeholder">Search (Placeholder):</label>
+  <input type="search" name="search-placeholder" id="search-placeholder" placeholder="Search...">
+  <label class="block" for="search-disabled">Search (Disabled):</label>
+  <input disabled type="search" name="search-disabled" id="search-disabled" value="mine.css">
 </p>
 
 ```html
-<input placeholder="Search..." type="search" name="search">
+<label class="block" for="search-populated">Search:</label>
+<input type="search" name="search-populated" id="search-populated" value="mine.css">
+<label class="block" for="search-placeholder">Search (Placeholder):</label>
+<input type="search" name="search-placeholder" id="search-placeholder" placeholder="Search...">
+<label class="block" for="search-disabled">Search (Disabled):</label>
+<input disabled type="search" name="search-disabled" id="search-disabled" value="mine.css">
 ```
 
 #### <a id="submit" href="#submit">Submit</a>
@@ -977,6 +1142,7 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 
 ```html
 <input type="submit" value="Submit">
+<input disabled type="submit" value="Submit (Disabled)">
 ```
 
 
@@ -990,17 +1156,67 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 </details>
 
 <p>
-  <label class="block" for="phone">Tel:</label>
-  <input class="block" placeholder="123-456-7890" type="tel" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+  <label class="block" for="phone-populated">Tel:</label>
+  <input
+    class="block"
+    type="tel"
+    name="phone-populated"
+    id="phone-populated"
+    value="123-456-7890"
+    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+    required>
+  <label class="block" for="phone-placeholder">Tel (Placeholder):</label>
+  <input
+    class="block"
+    type="tel"
+    name="phone-placeholder"
+    id="phone-placeholder"
+    placeholder="123-456-7890"
+    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+    required>
   <small>Format: 123-456-7890</small>
   <label class="block" for="phone-disabled">Tel (Disabled):</label>
-  <input class="block" placeholder="123-456-7890" type="tel" name="phone-disabled" id="phone-disabled" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required disabled>
+  <input
+    class="block"
+    disabled
+    type="tel"
+    name="phone-disabled"
+    id="phone-disabled"
+    value="123-456-7890"
+    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+    required>
 </p>
 
 ```html
-<label for="phone">Enter your phone number:</label>
-<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+<label class="block" for="phone-populated">Tel:</label>
+<input
+  class="block"
+  type="tel"
+  name="phone-populated"
+  id="phone-populated"
+  value="123-456-7890"
+  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+  required>
+<label class="block" for="phone-placeholder">Tel (Placeholder):</label>
+<input
+  class="block"
+  type="tel"
+  name="phone-placeholder"
+  id="phone-placeholder"
+  placeholder="123-456-7890"
+  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+  required>
 <small>Format: 123-456-7890</small>
+<label class="block" for="phone-disabled">Tel (Disabled):</label>
+<input
+  class="block"
+  disabled
+  type="tel"
+  name="phone-disabled"
+  id="phone-disabled"
+  value="123-456-7890"
+  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+  required>
 ```
 
 #### <a id="text" href="#text">Text</a>
@@ -1013,15 +1229,77 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 </details>
 
 <p>
-  <label for="name">Name (4 to 8 characters):</label>
-  <input class="block" placeholder="Jon Smith" type="text" name="name" id="name" required minlength="4" maxlength="8" size="10">
-  <label for="name-disabled">Name (Disabled):</label>
-  <input class="block" disabled placeholder="Jon Smith" type="text" name="name-disabled" id="name-disabled" required minlength="4" maxlength="8" size="10">
+  <label class="block" for="name-populated">Name (4 to 8 characters):</label>
+  <input
+    class="block"
+    type="text"
+    name="name-populated"
+    id="name-populated"
+    value="Jane Doe"
+    required
+    minlength="4"
+    maxlength="8"
+    size="10">
+  <label class="block" for="name-placeholder">Name (Placeholder):</label>
+  <input
+    class="block"
+    type="text"
+    name="name-placeholder"
+    id="name-placeholder"
+    placeholder="Jane Doe"
+    required
+    minlength="4"
+    maxlength="8"
+    size="10">
+  <label class="block" for="name-disabled">Name (Disabled):</label>
+  <input
+    class="block"
+    disabled
+    type="text"
+    name="name-disabled"
+    id="name-disabled"
+    value="Jane Doe"
+    required
+    minlength="4"
+    maxlength="8"
+    size="10">
 </p>
 
 ```html
-<label for="name">Name (4 to 8 characters):</label>
-<input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10">
+<label class="block" for="name-populated">Name (4 to 8 characters):</label>
+<input
+  class="block"
+  type="text"
+  name="name-populated"
+  id="name-populated"
+  value="Jane Doe"
+  required
+  minlength="4"
+  maxlength="8"
+  size="10">
+<label class="block" for="name-placeholder">Name (Placeholder):</label>
+<input
+  class="block"
+  type="text"
+  name="name-placeholder"
+  id="name-placeholder"
+  placeholder="Jane Doe"
+  required
+  minlength="4"
+  maxlength="8"
+  size="10">
+<label class="block" for="name-disabled">Name (Disabled):</label>
+<input
+  class="block"
+  disabled
+  type="text"
+  name="name-disabled"
+  id="name-disabled"
+  value="Jane Doe"
+  required
+  minlength="4"
+  maxlength="8"
+  size="10">
 ```
 
 #### <a id="textarea" href="#textarea">Text Area</a>
@@ -1034,38 +1312,55 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
 </details>
 
 <p>
-  <label style="display: block;">
-    Tell us your story:
-    <textarea style="display: block;" id="story" name="story" rows="5" cols="33">
-It was a dark and stormy night...
-    </textarea>
-  </label>
-  <label style="display: block;">Don't tell us your story:
-    <textarea style="display: block;" disabled id="story-disabled" name="story-disabled" rows="5" cols="33">
-It wasn't a dark and stormy night...
-    </textarea>
-  </label>
-</p>
-
-```html
-<label style="display: block;">
-  Tell us your story:
-  <textarea style="display: block;" id="story" name="story" rows="5" cols="33">
-It was a dark and stormy night...
-  </textarea>
-</label>
-<label style="display: block;">
-  Don't tell us your story:
+  <label class="block" for="story">Tell us your story:</label>
   <textarea
-    style="display: block;"
+    class="block"
+    id="story"
+    name="story"
+    rows="5"
+    cols="33">It was a dark and stormy night...</textarea>
+  <label class="block" for="story-placeholder">Tell us your story (Placeholder):</label>
+  <textarea
+    class="block"
+    id="story-placeholder"
+    name="story-placeholder"
+    rows="5"
+    cols="33"
+    placeholder="It was a dark and stormy night..."></textarea>
+  <label class="block" for="story-disabled">Tell us your story (Disabled):</label>
+  <textarea
+    class="block"
     disabled
     id="story-disabled"
     name="story-disabled"
     rows="5"
-    cols="33">
-It wasn't a dark and stormy night...
-  </textarea>
-</label>
+    cols="33">It wasn't a dark and stormy night...</textarea>
+</p>
+
+```html
+<label class="block" for="story">Tell us your story:</label>
+<textarea
+  class="block"
+  id="story"
+  name="story"
+  rows="5"
+  cols="33">It was a dark and stormy night...</textarea>
+<label class="block" for="story-placeholder">Tell us your story (Placeholder):</label>
+<textarea
+  class="block"
+  id="story-placeholder"
+  name="story-placeholder"
+  rows="5"
+  cols="33"
+  placeholder="It was a dark and stormy night..."></textarea>
+<label class="block" for="story-disabled">Tell us your story (Disabled):</label>
+<textarea
+  class="block"
+  disabled
+  id="story-disabled"
+  name="story-disabled"
+  rows="5"
+  cols="33">It wasn't a dark and stormy night...</textarea>
 ```
 
 #### <a id="time" href="#time">Time</a>
@@ -1079,16 +1374,22 @@ It wasn't a dark and stormy night...
 
 <p>
   <label class="block" for="appt">Choose a time for your meeting:</label>
-  <input type="time" name="appt" id="appt" min="09:00" max="18:00" required placeholder="9:00">
+  <input type="time" name="appt" id="appt" value="10:30" min="09:00" max="18:00" required>
   <small>Office hours are 9am to 6pm</small>
+  <label class="block" for="appt-empty">Time (Empty):</label>
+  <input type="time" name="appt-empty" id="appt-empty" min="09:00" max="18:00" required>
   <label class="block" for="appt-disabled">Time (Disabled):</label>
-  <input class="block" disabled placeholder="9:00" type="time" name="appt-disabled" id="appt-disabled" min="09:00" max="18:00" required>
+  <input disabled type="time" name="appt-disabled" id="appt-disabled" value="16:00" min="09:00" max="18:00" required>
 </p>
 
 ```html
-<label for="appt">Choose a time for your meeting:</label>
-<input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
+<label class="block" for="appt">Choose a time for your meeting:</label>
+<input type="time" name="appt" id="appt" value="10:30" min="09:00" max="18:00" required>
 <small>Office hours are 9am to 6pm</small>
+<label class="block" for="appt-empty">Time (Empty):</label>
+<input type="time" name="appt-empty" id="appt-empty" min="09:00" max="18:00" required>
+<label class="block" for="appt-disabled">Time (Disabled):</label>
+<input disabled type="time" name="appt-disabled" id="appt-disabled" value="16:00" min="09:00" max="18:00" required>
 ```
 
 #### <a id="url" href="#url">URL</a>
@@ -1101,19 +1402,68 @@ It wasn't a dark and stormy night...
 </details>
 
 <p>
-  <label class="block" for="url-example">Enter an https:// URL:</label>
-  <input class="block" type="url" name="url-example" id="url-example" placeholder="https://example.com" pattern="https://.*" size="30" required>
-  <label class="block" for="url-disabled">Enter an https:// URL (Disabled):</label>
-  <input disabled class="block" type="url" name="url-disabled" id="url-disabled" placeholder="https://example.com" pattern="https://.*" size="30" required>
+  <label class="block" for="url-populated">Enter an https:// URL:</label>
+  <input
+    class="block"
+    type="url"
+    name="url-populated"
+    id="url-populated"
+    value="https://example.com"
+    pattern="https://.*"
+    size="30"
+    required>
+  <label class="block" for="url-placeholder">URL (Placeholder):</label>
+  <input
+    class="block"
+    type="url"
+    name="url-placeholder"
+    id="url-placeholder"
+    placeholder="https://example.com"
+    pattern="https://.*"
+    size="30"
+    required>
+  <label class="block" for="url-disabled">URL (Disabled):</label>
+  <input
+    disabled
+    class="block"
+    type="url"
+    name="url-disabled"
+    id="url-disabled"
+    value="https://example.com"
+    pattern="https://.*"
+    size="30"
+    required>
 </p>
 
 ```html
-<label for="url">Enter an https:// URL:</label>
+<label class="block" for="url-populated">Enter an https:// URL:</label>
 <input
+  class="block"
   type="url"
-  name="url"
-  id="url"
+  name="url-populated"
+  id="url-populated"
+  value="https://example.com"
+  pattern="https://.*"
+  size="30"
+  required>
+<label class="block" for="url-placeholder">URL (Placeholder):</label>
+<input
+  class="block"
+  type="url"
+  name="url-placeholder"
+  id="url-placeholder"
   placeholder="https://example.com"
+  pattern="https://.*"
+  size="30"
+  required>
+<label class="block" for="url-disabled">URL (Disabled):</label>
+<input
+  disabled
+  class="block"
+  type="url"
+  name="url-disabled"
+  id="url-disabled"
+  value="https://example.com"
   pattern="https://.*"
   size="30"
   required>
@@ -1130,28 +1480,268 @@ It wasn't a dark and stormy night...
 
 <p>
   <label class="block" for="week-example">Week:</label>
-  <input class="block" placeholder="2018-W18" value="2017-W01" type="week" name="week-example" id="week-example" min="2018-W18" max="2018-W26" required>
-  <label class="block" for="week-placeholder">Week (Placeholder):</label>
-  <input class="block" placeholder="2018-W18" type="week" name="week-placeholder" id="week-placeholder" min="2018-W18" max="2018-W26" required>
+  <input
+    class="block"
+    value="2018-W20"
+    type="week"
+    name="week-example"
+    id="week-example"
+    min="2018-W18"
+    max="2018-W26"
+    required>
+  <label class="block" for="week-empty">Week (Empty):</label>
+  <input
+    class="block"
+    type="week"
+    name="week-empty"
+    id="week-empty"
+    min="2018-W18"
+    max="2018-W26"
+    required>
   <label class="block" for="week-disabled">Week (Disabled):</label>
-  <input class="block" disabled placeholder="2018-W18" value="2017-W01" type="week" name="week-disabled" id="week-disabled" min="2018-W18" max="2018-W26" required>
+  <input
+    class="block"
+    disabled
+    value="2018-W24"
+    type="week"
+    name="week-disabled"
+    id="week-disabled"
+    min="2018-W18"
+    max="2018-W26"
+    required>
 </p>
 
 ```html
 <label class="block" for="week-example">Week:</label>
 <input
   class="block"
-  placeholder="2018-W18"
-  value="2017-W01"
+  value="2018-W20"
   type="week"
   name="week-example"
   id="week-example"
   min="2018-W18"
   max="2018-W26"
   required>
+<label class="block" for="week-empty">Week (Empty):</label>
+<input
+  class="block"
+  type="week"
+  name="week-empty"
+  id="week-empty"
+  min="2018-W18"
+  max="2018-W26"
+  required>
+<label class="block" for="week-disabled">Week (Disabled):</label>
+<input
+  class="block"
+  disabled
+  value="2018-W24"
+  type="week"
+  name="week-disabled"
+  id="week-disabled"
+  min="2018-W18"
+  max="2018-W26"
+  required>
 ```
 
-### <a id="fieldset" href="#fieldset">Fieldset</a>
+### <a id="form-controls" href="#form-controls">Additional Form Controls</a>
+
+#### <a id="select" href="#select">Select, Option, and Optgroup</a>
+
+The select element presents a menu of options. Optgroups add labels to related choices.
+
+<div class="paragraph">
+  <label class="block" for="destination">Destination:</label>
+  <select class="block" name="destination" id="destination">
+    <option value="" selected disabled>Choose a destination</option>
+    <optgroup label="North America">
+      <option value="vancouver">Vancouver</option>
+      <option value="portland">Portland</option>
+    </optgroup>
+    <optgroup label="Europe">
+      <option value="helsinki">Helsinki</option>
+      <option value="lisbon">Lisbon</option>
+    </optgroup>
+  </select>
+  <label class="block" for="destination-disabled">Destination (Disabled):</label>
+  <select
+    class="block"
+    disabled
+    name="destination-disabled"
+    id="destination-disabled">
+    <option value="helsinki">Helsinki</option>
+  </select>
+</div>
+
+```html
+<label class="block" for="destination">Destination:</label>
+<select class="block" name="destination" id="destination">
+  <option value="" selected disabled>Choose a destination</option>
+  <optgroup label="North America">
+    <option value="vancouver">Vancouver</option>
+    <option value="portland">Portland</option>
+  </optgroup>
+  <optgroup label="Europe">
+    <option value="helsinki">Helsinki</option>
+    <option value="lisbon">Lisbon</option>
+  </optgroup>
+</select>
+<label class="block" for="destination-disabled">Destination (Disabled):</label>
+<select
+  class="block"
+  disabled
+  name="destination-disabled"
+  id="destination-disabled">
+  <option value="helsinki">Helsinki</option>
+</select>
+```
+
+#### <a id="datalist" href="#datalist">Datalist</a>
+
+A datalist supplies suggestions while preserving free-form text entry.
+
+<p>
+  <label class="block" for="browser-choice">Browser:</label>
+  <input
+    class="block"
+    list="browser-suggestions"
+    name="browser-choice"
+    id="browser-choice"
+    placeholder="Choose or enter a browser">
+  <datalist id="browser-suggestions">
+    <option value="Chrome"></option>
+    <option value="Firefox"></option>
+    <option value="Safari"></option>
+  </datalist>
+</p>
+
+```html
+<label class="block" for="browser-choice">Browser:</label>
+<input
+  class="block"
+  list="browser-suggestions"
+  name="browser-choice"
+  id="browser-choice"
+  placeholder="Choose or enter a browser">
+<datalist id="browser-suggestions">
+  <option value="Chrome"></option>
+  <option value="Firefox"></option>
+  <option value="Safari"></option>
+</datalist>
+```
+
+#### <a id="output" href="#output">Output</a>
+
+Output associates a calculated result with the controls that produced it.
+
+<form class="paragraph" id="quantity-form">
+  <label class="block" for="quantity">Quantity:</label>
+  <input
+    type="range"
+    name="quantity"
+    id="quantity"
+    min="0"
+    max="100"
+    value="40">
+  <label for="quantity-output">Selected quantity:</label>
+  <output
+    name="quantity-output"
+    id="quantity-output"
+    for="quantity">40</output>
+</form>
+
+```html
+<form id="quantity-form">
+  <label class="block" for="quantity">Quantity:</label>
+  <input
+    type="range"
+    name="quantity"
+    id="quantity"
+    min="0"
+    max="100"
+    value="40">
+  <label for="quantity-output">Selected quantity:</label>
+  <output
+    name="quantity-output"
+    id="quantity-output"
+    for="quantity">40</output>
+</form>
+```
+
+```js
+const quantity = document.querySelector('#quantity')
+const output = document.querySelector('#quantity-output')
+
+quantity.addEventListener('input', () => {
+  output.value = quantity.value
+})
+```
+
+#### <a id="meter" href="#meter">Meter</a>
+
+Meters show scalar measurements within a known range and can identify low, high, and optimum regions.
+
+<div class="paragraph">
+  <label class="block" for="storage-meter">Storage used:</label>
+  <meter
+    id="storage-meter"
+    min="0"
+    max="100"
+    low="30"
+    high="80"
+    optimum="20"
+    value="65">65 of 100</meter>
+  <label class="block" for="battery-meter">Battery remaining:</label>
+  <meter
+    id="battery-meter"
+    min="0"
+    max="100"
+    low="20"
+    high="80"
+    optimum="100"
+    value="15">15 of 100</meter>
+</div>
+
+```html
+<label class="block" for="storage-meter">Storage used:</label>
+<meter
+  id="storage-meter"
+  min="0"
+  max="100"
+  low="30"
+  high="80"
+  optimum="20"
+  value="65">65 of 100</meter>
+<label class="block" for="battery-meter">Battery remaining:</label>
+<meter
+  id="battery-meter"
+  min="0"
+  max="100"
+  low="20"
+  high="80"
+  optimum="100"
+  value="15">15 of 100</meter>
+```
+
+#### <a id="progress" href="#progress">Progress</a>
+
+Progress elements show determinate work with a value or indeterminate work without one.
+
+<div class="paragraph">
+  <label class="block" for="download-progress">Download:</label>
+  <progress id="download-progress" max="100" value="65">65%</progress>
+  <label class="block" for="preparing-progress">Preparing:</label>
+  <progress id="preparing-progress">Working...</progress>
+</div>
+
+```html
+<label class="block" for="download-progress">Download:</label>
+<progress id="download-progress" max="100" value="65">65%</progress>
+<label class="block" for="preparing-progress">Preparing:</label>
+<progress id="preparing-progress">Working...</progress>
+```
+
+#### <a id="fieldset" href="#fieldset">Fieldset</a>
 
 <form style="display: inline-block;">
     <fieldset>
@@ -1183,4 +1773,178 @@ It wasn't a dark and stormy night...
     <input style="width:100%" type="submit" value="Login">
   </fieldset>
 </form>
+```
+
+### <a id="input-states" href="#input-states">Input States</a>
+
+#### <a id="validation" href="#validation">Validation</a>
+
+Mine.css leaves the eager `:valid` and `:invalid` states unpainted so untouched required fields do not look completed or broken. Constrained text and selection controls receive valid or invalid borders through [`:user-valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:user-valid) and [`:user-invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:user-invalid) after the browser records an interaction. Pair the visual state with useful labels, instructions, and error text.
+
+Change either value and leave the field, or submit the form, to see the interaction-gated states.
+
+<form class="paragraph" id="validation-form">
+  <label class="block" for="validation-email">Contact email:</label>
+  <input
+    aria-describedby="validation-help"
+    class="block"
+    required
+    type="email"
+    name="validation-email"
+    id="validation-email"
+    value="not-an-email">
+  <label class="block" for="validation-url">Website:</label>
+  <input
+    aria-describedby="validation-help"
+    class="block"
+    required
+    type="url"
+    name="validation-url"
+    id="validation-url"
+    value="https://example.com">
+  <small id="validation-help">Use a complete email address and an absolute URL.</small>
+  <div><input type="submit" value="Check validity"></div>
+</form>
+
+```html
+<form id="validation-form">
+  <label class="block" for="validation-email">Contact email:</label>
+  <input
+    aria-describedby="validation-help"
+    class="block"
+    required
+    type="email"
+    name="validation-email"
+    id="validation-email"
+    value="not-an-email">
+  <label class="block" for="validation-url">Website:</label>
+  <input
+    aria-describedby="validation-help"
+    class="block"
+    required
+    type="url"
+    name="validation-url"
+    id="validation-url"
+    value="https://example.com">
+  <small id="validation-help">Use a complete email address and an absolute URL.</small>
+  <div><input type="submit" value="Check validity"></div>
+</form>
+```
+
+```js
+const form = document.querySelector('#validation-form')
+form.addEventListener('submit', event => event.preventDefault())
+```
+
+#### <a id="readonly" href="#readonly">Readonly</a>
+
+Readonly controls remain focusable and submit their values, but users cannot edit them.
+
+<p>
+  <label class="block" for="account-id">Account ID (Readonly):</label>
+  <input
+    class="block"
+    readonly
+    type="text"
+    name="account-id"
+    id="account-id"
+    value="acct_12345">
+  <label class="block" for="readonly-notes">Notes (Readonly):</label>
+  <textarea
+    class="block"
+    readonly
+    name="readonly-notes"
+    id="readonly-notes"
+    rows="3"
+    cols="33">Managed by your organization.</textarea>
+</p>
+
+```html
+<label class="block" for="account-id">Account ID (Readonly):</label>
+<input
+  class="block"
+  readonly
+  type="text"
+  name="account-id"
+  id="account-id"
+  value="acct_12345">
+<label class="block" for="readonly-notes">Notes (Readonly):</label>
+<textarea
+  class="block"
+  readonly
+  name="readonly-notes"
+  id="readonly-notes"
+  rows="3"
+  cols="33">Managed by your organization.</textarea>
+```
+
+#### <a id="multiple" href="#multiple">Multiple</a>
+
+The multiple attribute applies to email, file, and select controls.
+
+<div class="paragraph">
+  <label class="block" for="multiple-email">Email recipients (Multiple):</label>
+  <input
+    class="block"
+    multiple
+    type="email"
+    name="multiple-email"
+    id="multiple-email"
+    value="alice@example.com, bob@example.com">
+  <label class="block" for="multiple-file">Attachments (Multiple):</label>
+  <input multiple type="file" name="multiple-file" id="multiple-file">
+  <label class="block" for="multiple-select">Tags (Multiple):</label>
+  <select
+    class="block"
+    multiple
+    size="3"
+    name="multiple-select"
+    id="multiple-select">
+    <option value="css" selected>CSS</option>
+    <option value="html">HTML</option>
+    <option value="javascript" selected>JavaScript</option>
+  </select>
+</div>
+
+```html
+<label class="block" for="multiple-email">Email recipients (Multiple):</label>
+<input
+  class="block"
+  multiple
+  type="email"
+  name="multiple-email"
+  id="multiple-email"
+  value="alice@example.com, bob@example.com">
+<label class="block" for="multiple-file">Attachments (Multiple):</label>
+<input multiple type="file" name="multiple-file" id="multiple-file">
+<label class="block" for="multiple-select">Tags (Multiple):</label>
+<select
+  class="block"
+  multiple
+  size="3"
+  name="multiple-select"
+  id="multiple-select">
+  <option value="css" selected>CSS</option>
+  <option value="html">HTML</option>
+  <option value="javascript" selected>JavaScript</option>
+</select>
+```
+
+#### <a id="indeterminate" href="#indeterminate">Indeterminate</a>
+
+Checkbox indeterminacy is a DOM property rather than an HTML attribute. It affects presentation, not the submitted checked value.
+
+<div class="paragraph">
+  <input type="checkbox" name="selected-items" id="indeterminate-checkbox">
+  <label for="indeterminate-checkbox">Some items selected (Indeterminate)</label>
+</div>
+
+```html
+<input type="checkbox" name="selected-items" id="indeterminate-checkbox">
+<label for="indeterminate-checkbox">Some items selected (Indeterminate)</label>
+```
+
+```js
+const checkbox = document.querySelector('#indeterminate-checkbox')
+checkbox.indeterminate = true
 ```

@@ -62,3 +62,22 @@ themeSelect.addEventListener('change', () => {
     else localStorage.removeItem('mine-theme')
   } catch {}
 })
+
+const quantity = /** @type {HTMLInputElement | null} */ (document.querySelector('#quantity'))
+const quantityOutput = /** @type {HTMLOutputElement | null} */ (document.querySelector('#quantity-output'))
+if (quantity && quantityOutput) {
+  const updateQuantity = () => { quantityOutput.value = quantity.value }
+  updateQuantity()
+  quantity.addEventListener('input', updateQuantity)
+}
+
+const indeterminateCheckbox = /** @type {HTMLInputElement | null} */ (document.querySelector('#indeterminate-checkbox'))
+if (indeterminateCheckbox) {
+  indeterminateCheckbox.indeterminate = true
+}
+
+const validationForm = document.querySelector('#validation-form')
+if (validationForm) {
+  /* Keep the valid demo state visible instead of reloading the static guide. */
+  validationForm.addEventListener('submit', event => event.preventDefault())
+}

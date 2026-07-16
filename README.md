@@ -130,6 +130,8 @@ You can override defaults directly with CSS variables. Here are the default vari
   --light-control-border: hsl(0deg, 0%, 58%, 100%); /* #949494 */
   --light-accent-foreground: hsl(0deg, 0%, 40%, 100%); /* #666 */
   --light-link-text: hsl(210deg, 100%, 45%, 100%); /* #0073e6 */
+  --light-valid: hsl(152deg, 60%, 34%, 100%); /* #238b5a */
+  --light-invalid: hsl(355deg, 70%, 48%, 100%); /* #d02533 */
   --light-mark-background: hsl(60deg, 100%, 50%, 100%); /* #ff0 */
   --light-code-text: var(--light-text);
   --light-code-background: var(--light-accent-background);
@@ -144,6 +146,8 @@ You can override defaults directly with CSS variables. Here are the default vari
   --dark-control-border: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
   --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
   --dark-link-text: hsl(206deg, 100%, 70%, 100%); /* #66bdff */
+  --dark-valid: hsl(152deg, 55%, 62%, 100%); /* #69d3a2 */
+  --dark-invalid: hsl(355deg, 78%, 68%, 100%); /* #ed6e78 */
   --dark-mark-background: hsl(58deg, 66%, 30%, 100%); /* #7f7c1a */
   --dark-code-text: var(--dark-text);
   --dark-code-background: var(--dark-accent-background);
@@ -212,6 +216,8 @@ The theme agnostic variables are as follows:
 
   /* misc colors */
   --link-text: var(--light-link-text);
+  --valid: var(--light-valid);
+  --invalid: var(--light-invalid);
   --mark-background: var(--light-mark-background);
   --code-text: var(--light-code-text);
   --code-background: var(--light-code-background);
@@ -231,6 +237,8 @@ The theme agnostic variables are as follows:
 
     /* misc colors */
     --link-text: var(--dark-link-text);
+    --valid: var(--dark-valid);
+    --invalid: var(--dark-invalid);
     --mark-background: var(--dark-mark-background);
     --code-text: var(--dark-code-text);
     --code-background: var(--dark-code-background);
