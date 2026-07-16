@@ -8,7 +8,9 @@
 @import url("./tables.css");
 @import url("./horizontal-rules.css");
 @import url("./images.css");
+@import url("./embedded-media.css");
 @import url("./video.css");
+@import url("./iframes.css");
 @import url("./figures.css");
 @import url("./abbreviations.css");
 @import url("./definitions.css");

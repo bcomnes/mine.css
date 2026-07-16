@@ -15,7 +15,10 @@ See how elements are styled with `mine.css`.
     <li><a href="#tables">Tables</a></li>
     <li><a href="#horizontal-rules">Horizontal Rules</a></li>
     <li><a href="#images">Images</a></li>
+    <li><a href="#audio">Audio</a></li>
+    <li><a href="#canvas">Canvas</a></li>
     <li><a href="#video">Video</a></li>
+    <li><a href="#iframes">Iframes</a></li>
     <li><a href="#figures">Figures</a></li>
     <li><a href="#extras">Extras</a></li>
     <li>
@@ -349,6 +352,40 @@ The reference defining the URL location can be later in the document.
 [id]: https://upload.wikimedia.org/wikipedia/commons/1/1f/Ries.PNG  "1550 Woodcut of 58-year-old Adam Ries, inscription: ANNO 1550 ADAM RIES SEINS ALTERS IM LVIII"
 ```
 
+## <a id="audio" href="#audio">Audio</a>
+
+Native audio controls fill the available document measure. Audio without
+controls remains hidden according to the browser's rendering rules.
+
+<audio id="demo-audio" controls aria-label="Audio player without a source"></audio>
+
+```html
+<audio controls aria-label="Audio player without a source"></audio>
+```
+
+## <a id="canvas" href="#canvas">Canvas</a>
+
+A wide canvas shrinks with its container while preserving its intrinsic ratio.
+The gradient below is authored demo content rather than a framework default.
+
+<canvas
+  id="demo-canvas"
+  aria-label="Responsive gradient canvas"
+  width="1280"
+  height="240"
+  style="background: linear-gradient(90deg, var(--link-text), var(--valid));">
+  Responsive gradient canvas.
+</canvas>
+
+```html
+<canvas
+  aria-label="Responsive gradient canvas"
+  width="1280"
+  height="240">
+  Responsive gradient canvas.
+</canvas>
+```
+
 ## <a id="video" href="#video">Video</a>
 
 A video without a source or poster still reserves a visible, theme-aware frame while media is unavailable or loading.
@@ -364,6 +401,25 @@ A video without a source or poster still reserves a visible, theme-aware frame w
   aria-label="Blank video placeholder"
   width="640"
   height="360"></video>
+```
+
+## <a id="iframes" href="#iframes">Iframes</a>
+
+An iframe keeps its authored dimensions while shrinking to fit narrower containers.
+
+<iframe
+  id="demo-iframe"
+  title="Embedded document example"
+  width="1280"
+  height="180"
+  srcdoc="<style>:root{color-scheme:light dark}body{font:1rem/1.5 system-ui;padding:1rem}</style><p>Embedded document</p>"></iframe>
+
+```html
+<iframe
+  title="Embedded document example"
+  width="1280"
+  height="180"
+  srcdoc="<p>Embedded document</p>"></iframe>
 ```
 
 ## <a id="figures" href="#figures">Figures</a>

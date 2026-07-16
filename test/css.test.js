@@ -11,8 +11,10 @@ const topBar = await readFile(new URL('../src/top-bar.css', import.meta.url), 'u
 const fieldset = await readFile(new URL('../src/inputs/fieldset.css', import.meta.url), 'utf8')
 const textInput = await readFile(new URL('../src/inputs/text-input.css', import.meta.url), 'utf8')
 const code = await readFile(new URL('../src/typography/code.css', import.meta.url), 'utf8')
+const embeddedMedia = await readFile(new URL('../src/typography/embedded-media.css', import.meta.url), 'utf8')
 const figures = await readFile(new URL('../src/typography/figures.css', import.meta.url), 'utf8')
 const headings = await readFile(new URL('../src/typography/headings.css', import.meta.url), 'utf8')
+const iframes = await readFile(new URL('../src/typography/iframes.css', import.meta.url), 'utf8')
 const links = await readFile(new URL('../src/typography/links.css', import.meta.url), 'utf8')
 const typography = await readFile(new URL('../src/typography/index.css', import.meta.url), 'utf8')
 const tronLegacy = await readFile(new URL('../src/themes/tron-legacy.css', import.meta.url), 'utf8')
@@ -107,7 +109,7 @@ test('print declares a complete light-facing palette', () => {
 
 test('raised surfaces share one customizable shadow', () => {
   assert.match(variables, /--surface-shadow:/)
-  for (const [name, source] of [['fieldset', fieldset], ['code', code], ['figures', figures]]) {
+  for (const [name, source] of [['fieldset', fieldset], ['code', code], ['figures', figures], ['iframes', iframes]]) {
     assert.match(source, /box-shadow: var\(--surface-shadow\);/, `${name} does not use --surface-shadow`)
     assert.doesNotMatch(source, /inset 0 1px 0 rgb\(255 255 255/, `${name} duplicates the surface shadow`)
   }
@@ -128,6 +130,12 @@ test('color schemes only follow the browser preference', () => {
   assert.equal('postcss-dark-theme-class' in packageJson.devDependencies, false)
 })
 
+test('embedded media stays within the document measure', () => {
+  assert.match(embeddedMedia, /audio,\ncanvas \{[\s\S]*display: block;[\s\S]*max-inline-size: 100%;/)
+  assert.match(embeddedMedia, /audio \{[\s\S]*inline-size: 100%;/)
+  assert.match(embeddedMedia, /canvas \{[\s\S]*block-size: auto;/)
+})
+
 test('typography and layout remain bounded', () => {
   assert.match(documentStyles, /hanging-punctuation: first allow-end last;/)
   assert.match(documentStyles, /tab-size: 2;/)
@@ -139,6 +147,13 @@ test('typography and layout remain bounded', () => {
   assert.doesNotMatch(textInput, /outline-offset/)
   assert.match(documentStyles, /:target \{[\s\S]*scroll-margin-block-start: 3rem;/)
   assert.match(headings, /text-wrap: balance;/)
+  assert.match(iframes, /iframe \{[\s\S]*display: block;[\s\S]*max-inline-size: 100%;/)
+  assert.match(iframes, /border: 1px solid color-mix\(in srgb, var\(--accent-midground\) 70%, var\(--background\)\);/)
+  assert.match(iframes, /border-radius: 7px;/)
+  assert.match(iframes, /background-color: var\(--accent-background\);/)
+  assert.match(figures, /figure \{[\s\S]*inline-size: fit-content;[\s\S]*max-inline-size: 100%;[\s\S]*margin-inline: auto;/)
+  assert.match(figures, /& picture,\n {2}& img \{ display: block; \}/)
+  assert.match(figures, /figcaption \{[\s\S]*contain: inline-size;[\s\S]*font-size: 0\.9em;/)
   assert.match(typography, /p,\nli,\ndd \{[\s\S]*max-inline-size: 88ch;[\s\S]*text-wrap: pretty;/)
   assert.match(variables, /--font-size-body: clamp\(1rem, calc\(.+\), 1\.25rem\);\n\n {2}@supports \(font-size: round\(1rem, 1px\)\)/)
   assert.match(variables, /round\(nearest, calc\(.+\), 1px\)/)

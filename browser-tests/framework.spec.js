@@ -58,7 +58,8 @@ for (const viewport of viewports) {
       const blockquote = document.querySelector('blockquote')
       const textarea = document.querySelector('textarea')
       const video = document.querySelector('#blank-video')
-      if (!main || !fileInput || !blockquote || !textarea || !video) throw new Error('Style guide fixtures are missing')
+      const iframe = document.querySelector('#demo-iframe')
+      if (!main || !fileInput || !blockquote || !textarea || !video || !iframe) throw new Error('Style guide fixtures are missing')
       const blockquoteStyles = getComputedStyle(blockquote)
 
       return {
@@ -70,6 +71,13 @@ for (const viewport of viewports) {
         mainWidth: main.getBoundingClientRect().width,
         mainOverflow: getComputedStyle(main).overflow,
         fileInputWidth: fileInput.getBoundingClientRect().width,
+        iframeBackground: getComputedStyle(iframe).backgroundColor,
+        iframeBorderRadius: getComputedStyle(iframe).borderRadius,
+        iframeBorderWidth: getComputedStyle(iframe).borderWidth,
+        iframeBoxShadow: getComputedStyle(iframe).boxShadow,
+        iframeDisplay: getComputedStyle(iframe).display,
+        iframeHeight: iframe.getBoundingClientRect().height,
+        iframeWidth: iframe.getBoundingClientRect().width,
         textareaDisplay: getComputedStyle(textarea).display,
         textareaWidth: textarea.getBoundingClientRect().width,
         videoHeight: video.getBoundingClientRect().height,
@@ -85,6 +93,13 @@ for (const viewport of viewports) {
     expect(metrics.mainOverflow).toBe('visible')
     expect(metrics.mainWidth).toBeLessThanOrEqual(metrics.viewportWidth)
     expect(metrics.fileInputWidth).toBeLessThanOrEqual(metrics.mainWidth)
+    expect(metrics.iframeBackground).not.toBe('rgba(0, 0, 0, 0)')
+    expect(metrics.iframeBorderRadius).toBe('7px')
+    expect(metrics.iframeBorderWidth).toBe('1px')
+    expect(metrics.iframeBoxShadow).not.toBe('none')
+    expect(metrics.iframeDisplay).toBe('block')
+    expect(metrics.iframeWidth).toBeLessThanOrEqual(metrics.mainWidth)
+    expect(metrics.iframeHeight).toBe(180)
     expect(metrics.textareaDisplay).toBe('block')
     expect(metrics.textareaWidth).toBeLessThanOrEqual(metrics.mainWidth)
     expect(metrics.videoWidth).toBeLessThanOrEqual(metrics.mainWidth)
@@ -171,6 +186,71 @@ test('keeps a source-less video frame visible', async ({ page, siteURL }) => {
   expect(presentation.backgroundImage).toBe('none')
   expect(presentation.borderRadius).toBe('7px')
   expect(presentation.display).toBe('block')
+})
+
+test('keeps audio controls and canvas content responsive', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const presentation = await page.evaluate(() => {
+    const audio = /** @type {HTMLAudioElement | null} */ (document.querySelector('#demo-audio'))
+    const canvas = /** @type {HTMLCanvasElement | null} */ (document.querySelector('#demo-canvas'))
+    if (!audio || !canvas) {
+      throw new Error('Embedded media fixtures are missing')
+    }
+
+    const audioBounds = audio.getBoundingClientRect()
+    const canvasBounds = canvas.getBoundingClientRect()
+    return {
+      audioDisplay: getComputedStyle(audio).display,
+      audioWidth: audioBounds.width,
+      canvasDisplay: getComputedStyle(canvas).display,
+      canvasHeight: canvasBounds.height,
+      canvasIntrinsicWidth: canvas.width,
+      canvasWidth: canvasBounds.width
+    }
+  })
+
+  expect(presentation.audioDisplay).toBe('block')
+  expect(presentation.canvasDisplay).toBe('block')
+  expect(presentation.audioWidth).toBeCloseTo(presentation.canvasWidth, 0)
+  expect(presentation.canvasWidth).toBeLessThan(presentation.canvasIntrinsicWidth)
+  expect(presentation.canvasWidth / presentation.canvasHeight).toBeCloseTo(1280 / 240, 2)
+})
+
+test('centers figures on their media without letting captions widen them', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const presentation = await page.evaluate(() => {
+    const figure = document.createElement('figure')
+    const image = document.createElement('img')
+    image.alt = ''
+    image.width = 240
+    image.height = 120
+    const caption = document.createElement('figcaption')
+    caption.textContent = 'A deliberately long caption should wrap to the media instead of widening its figure.'
+    figure.append(image, caption)
+    document.body.append(figure)
+
+    const bodyBounds = document.body.getBoundingClientRect()
+    const figureBounds = figure.getBoundingClientRect()
+    const imageBounds = image.getBoundingClientRect()
+    const captionBounds = caption.getBoundingClientRect()
+    return {
+      bodyCenter: bodyBounds.left + (bodyBounds.width / 2),
+      captionContain: getComputedStyle(caption).contain,
+      captionWidth: captionBounds.width,
+      figureCenter: figureBounds.left + (figureBounds.width / 2),
+      figureWidth: figureBounds.width,
+      imageDisplay: getComputedStyle(image).display,
+      imageWidth: imageBounds.width
+    }
+  })
+
+  expect(presentation.imageDisplay).toBe('block')
+  expect(presentation.captionContain).toBe('inline-size')
+  expect(presentation.figureWidth).toBe(presentation.imageWidth)
+  expect(presentation.captionWidth).toBe(presentation.imageWidth)
+  expect(Math.abs(presentation.figureCenter - presentation.bodyCenter)).toBeLessThan(1)
 })
 
 test('only enables document motion when the reader permits it', async ({ page, siteURL }) => {

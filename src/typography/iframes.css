@@ -1,0 +1,11 @@
+iframe {
+  /* Contain wide embeds without overriding their authored dimensions. */
+  display: block;
+  max-inline-size: 100%;
+
+  /* Frame embedded documents like the other raised surfaces in the system. */
+  border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
+  border-radius: 7px;
+  background-color: var(--accent-background);
+  box-shadow: var(--surface-shadow);
+}

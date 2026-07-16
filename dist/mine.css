@@ -446,6 +446,20 @@ img {
   max-inline-size: 100%;
   block-size: auto;
 }
+audio,
+canvas {
+  /* Keep replaced media out of the inline baseline and within its container. */
+  display: block;
+  max-inline-size: 100%;
+}
+audio {
+  /* Native controls are more useful when they fill the document measure. */
+  inline-size: 100%;
+}
+canvas {
+  /* Preserve the bitmap's intrinsic ratio when its inline size is constrained. */
+  block-size: auto;
+}
 video {
   /* Preserve the declared aspect ratio and show a quiet frame before media paints. */
   display: block;
@@ -454,8 +468,27 @@ video {
   border-radius: 7px;
   background-color: var(--accent-background);
 }
+iframe {
+  /* Contain wide embeds without overriding their authored dimensions. */
+  display: block;
+  max-inline-size: 100%;
+
+  /* Frame embedded documents like the other raised surfaces in the system. */
+  border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
+  border-radius: 7px;
+  background-color: var(--accent-background);
+  box-shadow: var(--surface-shadow);
+}
 figure {
+  /* Let media establish the figure measure while containing oversized assets. */
+  inline-size: fit-content;
+  max-inline-size: 100%;
   margin-block: 1em;
+  margin-inline: auto;
+
+  /* Avoid inline-image baseline space inside the shrink-wrapped figure. */
+  & picture,
+  & img { display: block; }
 
   & img,
   & video {
@@ -477,8 +510,10 @@ figure {
   }
 }
 figcaption {
+  /* Keep long captions from widening a figure beyond its media. */
+  contain: inline-size;
   font-style: italic;
-  font-size: 0.75em;
+  font-size: 0.9em;
   margin: 0;
   color: var(--accent-foreground);
 }

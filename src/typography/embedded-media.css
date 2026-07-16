@@ -1,0 +1,16 @@
+audio,
+canvas {
+  /* Keep replaced media out of the inline baseline and within its container. */
+  display: block;
+  max-inline-size: 100%;
+}
+
+audio {
+  /* Native controls are more useful when they fill the document measure. */
+  inline-size: 100%;
+}
+
+canvas {
+  /* Preserve the bitmap's intrinsic ratio when its inline size is constrained. */
+  block-size: auto;
+}

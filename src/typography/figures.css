@@ -1,5 +1,13 @@
 figure {
+  /* Let media establish the figure measure while containing oversized assets. */
+  inline-size: fit-content;
+  max-inline-size: 100%;
   margin-block: 1em;
+  margin-inline: auto;
+
+  /* Avoid inline-image baseline space inside the shrink-wrapped figure. */
+  & picture,
+  & img { display: block; }
 
   & img,
   & video {
@@ -22,8 +30,10 @@ figure {
 }
 
 figcaption {
+  /* Keep long captions from widening a figure beyond its media. */
+  contain: inline-size;
   font-style: italic;
-  font-size: 0.75em;
+  font-size: 0.9em;
   margin: 0;
   color: var(--accent-foreground);
 }
