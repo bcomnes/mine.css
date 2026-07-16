@@ -227,7 +227,8 @@ test('the main source imports into one low-priority layer', () => {
 test('core motion enhancements honor the reader preference', () => {
   assert.match(documentStyles, /@media \(prefers-reduced-motion: no-preference\) \{[\s\S]*@view-transition \{ navigation: auto; \}/)
   assert.match(documentStyles, /interpolate-size: allow-keywords;/)
-  assert.match(documentStyles, /&:focus-within \{[\s\S]*scroll-behavior: smooth;/)
+  assert.match(documentStyles, /html \{[\s\S]*scroll-behavior: smooth;/)
+  assert.doesNotMatch(documentStyles, /&:focus-within/)
   assert.doesNotMatch(siteStyles, /@view-transition/)
 })
 

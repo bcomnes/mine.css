@@ -98,8 +98,8 @@ visible while focused or active, which makes it suitable for skip links:
 
 When the reader has not requested reduced motion, mine.css enables same-origin
 cross-document view transitions, allows intrinsic size keywords to interpolate,
-and smoothly scrolls deliberate in-page navigation while the document has
-focus. Readers whose browser or operating system reports
+and smoothly scrolls in-page fragment navigation, including footnote references
+and return links. Readers whose browser or operating system reports
 `prefers-reduced-motion: reduce` receive none of these enhancements.
 
 To disable the motion defaults for every reader, override them after importing

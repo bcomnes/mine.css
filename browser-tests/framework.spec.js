@@ -304,6 +304,7 @@ test('only enables document motion when the reader permits it', async ({ page, s
   const readMotion = () => page.evaluate(() => {
     const styles = getComputedStyle(document.documentElement)
     return {
+      focusWithin: document.documentElement.matches(':focus-within'),
       interpolateSize: styles.interpolateSize,
       scrollBehavior: styles.scrollBehavior
     }
@@ -311,19 +312,33 @@ test('only enables document motion when the reader permits it', async ({ page, s
 
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await gotoGuide(page, siteURL)
-  await page.locator('main details > summary').first().click()
-  const fragmentLink = page.locator('main details a[href="#headings"]')
-  await fragmentLink.focus()
-  await expect(fragmentLink).toBeFocused()
   const enabled = await readMotion()
+  expect(enabled.focusWithin).toBe(false)
   expect(enabled.interpolateSize).toBe('allow-keywords')
   expect(enabled.scrollBehavior).toBe('smooth')
 
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.waitForTimeout(100)
   const reduced = await readMotion()
+  expect(reduced.focusWithin).toBe(false)
   expect(reduced.interpolateSize).toBe('numeric-only')
   expect(reduced.scrollBehavior).toBe('auto')
+})
+
+test('smooths footnote navigation without relying on link focus', async ({ page, siteURL }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await gotoGuide(page, siteURL)
+
+  const reference = page.locator('#fnref1')
+  await reference.scrollIntoViewIfNeeded()
+  const before = await page.evaluate(() => window.scrollY)
+  await reference.click()
+  const immediate = await page.evaluate(() => window.scrollY)
+  await page.waitForTimeout(100)
+  const during = await page.evaluate(() => window.scrollY)
+
+  expect(immediate).toBeGreaterThanOrEqual(before)
+  expect(during).toBeGreaterThan(immediate)
 })
 
 test('offsets keyboard focus indicators from their controls', async ({ page, siteURL }) => {
