@@ -140,6 +140,11 @@ test('embedded media stays within the document measure', () => {
   assert.match(embeddedMedia, /canvas \{[\s\S]*block-size: auto;/)
 })
 
+test('content-sized fields grow without escaping their container', () => {
+  assert.match(textInput, /input\.content-sized \{[\s\S]*field-sizing: content;[\s\S]*inline-size: auto;[\s\S]*min-inline-size: min\(15\.5em, 100%\);/)
+  assert.match(textInput, /textarea:not\(\[rows\], \[cols\]\) \{[\s\S]*field-sizing: content;[\s\S]*min-block-size: calc\(5lh \+ 0\.8em \+ 2px\);/)
+})
+
 test('typography and layout remain bounded', () => {
   assert.match(documentStyles, /hanging-punctuation: first allow-end last;/)
   assert.match(documentStyles, /tab-size: 2;/)

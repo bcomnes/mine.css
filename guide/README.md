@@ -1314,6 +1314,13 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
     minlength="4"
     maxlength="8"
     size="10">
+  <label class="block" for="name-auto">Name (Auto-growing):</label>
+  <input
+    class="block content-sized"
+    type="text"
+    name="name-auto"
+    id="name-auto"
+    placeholder="Keep typing to grow this field...">
   <label class="block" for="name-placeholder">Name (Placeholder):</label>
   <input
     class="block"
@@ -1351,6 +1358,13 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
   minlength="4"
   maxlength="8"
   size="10">
+<label class="block" for="name-auto">Name (Auto-growing):</label>
+<input
+  class="block content-sized"
+  type="text"
+  name="name-auto"
+  id="name-auto"
+  placeholder="Keep typing to grow this field...">
 <label class="block" for="name-placeholder">Name (Placeholder):</label>
 <input
   class="block"
@@ -1393,6 +1407,12 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
     name="story"
     rows="5"
     cols="33">It was a dark and stormy night...</textarea>
+  <label class="block" for="story-auto">Tell us your story (Auto-growing):</label>
+  <textarea
+    class="block"
+    id="story-auto"
+    name="story-auto"
+    placeholder="Start typing to grow this field..."></textarea>
   <label class="block" for="story-placeholder">Tell us your story (Placeholder):</label>
   <textarea
     class="block"
@@ -1419,6 +1439,12 @@ their initial values. –<a href="https://developer.mozilla.org/en-US/docs/Web/H
   name="story"
   rows="5"
   cols="33">It was a dark and stormy night...</textarea>
+<label class="block" for="story-auto">Tell us your story (Auto-growing):</label>
+<textarea
+  class="block"
+  id="story-auto"
+  name="story-auto"
+  placeholder="Start typing to grow this field..."></textarea>
 <label class="block" for="story-placeholder">Tell us your story (Placeholder):</label>
 <textarea
   class="block"

@@ -736,6 +736,58 @@ test('matches select controls to textual input surfaces', async ({ page, siteURL
   expect(darkSelection.color).toBe(darkSelection.text)
 })
 
+test('grows content-sized fields without overriding authored textarea dimensions', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const readSizing = () => page.evaluate(() => {
+    const input = document.querySelector('#name-auto')
+    const textarea = document.querySelector('#story-auto')
+    const authoredTextarea = document.querySelector('#story')
+    const main = document.querySelector('main')
+    if (!input || !textarea || !authoredTextarea || !main) throw new Error('Content-sizing fixtures are missing')
+
+    return {
+      authoredTextarea: {
+        fieldSizing: getComputedStyle(authoredTextarea).fieldSizing,
+        height: authoredTextarea.getBoundingClientRect().height
+      },
+      input: {
+        fieldSizing: getComputedStyle(input).fieldSizing,
+        scrollWidth: input.scrollWidth,
+        width: input.getBoundingClientRect().width
+      },
+      mainWidth: main.getBoundingClientRect().width,
+      textarea: {
+        fieldSizing: getComputedStyle(textarea).fieldSizing,
+        height: textarea.getBoundingClientRect().height
+      }
+    }
+  })
+
+  const initial = await readSizing()
+  expect(initial.input.fieldSizing).toBe('content')
+  expect(initial.textarea.fieldSizing).toBe('content')
+  expect(initial.authoredTextarea.fieldSizing).toBe('fixed')
+  expect(initial.textarea.height).toBeCloseTo(initial.authoredTextarea.height, 0)
+
+  await page.locator('#name-auto').fill('A content-sized field can grow with a substantially longer value before reaching its container.')
+  await page.locator('#story-auto').fill(Array.from(
+    { length: 12 },
+    (_, index) => `Line ${index + 1} demonstrates intrinsic textarea growth.`
+  ).join('\n'))
+
+  const grown = await readSizing()
+  expect(grown.input.width).toBeGreaterThan(initial.input.width)
+  expect(grown.input.width).toBeLessThanOrEqual(grown.mainWidth)
+  expect(grown.textarea.height).toBeGreaterThan(initial.textarea.height)
+  expect(grown.authoredTextarea.height).toBe(initial.authoredTextarea.height)
+
+  await page.setViewportSize({ width: 320, height: 800 })
+  const narrow = await readSizing()
+  expect(narrow.input.width).toBeLessThanOrEqual(narrow.mainWidth)
+  expect(narrow.input.scrollWidth).toBeGreaterThan(narrow.input.width)
+})
+
 test('reveals constrained validity after user interaction', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
 

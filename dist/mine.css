@@ -761,6 +761,14 @@ input[type="week"] {
   }
 }
 
+input.content-sized {
+  /* Opt into intrinsic growth without shrinking below the standard field or
+     escaping a narrow container. */
+  field-sizing: content;
+  inline-size: auto;
+  min-inline-size: min(15.5em, 100%);
+}
+
 input:not([type]),
 input[type="email"],
 input[type="number"],
@@ -782,6 +790,13 @@ textarea:not(:disabled) {
     inset 0 0 3px rgb(0 0 0 / 14%),
     inset 0 -1px 0 rgb(255 255 255 / 12%),
     0 1px 3px rgb(0 0 0 / 10%);
+}
+
+textarea:not([rows], [cols]) {
+  /* Let otherwise-unsized textareas grow with their content without overriding
+     an author's explicit rows or columns. */
+  field-sizing: content;
+  min-block-size: calc(5lh + 0.8em + 2px);
 }
 
 select[multiple] option {
