@@ -9,7 +9,17 @@
   gap: 1rem;
   inline-size: 100%;
   margin-block: 0;
-  padding-inline: 1rem;
+
+  /*
+   * Let the glass surface reach physical display edges while keeping controls clear.
+   * Safe-area variables describe physical viewport edges, not writing-mode axes.
+   */
+
+  /* stylelint-disable property-layout-mappings */
+  padding-top: env(safe-area-inset-top);
+  padding-right: max(1rem, env(safe-area-inset-right));
+  padding-left: max(1rem, env(safe-area-inset-left));
+  /* stylelint-enable property-layout-mappings */
 
   /* TODO: Use overflow-inline once it fits this package's browser support floor. */
   overflow-x: auto;
@@ -114,7 +124,7 @@ select.mine-top-bar-select {
 
 :target {
   /* Override the document default so fragments clear the sticky navigation. */
-  scroll-margin-block-start: 4rem;
+  scroll-margin-block-start: calc(4rem + env(safe-area-inset-top));
 }
 
 @media (width <= 32rem) {

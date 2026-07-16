@@ -23,7 +23,8 @@ export default async function RootLayout ({
     <html lang="en">
       <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Extend glass surfaces into notched display areas while CSS keeps content in the safe area. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <!-- Let built-in controls and the initial canvas adopt the browser preference before CSS loads. -->
         <meta name="color-scheme" content="light dark">
         <!-- Restore the named palette before styles load so navigation does not flash the default theme. -->
