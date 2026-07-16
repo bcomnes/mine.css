@@ -253,6 +253,37 @@ test('centers figures on their media without letting captions widen them', async
   expect(Math.abs(presentation.figureCenter - presentation.bodyCenter)).toBeLessThan(1)
 })
 
+test('renders horizontal rules as theme-aware recessed hairlines', async ({ page, siteURL }) => {
+  const readRule = () => page.locator('hr').first().evaluate(rule => {
+    const styles = getComputedStyle(rule)
+    return {
+      backgroundColor: styles.backgroundColor,
+      borderRadius: styles.borderRadius,
+      boxShadow: styles.boxShadow,
+      height: rule.getBoundingClientRect().height,
+      marginBlock: Number.parseFloat(styles.marginBlock),
+      rootFontSize: Number.parseFloat(getComputedStyle(document.documentElement).fontSize)
+    }
+  })
+
+  await page.emulateMedia({ colorScheme: 'light' })
+  await gotoGuide(page, siteURL)
+  const light = await readRule()
+  expect(light.borderRadius).toBe('999px')
+  expect(light.height).toBe(1)
+  expect(light.marginBlock).toBe(light.rootFontSize * 2.5)
+  expect(light.boxShadow).not.toBe('none')
+
+  await page.emulateMedia({ colorScheme: 'dark' })
+  await page.waitForTimeout(100)
+  const dark = await readRule()
+  expect(dark.borderRadius).toBe(light.borderRadius)
+  expect(dark.height).toBe(light.height)
+  expect(dark.marginBlock).toBe(light.marginBlock)
+  expect(dark.backgroundColor).not.toBe(light.backgroundColor)
+  expect(dark.boxShadow).not.toBe(light.boxShadow)
+})
+
 test('only enables document motion when the reader permits it', async ({ page, siteURL }) => {
   const readMotion = () => page.evaluate(() => {
     const styles = getComputedStyle(document.documentElement)

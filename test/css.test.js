@@ -16,6 +16,7 @@ const code = await readFile(new URL('../src/typography/code.css', import.meta.ur
 const embeddedMedia = await readFile(new URL('../src/typography/embedded-media.css', import.meta.url), 'utf8')
 const figures = await readFile(new URL('../src/typography/figures.css', import.meta.url), 'utf8')
 const headings = await readFile(new URL('../src/typography/headings.css', import.meta.url), 'utf8')
+const horizontalRules = await readFile(new URL('../src/typography/horizontal-rules.css', import.meta.url), 'utf8')
 const iframes = await readFile(new URL('../src/typography/iframes.css', import.meta.url), 'utf8')
 const links = await readFile(new URL('../src/typography/links.css', import.meta.url), 'utf8')
 const typography = await readFile(new URL('../src/typography/index.css', import.meta.url), 'utf8')
@@ -143,6 +144,14 @@ test('embedded media stays within the document measure', () => {
 test('content-sized fields grow without escaping their container', () => {
   assert.match(textInput, /input\.content-sized \{[\s\S]*field-sizing: content;[\s\S]*inline-size: auto;[\s\S]*min-inline-size: min\(15\.5em, 100%\);/)
   assert.match(textInput, /textarea:not\(\[rows\], \[cols\]\) \{[\s\S]*field-sizing: content;[\s\S]*min-block-size: calc\(5lh \+ 0\.8em \+ 2px\);/)
+})
+
+test('horizontal rules use a themed hairline with an embossed bevel', () => {
+  assert.match(horizontalRules, /block-size: 1px;/)
+  assert.match(horizontalRules, /margin-block: 2\.5rem;/)
+  assert.match(horizontalRules, /border-radius: 999px;/)
+  assert.match(horizontalRules, /background-color: color-mix\([\s\S]*var\(--accent-midground\) 75%,[\s\S]*var\(--text\)[\s\S]*\);/)
+  assert.match(horizontalRules, /box-shadow:[\s\S]*var\(--accent-midground\) 45%, var\(--background\)[\s\S]*0 2px 3px rgb\(0 0 0 \/ 14%\);/)
 })
 
 test('typography and layout remain bounded', () => {
