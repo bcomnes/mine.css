@@ -124,6 +124,43 @@ styles. Move those application rules into a layer ordered after `mine`, or
 leave them unlayered. Test the resulting cascade in browser developer tools as
 well as checking the final visual output.
 
+## Review document behavior and motion
+
+v11 makes the native `hidden` attribute authoritative even when another rule
+assigns `display`. Remove `hidden` when content should be shown instead of
+overriding its display. The searchable `hidden="until-found"` state remains
+available to supporting browsers.
+
+Use the new `.visually-hidden` helper when content should remain available to
+assistive technology without being painted. Focusable content using the helper
+becomes visible when focused or active, so it also works for skip links:
+
+```html
+<a class="visually-hidden" href="#main">Skip to main content</a>
+```
+
+Fragment destinations now reserve scroll space above themselves. When the
+reader has not requested reduced motion, same-origin page navigations may use
+view transitions and in-page links—including footnotes—scroll smoothly. The
+browser still provides visible keyboard focus, while programmatically focused
+fragment targets do not receive a page-wide block outline.
+
+To disable the motion defaults for every reader, override them after mine.css:
+
+```css
+@import 'mine.css';
+
+@view-transition { navigation: none; }
+
+html {
+  interpolate-size: numeric-only;
+  scroll-behavior: auto;
+}
+```
+
+Do not remove mine.css's `prefers-reduced-motion` handling when adding custom
+motion. Test fragment navigation with both reduced-motion settings.
+
 ## Follow the browser color preference
 
 v11 removes the site-level light/dark override. Delete calls to
@@ -253,6 +290,20 @@ The top bar scrolls horizontally on narrow screens and deliberately hides its
 scrollbar. Test keyboard access to every item and test the bar at the narrowest
 viewport your site supports.
 
+If the top bar should extend to display cutout edges while keeping its controls
+inside the safe area, allow the document viewport to cover those areas:
+
+```html
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+```
+
+The sidecar supplies the corresponding safe-area padding and uses
+`--translucent-background` for its glass surface. Keep a normal viewport when
+the application does not want content or surfaces to enter display cutouts.
+
 ## Review custom properties
 
 The body font size is bounded so it cannot grow indefinitely with viewport
@@ -295,6 +346,37 @@ When overriding colors, define both the light and dark source variables. Use
 the theme-agnostic variables such as `--text`, `--background`,
 `--control-border`, and `--code-background` in component rules.
 
+The v11 palette also exposes light, dark, and semantic validity colors, plus a
+reusable translucent surface derived from the active background:
+
+```css
+:root {
+  --light-valid: #238b5a;
+  --light-invalid: #d02533;
+  --dark-valid: #69d3a2;
+  --dark-invalid: #ed6e78;
+
+  --valid: var(--light-valid);
+  --invalid: var(--light-invalid);
+  --translucent-background: color-mix(
+    in srgb,
+    var(--background) 75%,
+    transparent
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --valid: var(--dark-valid);
+    --invalid: var(--dark-invalid);
+  }
+}
+```
+
+Override the light and dark source variables when customizing validation
+colors. Use `--valid`, `--invalid`, and `--translucent-background` in
+components so they continue to follow the active palette.
+
 Raised fieldsets, code panels, and framed media now share one customizable
 depth recipe. It uses translucent black and white, so it adapts without
 separate light and dark values:
@@ -307,16 +389,93 @@ separate light and dark values:
 
 Print automatically sets `--surface-shadow` to `none`.
 
+The system stacks now prefer the standardized `ui-sans-serif`, `ui-serif`,
+`ui-monospace`, and `ui-rounded` generic families before a smaller set of
+durable platform fallbacks. Recheck typography if the site depended on one of
+the old stack's intermediate faces; override `--system-*` or `--font-*` rather
+than editing the distributed stylesheet.
+
+## Audit form controls
+
+v11 gives `select` the same recessed surface, typography, sizing, disabled
+state, and focus treatment as textual inputs and textareas. It keeps native
+picker indicators intact, including the datalist and select affordances. Remove
+competing appearance resets or custom chevrons unless the application truly
+owns the complete control.
+
+The form defaults also:
+
+- normalize placeholder color, opacity, and text fill in Safari;
+- keep empty date, month, week, time, and local date-time controls the same
+  height as populated controls, including on iOS Safari;
+- show `:user-valid` and `:user-invalid` state colors only after user
+  interaction, and only on relevant, editable controls;
+- dim disabled image inputs;
+- keep multiple-select rows spaced and use a quiet selected color;
+- let a textarea without authored `rows` or `cols` grow with its content using
+  `field-sizing: content` in supporting browsers.
+
+Existing rules for `select`, `::placeholder`, validation pseudo-classes, or
+control shadows may now overlap the framework. Keep intentional application
+rules after mine.css and check them in both color schemes. Customize validation
+through the `--light-valid`, `--dark-valid`, `--light-invalid`, and
+`--dark-invalid` source variables rather than replacing the state selectors.
+
+Text inputs remain fixed-size by default. Add the opt-in class when a field
+should grow with its value without becoming narrower than the standard field:
+
+```html
+<input class="content-sized" name="title" value="A short title">
+```
+
+Keep `rows` or `cols` on textareas whose authored dimensions must remain fixed.
+Browsers without `field-sizing` support retain a usable fixed-size fallback.
+
+## Preserve table semantics
+
+v11 leaves `table` at its native display type. A table no longer becomes its
+own generic scrolling block, which preserves table semantics but means a wide
+table needs an explicit overflow container. Give that container an accessible
+name and keyboard focus:
+
+```html
+<div role="region" aria-labelledby="plans-caption" tabindex="0">
+  <table>
+    <caption id="plans-caption">Plan comparison</caption>
+    <!-- rows and cells -->
+  </table>
+</div>
+```
+
+Use a unique caption ID for each table. The fully named and focusable region is
+the scroll container and receives a visible focus ring; the table retains its
+native structure. Do not restore `display: block` or overflow directly on the
+table. Tables that fit their container need no wrapper.
+
 ## Account for layout and visual changes
 
 The optional `.mine-layout` measure grows from `46em` to `56em`. It uses
-logical sizing, includes padding in its width, and no longer clips overflowing
-content. The `.safe-area-inset` utility now preserves its normal gutter when a
-device safe-area inset is smaller.
+logical sizing, includes padding in its width, tightens its block margin on
+narrow viewports, and no longer clips overflowing content. The
+`.safe-area-inset` utility now preserves its normal gutter when a device
+safe-area inset is smaller.
 
 Review pages that depend on the old line length or clipping behavior,
 especially wide code blocks, tables, positioned descendants, and custom focus
 rings.
+
+Typography now favors readable wrapping and rhythm: prose is bounded to `88ch`,
+headings balance short lines, and supporting browsers use hanging punctuation.
+Heading, horizontal-rule, figure, and code-block spacing changed, so check
+fragment offsets and any adjacent selectors that assumed browser-default
+margins.
+
+Media defaults are more deliberate. Images, video, audio, canvas, and iframes
+stay within their container; video has a quiet unloaded background; audio fills
+the available inline measure; and iframes receive the same raised frame as
+other embedded surfaces. Figures shrink-wrap their media, center themselves,
+and constrain long captions. Override authored dimensions or framing after
+mine.css where an embed needs different behavior.
 
 Other intentional refinements include:
 
@@ -362,7 +521,14 @@ Before completing the upgrade:
 - Inspect print preview if the site prints articles, documentation, or forms.
 - Navigate links and controls with the keyboard and confirm focus remains
   visible.
-- Check forms, fieldsets, code blocks, tables, blockquotes, and framed figures.
+- Follow in-page and footnote links with reduced motion both enabled and
+  disabled; confirm the destination is visible below sticky navigation.
+- Check placeholders, empty and populated temporal inputs, selects, multiple
+  selects, validation states, content-sized fields, textareas, and disabled
+  controls in Safari as well as a Chromium browser.
+- Check fieldsets, code blocks, blockquotes, horizontal rules, framed figures,
+  unloaded video, audio, canvas, and iframes.
+- Check wide tables through their named, keyboard-focusable overflow wrappers.
 - Check a narrow mobile viewport and a wide desktop viewport for unexpected
   overflow or line-length changes.
 - Update screenshots or snapshots only after confirming that their visual
