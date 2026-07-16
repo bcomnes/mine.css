@@ -1,6 +1,6 @@
 # mine.css
 
-A classless stylesheet for HTML documents and evolution of [style.css][style].
+A mostly classless stylesheet for HTML documents and evolution of [style.css][style].
 
 [![latest version][npm-img]][npm-url] [![Actions Status][action-img]][action-url] [![downloads][downloads-img]][npm-url] [![Neocities][neocities-img]](https://mine-css.neocities.org)
 
@@ -12,13 +12,17 @@ A classless stylesheet for HTML documents and evolution of [style.css][style].
 
 ## About
 
-Make a plain HTML page look good and readable with zero effort!  Serves as a nice base layer default.
+Make a plain HTML page look good and readable with zero effort! Serves as a nice base layer default.
+Semantic elements receive the core presentation directly; a small set of classes
+remains available for explicitly opting into layout, utilities, and companion UI.
 
 Check out the [style guide][guide] to see what it looks like.
 
 ## Browser support
 
-The distributed stylesheet uses native CSS nesting. The package's Browserslist contract is `supports css-nesting`; older browsers should use a separately transpiled build.
+The distributed stylesheet uses native CSS nesting and cascade layers. The
+package's Browserslist contract is `supports css-nesting`; older browsers
+should use a separately transpiled build.
 
 ## Install
 
@@ -176,9 +180,23 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the lint, type-check, watch, and re
 npm install mine.css --save-dev
 ```
 
-Here are some modules out there for requiring CSS using JavaScript that should also work just fine:
+Browsers do not resolve npm package names directly, so use a CSS build tool to
+load the package from `node_modules` before serving it:
 
-- [postcss-import](https://github.com/postcss/postcss-import)
+```css
+/* app.css */
+@import 'mine.css';
+```
+
+Several tools support this bare package import:
+
+- [postcss-import](https://github.com/postcss/postcss-import) inlines CSS from
+  local files and npm packages.
+- [esbuild](https://esbuild.github.io/content-types/#css) bundles CSS and
+  resolves package imports from `node_modules`.
+- [@domstack/static](https://github.com/bcomnes/domstack#page-styles) uses
+  esbuild for its global, layout, and page stylesheets, so the same import works
+  without additional configuration.
 
 ### CSS Variables
 
@@ -204,6 +222,14 @@ You can override defaults directly with CSS variables. Here are the default vari
 
   /* font size and spacing */
   --font-size-body: clamp(1rem, calc(0.95rem + 0.2vi), 1.25rem);
+
+  @supports (font-size: round(1rem, 1px)) {
+    --font-size-body: clamp(
+      1rem,
+      round(nearest, calc(0.95rem + 0.2vi), 1px),
+      1.25rem
+    );
+  }
 
   /* note: use unitless line heights
    https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */
@@ -247,16 +273,6 @@ You can override defaults directly with CSS variables. Here are the default vari
   --dark-code-text: var(--dark-text);
   --dark-code-background: var(--dark-accent-background);
   --dark-code-border: var(--dark-accent-midground);
-}
-
-@supports (font-size: round(1rem, 1px)) {
-  :root {
-    --font-size-body: clamp(
-      1rem,
-      round(nearest, calc(0.95rem + 0.2vi), 1px),
-      1.25rem
-    );
-  }
 }
 ```
 
@@ -385,6 +401,26 @@ With a CSS bundler and the `highlight.js` package installed:
 @import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
 ```
 
+To make the syntax theme's place in the cascade explicit, put both variants in
+the same layer between `mine.css` and application styles:
+
+```css
+@layer mine, syntax, app;
+
+@import 'mine.css';
+@import url("highlight.js/styles/github.css") layer(syntax);
+@import url("highlight.js/styles/github-dark-dimmed.css")
+  layer(syntax)
+  (prefers-color-scheme: dark);
+
+@layer app {
+  /* Application syntax overrides win without extra specificity. */
+  .hljs {
+    border-radius: 0;
+  }
+}
+```
+
 The equivalent HTML works without bundling:
 
 ```html
@@ -424,6 +460,23 @@ See [this webkit blogpost](https://webkit.org/blog/8840/dark-mode-support-in-web
 <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/layout.css">
 ```
 
+With npm and a CSS bundler, place optional layout companions between the
+framework and application styles:
+
+```css
+@layer mine, sidecar, app;
+
+@import 'mine.css';
+@import 'mine.css/dist/layout.css' layer(sidecar);
+@import 'mine.css/dist/top-bar.css' layer(sidecar);
+
+@layer app {
+  .mine-layout {
+    max-inline-size: 64em;
+  }
+}
+```
+
 You can see this layout style in action on the [`mine.css`][guide] website.
 
 The two classes are:
@@ -454,11 +507,21 @@ The first theme adapts the light and dark palettes from [Tron Legacy for Zed](ht
 </html>
 ```
 
-Bundlers can import the same sidecar directly:
+Bundlers can give the theme an explicit place between the framework and
+application styles:
 
 ```css
+@layer mine, theme, app;
+
 @import 'mine.css';
-@import 'mine.css/dist/themes/tron-legacy.css';
+@import 'mine.css/dist/themes/tron-legacy.css' layer(theme);
+
+@layer app {
+  :root[data-mine-theme="tron"] {
+    /* Application theme overrides win without extra specificity. */
+    --surface-shadow: none;
+  }
+}
 ```
 
 Remove the attribute to return to the default palette. A menu can switch named themes without changing the user's light/dark preference:
