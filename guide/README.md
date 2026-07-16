@@ -15,6 +15,7 @@ See how elements are styled with `mine.css`.
     <li><a href="#tables">Tables</a></li>
     <li><a href="#horizontal-rules">Horizontal Rules</a></li>
     <li><a href="#images">Images</a></li>
+    <li><a href="#video">Video</a></li>
     <li><a href="#figures">Figures</a></li>
     <li><a href="#extras">Extras</a></li>
     <li>
@@ -346,6 +347,23 @@ Like links, images also have a footnote style syntax.
 The reference defining the URL location can be later in the document.
 
 [id]: https://upload.wikimedia.org/wikipedia/commons/1/1f/Ries.PNG  "1550 Woodcut of 58-year-old Adam Ries, inscription: ANNO 1550 ADAM RIES SEINS ALTERS IM LVIII"
+```
+
+## <a id="video" href="#video">Video</a>
+
+A video without a source or poster still reserves a visible, theme-aware frame while media is unavailable or loading.
+
+<video
+  id="blank-video"
+  aria-label="Blank video placeholder"
+  width="640"
+  height="360"></video>
+
+```html
+<video
+  aria-label="Blank video placeholder"
+  width="640"
+  height="360"></video>
 ```
 
 ## <a id="figures" href="#figures">Figures</a>

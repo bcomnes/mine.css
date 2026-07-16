@@ -3,7 +3,6 @@ figure {
 
   & img,
   & video {
-    background: var(--layer-background);
     border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
     border-radius: 7px;
     padding: 0.25em;
@@ -11,6 +10,8 @@ figure {
     /* Treat padded media as a lightly raised frame, consistent with code panels. */
     box-shadow: var(--surface-shadow);
   }
+
+  & img { background: var(--layer-background); }
 
   &.borderless img,
   &.borderless video {

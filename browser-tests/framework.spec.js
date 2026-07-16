@@ -1,4 +1,4 @@
-/* global getComputedStyle */
+/* global HTMLMediaElement, getComputedStyle */
 
 import { expect, test } from './support.js'
 
@@ -23,7 +23,8 @@ async function readThemePresentation (page) {
     const textInput = document.querySelector('input[type="text"]')
     const codeBlock = document.querySelector('pre')
     const themeControl = document.querySelector('.mine-top-bar-select')
-    if (!key || !highlightedCode || !textInput || !codeBlock || !themeControl) throw new Error('Color-scheme fixtures are missing')
+    const video = document.querySelector('#blank-video')
+    if (!key || !highlightedCode || !textInput || !codeBlock || !themeControl || !video) throw new Error('Color-scheme fixtures are missing')
     return {
       codeBorder: toRgb(getComputedStyle(codeBlock).borderColor),
       controlBorder: toRgb(getComputedStyle(textInput).borderColor),
@@ -33,7 +34,8 @@ async function readThemePresentation (page) {
       keyShadow: getComputedStyle(key).boxShadow,
       highlightedColor: getComputedStyle(highlightedCode).color,
       highlightedBackground: getComputedStyle(highlightedCode).backgroundColor,
-      themeControlBorder: toRgb(getComputedStyle(themeControl).borderColor)
+      themeControlBorder: toRgb(getComputedStyle(themeControl).borderColor),
+      videoBackground: toRgb(getComputedStyle(video).backgroundColor)
     }
   })
 }
@@ -54,7 +56,8 @@ for (const viewport of viewports) {
       const fileInput = document.querySelector('input[type="file"]')
       const blockquote = document.querySelector('blockquote')
       const textarea = document.querySelector('textarea')
-      if (!main || !fileInput || !blockquote || !textarea) throw new Error('Style guide fixtures are missing')
+      const video = document.querySelector('#blank-video')
+      if (!main || !fileInput || !blockquote || !textarea || !video) throw new Error('Style guide fixtures are missing')
       const blockquoteStyles = getComputedStyle(blockquote)
 
       return {
@@ -67,7 +70,9 @@ for (const viewport of viewports) {
         mainOverflow: getComputedStyle(main).overflow,
         fileInputWidth: fileInput.getBoundingClientRect().width,
         textareaDisplay: getComputedStyle(textarea).display,
-        textareaWidth: textarea.getBoundingClientRect().width
+        textareaWidth: textarea.getBoundingClientRect().width,
+        videoHeight: video.getBoundingClientRect().height,
+        videoWidth: video.getBoundingClientRect().width
       }
     })
 
@@ -80,6 +85,9 @@ for (const viewport of viewports) {
     expect(metrics.fileInputWidth).toBeLessThanOrEqual(metrics.mainWidth)
     expect(metrics.textareaDisplay).toBe('block')
     expect(metrics.textareaWidth).toBeLessThanOrEqual(metrics.mainWidth)
+    expect(metrics.videoWidth).toBeLessThanOrEqual(metrics.mainWidth)
+    expect(metrics.videoHeight).toBeGreaterThan(0)
+    expect(metrics.videoWidth / metrics.videoHeight).toBeCloseTo(16 / 9, 2)
   })
 }
 
@@ -97,6 +105,7 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   expect(darkTokens.keyShadow).toContain('rgba(0, 0, 0, 0.45)')
   expect(darkTokens.highlightedColor).toBe('rgb(173, 186, 199)')
   expect(darkTokens.highlightedBackground).toBe('rgb(34, 39, 46)')
+  expect(darkTokens.videoBackground).toEqual([51, 51, 51])
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
   const topBar = page.locator('.mine-top-bar')
   await topBar.hover()
@@ -108,6 +117,7 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   const lightTokens = await readThemePresentation(page)
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
   expect(lightTokens.codeBorder).toEqual([226, 226, 226])
+  expect(lightTokens.videoBackground).toEqual([242, 242, 242])
   expect(lightTokens.controlBorder).toEqual([148, 148, 148])
   expect(lightTokens.themeControlBorder).toEqual(lightTokens.controlBorder)
   expect(lightTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
@@ -116,6 +126,42 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   expect(await topBar.evaluate(element => getComputedStyle(element).boxShadow)).toContain('rgba(0, 0, 0, 0.2)')
   await expect(page.locator('.hljs').first()).toHaveCSS('color', 'rgb(36, 41, 46)')
   await expect(page.locator('.hljs').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+})
+
+test('keeps a source-less video frame visible', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const presentation = await page.locator('#blank-video').evaluate(video => {
+    const bounds = video.getBoundingClientRect()
+    return {
+      background: getComputedStyle(video).backgroundColor,
+      backgroundImage: getComputedStyle(video).backgroundImage,
+      bodyBackground: getComputedStyle(document.body).backgroundColor,
+      borderRadius: getComputedStyle(video).borderRadius,
+      currentSrc: /** @type {HTMLVideoElement} */ (video).currentSrc,
+      display: getComputedStyle(video).display,
+      hasPoster: video.hasAttribute('poster'),
+      hasSrc: video.hasAttribute('src'),
+      haveNothing: HTMLMediaElement.HAVE_NOTHING,
+      height: bounds.height,
+      readyState: /** @type {HTMLVideoElement} */ (video).readyState,
+      sourceCount: video.querySelectorAll('source').length,
+      width: bounds.width
+    }
+  })
+
+  expect(presentation.currentSrc).toBe('')
+  expect(presentation.hasPoster).toBe(false)
+  expect(presentation.hasSrc).toBe(false)
+  expect(presentation.readyState).toBe(presentation.haveNothing)
+  expect(presentation.sourceCount).toBe(0)
+  expect(presentation.width).toBeGreaterThan(0)
+  expect(presentation.height).toBeGreaterThan(0)
+  expect(presentation.width / presentation.height).toBeCloseTo(16 / 9, 2)
+  expect(presentation.background).not.toBe(presentation.bodyBackground)
+  expect(presentation.backgroundImage).toBe('none')
+  expect(presentation.borderRadius).toBe('7px')
+  expect(presentation.display).toBe('block')
 })
 
 test('switches the separate Tron document and Highlight.js palettes together in the demo', async ({ page, siteURL }) => {

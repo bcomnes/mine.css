@@ -1,0 +1,8 @@
+video {
+  /* Preserve the declared aspect ratio and show a quiet frame before media paints. */
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: 7px;
+  background-color: var(--accent-background);
+}
