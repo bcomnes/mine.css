@@ -3,12 +3,15 @@ import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 const variables = await readFile(new URL('../src/variables.css', import.meta.url), 'utf8')
+const documentStyles = await readFile(new URL('../src/document.css', import.meta.url), 'utf8')
 const systemFonts = await readFile(new URL('../src/system-fonts-vars.css', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../src/layout.css', import.meta.url), 'utf8')
 const topBar = await readFile(new URL('../src/top-bar.css', import.meta.url), 'utf8')
 const fieldset = await readFile(new URL('../src/inputs/fieldset.css', import.meta.url), 'utf8')
 const code = await readFile(new URL('../src/typography/code.css', import.meta.url), 'utf8')
 const figures = await readFile(new URL('../src/typography/figures.css', import.meta.url), 'utf8')
+const headings = await readFile(new URL('../src/typography/headings.css', import.meta.url), 'utf8')
+const typography = await readFile(new URL('../src/typography/index.css', import.meta.url), 'utf8')
 const tronLegacy = await readFile(new URL('../src/themes/tron-legacy.css', import.meta.url), 'utf8')
 const tronLegacyHighlight = await readFile(new URL('../src/highlight.js/tron-legacy.css', import.meta.url), 'utf8')
 const tronLegacyHighlightLight = await readFile(new URL('../src/highlight.js/tron-legacy-light.css', import.meta.url), 'utf8')
@@ -123,6 +126,11 @@ test('color schemes only follow the browser preference', () => {
 })
 
 test('typography and layout remain bounded', () => {
+  assert.match(documentStyles, /hanging-punctuation: first allow-end last;/)
+  assert.match(documentStyles, /tab-size: 2;/)
+  assert.match(documentStyles, /body \{[\s\S]*overflow-wrap: anywhere;/)
+  assert.match(headings, /text-wrap: balance;/)
+  assert.match(typography, /p,\nli,\ndd \{[\s\S]*max-inline-size: 88ch;[\s\S]*text-wrap: pretty;/)
   assert.match(variables, /--font-size-body: clamp\(1rem, calc\(.+\), 1\.25rem\);\n\n {2}@supports \(font-size: round\(1rem, 1px\)\)/)
   assert.match(variables, /round\(nearest, calc\(.+\), 1px\)/)
   assert.doesNotMatch(variables, /--font-size-scale:/)

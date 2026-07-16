@@ -158,12 +158,21 @@ html {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
+
+  /* Let capable browsers tuck edge punctuation outside the text measure. */
+  hanging-punctuation: first allow-end last;
+
+  /* Keep literal tabs compact in source, samples, and editable text. */
+  tab-size: 2;
 }
 /* Let the optional layout stylesheet own page gutters instead of browser defaults. */
 body {
   margin: 0;
   background-color: var(--background);
   color: var(--text);
+
+  /* Break otherwise unbreakable text only when it would escape its container. */
+  overflow-wrap: anywhere;
 }
 /* Inherit border-box so components can opt into another model when they need one.
    https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
@@ -180,8 +189,9 @@ h5,
 h6 {
   font-weight: 500;
   line-height: 1.25;
-  margin-block: 2rem 1.25rem;
-  position: relative;
+
+  /* Prefer similarly sized lines when a short heading wraps. */
+  text-wrap: balance;
 
   /* rep the smallies */
   & small {
@@ -191,6 +201,19 @@ h6 {
   }
 
   & code { font-size: 0.9em; }
+}
+h1,
+h2,
+h3 {
+  /* Tighter leading keeps large, balanced headings visually cohesive. */
+  line-height: 1.15;
+  margin-block: 2rem 1.25rem;
+}
+h4,
+h5,
+h6 {
+  /* Lower-level headings need less separation from their surrounding text. */
+  margin-block: 1.5rem 1rem;
 }
 h1 { font-size: 2.75em; }
 h2 { font-size: 2.25em; }
@@ -354,6 +377,9 @@ table {
   display: block;
   inline-size: 100%;
   overflow: auto;
+
+  /* Preserve tabular values as rows scroll instead of inheriting prose wrapping. */
+  overflow-wrap: normal;
   word-break: keep-all;
 
   & th,
@@ -449,6 +475,15 @@ ol,
 dl,
 table {
   margin-block: 0 1.25em;
+}
+p,
+li,
+dd {
+  /* Bound prose without taking useful width away from code, tables, or media. */
+  max-inline-size: 88ch;
+
+  /* Spend a little more layout work to avoid awkward final lines in prose. */
+  text-wrap: pretty;
 }
 pre {
   /* Source blocks need leading space even after non-typographic demos. Root units

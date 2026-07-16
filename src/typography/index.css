@@ -23,6 +23,16 @@ table {
   margin-block: 0 1.25em;
 }
 
+p,
+li,
+dd {
+  /* Bound prose without taking useful width away from code, tables, or media. */
+  max-inline-size: 88ch;
+
+  /* Spend a little more layout work to avoid awkward final lines in prose. */
+  text-wrap: pretty;
+}
+
 pre {
   /* Source blocks need leading space even after non-typographic demos. Root units
      keep that rhythm aligned while the code itself renders at a smaller size. */

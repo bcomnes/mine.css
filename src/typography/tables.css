@@ -7,6 +7,9 @@ table {
   display: block;
   inline-size: 100%;
   overflow: auto;
+
+  /* Preserve tabular values as rows scroll instead of inheriting prose wrapping. */
+  overflow-wrap: normal;
   word-break: keep-all;
 
   & th,

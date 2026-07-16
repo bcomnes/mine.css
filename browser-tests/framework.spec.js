@@ -173,6 +173,48 @@ test('keeps a source-less video frame visible', async ({ page, siteURL }) => {
   expect(presentation.display).toBe('block')
 })
 
+test('bounds and wraps prose without changing preformatted code', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const wrapping = await page.evaluate(() => {
+    const fixture = document.createElement('div')
+    fixture.style.inlineSize = '10rem'
+    const prose = document.createElement('p')
+    prose.textContent = 'unbroken'.repeat(40)
+    const pre = document.createElement('pre')
+    const code = document.createElement('code')
+    code.textContent = 'unbroken'.repeat(40)
+    pre.append(code)
+    fixture.append(prose, pre)
+    document.body.append(fixture)
+
+    const wideFixture = document.createElement('div')
+    wideFixture.style.inlineSize = '1200px'
+    const boundedProse = document.createElement('p')
+    boundedProse.textContent = 'Readable prose keeps a protective line-length ceiling.'
+    const widePre = document.createElement('pre')
+    widePre.textContent = 'Preformatted content keeps the available document width.'
+    wideFixture.append(boundedProse, widePre)
+    document.body.append(wideFixture)
+
+    return {
+      codeKeepsWidth: widePre.getBoundingClientRect().width === wideFixture.getBoundingClientRect().width,
+      codeOverflows: pre.scrollWidth > pre.clientWidth,
+      codeWrap: getComputedStyle(pre).overflowWrap,
+      proseIsBounded: boundedProse.getBoundingClientRect().width < wideFixture.getBoundingClientRect().width,
+      proseFits: prose.scrollWidth <= prose.clientWidth,
+      proseWrap: getComputedStyle(prose).overflowWrap
+    }
+  })
+
+  expect(wrapping.proseWrap).toBe('anywhere')
+  expect(wrapping.proseFits).toBe(true)
+  expect(wrapping.proseIsBounded).toBe(true)
+  expect(wrapping.codeWrap).toBe('normal')
+  expect(wrapping.codeOverflows).toBe(true)
+  expect(wrapping.codeKeepsWidth).toBe(true)
+})
+
 test('switches the separate Tron document and Highlight.js palettes together in the demo', async ({ page, siteURL }) => {
   await page.emulateMedia({ colorScheme: 'light' })
   await gotoGuide(page, siteURL)

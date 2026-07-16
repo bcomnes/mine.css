@@ -4,6 +4,12 @@ html {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
+
+  /* Let capable browsers tuck edge punctuation outside the text measure. */
+  hanging-punctuation: first allow-end last;
+
+  /* Keep literal tabs compact in source, samples, and editable text. */
+  tab-size: 2;
 }
 
 /* Let the optional layout stylesheet own page gutters instead of browser defaults. */
@@ -11,6 +17,9 @@ body {
   margin: 0;
   background-color: var(--background);
   color: var(--text);
+
+  /* Break otherwise unbreakable text only when it would escape its container. */
+  overflow-wrap: anywhere;
 }
 
 /* Inherit border-box so components can opt into another model when they need one.

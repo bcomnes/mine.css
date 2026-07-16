@@ -6,8 +6,9 @@ h5,
 h6 {
   font-weight: 500;
   line-height: 1.25;
-  margin-block: 2rem 1.25rem;
-  position: relative;
+
+  /* Prefer similarly sized lines when a short heading wraps. */
+  text-wrap: balance;
 
   /* rep the smallies */
   & small {
@@ -17,6 +18,21 @@ h6 {
   }
 
   & code { font-size: 0.9em; }
+}
+
+h1,
+h2,
+h3 {
+  /* Tighter leading keeps large, balanced headings visually cohesive. */
+  line-height: 1.15;
+  margin-block: 2rem 1.25rem;
+}
+
+h4,
+h5,
+h6 {
+  /* Lower-level headings need less separation from their surrounding text. */
+  margin-block: 1.5rem 1rem;
 }
 
 h1 { font-size: 2.75em; }
