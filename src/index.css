@@ -1,6 +1,6 @@
 /* variables */
-@import url("./system-fonts-vars.css");
-@import url("./variables.css");
-@import url("./document.css");
-@import url("./typography/index.css");
-@import url("./inputs/index.css");
+@import url("./system-fonts-vars.css") layer(mine);
+@import url("./variables.css") layer(mine);
+@import url("./document.css") layer(mine);
+@import url("./typography/index.css") layer(mine);
+@import url("./inputs/index.css") layer(mine);

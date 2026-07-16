@@ -329,6 +329,34 @@ test('keeps hidden and assistive-only content trustworthy', async ({ page, siteU
   await expect(skipLink).toHaveCSS('clip-path', 'none')
 })
 
+test('keeps mine defaults below consumer cascade layers', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const cascade = await page.evaluate(() => {
+    const consumer = document.createElement('style')
+    consumer.textContent = `
+      @layer mine, app;
+      @layer app { h2 { font-weight: 700; } }
+      :root { --font-size-body: 18px; }
+      h1 { font-weight: 800; }
+    `
+    document.head.prepend(consumer)
+
+    const heading1 = document.querySelector('main h1')
+    const heading2 = document.querySelector('main h2')
+    if (!heading1 || !heading2) throw new Error('Layer fixtures are missing')
+    return {
+      appLayerWeight: getComputedStyle(heading2).fontWeight,
+      rootFontSize: getComputedStyle(document.documentElement).fontSize,
+      unlayeredWeight: getComputedStyle(heading1).fontWeight
+    }
+  })
+
+  expect(cascade.appLayerWeight).toBe('700')
+  expect(cascade.rootFontSize).toBe('18px')
+  expect(cascade.unlayeredWeight).toBe('800')
+})
+
 test('bounds and wraps prose without changing preformatted code', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
 

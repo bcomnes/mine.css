@@ -1,10 +1,11 @@
 # Migrating from mine.css v10 to v11
 
 mine.css v11 modernizes the package around a CSS-only public API, native CSS
-nesting, browser-controlled color preferences, and namespaced optional
-components. Most documents that only load the main stylesheet and use semantic
-HTML need few changes. Sites that imported the old JavaScript entry point, used
-class-based theme overrides, or copied the old top-bar markup need to migrate.
+nesting, a low-priority cascade layer, browser-controlled color preferences,
+and namespaced optional components. Most documents that only load the main
+stylesheet and use semantic HTML need few changes. Sites that imported the old
+JavaScript entry point, used class-based theme overrides, or copied the old
+top-bar markup need to migrate.
 
 ## Upgrade
 
@@ -33,6 +34,7 @@ verification.
 | `.top-bar*` selectors from `top-bar.css` | Namespaced `.mine-top-bar*` selectors from `mine.css/dist/top-bar.css` |
 | Published source, site, and JavaScript files | The published package contains `dist` only |
 | PostCSS-transpiled compatibility | Distributed CSS uses native CSS nesting |
+| Unlayered framework rules | The main stylesheet lives in the named `mine` cascade layer |
 | Viewport-dependent `--font-size-scale` | Bounded `--font-size-body` |
 
 ## Replace JavaScript imports with CSS imports
@@ -73,6 +75,54 @@ The optional layout and top bar remain separate stylesheets:
 ```
 
 Import only the companions your site uses.
+
+## Review cascade layer order
+
+v11 places the main stylesheet inside a named `mine` cascade layer, following
+[Mayank's layered reset technique](https://mayank.co/blog/css-reset-layer/).
+For normal declarations, every unlayered site rule now takes priority over
+mine.css even when mine.css has the more specific selector or loads later. Most
+sites need no changes; their existing unlayered overrides become more reliable.
+
+If the application also uses cascade layers, declare `mine` before the layers
+that should override it:
+
+```css
+@layer mine, app;
+
+@import 'mine.css';
+
+@layer app {
+  :root { --font-size-body: 1rem; }
+  h1 { font-weight: 700; }
+}
+```
+
+Do not write `@import 'mine.css' layer(mine)`: the distributed stylesheet
+already defines that layer, so wrapping the import would create unnecessary
+layer nesting.
+
+The optional layout and top-bar stylesheets remain unlayered to preserve their
+existing standalone behavior. Sites using CSS imports can place optional
+styles in a distinct layer between the framework defaults and application
+styles:
+
+```css
+@layer mine, sidecar, app;
+
+@import 'mine.css';
+@import 'mine.css/dist/layout.css' layer(sidecar);
+@import 'mine.css/dist/top-bar.css' layer(sidecar);
+```
+
+Use the same `layer(sidecar)` import syntax for named color or syntax themes.
+If a Highlight.js base theme and a mine.css syntax sidecar compete for the same
+selectors, layer both and order the syntax sidecar after the base theme.
+
+Audit any rules that intentionally depended on mine.css overriding application
+styles. Move those application rules into a layer ordered after `mine`, or
+leave them unlayered. Test the resulting cascade in browser developer tools as
+well as checking the final visual output.
 
 ## Follow the browser color preference
 
@@ -211,10 +261,8 @@ width. Supporting browsers snap the fluid value to whole CSS pixels:
 ```css
 :root {
   --font-size-body: clamp(1rem, calc(0.95rem + 0.2vi), 1.25rem);
-}
 
-@supports (font-size: round(1rem, 1px)) {
-  :root {
+  @supports (font-size: round(1rem, 1px)) {
     --font-size-body: clamp(
       1rem,
       round(nearest, calc(0.95rem + 0.2vi), 1px),

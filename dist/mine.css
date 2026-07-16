@@ -1,4 +1,5 @@
 /* variables */
+@layer mine {
 /* Prefer standardized UI generics, then durable platform faces, then generics. */
 :root {
   --system-sans:
@@ -12,7 +13,11 @@
   --system-round:
     ui-rounded, var(--system-sans);
 }
+}
+@layer mine {
+
 /* stylelint-disable color-function-notation */
+
 /* variable settings */
 :root {
   /* font family */
@@ -104,6 +109,7 @@
 
   color-scheme: light;
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
     /* main colors */
@@ -127,6 +133,7 @@
     color-scheme: dark;
   }
 }
+
 @media print {
   :root {
     /* Force every active alias light so a dark browser preference cannot leak to paper. */
@@ -152,6 +159,8 @@
     color-scheme: light;
   }
 }
+}
+@layer mine {
 /* Establish the public typography and box model before component rules consume it. */
 html {
   box-sizing: border-box;
@@ -165,6 +174,7 @@ html {
   /* Keep literal tabs compact in source, samples, and editable text. */
   tab-size: 2;
 }
+
 /* Let the optional layout stylesheet own page gutters instead of browser defaults. */
 body {
   margin: 0;
@@ -174,6 +184,7 @@ body {
   /* Break otherwise unbreakable text only when it would escape its container. */
   overflow-wrap: anywhere;
 }
+
 /* Inherit border-box so components can opt into another model when they need one.
    https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
 *,
@@ -181,11 +192,13 @@ body {
 *::after {
   box-sizing: inherit;
 }
+
 [hidden]:not([hidden="until-found" i]) {
   /* Keep component display rules from accidentally revealing irrelevant content.
      Preserve the searchable hidden-until-found state for supporting browsers. */
   display: none !important;
 }
+
 .visually-hidden:not(:focus, :active) {
   /* Keep assistive text available while reducing its visual box to one clipped pixel.
      Focusable content such as skip links returns to normal flow when interacted with. */
@@ -196,14 +209,17 @@ body {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
 :focus-visible {
   /* Separate native and customized focus rings from the focused element. */
   outline-offset: 2px;
 }
+
 :target {
   /* Leave enough preceding context when navigating directly to a fragment. */
   scroll-margin-block-start: 3rem;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   /* Let same-origin navigations participate without requiring site JavaScript. */
   @view-transition { navigation: auto; }
@@ -218,6 +234,9 @@ body {
     }
   }
 }
+}
+@layer mine {
+
 h1,
 h2,
 h3,
@@ -239,6 +258,7 @@ h6 {
 
   & code { font-size: 0.9em; }
 }
+
 h1,
 h2,
 h3 {
@@ -246,22 +266,27 @@ h3 {
   line-height: 1.15;
   margin-block: 2rem 1.25rem;
 }
+
 h4,
 h5,
 h6 {
   /* Lower-level headings need less separation from their surrounding text. */
   margin-block: 1.5rem 1rem;
 }
+
 h1 { font-size: 2.75em; }
 h2 { font-size: 2.25em; }
 h3 { font-size: 1.75em; }
 h4 { font-size: 1.5em; }
 h5 { font-size: 1.25em; }
+
 h6 {
   font-size: 1em;
   color: var(--accent-foreground);
   letter-spacing: 0.025em;
 }
+}
+@layer mine {
 a {
   /* Link and body colors differ by more than 3:1; interaction adds a second cue. */
   -webkit-text-decoration-skip: ink;
@@ -286,6 +311,9 @@ a {
     box-shadow: 0 0 0 0.14em color-mix(in srgb, currentcolor 8%, transparent);
   }
 }
+}
+@layer mine {
+
 ul,
 ol {
   padding-inline-start: 2em;
@@ -299,7 +327,10 @@ ol {
     & ol { list-style-type: lower-alpha; }
   }
 }
+
 li > p { margin-block-start: 1em; }
+}
+@layer mine {
 blockquote {
   margin-block: 0 1rem;
 
@@ -312,14 +343,19 @@ blockquote {
   & > :first-child { margin-block-start: 0; }
   & > :last-child { margin-block-end: 0; }
 }
+}
+@layer mine {
+
 b,
 strong {
   font-weight: 600;
 }
+
 mark {
   background-color: var(--mark-background);
   color: var(--text);
 }
+
 /* Prevent `sub` and `sup` elements from affecting the line height in
    all browsers. */
 sub,
@@ -329,8 +365,11 @@ sup {
   position: relative;
   vertical-align: baseline;
 }
+
 sub { inset-block-end: -0.25em; }
 sup { inset-block-start: -0.5em; }
+}
+@layer mine {
 /* 1. Correct the inheritance and scaling of font size in all browsers.
    2. Correct the odd `em` font sizing in all browsers. */
 code,
@@ -341,19 +380,24 @@ samp {
   font-size: 90%; /* 2 */
   color: var(--code-text);
 }
+
 code {
   padding-block: 0.2em;
   padding-inline: 0.4em;
   margin: 0;
 }
+
 pre,
 code {
   background-color: var(--code-background);
   border-radius: 5px;
 }
+
 a code { color: var(--link-text); }
+
 pre,
 samp { color: var(--code-text); }
+
 pre {
   overflow: auto;
   overflow-wrap: normal;
@@ -382,7 +426,11 @@ pre {
     word-break: normal;
   }
 }
+}
+@layer mine {
+
 /* Keyboard kbd shortcut key style */
+
 kbd {
   background-color: var(--layer-background);
   background-image: linear-gradient(var(--layer-background), var(--accent-background) 75%);
@@ -405,8 +453,12 @@ kbd {
   padding-block: 5px 1px;
   padding-inline: 5px;
 }
+}
+@layer mine {
+
 td,
 th { padding: 0; }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -434,6 +486,8 @@ table {
     &:nth-child(2n) { background-color: var(--accent-background); }
   }
 }
+}
+@layer mine {
 hr {
   block-size: 4px;
   padding: 0;
@@ -441,25 +495,34 @@ hr {
   background-color: var(--accent-midground);
   border: 0;
 }
+}
+@layer mine {
 img {
   /* Preserve intrinsic proportions while containing large media in the text measure. */
   max-inline-size: 100%;
   block-size: auto;
 }
+}
+@layer mine {
+
 audio,
 canvas {
   /* Keep replaced media out of the inline baseline and within its container. */
   display: block;
   max-inline-size: 100%;
 }
+
 audio {
   /* Native controls are more useful when they fill the document measure. */
   inline-size: 100%;
 }
+
 canvas {
   /* Preserve the bitmap's intrinsic ratio when its inline size is constrained. */
   block-size: auto;
 }
+}
+@layer mine {
 video {
   /* Preserve the declared aspect ratio and show a quiet frame before media paints. */
   display: block;
@@ -468,6 +531,8 @@ video {
   border-radius: 7px;
   background-color: var(--accent-background);
 }
+}
+@layer mine {
 iframe {
   /* Contain wide embeds without overriding their authored dimensions. */
   display: block;
@@ -479,6 +544,9 @@ iframe {
   background-color: var(--accent-background);
   box-shadow: var(--surface-shadow);
 }
+}
+@layer mine {
+
 figure {
   /* Let media establish the figure measure while containing oversized assets. */
   inline-size: fit-content;
@@ -509,6 +577,7 @@ figure {
     padding: 0;
   }
 }
+
 figcaption {
   /* Keep long captions from widening a figure beyond its media. */
   contain: inline-size;
@@ -517,11 +586,17 @@ figcaption {
   margin: 0;
   color: var(--accent-foreground);
 }
+}
+@layer mine {
 abbr[title] {
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;
 }
+}
+@layer mine {
+
 dd { margin-inline-start: 0; }
+
 dl {
   padding: 0;
 
@@ -538,6 +613,9 @@ dl {
     margin-block-end: 1.25em;
   }
 }
+}
+@layer mine {
+
 /* same margins for all typographic block elements */
 p,
 blockquote,
@@ -547,6 +625,7 @@ dl,
 table {
   margin-block: 0 1.25em;
 }
+
 p,
 li,
 dd {
@@ -556,16 +635,22 @@ dd {
   /* Spend a little more layout work to avoid awkward final lines in prose. */
   text-wrap: pretty;
 }
+
 pre {
   /* Source blocks need leading space even after non-typographic demos. Root units
      keep that rhythm aligned while the code itself renders at a smaller size. */
   margin-block: 1.25rem;
 }
+
 /* Add the correct font size in all browsers. */
 small { font-size: 80%; }
+}
+@layer mine {
+
 input[type="search"] {
   appearance: textfield;
 }
+
 /* Recolor the WebKit clear affordance without replacing its native behavior. */
 [type="search"]::-webkit-search-cancel-button {
   appearance: none;
@@ -576,6 +661,7 @@ input[type="search"] {
   block-size: 20px;
   inline-size: 20px;
 }
+
 select,
 textarea,
 input:not([type]),
@@ -674,6 +760,7 @@ input[type="week"] {
       0 1px 3px color-mix(in srgb, var(--control-state) 11%, transparent);
   }
 }
+
 input:not([type]),
 input[type="email"],
 input[type="number"],
@@ -686,6 +773,7 @@ select:not([multiple]) {
   /* Keep empty and populated single-line text controls the same height. */
   min-block-size: calc(1lh + 0.8em + 2px);
 }
+
 /* Tall controls expose directional gradients as a stripe, so use an even inset. */
 select[multiple]:not(:disabled),
 textarea:not(:disabled) {
@@ -695,6 +783,7 @@ textarea:not(:disabled) {
     inset 0 -1px 0 rgb(255 255 255 / 12%),
     0 1px 3px rgb(0 0 0 / 10%);
 }
+
 select[multiple] option {
   /* Give listbox rows the same breathing room as text inside a field. */
   border-block: 1px solid var(--background);
@@ -708,10 +797,13 @@ select[multiple] option {
     background: color-mix(in srgb, var(--link-text) 8%, transparent);
   }
 }
+
 select[multiple]:disabled option:checked {
   color: var(--accent-foreground);
   background: var(--accent-background);
 }
+}
+@layer mine {
 label {
   /* Input labels */
   font-weight: 600;
@@ -732,6 +824,8 @@ label {
     display: inline-grid;
   }
 }
+}
+@layer mine {
 fieldset {
   border-radius: 7px;
   border-style: solid;
@@ -741,6 +835,9 @@ fieldset {
   /* A broad, low-contrast bevel recalls older panel styling without a hard edge. */
   box-shadow: var(--surface-shadow);
 }
+}
+@layer mine {
+
 input,
 select,
 textarea {
@@ -763,16 +860,19 @@ textarea {
     display: inline-grid;
   }
 }
+
 input[type="image"]:disabled {
   /* Browsers disable activation without consistently painting a disabled state. */
   opacity: 0.5;
 }
+
 /* Keep text-entry controls in the active type scheme; buttons retain native metrics. */
 input:not([type="button"], [type="file"], [type="image"], [type="reset"], [type="submit"]),
 select,
 textarea {
   color: inherit;
   font: inherit;
+}
 }
 
 /*# sourceMappingURL=mine.css.map */

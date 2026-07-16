@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
+import postcss from 'postcss'
 
+const framework = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const variables = await readFile(new URL('../src/variables.css', import.meta.url), 'utf8')
 const documentStyles = await readFile(new URL('../src/document.css', import.meta.url), 'utf8')
 const systemFonts = await readFile(new URL('../src/system-fonts-vars.css', import.meta.url), 'utf8')
@@ -23,6 +25,8 @@ const tronLegacyHighlightLight = await readFile(new URL('../src/highlight.js/tro
 const tronLegacyHighlightDark = await readFile(new URL('../src/highlight.js/tron-legacy-dark.css', import.meta.url), 'utf8')
 const tronLegacyHighlightRules = await readFile(new URL('../src/highlight.js/tron-legacy-rules.css', import.meta.url), 'utf8')
 const distribution = await readFile(new URL('../dist/mine.css', import.meta.url), 'utf8')
+const layoutDistribution = await readFile(new URL('../dist/layout.css', import.meta.url), 'utf8')
+const topBarDistribution = await readFile(new URL('../dist/top-bar.css', import.meta.url), 'utf8')
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
 
 function hslToken (name) {
@@ -175,6 +179,27 @@ test('package contract matches the modern distribution', () => {
   assert.equal(packageJson.style, 'dist/mine.css')
   assert.equal('exports' in packageJson, false)
   assert.equal('glob' in packageJson.overrides, false)
+})
+
+test('the main source imports into one low-priority layer', () => {
+  const source = postcss.parse(framework)
+  const imports = source.nodes.filter(node => node.type === 'atrule' && node.name === 'import')
+  assert.ok(imports.length > 0)
+  for (const imported of imports) assert.match(imported.params, / layer\(mine\)$/)
+
+  const root = postcss.parse(distribution)
+  const rules = root.nodes.filter(node => node.type !== 'comment')
+  assert.ok(rules.length > 0)
+  for (const rule of rules) {
+    assert.equal(rule.type, 'atrule')
+    assert.equal(rule.name, 'layer')
+    assert.equal(rule.params, 'mine')
+    assert.ok(rule.nodes.some(node => node.type === 'rule'))
+  }
+
+  /* Explicitly loaded companions retain their existing cascade behavior. */
+  assert.doesNotMatch(layoutDistribution, /@layer\s+mine/)
+  assert.doesNotMatch(topBarDistribution, /@layer\s+mine/)
 })
 
 test('core motion enhancements honor the reader preference', () => {
