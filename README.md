@@ -220,6 +220,7 @@ If you want to implement other styles that follow the light/dark mode pattern in
 ```css
 .some-class {
   color: var(--accent-foreground);
+  background-color: var(--translucent-background);
 }
 ```
 
@@ -230,6 +231,7 @@ The theme agnostic variables are as follows:
   /* main colors */
   --text: var(--light-text);
   --background: var(--light-background);
+  --translucent-background: color-mix(in srgb, var(--background) 75%, transparent);
   --layer-background: var(--light-layer-background);
   --accent-background: var(--light-accent-background);
   --accent-midground: var(--light-accent-midground);

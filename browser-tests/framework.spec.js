@@ -128,6 +128,13 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   expect(await topBar.evaluate(element => getComputedStyle(element).boxShadow)).toContain('rgba(0, 0, 0, 0.2)')
   await expect(page.locator('.hljs').first()).toHaveCSS('color', 'rgb(36, 41, 46)')
   await expect(page.locator('.hljs').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+
+  /* Consumers can reuse or replace the derived glass surface without rewriting it. */
+  await page.evaluate(() => document.documentElement.style.setProperty(
+    '--translucent-background',
+    'rgb(255 0 128 / 50%)'
+  ))
+  await expect(topBar).toHaveCSS('background-color', 'rgba(255, 0, 128, 0.5)')
 })
 
 test('keeps a source-less video frame visible', async ({ page, siteURL }) => {

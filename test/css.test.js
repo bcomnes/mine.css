@@ -148,7 +148,9 @@ test('package contract matches the modern distribution', () => {
 test('top-bar sidecar uses the mine.css selector contract', () => {
   assert.match(topBar, /Reimplementation inspired by top-bar\.css/)
   assert.match(topBar, /\.mine-top-bar\b/)
-  assert.match(topBar, /background-color: color-mix\(in srgb, var\(--background, white\) 75%, transparent\)/)
+  assert.match(variables, /--translucent-background: color-mix\(in srgb, var\(--background\) 75%, transparent\)/)
+  assert.match(topBar, /background-color: var\(\n\s+--translucent-background,/)
+  assert.match(topBar, /color-mix\(in srgb, var\(--background, white\) 75%, transparent\)/)
   assert.match(topBar, /box-shadow: 0 2px 10px 0 rgb\(0 0 0 \/ 20%\)/)
   assert.doesNotMatch(topBar, /box-shadow:.*var\(--text/)
   assert.match(topBar, /\.mine-top-bar-select\b/)

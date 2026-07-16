@@ -16,8 +16,11 @@
   font-family: inherit;
   backdrop-filter: contrast(100%) blur(10px);
 
-  /* Follow the active palette without turning its light text into a light shadow. */
-  background-color: color-mix(in srgb, var(--background, white) 75%, transparent);
+  /* Follow the active palette while exposing the glass surface for consumers. */
+  background-color: var(
+    --translucent-background,
+    color-mix(in srgb, var(--background, white) 75%, transparent)
+  );
   transition: box-shadow 0.1s ease-in-out;
   position: sticky;
   inset-block-start: 0;

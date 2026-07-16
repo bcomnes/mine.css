@@ -84,6 +84,9 @@
   /* main colors */
   --text: var(--light-text);
   --background: var(--light-background);
+
+  /* Reusable glass surface that follows the active page background. */
+  --translucent-background: color-mix(in srgb, var(--background) 75%, transparent);
   --layer-background: var(--light-layer-background);
   --accent-background: var(--light-accent-background);
   --accent-midground: var(--light-accent-midground);
