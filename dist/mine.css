@@ -220,6 +220,12 @@ body {
   scroll-margin-block-start: 3rem;
 }
 
+:target[tabindex="-1"]:focus {
+  /* Fragment destinations keep programmatic focus without painting a page-wide
+     block outline, matching the presentation before v11. */
+  outline: 0;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   /* Let same-origin navigations participate without requiring site JavaScript. */
   @view-transition { navigation: auto; }
@@ -296,10 +302,10 @@ a {
           box-decoration-break: clone;
   transition: background-color 0.1s ease, box-shadow 0.1s ease;
 
-  &:focus-visible {
-    /* Use an outline instead of changing layout or clipping the focus indicator. */
-    outline: 2px solid currentcolor;
-  }
+  /* Restore the pre-v11 pointer behavior while leaving keyboard-only focus to
+     the browser's native indicator. */
+  &:active,
+  &:hover { outline: 0; }
 
   &:active,
   &:focus,

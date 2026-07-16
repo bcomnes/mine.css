@@ -343,9 +343,20 @@ test('smooths footnote navigation without relying on link focus', async ({ page,
 
 test('offsets keyboard focus indicators from their controls', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
+  await page.locator('main').hover({ position: { x: 10, y: 10 } })
   await page.keyboard.press('Tab')
 
   await expect(page.locator(':focus-visible')).toHaveCSS('outline-offset', '2px')
+  await expect(page.locator(':focus-visible')).not.toHaveCSS('outline-style', 'none')
+})
+
+test('keeps focused fragment destinations visually quiet', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const target = page.locator('h2#paragraphs')
+  await page.locator('h2#paragraphs > a').click()
+  await expect(target).toBeFocused()
+  await expect(target).toHaveCSS('outline-style', 'none')
 })
 
 test('keeps hidden and assistive-only content trustworthy', async ({ page, siteURL }) => {
@@ -578,7 +589,7 @@ test('uses the selected theme light palette when printing from dark mode', async
   await expect(page.locator('footer')).toBeHidden()
 })
 
-test('keeps keyboard focus visible', async ({ page, siteURL }) => {
+test('keeps link interaction feedback visible', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
   const contentLink = page.locator('main a[href="http://dev.nodeca.com"]')
   await expect(contentLink).toHaveCSS('text-decoration-line', 'none')
@@ -629,8 +640,7 @@ test('keeps keyboard focus visible', async ({ page, siteURL }) => {
 
   await navigationLink.focus()
   await expect(navigationLink).toBeFocused()
-  await expect(navigationLink).toHaveCSS('outline-style', 'solid')
-  await expect(navigationLink).toHaveCSS('outline-width', '2px')
+  await expect(navigationLink).toHaveCSS('outline-style', 'none')
 })
 
 test('keeps browser-native button metrics', async ({ page, siteURL }) => {
