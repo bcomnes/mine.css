@@ -125,6 +125,10 @@ test('typography and layout remain bounded', () => {
 test('package contract matches the modern distribution', () => {
   assert.deepEqual(packageJson.files, ['dist'])
   assert.deepEqual(packageJson.browserslist, ['supports css-nesting'])
+  for (const plugin of ['postcss-nested', 'postcss-nesting', 'postcss-preset-env']) {
+    assert.equal(plugin in packageJson.devDependencies, false)
+  }
+  assert.match(distribution, /\n\s+&:focus-visible \{/)
   assert.equal(packageJson.main, 'dist/mine.css')
   assert.equal(packageJson.style, 'dist/mine.css')
   assert.equal('exports' in packageJson, false)
