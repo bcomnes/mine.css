@@ -284,6 +284,22 @@ test('renders horizontal rules as theme-aware recessed hairlines', async ({ page
   expect(dark.boxShadow).not.toBe(light.boxShadow)
 })
 
+test('keeps fragment targets below the sticky top bar', async ({ page, siteURL }) => {
+  await page.goto(`${siteURL}/guide/#textarea`, { waitUntil: 'domcontentloaded' })
+
+  const positions = await page.evaluate(() => {
+    const target = document.querySelector('#textarea')
+    const topBar = document.querySelector('.mine-top-bar')
+    if (!target || !topBar) throw new Error('Fragment fixtures are missing')
+    return {
+      targetTop: target.getBoundingClientRect().top,
+      topBarBottom: topBar.getBoundingClientRect().bottom
+    }
+  })
+
+  expect(positions.targetTop).toBeGreaterThanOrEqual(positions.topBarBottom)
+})
+
 test('only enables document motion when the reader permits it', async ({ page, siteURL }) => {
   const readMotion = () => page.evaluate(() => {
     const styles = getComputedStyle(document.documentElement)
@@ -308,6 +324,13 @@ test('only enables document motion when the reader permits it', async ({ page, s
   const reduced = await readMotion()
   expect(reduced.interpolateSize).toBe('numeric-only')
   expect(reduced.scrollBehavior).toBe('auto')
+})
+
+test('offsets keyboard focus indicators from their controls', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+  await page.keyboard.press('Tab')
+
+  await expect(page.locator(':focus-visible')).toHaveCSS('outline-offset', '2px')
 })
 
 test('keeps hidden and assistive-only content trustworthy', async ({ page, siteURL }) => {
@@ -428,29 +451,6 @@ test('bounds and wraps prose without changing preformatted code', async ({ page,
   expect(wrapping.codeWrap).toBe('normal')
   expect(wrapping.codeOverflows).toBe(true)
   expect(wrapping.codeKeepsWidth).toBe(true)
-})
-
-test('keeps fragment targets below the sticky top bar', async ({ page, siteURL }) => {
-  await page.goto(`${siteURL}/guide/#textarea`, { waitUntil: 'domcontentloaded' })
-
-  const positions = await page.evaluate(() => {
-    const target = document.querySelector('#textarea')
-    const topBar = document.querySelector('.mine-top-bar')
-    if (!target || !topBar) throw new Error('Fragment fixtures are missing')
-    return {
-      targetTop: target.getBoundingClientRect().top,
-      topBarBottom: topBar.getBoundingClientRect().bottom
-    }
-  })
-
-  expect(positions.targetTop).toBeGreaterThanOrEqual(positions.topBarBottom)
-})
-
-test('offsets keyboard focus indicators from their controls', async ({ page, siteURL }) => {
-  await gotoGuide(page, siteURL)
-  await page.keyboard.press('Tab')
-
-  await expect(page.locator(':focus-visible')).toHaveCSS('outline-offset', '2px')
 })
 
 test('switches the separate Tron document and Highlight.js palettes together in the demo', async ({ page, siteURL }) => {

@@ -3,8 +3,8 @@ import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 import postcss from 'postcss'
 
-const framework = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const variables = await readFile(new URL('../src/variables.css', import.meta.url), 'utf8')
+const framework = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const documentStyles = await readFile(new URL('../src/document.css', import.meta.url), 'utf8')
 const systemFonts = await readFile(new URL('../src/system-fonts-vars.css', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../src/layout.css', import.meta.url), 'utf8')
@@ -135,12 +135,6 @@ test('color schemes only follow the browser preference', () => {
   assert.equal('postcss-dark-theme-class' in packageJson.devDependencies, false)
 })
 
-test('embedded media stays within the document measure', () => {
-  assert.match(embeddedMedia, /audio,\ncanvas \{[\s\S]*display: block;[\s\S]*max-inline-size: 100%;/)
-  assert.match(embeddedMedia, /audio \{[\s\S]*inline-size: 100%;/)
-  assert.match(embeddedMedia, /canvas \{[\s\S]*block-size: auto;/)
-})
-
 test('content-sized fields grow without escaping their container', () => {
   assert.match(textInput, /input\.content-sized \{[\s\S]*field-sizing: content;[\s\S]*inline-size: auto;[\s\S]*min-inline-size: min\(15\.5em, 100%\);/)
   assert.match(textInput, /textarea:not\(\[rows\], \[cols\]\) \{[\s\S]*field-sizing: content;[\s\S]*min-block-size: calc\(5lh \+ 0\.8em \+ 2px\);/)
@@ -152,6 +146,12 @@ test('horizontal rules use a themed hairline with an embossed bevel', () => {
   assert.match(horizontalRules, /border-radius: 999px;/)
   assert.match(horizontalRules, /background-color: color-mix\([\s\S]*var\(--accent-midground\) 75%,[\s\S]*var\(--text\)[\s\S]*\);/)
   assert.match(horizontalRules, /box-shadow:[\s\S]*var\(--accent-midground\) 45%, var\(--background\)[\s\S]*0 2px 3px rgb\(0 0 0 \/ 14%\);/)
+})
+
+test('embedded media stays within the document measure', () => {
+  assert.match(embeddedMedia, /audio,\ncanvas \{[\s\S]*display: block;[\s\S]*max-inline-size: 100%;/)
+  assert.match(embeddedMedia, /audio \{[\s\S]*inline-size: 100%;/)
+  assert.match(embeddedMedia, /canvas \{[\s\S]*block-size: auto;/)
 })
 
 test('typography and layout remain bounded', () => {
