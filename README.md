@@ -103,7 +103,19 @@ You can override defaults directly with CSS variables. Here are the default vari
 
 ```css
 :root {
-  /* font family */
+  /* system font stacks */
+  --system-sans:
+    ui-sans-serif, system-ui, -apple-system, "BlinkMacSystemFont", "Segoe UI",
+    roboto, "Helvetica Neue", sans-serif;
+  --system-mono:
+    ui-monospace, "SFMono-Regular", menlo, monaco, consolas, "Liberation Mono",
+    "Courier New", monospace;
+  --system-serif:
+    ui-serif, "New York", charter, constantia, georgia, serif;
+  --system-round:
+    ui-rounded, var(--system-sans);
+
+  /* selected font families */
   --font-body: var(--system-sans);
   --font-code: var(--system-mono);
 

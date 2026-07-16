@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 const variables = await readFile(new URL('../src/variables.css', import.meta.url), 'utf8')
+const systemFonts = await readFile(new URL('../src/system-fonts-vars.css', import.meta.url), 'utf8')
 const layout = await readFile(new URL('../src/layout.css', import.meta.url), 'utf8')
 const topBar = await readFile(new URL('../src/top-bar.css', import.meta.url), 'utf8')
 const fieldset = await readFile(new URL('../src/inputs/fieldset.css', import.meta.url), 'utf8')
@@ -104,6 +105,15 @@ test('raised surfaces share one customizable shadow', () => {
     assert.match(source, /box-shadow: var\(--surface-shadow\);/, `${name} does not use --surface-shadow`)
     assert.doesNotMatch(source, /inset 0 1px 0 rgb\(255 255 255/, `${name} duplicates the surface shadow`)
   }
+})
+
+test('system font stacks use modern generics with durable fallbacks', () => {
+  assert.match(systemFonts, /--system-sans:\n\s+ui-sans-serif, system-ui,/)
+  assert.match(systemFonts, /"Segoe UI"/)
+  assert.match(systemFonts, /--system-mono:\n\s+ui-monospace, "SFMono-Regular", menlo,/)
+  assert.doesNotMatch(systemFonts, /system-ui-monospaced/)
+  assert.match(systemFonts, /--system-serif:\n\s+ui-serif,/)
+  assert.match(systemFonts, /--system-round:\n\s+ui-rounded, var\(--system-sans\);/)
 })
 
 test('color schemes only follow the browser preference', () => {

@@ -31,8 +31,8 @@
 
 .serif { font-family: var(--system-serif, ui-serif, serif); }
 
-.sans { font-family: var(--system-sans, system-ui, sans-serif); }
+.sans { font-family: var(--system-sans, ui-sans-serif, system-ui, sans-serif); }
 
-.round { font-family: var(--system-round, ui-rounded, system-ui, sans-serif); }
+.round { font-family: var(--system-round, ui-rounded, ui-sans-serif, system-ui, sans-serif); }
 
 /*# sourceMappingURL=layout.css.map */

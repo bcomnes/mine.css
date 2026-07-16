@@ -1,23 +1,17 @@
 /* variables */
-/* stylelint-disable */
-/* TODO: Make sure this is up to date */
-/* https://drafts.csswg.org/css-fonts-4/#ui-rounded-def */
+/* Prefer standardized UI generics, then durable platform faces, then generics. */
 :root {
-  --system-sans: system-ui, ui-sans-serif, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  --system-mono: ui-monospace, system-ui-monospaced, 'SF Mono', /* mac */
-                 inconsolata, consolas, /* windows */
-                 'noto mono', 'droid sans mono', /* android */
-                 'liberation mono', 'dejavu sans mono', 'ubuntu mono', /* linux */
-                 monaco, 'courier new', /* older systems */
-                 monospace; /* fallback */
-  --system-serif: ui-serif, 'New York', charter, constantia, /* mac */
-                  'lucida bright', lucidabright, 'lucida serif', lucida, /* windows */
-                  'dejavu serif', 'bitstream vera serif', 'liberation serif', /* linux */
-                  georgia, /* old systems */
-                  serif; /* fallback */
-  --system-round: ui-rounded, SFRounded, 'SF Rounded', 'SF Pro Rounded', var(--system-sans);
+  --system-sans:
+    ui-sans-serif, system-ui, -apple-system, "BlinkMacSystemFont", "Segoe UI",
+    roboto, "Helvetica Neue", sans-serif;
+  --system-mono:
+    ui-monospace, "SFMono-Regular", menlo, monaco, consolas, "Liberation Mono",
+    "Courier New", monospace;
+  --system-serif:
+    ui-serif, "New York", charter, constantia, georgia, serif;
+  --system-round:
+    ui-rounded, var(--system-sans);
 }
-/* stylelint-enable */
 /* stylelint-disable color-function-notation */
 /* variable settings */
 :root {
