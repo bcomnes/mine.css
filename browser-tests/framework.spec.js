@@ -1144,6 +1144,35 @@ test('keeps form control fixtures valid and internally consistent', async ({ pag
   })
 })
 
+test('keeps empty temporal inputs at the single-line control height', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const controls = await page.evaluate(() => {
+    const ids = ['empty-date', 'meeting-time-empty', 'empty-month', 'appt-empty', 'week-empty']
+    const reference = document.getElementById('name-placeholder')
+    if (!reference) throw new Error('Text input height reference is missing')
+
+    return {
+      referenceMinimum: getComputedStyle(reference).minBlockSize,
+      temporal: ids.map(id => {
+        const input = /** @type {HTMLInputElement | null} */ (document.getElementById(id))
+        if (!input) throw new Error(`Missing temporal input: ${id}`)
+        return {
+          id,
+          minimum: getComputedStyle(input).minBlockSize,
+          value: input.value
+        }
+      })
+    }
+  })
+
+  for (const control of controls.temporal) {
+    expect(control.value).toBe('')
+    expect(control.minimum).toBe(controls.referenceMinimum)
+    expect(Number.parseFloat(control.minimum)).toBeGreaterThan(0)
+  }
+})
+
 test('wires the form control demonstrations', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
 

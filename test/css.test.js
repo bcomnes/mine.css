@@ -140,6 +140,14 @@ test('content-sized fields grow without escaping their container', () => {
   assert.match(textInput, /textarea:not\(\[rows\], \[cols\]\) \{[\s\S]*field-sizing: content;[\s\S]*min-block-size: calc\(5lh \+ 0\.8em \+ 2px\);/)
 })
 
+test('single-line controls keep a content-independent minimum height', () => {
+  const minimumHeightRule = textInput.match(/(?:input[^\n]+,\n)+select:not\(\[multiple\]\) \{[\s\S]*?min-block-size: calc\(1lh \+ 0\.8em \+ 2px\);/)
+  assert.ok(minimumHeightRule, 'Missing single-line control minimum height')
+  for (const type of ['date', 'datetime-local', 'month', 'time', 'week']) {
+    assert.match(minimumHeightRule[0], new RegExp(`input\\[type="${type}"\\]`))
+  }
+})
+
 test('horizontal rules use a themed hairline with an embossed bevel', () => {
   assert.match(horizontalRules, /block-size: 1px;/)
   assert.match(horizontalRules, /margin-block: 2\.5rem;/)
