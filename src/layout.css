@@ -5,7 +5,9 @@
 
   /* A bounded measure matters more for reading than filling a wide viewport. */
   max-inline-size: 56em;
-  margin-block: 2em;
+
+  /* Start compact on phones, then restore the full document breathing room. */
+  margin-block: clamp(1em, calc(0.75em + 1vi), 2em);
   margin-inline: auto;
   padding-inline: 1em;
   overflow-wrap: break-word;
