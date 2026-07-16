@@ -9,12 +9,10 @@
 :where(:root[data-hljs-theme="tron"]) .hljs {
   display: block;
   overflow-x: auto;
-  padding: 0.5em;
+  padding: 1em;
   color: var(--tron-hljs-foreground);
   background: var(--tron-hljs-background);
 }
-/* Override Highlight.js's packaged pre/code padding with the theme-guide value. */
-:where(:root[data-hljs-theme="tron"]) pre code.hljs { padding: 0.5em; }
 :where(:root[data-hljs-theme="tron"]) .hljs-subst,
 :where(:root[data-hljs-theme="tron"]) .hljs-params,
 :where(:root[data-hljs-theme="tron"]) .hljs-punctuation {

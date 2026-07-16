@@ -127,6 +127,7 @@ test('switches the separate Tron document and Highlight.js palettes together in 
   const highlightedCode = page.locator('.hljs').first()
   const keyword = page.locator('.hljs-keyword').first()
   const string = page.locator('.hljs-string').first()
+  const defaultCodeHeight = await highlightedCode.evaluate(element => element.getBoundingClientRect().height)
 
   expect(await root.getAttribute('data-mine-theme')).toBeNull()
   await expect(menu).toHaveValue('default')
@@ -137,6 +138,7 @@ test('switches the separate Tron document and Highlight.js palettes together in 
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(245, 247, 250)')
   await expect(highlightedCode).toHaveCSS('color', 'rgb(26, 37, 48)')
   await expect(highlightedCode).toHaveCSS('background-color', 'rgb(232, 236, 242)')
+  expect(await highlightedCode.evaluate(element => element.getBoundingClientRect().height)).toBe(defaultCodeHeight)
   await expect(keyword).toHaveCSS('color', 'rgb(26, 95, 138)')
   await expect(string).toHaveCSS('color', 'rgb(217, 30, 24)')
 

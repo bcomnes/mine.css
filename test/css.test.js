@@ -191,6 +191,7 @@ test('Tron Legacy covers standard Highlight.js scopes without changing typograph
     assert.match(tronLegacyHighlightRules, new RegExp(`\\.hljs-${scope}\\b`), `Missing Highlight.js scope ${scope}`)
   }
 
-  assert.match(tronLegacyHighlightRules, /\.hljs \{\n {2}display: block;\n {2}overflow-x: auto;\n {2}padding: 0\.5em;/)
+  assert.match(tronLegacyHighlightRules, /\.hljs \{\n {2}display: block;\n {2}overflow-x: auto;\n {2}padding: 1em;/)
+  assert.doesNotMatch(tronLegacyHighlightRules, /pre code\.hljs \{[^}]*padding:/)
   assert.doesNotMatch(tronLegacyHighlightRules, /^\s*(?:border|font-family|font-size|line-height|margin):/m)
 })
