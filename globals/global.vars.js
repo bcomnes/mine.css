@@ -2,6 +2,7 @@
 
 export default async function () {
   return {
-    siteName: 'bcomnes/mine.css'
+    siteName: 'bcomnes/mine.css',
+    siteUrl: 'https://mine-css.neocities.org'
   }
 }
