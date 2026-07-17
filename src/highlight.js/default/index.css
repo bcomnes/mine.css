@@ -1,0 +1,4 @@
+/* Keep Mine's default syntax colors delegated to Highlight.js. */
+@import url("highlight.js/styles/github.css");
+@import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
+@import url("../shared/print.css");

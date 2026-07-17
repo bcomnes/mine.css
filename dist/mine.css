@@ -291,7 +291,16 @@ h6 {
 }
 }
 @layer mine {
+
+@property --link-hover-strength {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 a {
+  --link-hover-strength: 0;
+
   /* Link and body colors differ by more than 3:1; interaction adds a second cue. */
   -webkit-text-decoration-skip: ink;
           text-decoration-skip-ink: auto;
@@ -300,7 +309,30 @@ a {
   border-radius: 0.2em;
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
-  transition: background-color 0.1s ease, box-shadow 0.1s ease;
+
+  /*
+   * Paper trail (observed in Chromium 149.0.7827.55 on 2026-07-16): directly
+   * transitioning background-color and box-shadow between transparent and
+   * currentcolor-based color-mix() values produced coarse intermediate frames
+   * and a final halo snap. Safari rendered the same transition smoothly, and
+   * endpoint-only tests passed in both engines.
+   *
+   * Animate one registered number instead, then derive both painted values from
+   * it so Blink has a primitive value to interpolate on every frame. Related
+   * currentColor/color-mix Blink work (not this exact transition reproduction):
+   * https://crbug.com/1448813
+   */
+  background-color: color-mix(
+    in srgb,
+    currentcolor calc(var(--link-hover-strength) * 8%),
+    transparent
+  );
+  box-shadow: 0 0 0 calc(var(--link-hover-strength) * 0.14em) color-mix(
+    in srgb,
+    currentcolor calc(var(--link-hover-strength) * 8%),
+    transparent
+  );
+  transition: --link-hover-strength 0.1s ease;
 
   /* Restore the pre-v11 pointer behavior while leaving keyboard-only focus to
      the browser's native indicator. */
@@ -311,8 +343,7 @@ a {
   &:focus,
   &:hover {
     /* A soft halo adds a non-color cue without shifting surrounding text. */
-    background-color: color-mix(in srgb, currentcolor 8%, transparent);
-    box-shadow: 0 0 0 0.14em color-mix(in srgb, currentcolor 8%, transparent);
+    --link-hover-strength: 1;
   }
 }
 }
@@ -459,11 +490,87 @@ kbd {
 }
 }
 @layer mine {
+hr {
+  /* A rounded hairline, contrasting bevel, and short shadow give the divider
+     the embossed depth common to early-2010s interface chrome. */
+  block-size: 1px;
+  margin-block: 2.5rem;
+  border: 0;
+  border-radius: 999px;
+  background-color: color-mix(
+    in srgb,
+    var(--accent-midground) 75%,
+    var(--text)
+  );
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--accent-midground) 45%, var(--background)),
+    0 2px 3px rgb(0 0 0 / 14%);
+  overflow: visible;
+}
+}
+@layer mine {
+abbr[title] {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+}
+@layer mine {
+
+dd { margin-inline-start: 0; }
+
+dl {
+  padding: 0;
+
+  & dt {
+    padding: 0;
+    margin-block-start: 1em;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  & dd {
+    padding-inline: 1em;
+    margin-block-end: 1.25em;
+  }
+}
+}
+@layer mine {
+/* Use the same rhythm for typographic block elements. */
+p,
+blockquote,
+ul,
+ol,
+dl {
+  margin-block: 0 1.25em;
+}
+
+p,
+li,
+dd {
+  /* Bound prose without taking useful width away from code, tables, or media. */
+  max-inline-size: 88ch;
+
+  /* Spend a little more layout work to avoid awkward final lines in prose. */
+  text-wrap: pretty;
+}
+
+pre {
+  /* Source blocks need leading space even after non-typographic demos. Root units
+     keep that rhythm aligned while the code itself renders at a smaller size. */
+  margin-block: 1.25rem;
+}
+
+/* Add the correct font size in all browsers. */
+small { font-size: 80%; }
+}
+@layer mine {
 
 td,
 th { padding: 0; }
 
 table {
+  margin-block: 0 1.25em;
   border-collapse: collapse;
   border-spacing: 0;
   inline-size: 100%;
@@ -510,25 +617,6 @@ caption {
   &:focus-visible {
     outline: 2px solid var(--link-text);
   }
-}
-}
-@layer mine {
-hr {
-  /* A rounded hairline, contrasting bevel, and short shadow give the divider
-     the embossed depth common to early-2010s interface chrome. */
-  block-size: 1px;
-  margin-block: 2.5rem;
-  border: 0;
-  border-radius: 999px;
-  background-color: color-mix(
-    in srgb,
-    var(--accent-midground) 75%,
-    var(--text)
-  );
-  box-shadow:
-    0 1px 0 color-mix(in srgb, var(--accent-midground) 45%, var(--background)),
-    0 2px 3px rgb(0 0 0 / 14%);
-  overflow: visible;
 }
 }
 @layer mine {
@@ -611,6 +699,10 @@ figure {
     box-shadow: none;
     padding: 0;
   }
+
+  /* Borderless images should reveal their own transparency without losing the
+     figure's intentionally rounded media silhouette. */
+  &.borderless img { background: transparent; }
 }
 
 figcaption {
@@ -621,64 +713,6 @@ figcaption {
   margin: 0;
   color: var(--accent-foreground);
 }
-}
-@layer mine {
-abbr[title] {
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
-}
-}
-@layer mine {
-
-dd { margin-inline-start: 0; }
-
-dl {
-  padding: 0;
-
-  & dt {
-    padding: 0;
-    margin-block-start: 1em;
-    font-size: 1em;
-    font-style: italic;
-    font-weight: 600;
-  }
-
-  & dd {
-    padding-inline: 1em;
-    margin-block-end: 1.25em;
-  }
-}
-}
-@layer mine {
-
-/* same margins for all typographic block elements */
-p,
-blockquote,
-ul,
-ol,
-dl,
-table {
-  margin-block: 0 1.25em;
-}
-
-p,
-li,
-dd {
-  /* Bound prose without taking useful width away from code, tables, or media. */
-  max-inline-size: 88ch;
-
-  /* Spend a little more layout work to avoid awkward final lines in prose. */
-  text-wrap: pretty;
-}
-
-pre {
-  /* Source blocks need leading space even after non-typographic demos. Root units
-     keep that rhythm aligned while the code itself renders at a smaller size. */
-  margin-block: 1.25rem;
-}
-
-/* Add the correct font size in all browsers. */
-small { font-size: 80%; }
 }
 @layer mine {
 

@@ -1,0 +1,44 @@
+/* Light Owl and Night Owl palette mapped from Night Owl (MIT):
+ * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-Light-color-theme.json
+ * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-color-theme.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="night-owl"] {
+  /* Light Owl */
+  --light-text: #403f53;
+  --light-background: #fbfbfb;
+  --light-layer-background: #f0f0f0;
+  --light-accent-background: #f0f0f0;
+  --light-accent-midground: #697098;
+  --light-control-border: #697098;
+  --light-accent-foreground: #403f53;
+  --light-link-text: #994cc3;
+  --light-valid: #036a07;
+  --light-invalid: #e64d49;
+  --light-mark-background: #e0e0e0;
+  --light-code-text: #403f53;
+  --light-code-background: #f0f0f0;
+  --light-code-border: #697098;
+
+  /* Night Owl */
+  --dark-text: #d6deeb;
+  --dark-background: #011627;
+  --dark-layer-background: #0b253a;
+  --dark-accent-background: #0b253a;
+  --dark-accent-midground: #5f7e97;
+  --dark-control-border: #5f7e97;
+  --dark-accent-foreground: #d6deeb;
+  --dark-link-text: #82aaff;
+  --dark-valid: #c5e478;
+  --dark-invalid: #ef5350;
+  --dark-mark-background: #122d42;
+  --dark-code-text: #d6deeb;
+  --dark-code-background: #0b253a;
+  --dark-code-border: #5f7e97;
+}
+
+/* stylelint-enable color-hex-length */
+
+/*# sourceMappingURL=night-owl.css.map */

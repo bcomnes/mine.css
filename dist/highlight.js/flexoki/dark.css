@@ -1,0 +1,176 @@
+/* Flexoki Dark palette mapped from Flexoki (MIT):
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/css/flexoki.css
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/vscode/Flexoki-Light-color-theme.json
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/vscode/Flexoki-Dark-color-theme.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+/* Highlight.js exposes these class names, so they intentionally do not follow mine.css naming. */
+
+/* stylelint-disable selector-class-pattern */
+
+/* Match the structural rules shipped by Highlight.js so custom themes are drop-in compatible. */
+
+code.hljs {
+  padding-block: 3px;
+  padding-inline: 5px;
+}
+
+pre code.hljs {
+  display: block;
+
+  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
+  overflow-x: auto;
+  padding: 1em;
+}
+
+.hljs {
+  color: var(--mine-hljs-foreground);
+  background: var(--mine-hljs-background);
+}
+
+.hljs-subst,
+.hljs-params,
+.hljs-punctuation {
+  color: var(--mine-hljs-foreground);
+}
+
+.hljs-comment,
+.hljs-code,
+.hljs-formula,
+.hljs-quote {
+  color: var(--mine-hljs-comment);
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-operator,
+.hljs-template-tag,
+.hljs-type,
+.hljs-built_in {
+  color: var(--mine-hljs-keyword);
+  font-style: italic;
+}
+
+.hljs-type { font-weight: 700; }
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-section,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--mine-hljs-title);
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-section {
+  font-weight: 700;
+}
+
+.hljs-title.function_,
+.hljs-function .hljs-title {
+  color: var(--mine-hljs-function);
+  font-weight: inherit;
+}
+
+.hljs-attr,
+.hljs-attribute {
+  color: var(--mine-hljs-attribute);
+}
+
+.hljs-literal,
+.hljs-symbol {
+  color: var(--mine-hljs-literal);
+  font-style: italic;
+}
+
+.hljs-number,
+.hljs-bullet {
+  color: var(--mine-hljs-number);
+}
+
+.hljs-property,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: var(--mine-hljs-property);
+}
+
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: var(--mine-hljs-string);
+}
+
+.hljs-char.escape_ {
+  color: var(--mine-hljs-escape);
+}
+
+.hljs-regexp,
+.hljs-meta,
+.hljs-link {
+  color: var(--mine-hljs-regexp);
+}
+
+.hljs-name,
+.hljs-selector-tag,
+.hljs-tag {
+  color: var(--mine-hljs-keyword);
+}
+
+.hljs-selector-pseudo {
+  color: var(--mine-hljs-special);
+}
+
+.hljs-variable.language_ {
+  color: var(--mine-hljs-variable-special);
+  font-style: italic;
+}
+
+.hljs-emphasis {
+  color: var(--mine-hljs-regexp);
+  font-style: italic;
+}
+
+.hljs-strong {
+  color: var(--mine-hljs-function);
+  font-weight: 700;
+}
+
+.hljs-addition {
+  color: var(--mine-hljs-addition);
+}
+
+.hljs-deletion {
+  color: var(--mine-hljs-deletion);
+}
+
+/* stylelint-enable selector-class-pattern */
+
+.hljs {
+  --mine-hljs-foreground: #cecdc3;
+  --mine-hljs-background: #1c1b1a;
+  --mine-hljs-comment: #878580;
+  --mine-hljs-keyword: #879a39;
+  --mine-hljs-title: #da702c;
+  --mine-hljs-function: #da702c;
+  --mine-hljs-attribute: #d0a215;
+  --mine-hljs-literal: #8b7ec8;
+  --mine-hljs-number: #8b7ec8;
+  --mine-hljs-property: #4385be;
+  --mine-hljs-string: #3aa99f;
+  --mine-hljs-escape: #cecdc3;
+  --mine-hljs-regexp: #3aa99f;
+  --mine-hljs-special: #d14d41;
+  --mine-hljs-variable-special: #ce5d97;
+  --mine-hljs-addition: #879a39;
+  --mine-hljs-deletion: #d14d41;
+}
+
+/* stylelint-enable color-hex-length */
+
+/*# sourceMappingURL=dark.css.map */

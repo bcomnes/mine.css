@@ -1,0 +1,4 @@
+/* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
+.hljs {
+  background-color: var(--mine-hljs-background);
+}

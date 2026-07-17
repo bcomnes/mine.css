@@ -5,41 +5,7 @@
 @import url("./emphasis.css");
 @import url("./code.css");
 @import url("./keyboard.css");
-@import url("./tables.css");
 @import url("./horizontal-rules.css");
-@import url("./images.css");
-@import url("./embedded-media.css");
-@import url("./video.css");
-@import url("./iframes.css");
-@import url("./figures.css");
 @import url("./abbreviations.css");
 @import url("./definitions.css");
-
-/* same margins for all typographic block elements */
-p,
-blockquote,
-ul,
-ol,
-dl,
-table {
-  margin-block: 0 1.25em;
-}
-
-p,
-li,
-dd {
-  /* Bound prose without taking useful width away from code, tables, or media. */
-  max-inline-size: 88ch;
-
-  /* Spend a little more layout work to avoid awkward final lines in prose. */
-  text-wrap: pretty;
-}
-
-pre {
-  /* Source blocks need leading space even after non-typographic demos. Root units
-     keep that rhythm aligned while the code itself renders at a smaller size. */
-  margin-block: 1.25rem;
-}
-
-/* Add the correct font size in all browsers. */
-small { font-size: 80%; }
+@import url("./flow.css");

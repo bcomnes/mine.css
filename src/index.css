@@ -3,4 +3,6 @@
 @import url("./variables.css") layer(mine);
 @import url("./document.css") layer(mine);
 @import url("./typography/index.css") layer(mine);
+@import url("./tables/index.css") layer(mine);
+@import url("./media/index.css") layer(mine);
 @import url("./inputs/index.css") layer(mine);

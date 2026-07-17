@@ -1,0 +1,30 @@
+/* Kanagawa Lotus palette mapped from Kanagawa (MIT):
+ * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/colors.lua
+ * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/themes.lua
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #545464;
+  --mine-hljs-background: #e7dba0;
+  --mine-hljs-comment: #8a8980;
+  --mine-hljs-keyword: #624c83;
+  --mine-hljs-title: #4d699b;
+  --mine-hljs-function: #4d699b;
+  --mine-hljs-attribute: #c84053;
+  --mine-hljs-literal: #cc6d00;
+  --mine-hljs-number: #b35b79;
+  --mine-hljs-property: #77713f;
+  --mine-hljs-string: #6f894e;
+  --mine-hljs-escape: #d7474b;
+  --mine-hljs-regexp: #836f4a;
+  --mine-hljs-special: #6693bf;
+  --mine-hljs-variable-special: #5d57a3;
+  --mine-hljs-addition: #6e915f;
+  --mine-hljs-deletion: #d7474b;
+}
+
+/* stylelint-enable color-hex-length */

@@ -29,8 +29,7 @@ Identify:
 - optional layout and top-bar usage;
 - mine.css custom-property overrides;
 - syntax-highlighting styles and application-specific dark styles;
-- named document and syntax theme sidecars, including `data-mine-theme` and
-  `data-hljs-theme` selectors;
+- named document theme sidecars selected with `data-mine-theme`, syntax theme stylesheet links, and code that changes either selection;
 - cascade-layer declarations and assumptions about stylesheet order or
   specificity;
 - custom form-control, placeholder, validation-state, and table-overflow rules;
@@ -87,11 +86,7 @@ distinguish from regressions.
 12. Preserve named palette selection separately from light/dark mode. A
    `data-mine-theme` value may select a sidecar such as Tron, but each named
    theme must still follow `prefers-color-scheme` for its light and dark values.
-13. Keep optional Highlight.js palettes separate from document palettes. The
-    adaptive Tron syntax sidecar lives at `dist/highlight.js/tron-legacy.css`
-    and uses `data-hljs-theme="tron"`; its fixed light and dark counterparts
-    can be imported directly when the application owns syntax-mode selection.
-    Set both theme attributes only when one control should change both palettes.
+13. Keep optional Highlight.js palettes separate from document palettes. The adaptive Tron syntax sidecar lives at `dist/highlight.js/tron-legacy.css` and uses the same unscoped `.hljs-*` selectors as upstream Highlight.js. Load only one syntax stylesheet at a time, and switch its `<link href>` when the application owns syntax-theme selection. Its fixed light and dark counterparts can be imported directly when the application owns syntax-mode selection. Update both `data-mine-theme` and the syntax stylesheet link only when one control should change both palettes.
 
 Keep edits scoped to the migration. Preserve application-specific branding and
 behavior unless it conflicts with the removed v10 API.
@@ -102,8 +97,8 @@ behavior unless it conflicts with the removed v10 API.
 - Do not recreate class-based light/dark overrides; follow the browser setting.
 - Do not treat `data-mine-theme` as a light/dark switch. It selects a named
   palette only.
-- Do not assume `data-mine-theme` also selects a Highlight.js palette. Syntax
-  themes have their own sidecar and `data-hljs-theme` selector.
+- Do not assume `data-mine-theme` also selects a Highlight.js palette. Syntax themes are independent stylesheets with standard, unscoped `.hljs-*` selectors.
+- Do not load multiple Mine or upstream Highlight.js theme stylesheets at once. Switch one stylesheet link or arrange fixed light and dark files with mutually exclusive media queries.
 - Do not add custom button styling merely to reproduce v10. v11 intentionally
   keeps native buttons.
 - Do not assume the optional layout or top bar is bundled into the main

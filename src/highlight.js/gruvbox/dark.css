@@ -1,0 +1,6 @@
+/* Delegate Gruvbox Dark Medium syntax colors to Highlight.js. */
+@import url("highlight.js/styles/base16/gruvbox-dark-medium.css");
+
+.hljs {
+  --mine-hljs-background: #3c3836;
+}

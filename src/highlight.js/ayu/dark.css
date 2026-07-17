@@ -1,0 +1,30 @@
+/* Ayu Dark palette mapped from Ayu (MIT):
+ * https://github.com/ayu-theme/ayu-colors/blob/e3f44fdf2a1c83e3f183d4e8acd40c6a452dcb1c/themes/light.yaml
+ * https://github.com/ayu-theme/ayu-colors/blob/e3f44fdf2a1c83e3f183d4e8acd40c6a452dcb1c/themes/dark.yaml
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #bfbdb6;
+  --mine-hljs-background: #141821;
+  --mine-hljs-comment: #5a6673;
+  --mine-hljs-keyword: #ff8f40;
+  --mine-hljs-title: #59c2ff;
+  --mine-hljs-function: #ffb454;
+  --mine-hljs-attribute: #39bae6;
+  --mine-hljs-literal: #d2a6ff;
+  --mine-hljs-number: #d2a6ff;
+  --mine-hljs-property: #59c2ff;
+  --mine-hljs-string: #aad94c;
+  --mine-hljs-escape: #f29668;
+  --mine-hljs-regexp: #95e6cb;
+  --mine-hljs-special: #e6c08a;
+  --mine-hljs-variable-special: #f07178;
+  --mine-hljs-addition: #70bf56;
+  --mine-hljs-deletion: #f26d78;
+}
+
+/* stylelint-enable color-hex-length */

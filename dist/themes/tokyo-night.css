@@ -1,0 +1,44 @@
+/* Tokyo Night Light and Tokyo Night palette mapped from Tokyo Night (MIT):
+ * https://github.com/tokyo-night/tokyo-night-vscode-theme/blob/7c0f11eaef322f293621ca7befe462214b7ea468/themes/tokyo-night-light-color-theme.json
+ * https://github.com/tokyo-night/tokyo-night-vscode-theme/blob/7c0f11eaef322f293621ca7befe462214b7ea468/themes/tokyo-night-color-theme.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="tokyo-night"] {
+  /* Tokyo Night Light */
+  --light-text: #363c4d;
+  --light-background: #e6e7ed;
+  --light-layer-background: #dcdee3;
+  --light-accent-background: #dcdee3;
+  --light-accent-midground: #707280;
+  --light-control-border: #707280;
+  --light-accent-foreground: #4a5272;
+  --light-link-text: #2959aa;
+  --light-valid: #385f0d;
+  --light-invalid: #bd4040;
+  --light-mark-background: #d6d8df;
+  --light-code-text: #343b59;
+  --light-code-background: #dcdee3;
+  --light-code-border: #707280;
+
+  /* Tokyo Night */
+  --dark-text: #a9b1d6;
+  --dark-background: #1a1b26;
+  --dark-layer-background: #1e202e;
+  --dark-accent-background: #1e202e;
+  --dark-accent-midground: #787c99;
+  --dark-control-border: #787c99;
+  --dark-accent-foreground: #a9b1d6;
+  --dark-link-text: #7aa2f7;
+  --dark-valid: #9ece6a;
+  --dark-invalid: #db4b4b;
+  --dark-mark-background: #1e202e;
+  --dark-code-text: #a9b1d6;
+  --dark-code-background: #1e202e;
+  --dark-code-border: #787c99;
+}
+
+/* stylelint-enable color-hex-length */
+
+/*# sourceMappingURL=tokyo-night.css.map */

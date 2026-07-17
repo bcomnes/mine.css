@@ -1,11 +1,42 @@
+@property --link-hover-strength {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 a {
+  --link-hover-strength: 0;
+
   /* Link and body colors differ by more than 3:1; interaction adds a second cue. */
   text-decoration-skip-ink: auto;
   color: var(--link-text);
   text-decoration: none;
   border-radius: 0.2em;
   box-decoration-break: clone;
-  transition: background-color 0.1s ease, box-shadow 0.1s ease;
+
+  /*
+   * Paper trail (observed in Chromium 149.0.7827.55 on 2026-07-16): directly
+   * transitioning background-color and box-shadow between transparent and
+   * currentcolor-based color-mix() values produced coarse intermediate frames
+   * and a final halo snap. Safari rendered the same transition smoothly, and
+   * endpoint-only tests passed in both engines.
+   *
+   * Animate one registered number instead, then derive both painted values from
+   * it so Blink has a primitive value to interpolate on every frame. Related
+   * currentColor/color-mix Blink work (not this exact transition reproduction):
+   * https://crbug.com/1448813
+   */
+  background-color: color-mix(
+    in srgb,
+    currentcolor calc(var(--link-hover-strength) * 8%),
+    transparent
+  );
+  box-shadow: 0 0 0 calc(var(--link-hover-strength) * 0.14em) color-mix(
+    in srgb,
+    currentcolor calc(var(--link-hover-strength) * 8%),
+    transparent
+  );
+  transition: --link-hover-strength 0.1s ease;
 
   /* Restore the pre-v11 pointer behavior while leaving keyboard-only focus to
      the browser's native indicator. */
@@ -16,7 +47,6 @@ a {
   &:focus,
   &:hover {
     /* A soft halo adds a non-color cue without shifting surrounding text. */
-    background-color: color-mix(in srgb, currentcolor 8%, transparent);
-    box-shadow: 0 0 0 0.14em color-mix(in srgb, currentcolor 8%, transparent);
+    --link-hover-strength: 1;
   }
 }

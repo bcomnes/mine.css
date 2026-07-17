@@ -1,0 +1,43 @@
+/* Gruvbox Light Medium and Gruvbox Dark Medium palette mapped from Gruvbox (MIT):
+ * https://github.com/morhetz/gruvbox/blob/5d15b2765f59754d7ac263c88a0f6e3e58124951/colors/gruvbox.vim
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="gruvbox"] {
+  /* Gruvbox Light Medium */
+  --light-text: #3c3836;
+  --light-background: #fbf1c7;
+  --light-layer-background: #ebdbb2;
+  --light-accent-background: #ebdbb2;
+  --light-accent-midground: #665c54;
+  --light-control-border: #665c54;
+  --light-accent-foreground: #665c54;
+  --light-link-text: #076678;
+  --light-valid: #79740e;
+  --light-invalid: #9d0006;
+  --light-mark-background: #d5c4a1;
+  --light-code-text: #3c3836;
+  --light-code-background: #ebdbb2;
+  --light-code-border: #665c54;
+
+  /* Gruvbox Dark Medium */
+  --dark-text: #ebdbb2;
+  --dark-background: #282828;
+  --dark-layer-background: #3c3836;
+  --dark-accent-background: #3c3836;
+  --dark-accent-midground: #7c6f64;
+  --dark-control-border: #7c6f64;
+  --dark-accent-foreground: #bdae93;
+  --dark-link-text: #83a598;
+  --dark-valid: #b8bb26;
+  --dark-invalid: #fb4934;
+  --dark-mark-background: #504945;
+  --dark-code-text: #ebdbb2;
+  --dark-code-background: #3c3836;
+  --dark-code-border: #7c6f64;
+}
+
+/* stylelint-enable color-hex-length */
+
+/*# sourceMappingURL=gruvbox.css.map */

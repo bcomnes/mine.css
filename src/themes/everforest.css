@@ -1,0 +1,41 @@
+/* Everforest Light Medium and Everforest Dark Medium palette mapped from Everforest (MIT):
+ * https://github.com/sainnhe/everforest/blob/85a86eb62409e3ec88713bff3d1b9d7374e112e4/palette.md
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="everforest"] {
+  /* Everforest Light Medium */
+  --light-text: #5c6a72;
+  --light-background: #fdf6e3;
+  --light-layer-background: #f4f0d9;
+  --light-accent-background: #f4f0d9;
+  --light-accent-midground: #829181;
+  --light-control-border: #829181;
+  --light-accent-foreground: #5c6a72;
+  --light-link-text: #384b55;
+  --light-valid: #425047;
+  --light-invalid: #514045;
+  --light-mark-background: #faedcd;
+  --light-code-text: #5c6a72;
+  --light-code-background: #f4f0d9;
+  --light-code-border: #829181;
+
+  /* Everforest Dark Medium */
+  --dark-text: #d3c6aa;
+  --dark-background: #2d353b;
+  --dark-layer-background: #343f44;
+  --dark-accent-background: #343f44;
+  --dark-accent-midground: #859289;
+  --dark-control-border: #859289;
+  --dark-accent-foreground: #9da9a0;
+  --dark-link-text: #7fbbb3;
+  --dark-valid: #a7c080;
+  --dark-invalid: #e67e80;
+  --dark-mark-background: #4d4c43;
+  --dark-code-text: #d3c6aa;
+  --dark-code-background: #343f44;
+  --dark-code-border: #859289;
+}
+
+/* stylelint-enable color-hex-length */

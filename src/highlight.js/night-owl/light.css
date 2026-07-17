@@ -1,0 +1,30 @@
+/* Light Owl palette mapped from Night Owl (MIT):
+ * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-Light-color-theme.json
+ * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-color-theme.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #403f53;
+  --mine-hljs-background: #f0f0f0;
+  --mine-hljs-comment: #989fb1;
+  --mine-hljs-keyword: #994cc3;
+  --mine-hljs-title: #4876d6;
+  --mine-hljs-function: #994cc3;
+  --mine-hljs-attribute: #4876d6;
+  --mine-hljs-literal: #4876d6;
+  --mine-hljs-number: #aa0982;
+  --mine-hljs-property: #0c969b;
+  --mine-hljs-string: #4876d6;
+  --mine-hljs-escape: #aa0982;
+  --mine-hljs-regexp: #5ca7e4;
+  --mine-hljs-special: #0c969b;
+  --mine-hljs-variable-special: #0c969b;
+  --mine-hljs-addition: #036a07;
+  --mine-hljs-deletion: #e64d49;
+}
+
+/* stylelint-enable color-hex-length */

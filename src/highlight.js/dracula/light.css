@@ -1,0 +1,30 @@
+/* Alucard Classic palette mapped from Dracula (MIT):
+ * https://github.com/dracula/dracula-theme/blob/c988d3d1c9e40dffef7c28f4b99079523637d5d2/README.md
+ * https://draculatheme.com/spec
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #1f1f1f;
+  --mine-hljs-background: #efeddc;
+  --mine-hljs-comment: #6c664b;
+  --mine-hljs-keyword: #a3144d;
+  --mine-hljs-title: #644ac9;
+  --mine-hljs-function: #14710a;
+  --mine-hljs-attribute: #14710a;
+  --mine-hljs-literal: #644ac9;
+  --mine-hljs-number: #644ac9;
+  --mine-hljs-property: #036a96;
+  --mine-hljs-string: #846e15;
+  --mine-hljs-escape: #a34d14;
+  --mine-hljs-regexp: #cb3a2a;
+  --mine-hljs-special: #036a96;
+  --mine-hljs-variable-special: #644ac9;
+  --mine-hljs-addition: #14710a;
+  --mine-hljs-deletion: #cb3a2a;
+}
+
+/* stylelint-enable color-hex-length */

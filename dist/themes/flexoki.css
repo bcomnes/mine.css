@@ -1,0 +1,45 @@
+/* Flexoki Light and Flexoki Dark palette mapped from Flexoki (MIT):
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/css/flexoki.css
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/vscode/Flexoki-Light-color-theme.json
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/vscode/Flexoki-Dark-color-theme.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="flexoki"] {
+  /* Flexoki Light */
+  --light-text: #100f0f;
+  --light-background: #fffcf0;
+  --light-layer-background: #f2f0e5;
+  --light-accent-background: #f2f0e5;
+  --light-accent-midground: #878580;
+  --light-control-border: #878580;
+  --light-accent-foreground: #575653;
+  --light-link-text: #205ea6;
+  --light-valid: #66800b;
+  --light-invalid: #af3029;
+  --light-mark-background: #f6e2a0;
+  --light-code-text: #100f0f;
+  --light-code-background: #f2f0e5;
+  --light-code-border: #878580;
+
+  /* Flexoki Dark */
+  --dark-text: #cecdc3;
+  --dark-background: #100f0f;
+  --dark-layer-background: #1c1b1a;
+  --dark-accent-background: #1c1b1a;
+  --dark-accent-midground: #878580;
+  --dark-control-border: #878580;
+  --dark-accent-foreground: #b7b5ac;
+  --dark-link-text: #4385be;
+  --dark-valid: #879a39;
+  --dark-invalid: #d14d41;
+  --dark-mark-background: #403e3c;
+  --dark-code-text: #cecdc3;
+  --dark-code-background: #1c1b1a;
+  --dark-code-border: #878580;
+}
+
+/* stylelint-enable color-hex-length */
+
+/*# sourceMappingURL=flexoki.css.map */

@@ -230,26 +230,23 @@ For example, load and select the optional Tron theme with:
 </html>
 ```
 
-Remove the attribute to use mine.css's default palette. Matching Highlight.js
-colors now live in a separate sidecar and use their own selector:
+Remove the attribute to use mine.css's default palette.
+Matching Highlight.js colors live in a separate, unscoped stylesheet using the standard Highlight.js selectors:
 
 ```html
-<html lang="en" data-hljs-theme="tron">
-  <head>
-    <link rel="stylesheet" href="https://unpkg.com/mine.css@^11/dist/highlight.js/tron-legacy.css">
-  </head>
-</html>
+<link
+  data-mine-hljs-stylesheet
+  rel="stylesheet"
+  href="https://unpkg.com/mine.css@^11/dist/highlight.js/tron-legacy/index.css"
+>
 ```
 
-`tron-legacy.css` is the adaptive convenience entry point: it loads
-`tron-legacy-light.css` normally and `tron-legacy-dark.css` under
-`prefers-color-scheme: dark`. Import either fixed file directly when the
-application needs to select syntax mode independently of the browser setting.
+`tron-legacy/index.css` is the adaptive convenience entry point: it loads `light.css` normally and `dark.css` under `prefers-color-scheme: dark`.
+Import either fixed file directly when the application needs to select syntax mode independently of the browser setting.
 
-The document and syntax themes can also be selected independently. A site that
-changes both from one menu should update both `data-mine-theme` and
-`data-hljs-theme`. If the site also offers default Highlight.js colors, load
-those styles before the Tron Highlight.js sidecar.
+The document and syntax themes can also be selected independently.
+A site that changes both from one menu should update `data-mine-theme` and the syntax stylesheet's `href`.
+Load only one Highlight.js theme stylesheet at a time because upstream and Mine's custom themes intentionally share the same unscoped selectors.
 
 ## Rename top-bar selectors
 

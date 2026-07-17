@@ -1,0 +1,29 @@
+/* Catppuccin Latte palette mapped from Catppuccin (MIT):
+ * https://github.com/catppuccin/palette/blob/07d02aa110ef9eb7e7427afca5c73ba9cf7f8ebd/palette.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #4c4f69;
+  --mine-hljs-background: #e6e9ef;
+  --mine-hljs-comment: #7c7f93;
+  --mine-hljs-keyword: #8839ef;
+  --mine-hljs-title: #1e66f5;
+  --mine-hljs-function: #1e66f5;
+  --mine-hljs-attribute: #df8e1d;
+  --mine-hljs-literal: #fe640b;
+  --mine-hljs-number: #fe640b;
+  --mine-hljs-property: #209fb5;
+  --mine-hljs-string: #40a02b;
+  --mine-hljs-escape: #ea76cb;
+  --mine-hljs-regexp: #179299;
+  --mine-hljs-special: #04a5e5;
+  --mine-hljs-variable-special: #d20f39;
+  --mine-hljs-addition: #40a02b;
+  --mine-hljs-deletion: #d20f39;
+}
+
+/* stylelint-enable color-hex-length */

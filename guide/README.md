@@ -1,64 +1,29 @@
+<!-- omit from toc -->
 # Style Guide
 
 See how elements are styled with `mine.css`.
 
 <details>
   <summary><strong>Table of Contents</strong></summary>
-  <ul>
-    <li><a href="#headings">Headings</a></li>
-    <li><a href="#paragraphs">Paragraphs</a></li>
-    <li><a href="#links">Links</a></li>
-    <li><a href="#lists">Lists</a></li>
-    <li><a href="#blockquotes">Blockquotes</a></li>
-    <li><a href="#emphasis">Emphasis</a></li>
-    <li><a href="#code">Code</a></li>
-    <li><a href="#tables">Tables</a></li>
-    <li><a href="#horizontal-rules">Horizontal Rules</a></li>
-    <li><a href="#images">Images</a></li>
-    <li><a href="#audio">Audio</a></li>
-    <li><a href="#canvas">Canvas</a></li>
-    <li><a href="#video">Video</a></li>
-    <li><a href="#iframes">Iframes</a></li>
-    <li><a href="#figures">Figures</a></li>
-    <li><a href="#extras">Extras</a></li>
-    <li>
-      <a href="#input-types">Input Types</a>
-      <ul>
-        <li><a href="#button">Button</a></li>
-        <li><a href="#checkbox">Checkbox</a></li>
-        <li><a href="#color">Color</a></li>
-        <li><a href="#date">Date</a></li>
-        <li><a href="#datetime-local">Datetime Local</a></li>
-        <li><a href="#email">Email</a></li>
-        <li><a href="#file">File</a></li>
-        <li><a href="#image-input">Image</a></li>
-        <li><a href="#month">Month</a></li>
-        <li><a href="#number">Number</a></li>
-        <li><a href="#password">Password</a></li>
-        <li><a href="#radio">Radio</a></li>
-        <li><a href="#range">Range</a></li>
-        <li><a href="#reset">Reset</a></li>
-        <li><a href="#search">Search</a></li>
-        <li><a href="#submit">Submit</a></li>
-        <li><a href="#tel">Tel</a></li>
-        <li><a href="#text">Text</a></li>
-        <li><a href="#textarea">Text Area</a></li>
-        <li><a href="#time">Time</a></li>
-        <li><a href="#url">URL</a></li>
-        <li><a href="#week">Week</a></li>
-      </ul>
-    </li>
-  </ul>
+
+[[toc]]
+
 </details>
 
 
 ## <a id="headings" href="#headings">Headings</a>
 
+<!-- omit from toc -->
 # h1 Heading `with code` <small>and small text</small>
+<!-- omit from toc -->
 ## h2 Heading `with code` <small>and small text</small>
+<!-- omit from toc -->
 ### h3 Heading `with code` <small>and small text</small>
+<!-- omit from toc -->
 #### h4 Heading `with code` <small>and small text</small>
+<!-- omit from toc -->
 ##### h5 Heading `with code` <small>and small text</small>
+<!-- omit from toc -->
 ###### h6 Heading `with code` <small>and small text</small>
 
 ```md
@@ -251,6 +216,102 @@ var foo = function (bar) {
 
 console.log(foo(5)); console.log(foo(5)); console.log(foo(5)); console.log(foo(5));
 </code></pre>
+
+### <a id="language-examples" href="#language-examples">Language Examples</a>
+
+These examples model the same small record in several languages so their syntax colors are easy to compare.
+
+#### TypeScript
+
+```typescript
+type User = {
+  id: number
+  name: string
+}
+
+const formatUser = ({ id, name }: User): string =>
+  `${id}: ${name}`
+
+console.log(formatUser({ id: 7, name: 'Ada' }))
+```
+
+#### Python
+
+```python
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class User:
+    id: int
+    name: str
+
+def format_user(user: User) -> str:
+    return f"{user.id}: {user.name}"
+```
+
+#### Go
+
+```go
+package main
+
+import "fmt"
+
+type User struct {
+    ID   int
+    Name string
+}
+
+func (user User) String() string {
+    return fmt.Sprintf("%d: %s", user.ID, user.Name)
+}
+```
+
+#### Rust
+
+```rust
+#[derive(Debug)]
+struct User {
+    id: u32,
+    name: &'static str,
+}
+
+impl User {
+    fn label(&self) -> String {
+        format!("{}: {}", self.id, self.name)
+    }
+}
+```
+
+#### C
+
+```c
+#include <stdio.h>
+
+typedef struct {
+    int id;
+    const char *name;
+} User;
+
+static void print_user(const User *user) {
+    printf("%d: %s\n", user->id, user->name);
+}
+```
+
+#### C++
+
+```cpp
+#include <iostream>
+#include <string>
+
+struct User {
+    int id;
+    std::string name;
+};
+
+std::ostream& operator<<(std::ostream& out, const User& user) {
+    return out << user.id << ": " << user.name;
+}
+```
 
 ### <a id="user-input" href="#user-input">User Input</a>
 

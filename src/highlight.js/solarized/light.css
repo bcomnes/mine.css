@@ -1,0 +1,6 @@
+/* Delegate Solarized Light syntax colors to Highlight.js. */
+@import url("highlight.js/styles/base16/solarized-light.css");
+
+.hljs {
+  --mine-hljs-background: #eee8d5;
+}

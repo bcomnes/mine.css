@@ -1,0 +1,25 @@
+/* Light syntax palette adapted from bcomnes/zed-theme-tron-legacy (MIT): https://github.com/bcomnes/zed-theme-tron-legacy */
+/* stylelint-disable color-hex-length -- Preserve source palette notation. */
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #1a2530;
+  --mine-hljs-background: #e8ecf2;
+  --mine-hljs-comment: #6b7e96;
+  --mine-hljs-keyword: #1a5f8a;
+  --mine-hljs-title: #267fb5;
+  --mine-hljs-function: #cc7700;
+  --mine-hljs-attribute: #e68a00;
+  --mine-hljs-literal: #cc7700;
+  --mine-hljs-number: #7aad3a;
+  --mine-hljs-property: #5a8b2c;
+  --mine-hljs-string: #d91e18;
+  --mine-hljs-escape: #e74c3c;
+  --mine-hljs-regexp: #0099cc;
+  --mine-hljs-special: #d1459a;
+  --mine-hljs-variable-special: #6a56cc;
+  --mine-hljs-addition: #7aad3a;
+  --mine-hljs-deletion: #cc0033;
+}
+
+/* stylelint-enable color-hex-length */

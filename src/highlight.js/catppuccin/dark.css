@@ -1,0 +1,29 @@
+/* Catppuccin Mocha palette mapped from Catppuccin (MIT):
+ * https://github.com/catppuccin/palette/blob/07d02aa110ef9eb7e7427afca5c73ba9cf7f8ebd/palette.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #cdd6f4;
+  --mine-hljs-background: #313244;
+  --mine-hljs-comment: #9399b2;
+  --mine-hljs-keyword: #cba6f7;
+  --mine-hljs-title: #89b4fa;
+  --mine-hljs-function: #89b4fa;
+  --mine-hljs-attribute: #f9e2af;
+  --mine-hljs-literal: #fab387;
+  --mine-hljs-number: #fab387;
+  --mine-hljs-property: #74c7ec;
+  --mine-hljs-string: #a6e3a1;
+  --mine-hljs-escape: #f5c2e7;
+  --mine-hljs-regexp: #94e2d5;
+  --mine-hljs-special: #89dceb;
+  --mine-hljs-variable-special: #f38ba8;
+  --mine-hljs-addition: #a6e3a1;
+  --mine-hljs-deletion: #f38ba8;
+}
+
+/* stylelint-enable color-hex-length */

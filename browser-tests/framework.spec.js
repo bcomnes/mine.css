@@ -1,6 +1,7 @@
-/* global HTMLMediaElement, getComputedStyle */
+/* global HTMLMediaElement, getComputedStyle, requestAnimationFrame */
 
 import { expect, test } from './support.js'
+import { namedThemes, namedThemeValues } from '../globals/theme-options.js'
 
 async function gotoGuide (page, siteURL) {
   await page.goto(`${siteURL}/guide/`, { waitUntil: 'domcontentloaded' })
@@ -217,7 +218,7 @@ test('keeps audio controls and canvas content responsive', async ({ page, siteUR
   expect(presentation.canvasWidth / presentation.canvasHeight).toBeCloseTo(1280 / 240, 2)
 })
 
-test('centers figures on their media without letting captions widen them', async ({ page, siteURL }) => {
+test('centers figures on their media and keeps borderless images transparent', async ({ page, siteURL }) => {
   await gotoGuide(page, siteURL)
 
   const presentation = await page.evaluate(() => {
@@ -229,13 +230,25 @@ test('centers figures on their media without letting captions widen them', async
     const caption = document.createElement('figcaption')
     caption.textContent = 'A deliberately long caption should wrap to the media instead of widening its figure.'
     figure.append(image, caption)
-    document.body.append(figure)
+
+    const borderlessFigure = document.createElement('figure')
+    borderlessFigure.className = 'borderless'
+    const borderlessImage = document.createElement('img')
+    borderlessImage.alt = ''
+    borderlessImage.width = 240
+    borderlessImage.height = 120
+    borderlessFigure.append(borderlessImage)
+    document.body.append(figure, borderlessFigure)
 
     const bodyBounds = document.body.getBoundingClientRect()
     const figureBounds = figure.getBoundingClientRect()
     const imageBounds = image.getBoundingClientRect()
     const captionBounds = caption.getBoundingClientRect()
+    const borderlessImageStyles = getComputedStyle(borderlessImage)
     return {
+      borderlessBackground: borderlessImageStyles.backgroundColor,
+      borderlessBorderRadius: borderlessImageStyles.borderRadius,
+      borderlessBoxShadow: borderlessImageStyles.boxShadow,
       bodyCenter: bodyBounds.left + (bodyBounds.width / 2),
       captionContain: getComputedStyle(caption).contain,
       captionWidth: captionBounds.width,
@@ -247,6 +260,9 @@ test('centers figures on their media without letting captions widen them', async
   })
 
   expect(presentation.imageDisplay).toBe('block')
+  expect(presentation.borderlessBackground).toBe('rgba(0, 0, 0, 0)')
+  expect(presentation.borderlessBorderRadius).toBe('7px')
+  expect(presentation.borderlessBoxShadow).toBe('none')
   expect(presentation.captionContain).toBe('inline-size')
   expect(presentation.figureWidth).toBe(presentation.imageWidth)
   expect(presentation.captionWidth).toBe(presentation.imageWidth)
@@ -479,12 +495,35 @@ test('bounds and wraps prose without changing preformatted code', async ({ page,
   expect(wrapping.codeKeepsWidth).toBe(true)
 })
 
+test('renders the documented language examples with Highlight.js', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  for (const language of ['typescript', 'python', 'go', 'rust', 'c', 'cpp']) {
+    const example = page.locator(`code.language-${language}`)
+    await expect(example).toHaveCount(1)
+    await expect(example).toHaveClass(/\bhljs\b/)
+    expect(await example.locator('span[class*="hljs-"]').count()).toBeGreaterThan(0)
+  }
+})
+
+test('generates the guide table of contents from its headings', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const contents = page.locator('.table-of-contents')
+  await expect(contents).toHaveCount(1)
+  await expect(contents.locator('a[href="#language-examples"]')).toHaveText('Language Examples')
+  await expect(contents.locator('a[href="#additional-form-controls"]')).toHaveText('Additional Form Controls')
+  await expect(contents.locator('a[href="#input-states"]')).toHaveText('Input States')
+  await expect(contents.locator('a[href="#h1-heading-with-code-and-small-text"]')).toHaveCount(0)
+})
+
 test('switches the separate Tron document and Highlight.js palettes together in the demo', async ({ page, siteURL }) => {
   await page.emulateMedia({ colorScheme: 'light' })
   await gotoGuide(page, siteURL)
 
   const root = page.locator('html')
   const menu = page.getByLabel('color theme')
+  const themeStylesheet = page.locator('[data-mine-hljs-stylesheet]')
   const highlightedCode = page.locator('.hljs').first()
   const keyword = page.locator('.hljs-keyword').first()
   const string = page.locator('.hljs-string').first()
@@ -495,7 +534,7 @@ test('switches the separate Tron document and Highlight.js palettes together in 
   await menu.selectOption('tron')
 
   await expect(root).toHaveAttribute('data-mine-theme', 'tron')
-  await expect(root).toHaveAttribute('data-hljs-theme', 'tron')
+  await expect(themeStylesheet).toHaveAttribute('href', '/highlight.js/tron-legacy/index.css')
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(245, 247, 250)')
   await expect(highlightedCode).toHaveCSS('color', 'rgb(26, 37, 48)')
   await expect(highlightedCode).toHaveCSS('background-color', 'rgb(232, 236, 242)')
@@ -513,14 +552,43 @@ test('switches the separate Tron document and Highlight.js palettes together in 
 
   await page.reload({ waitUntil: 'domcontentloaded' })
   await expect(root).toHaveAttribute('data-mine-theme', 'tron')
-  await expect(root).toHaveAttribute('data-hljs-theme', 'tron')
+  await expect(themeStylesheet).toHaveAttribute('href', '/highlight.js/tron-legacy/index.css')
   await expect(menu).toHaveValue('tron')
 
   await menu.selectOption('default')
   expect(await root.getAttribute('data-mine-theme')).toBeNull()
-  expect(await root.getAttribute('data-hljs-theme')).toBeNull()
+  await expect(themeStylesheet).toHaveAttribute('href', '/highlight.js/default/index.css')
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(31, 31, 31)')
   await expect(highlightedCode).toHaveCSS('background-color', 'rgb(34, 39, 46)')
+})
+
+test('offers every sourced document and Highlight.js theme in both browser modes', async ({ page, siteURL }) => {
+  await page.emulateMedia({ colorScheme: 'light' })
+  await gotoGuide(page, siteURL)
+
+  const root = page.locator('html')
+  const menu = page.getByLabel('color theme')
+  const themeStylesheet = page.locator('[data-mine-hljs-stylesheet]')
+  const highlightedCode = page.locator('.hljs').first()
+  const codeHeight = await highlightedCode.evaluate(element => element.getBoundingClientRect().height)
+  const optionValues = await menu.locator('option').evaluateAll(options => options.map(option => option.value))
+  expect(optionValues).toEqual(['default', ...namedThemeValues])
+
+  for (const mode of ['light', 'dark']) {
+    await page.emulateMedia({ colorScheme: mode })
+
+    for (const { value, file } of namedThemes) {
+      await menu.selectOption(value)
+
+      await expect(root).toHaveAttribute('data-mine-theme', value)
+      await expect(themeStylesheet).toHaveAttribute('href', `/highlight.js/${file}/index.css`)
+      await expect.poll(() => themeStylesheet.evaluate(element => element.sheet?.href ?? '')).toContain(`/highlight.js/${file}/index.css`)
+      const bodyBackground = await page.locator('body').evaluate(element => getComputedStyle(element).backgroundColor)
+      const codeBackground = await highlightedCode.evaluate(element => getComputedStyle(element).backgroundColor)
+      expect(codeBackground).not.toBe(bodyBackground)
+      expect(await highlightedCode.evaluate(element => element.getBoundingClientRect().height)).toBe(codeHeight)
+    }
+  }
 })
 
 test('selects the Tron document and Highlight.js themes independently', async ({ page, siteURL }) => {
@@ -536,7 +604,9 @@ test('selects the Tron document and Highlight.js themes independently', async ({
 
   await page.evaluate(() => {
     delete document.documentElement.dataset.mineTheme
-    document.documentElement.dataset.hljsTheme = 'tron'
+    const stylesheet = /** @type {HTMLLinkElement | null} */ (document.querySelector('[data-mine-hljs-stylesheet]'))
+    if (!stylesheet) throw new Error('Highlight.js theme stylesheet is missing')
+    stylesheet.href = '/highlight.js/tron-legacy/index.css'
   })
   await expect(body).toHaveCSS('background-color', 'rgb(255, 255, 255)')
   await expect(highlightedCode).toHaveCSS('background-color', 'rgb(232, 236, 242)')
@@ -620,7 +690,36 @@ test('keeps link interaction feedback visible', async ({ page, siteURL }) => {
   expect(navigationColors.title).toBe(navigationColors.content)
 
   const navigationLink = page.getByRole('link', { name: 'guide', exact: true })
+  // Endpoint assertions passed with the Chromium defect, so sample animation
+  // frames and require a genuinely intermediate painted state as well.
+  const transitionSamplesPromise = navigationLink.evaluate(element => new Promise(resolve => {
+    const label = element.querySelector('.mine-top-bar-label')
+    if (!label) throw new Error('Navigation label fixture is missing')
+    const samples = []
+    let start
+    const sample = now => {
+      start ??= now
+      const styles = getComputedStyle(label)
+      samples.push({
+        elapsed: now - start,
+        strength: Number.parseFloat(styles.getPropertyValue('--link-hover-strength')),
+        background: styles.backgroundColor,
+        shadow: styles.boxShadow
+      })
+      if (now - start < 130) requestAnimationFrame(sample)
+      else resolve(samples)
+    }
+    requestAnimationFrame(sample)
+  }))
   await navigationLink.hover()
+  const transitionSamples = await transitionSamplesPromise
+  const intermediateSample = transitionSamples.find(sample => (
+    sample.strength > 0.05 && sample.strength < 0.95
+  ))
+  expect(intermediateSample).toBeDefined()
+  expect(intermediateSample.background).not.toBe('rgba(0, 0, 0, 0)')
+  expect(intermediateSample.shadow).not.toContain('rgba(0, 0, 0, 0)')
+
   const navigationHover = await navigationLink.evaluate(element => {
     const label = element.querySelector('.mine-top-bar-label')
     if (!label) throw new Error('Navigation label fixture is missing')

@@ -1,0 +1,41 @@
+/* Catppuccin Latte and Catppuccin Mocha palette mapped from Catppuccin (MIT):
+ * https://github.com/catppuccin/palette/blob/07d02aa110ef9eb7e7427afca5c73ba9cf7f8ebd/palette.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="catppuccin"] {
+  /* Catppuccin Latte */
+  --light-text: #4c4f69;
+  --light-background: #eff1f5;
+  --light-layer-background: #e6e9ef;
+  --light-accent-background: #e6e9ef;
+  --light-accent-midground: #7c7f93;
+  --light-control-border: #7c7f93;
+  --light-accent-foreground: #5c5f77;
+  --light-link-text: #8839ef;
+  --light-valid: #179299;
+  --light-invalid: #d20f39;
+  --light-mark-background: #ccd0da;
+  --light-code-text: #4c4f69;
+  --light-code-background: #e6e9ef;
+  --light-code-border: #7c7f93;
+
+  /* Catppuccin Mocha */
+  --dark-text: #cdd6f4;
+  --dark-background: #1e1e2e;
+  --dark-layer-background: #313244;
+  --dark-accent-background: #313244;
+  --dark-accent-midground: #6c7086;
+  --dark-control-border: #6c7086;
+  --dark-accent-foreground: #bac2de;
+  --dark-link-text: #89b4fa;
+  --dark-valid: #a6e3a1;
+  --dark-invalid: #f38ba8;
+  --dark-mark-background: #45475a;
+  --dark-code-text: #cdd6f4;
+  --dark-code-background: #313244;
+  --dark-code-border: #6c7086;
+}
+
+/* stylelint-enable color-hex-length */

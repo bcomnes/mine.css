@@ -1,0 +1,44 @@
+/* Atom One Light and Atom One Dark palette mapped from Atom One (MIT):
+ * https://github.com/atom/one-light-syntax/blob/d84579027410c576086dfca14d934c4bd74b0438/styles/colors.less
+ * https://github.com/atom/one-dark-syntax/blob/9c96f4454362267ac45322063e193ccf9d2debb1/styles/colors.less
+ * https://github.com/atom/one-light-ui/blob/a27bce35088ecd323e44f5c2510bcf2d4e9efcf8/styles/ui-variables-custom.less
+ * https://github.com/atom/one-dark-ui/blob/18c2143d41e17b337fff6dc7024562c4d999be17/styles/ui-variables-custom.less
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="atom-one"] {
+  /* Atom One Light */
+  --light-text: #383a42;
+  --light-background: #fafafa;
+  --light-layer-background: #eaeaeb;
+  --light-accent-background: #eaeaeb;
+  --light-accent-midground: #696c77;
+  --light-control-border: #696c77;
+  --light-accent-foreground: #696c77;
+  --light-link-text: #a626a4;
+  --light-valid: #50a14f;
+  --light-invalid: #e45649;
+  --light-mark-background: #eaeaeb;
+  --light-code-text: #383a42;
+  --light-code-background: #eaeaeb;
+  --light-code-border: #696c77;
+
+  /* Atom One Dark */
+  --dark-text: #abb2bf;
+  --dark-background: #282c34;
+  --dark-layer-background: #21252b;
+  --dark-accent-background: #21252b;
+  --dark-accent-midground: #828997;
+  --dark-control-border: #828997;
+  --dark-accent-foreground: #abb2bf;
+  --dark-link-text: #61afef;
+  --dark-valid: #98c379;
+  --dark-invalid: #e06c75;
+  --dark-mark-background: #21252b;
+  --dark-code-text: #abb2bf;
+  --dark-code-background: #21252b;
+  --dark-code-border: #828997;
+}
+
+/* stylelint-enable color-hex-length */

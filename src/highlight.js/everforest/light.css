@@ -1,0 +1,29 @@
+/* Everforest Light Medium palette mapped from Everforest (MIT):
+ * https://github.com/sainnhe/everforest/blob/85a86eb62409e3ec88713bff3d1b9d7374e112e4/palette.md
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #5c6a72;
+  --mine-hljs-background: #f4f0d9;
+  --mine-hljs-comment: #939f91;
+  --mine-hljs-keyword: #f85552;
+  --mine-hljs-title: #f57d26;
+  --mine-hljs-function: #8da101;
+  --mine-hljs-attribute: #df69ba;
+  --mine-hljs-literal: #df69ba;
+  --mine-hljs-number: #df69ba;
+  --mine-hljs-property: #3a94c5;
+  --mine-hljs-string: #8da101;
+  --mine-hljs-escape: #35a77c;
+  --mine-hljs-regexp: #8da101;
+  --mine-hljs-special: #dfa000;
+  --mine-hljs-variable-special: #3a94c5;
+  --mine-hljs-addition: #8da101;
+  --mine-hljs-deletion: #f85552;
+}
+
+/* stylelint-enable color-hex-length */

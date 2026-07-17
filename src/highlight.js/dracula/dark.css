@@ -1,0 +1,6 @@
+/* Delegate Dracula syntax colors to Highlight.js. */
+@import url("highlight.js/styles/base16/dracula.css");
+
+.hljs {
+  --mine-hljs-background: #343746;
+}

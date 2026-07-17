@@ -1,0 +1,37 @@
+@import url("../dist/mine.css");
+@import url("../dist/layout.css");
+@import url("../dist/top-bar.css");
+@import url("../dist/themes/tron-legacy.css");
+@import url("../dist/themes/atom-one.css");
+@import url("../dist/themes/ayu.css");
+@import url("../dist/themes/catppuccin.css");
+@import url("../dist/themes/dracula.css");
+@import url("../dist/themes/everforest.css");
+@import url("../dist/themes/flexoki.css");
+@import url("../dist/themes/github.css");
+@import url("../dist/themes/gruvbox.css");
+@import url("../dist/themes/kanagawa.css");
+@import url("../dist/themes/night-owl.css");
+@import url("../dist/themes/rose-pine.css");
+@import url("../dist/themes/solarized.css");
+@import url("../dist/themes/tokyo-night.css");
+
+footer {
+  text-align: center;
+  margin-block: 3rem;
+  margin-inline: auto;
+}
+
+footer a {
+  color: #777;
+  text-decoration: none;
+}
+
+@media print {
+  /* Site chrome is useful on screen but wastes space and ink on paper. */
+  .mine-top-bar,
+  footer {
+    display: none;
+  }
+
+}

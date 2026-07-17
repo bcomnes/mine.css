@@ -1,0 +1,42 @@
+/* Kanagawa Lotus and Kanagawa Wave palette mapped from Kanagawa (MIT):
+ * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/colors.lua
+ * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/themes.lua
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="kanagawa"] {
+  /* Kanagawa Lotus */
+  --light-text: #545464;
+  --light-background: #f2ecbc;
+  --light-layer-background: #e7dba0;
+  --light-accent-background: #e7dba0;
+  --light-accent-midground: #716e61;
+  --light-control-border: #716e61;
+  --light-accent-foreground: #43436c;
+  --light-link-text: #4d699b;
+  --light-valid: #6f894e;
+  --light-invalid: #c84053;
+  --light-mark-background: #c7d7e0;
+  --light-code-text: #545464;
+  --light-code-background: #e7dba0;
+  --light-code-border: #716e61;
+
+  /* Kanagawa Wave */
+  --dark-text: #dcd7ba;
+  --dark-background: #1f1f28;
+  --dark-layer-background: #2a2a37;
+  --dark-accent-background: #2a2a37;
+  --dark-accent-midground: #727169;
+  --dark-control-border: #727169;
+  --dark-accent-foreground: #c8c093;
+  --dark-link-text: #7fb4ca;
+  --dark-valid: #98bb6c;
+  --dark-invalid: #e46876;
+  --dark-mark-background: #2d4f67;
+  --dark-code-text: #dcd7ba;
+  --dark-code-background: #2a2a37;
+  --dark-code-border: #727169;
+}
+
+/* stylelint-enable color-hex-length */

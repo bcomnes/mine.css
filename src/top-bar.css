@@ -1,5 +1,19 @@
 /* Reimplementation inspired by top-bar.css (ISC License): https://github.com/css-pkg/top-bar.css */
 
+/*
+ * Register the transition locally so this optional sidecar remains self-contained.
+ * In Chromium 149.0.7827.55, directly transitioning currentcolor-based color-mix()
+ * background and shadow values stepped through coarse frames and snapped at the
+ * end; Safari was smooth. A registered number keeps Blink's interpolation
+ * continuous. Related engine work (not the exact reproduction):
+ * https://crbug.com/1448813
+ */
+@property --link-hover-strength {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 /* Keep compact navigation controls on one scrollable row instead of growing a tall header. */
 .mine-top-bar {
   box-sizing: border-box;
@@ -77,8 +91,20 @@ select.mine-top-bar-select {
 
 /* Keep generous hit targets while drawing feedback tightly around their labels. */
 .mine-top-bar-label {
+  --link-hover-strength: 0;
+
   border-radius: 0.2em;
-  transition: background-color 0.1s ease, box-shadow 0.1s ease;
+  background-color: color-mix(
+    in srgb,
+    currentcolor calc(var(--link-hover-strength) * 8%),
+    transparent
+  );
+  box-shadow: 0 0 0 calc(var(--link-hover-strength) * 0.14em) color-mix(
+    in srgb,
+    currentcolor calc(var(--link-hover-strength) * 8%),
+    transparent
+  );
+  transition: --link-hover-strength 0.1s ease;
 }
 
 .mine-top-bar-title a,
@@ -93,8 +119,7 @@ select.mine-top-bar-select {
     box-shadow: none;
 
     .mine-top-bar-label {
-      background-color: color-mix(in srgb, currentcolor 8%, transparent);
-      box-shadow: 0 0 0 0.14em color-mix(in srgb, currentcolor 8%, transparent);
+      --link-hover-strength: 1;
     }
   }
 }

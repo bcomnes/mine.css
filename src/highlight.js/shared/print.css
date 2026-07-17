@@ -1,0 +1,10 @@
+@media print {
+  /* Screen syntax colors are unnecessary when printing code. */
+  .hljs,
+  .hljs *,
+  .hljs [class^="hljs-"],
+  .hljs [class*=" hljs-"] {
+    color: inherit;
+    background: transparent;
+  }
+}

@@ -1,0 +1,5 @@
+/* Follow the browser preference by composing the fixed Dracula Highlight.js themes. */
+@import url("./light.css");
+@import url("./dark.css") (prefers-color-scheme: dark);
+@import url("../shared/surface.css");
+@import url("../shared/print.css");

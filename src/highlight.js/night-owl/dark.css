@@ -1,0 +1,6 @@
+/* Delegate Night Owl syntax colors to Highlight.js. */
+@import url("highlight.js/styles/night-owl.css");
+
+.hljs {
+  --mine-hljs-background: #0b253a;
+}

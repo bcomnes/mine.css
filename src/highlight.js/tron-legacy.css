@@ -1,3 +1,0 @@
-/* Follow the browser preference by composing the two fixed Highlight.js themes. */
-@import url("./tron-legacy-light.css");
-@import url("./tron-legacy-dark.css") (prefers-color-scheme: dark);

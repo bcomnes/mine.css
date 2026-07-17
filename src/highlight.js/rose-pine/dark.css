@@ -1,0 +1,6 @@
+/* Delegate Rosé Pine syntax colors to Highlight.js. */
+@import url("highlight.js/styles/rose-pine.css");
+
+.hljs {
+  --mine-hljs-background: #1f1d2e;
+}

@@ -1,4 +1,4 @@
-# mine.css
+# mine.css ⛏️
 
 A mostly classless stylesheet for HTML documents and evolution of [style.css][style].
 
@@ -78,43 +78,6 @@ The package root points to the main stylesheet. Because mine.css leaves package 
 ```
 
 The best way to get familiar with the look and feel of `mine.css` is to visit the [style guide][guide]. Detailed examples of every HTML element (and how to write them in markdown) are available there.
-
-## Accessibility
-
-The native `hidden` attribute stays authoritative even when an element receives
-a component `display` style. Mine.css leaves `hidden="until-found"` alone so
-supporting browsers can reveal matching content during find-in-page or fragment
-navigation.
-
-Use `.visually-hidden` when content should remain available to assistive
-technology without being painted. A focusable element using the class becomes
-visible while focused or active, which makes it suitable for skip links:
-
-```html
-<a class="visually-hidden" href="#main">Skip to main content</a>
-```
-
-## Motion
-
-When the reader has not requested reduced motion, mine.css enables same-origin
-cross-document view transitions, allows intrinsic size keywords to interpolate,
-and smoothly scrolls in-page fragment navigation, including footnote references
-and return links. Readers whose browser or operating system reports
-`prefers-reduced-motion: reduce` receive none of these enhancements.
-
-To disable the motion defaults for every reader, override them after importing
-mine.css:
-
-```css
-@import 'mine.css';
-
-@view-transition { navigation: none; }
-
-html {
-  interpolate-size: numeric-only;
-  scroll-behavior: auto;
-}
-```
 
 ## Cascade layer
 
@@ -434,7 +397,8 @@ Use the same media query for application-specific dark styles:
 
 ### Light and dark syntax highlighting
 
-Highlight.js themes are ordinary stylesheets, so load a light theme first and conditionally load its dark counterpart afterward. The order matters: the dark rules should win only when the browser reports a dark preference.
+Highlight.js themes are ordinary stylesheets, so load a light theme first and conditionally load its dark counterpart afterward.
+The order matters: the dark rules should win only when the browser reports a dark preference.
 
 With a CSS bundler and the `highlight.js` package installed:
 
@@ -536,14 +500,38 @@ The demo's sticky navigation is also available as an optional companion styleshe
 
 Color themes are optional, named token overrides. Load a theme after `mine.css` and select it with `data-mine-theme` on the document root. The theme still uses the framework's existing `prefers-color-scheme` behavior, so choosing a palette does not create a separate light/dark override.
 
-The first theme adapts the light and dark palettes from [Tron Legacy for Zed](https://github.com/bcomnes/zed-theme-tron-legacy):
+Each family maps a concrete upstream light/dark pair. The maintained CSS
+sidecars in `src/themes` and `src/highlight.js` include pinned permalinks to the
+exact palette and editor-theme revisions used. Adjust their custom properties
+directly when refining a mapping; mine.css does not interpolate or invent
+colors between those source values.
+
+| Family | Selector | Light palette | Dark palette | Reference |
+| --- | --- | --- | --- | --- |
+| Atom One | `atom-one` | One Light | One Dark | [Atom One Light][atom-one-light], [Atom One Dark][atom-one-dark] |
+| Ayu | `ayu` | Ayu Light | Ayu Dark | [Ayu colors][ayu-colors] |
+| Catppuccin | `catppuccin` | Latte | Mocha | [Catppuccin palette][catppuccin-palette] |
+| Dracula | `dracula` | Alucard Classic | Dracula Classic | [Dracula specification][dracula-spec] |
+| Everforest | `everforest` | Light Medium | Dark Medium | [Everforest palette][everforest-palette] |
+| Flexoki | `flexoki` | Flexoki Light | Flexoki Dark | [Flexoki][flexoki] |
+| GitHub | `github` | GitHub Light | GitHub Dark | [Primer primitives][primer-primitives], [GitHub VS Code theme][github-vscode-theme] |
+| Gruvbox | `gruvbox` | Light Medium | Dark Medium | [Gruvbox][gruvbox] |
+| Kanagawa | `kanagawa` | Lotus | Wave | [Kanagawa][kanagawa] |
+| Night Owl | `night-owl` | Light Owl | Night Owl | [Night Owl][night-owl] |
+| Rosé Pine | `rose-pine` | Dawn | Main | [Rosé Pine palette][rose-pine] |
+| Solarized | `solarized` | Solarized Light | Solarized Dark | [Solarized][solarized] |
+| Tokyo Night | `tokyo-night` | Tokyo Night Light | Tokyo Night | [Tokyo Night][tokyo-night] |
+| Tron Legacy | `tron` | Tron Legacy Light | Tron Legacy Dark | [Tron Legacy for Zed][tron-legacy] |
+
+The sidecar filename normally matches the selector. Tron retains its existing
+`tron-legacy.css` filename for compatibility. For example:
 
 ```html
 <!doctype html>
-<html lang="en" data-mine-theme="tron">
+<html lang="en" data-mine-theme="github">
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0">
-    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/themes/tron-legacy.css">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^11">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^11/dist/themes/github.css">
   </head>
   <body>...</body>
 </html>
@@ -556,10 +544,10 @@ application styles:
 @layer mine, theme, app;
 
 @import 'mine.css';
-@import 'mine.css/dist/themes/tron-legacy.css' layer(theme);
+@import 'mine.css/dist/themes/github.css' layer(theme);
 
 @layer app {
-  :root[data-mine-theme="tron"] {
+  :root[data-mine-theme="github"] {
     /* Application theme overrides win without extra specificity. */
     --surface-shadow: none;
   }
@@ -571,45 +559,110 @@ Remove the attribute to return to the default palette. A menu can switch named t
 ```html
 <select aria-label="color theme" id="mine-theme">
   <option value="default">default</option>
-  <option value="tron">tron</option>
+  <option value="github">github</option>
+  <option value="night-owl">night owl / light owl</option>
 </select>
 <script type="module">
   const menu = document.querySelector('#mine-theme')
   menu.addEventListener('change', () => {
-    if (menu.value === 'tron') document.documentElement.dataset.mineTheme = 'tron'
+    if (menu.value !== 'default') document.documentElement.dataset.mineTheme = menu.value
     else delete document.documentElement.dataset.mineTheme
   })
 </script>
 ```
 
-The matching Highlight.js themes are separate sidecars with their own
-`data-hljs-theme` selector. This keeps document and syntax palettes independent.
-The convenience entry point composes the fixed light and dark stylesheets using
-`prefers-color-scheme`:
+The matching Highlight.js themes are ordinary, unscoped stylesheets using the same `.hljs-*` selectors as upstream Highlight.js.
+Load only one syntax theme at a time.
+The convenience entry point composes the fixed light and dark stylesheets using `prefers-color-scheme`:
 
 ```html
-<html lang="en" data-hljs-theme="tron">
+<link
+  data-mine-hljs-stylesheet
+  rel="stylesheet"
+  href="https://unpkg.com/mine.css@^11/dist/highlight.js/github/index.css"
+>
+```
+
+Consumers that want to control the syntax mode themselves can import a fixed variant instead:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^11/dist/highlight.js/github/light.css">
+<!-- or -->
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^11/dist/highlight.js/github/dark.css">
+```
+
+The fixed files contain no color-scheme media query.
+They can be loaded directly, arranged with `<link media>`, or switched by application code.
+Highlight.js itself remains responsible for producing the `.hljs-*` markup.
+Several fixed files delegate directly to themes maintained by Highlight.js.
+Those fixed files preserve upstream token and background rules when loaded directly.
+Adaptive entry points use the paired Mine code surface so highlighted blocks remain distinct from the document background.
+Mine's custom themes follow the same selector contract, so applications can switch every theme by changing one stylesheet URL:
+
+```js
+const stylesheet = document.querySelector('[data-mine-hljs-stylesheet]')
+stylesheet.href = 'https://unpkg.com/mine.css@^11/dist/highlight.js/night-owl/index.css'
+```
+
+The document and syntax themes remain independent.
+For example, a site can pair the Ayu document palette with Rosé Pine syntax colors:
+
+```html
+<!doctype html>
+<html lang="en" data-mine-theme="ayu">
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy.css">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^11">
+    <link rel="stylesheet" href="https://unpkg.com/mine.css@^11/dist/themes/ayu.css">
+    <link
+      data-mine-hljs-stylesheet
+      rel="stylesheet"
+      href="https://unpkg.com/mine.css@^11/dist/highlight.js/rose-pine/index.css"
+    >
   </head>
+  <body>...</body>
 </html>
 ```
 
-Consumers that want to control the syntax mode themselves can import a fixed
-variant instead:
+Both adaptive sidecars still choose their light or dark palette from `prefers-color-scheme`.
+An application that changes both from one menu should update `data-mine-theme` and the syntax stylesheet's `href`.
+
+## Accessibility
+
+The native `hidden` attribute stays authoritative even when an element receives
+a component `display` style. Mine.css leaves `hidden="until-found"` alone so
+supporting browsers can reveal matching content during find-in-page or fragment
+navigation.
+
+Use `.visually-hidden` when content should remain available to assistive
+technology without being painted. A focusable element using the class becomes
+visible while focused or active, which makes it suitable for skip links:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy-light.css">
-<!-- or -->
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/highlight.js/tron-legacy-dark.css">
+<a class="visually-hidden" href="#main">Skip to main content</a>
 ```
 
-The fixed files contain no color-scheme media query. They can be loaded
-directly, arranged with `<link media>`, or switched by application code.
-Highlight.js itself remains responsible for producing the `.hljs-*` markup.
-Sites may select either Tron theme alone, or set both theme attributes when the
-document and syntax palettes should change together. When offering a default
-Highlight.js choice too, load its styles before the Tron Highlight.js sidecar.
+### Motion
+
+When the reader has not requested reduced motion, mine.css enables same-origin
+cross-document view transitions, allows intrinsic size keywords to interpolate,
+and smoothly scrolls in-page fragment navigation, including footnote references
+and return links. Readers whose browser or operating system reports
+`prefers-reduced-motion: reduce` receive none of these enhancements.
+
+To disable the motion defaults for every reader, override them after importing
+mine.css:
+
+```css
+@import 'mine.css';
+
+@view-transition { navigation: none; }
+
+html {
+  interpolate-size: numeric-only;
+  scroll-behavior: auto;
+}
+```
 
 ## Thanks
 
@@ -630,5 +683,21 @@ Responsive audio and canvas defaults draw on the practical remedies collected in
 [css-reset-layer]: https://mayank.co/blog/css-reset-layer/
 [guide]: https://mine-css.neocities.org/guide/
 [open-props]: https://open-props.style/
+[atom-one-light]: https://github.com/atom/one-light-syntax
+[atom-one-dark]: https://github.com/atom/one-dark-syntax
+[ayu-colors]: https://github.com/ayu-theme/ayu-colors
+[catppuccin-palette]: https://github.com/catppuccin/palette
+[dracula-spec]: https://draculatheme.com/spec
+[everforest-palette]: https://github.com/sainnhe/everforest/blob/master/palette.md
+[flexoki]: https://github.com/kepano/flexoki
+[primer-primitives]: https://github.com/primer/primitives
+[github-vscode-theme]: https://github.com/primer/github-vscode-theme
+[gruvbox]: https://github.com/morhetz/gruvbox
+[kanagawa]: https://github.com/rebelot/kanagawa.nvim
+[night-owl]: https://github.com/sdras/night-owl-vscode-theme
+[rose-pine]: https://github.com/rose-pine/rose-pine-palette
+[solarized]: https://github.com/altercation/solarized
+[tokyo-night]: https://github.com/tokyo-night/tokyo-night-vscode-theme
+[tron-legacy]: https://github.com/bcomnes/zed-theme-tron-legacy
 
 [neocities-img]: https://img.shields.io/website/https/mine-css.neocities.org?label=neocities&logo=data:image/png;base64,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

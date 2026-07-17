@@ -1,0 +1,44 @@
+/* Rosé Pine Dawn and Rosé Pine Main palette mapped from Rosé Pine (MIT):
+ * https://github.com/rose-pine/rose-pine-palette/blob/92af52b465ab6e47437aca223c9b8d3009a2023b/palette.json
+ * https://github.com/rose-pine/rose-pine-palette/blob/92af52b465ab6e47437aca223c9b8d3009a2023b/README.md
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="rose-pine"] {
+  /* Rosé Pine Dawn */
+  --light-text: #464261;
+  --light-background: #faf4ed;
+  --light-layer-background: #f2e9e1;
+  --light-accent-background: #f2e9e1;
+  --light-accent-midground: #797593;
+  --light-control-border: #797593;
+  --light-accent-foreground: #464261;
+  --light-link-text: #286983;
+  --light-valid: #286983;
+  --light-invalid: #b4637a;
+  --light-mark-background: #f2e9e1;
+  --light-code-text: #464261;
+  --light-code-background: #f2e9e1;
+  --light-code-border: #797593;
+
+  /* Rosé Pine Main */
+  --dark-text: #e0def4;
+  --dark-background: #191724;
+  --dark-layer-background: #1f1d2e;
+  --dark-accent-background: #1f1d2e;
+  --dark-accent-midground: #6e6a86;
+  --dark-control-border: #6e6a86;
+  --dark-accent-foreground: #908caa;
+  --dark-link-text: #9ccfd8;
+  --dark-valid: #9ccfd8;
+  --dark-invalid: #eb6f92;
+  --dark-mark-background: #26233a;
+  --dark-code-text: #e0def4;
+  --dark-code-background: #1f1d2e;
+  --dark-code-border: #6e6a86;
+}
+
+/* stylelint-enable color-hex-length */
+
+/*# sourceMappingURL=rose-pine.css.map */

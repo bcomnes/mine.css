@@ -1,0 +1,31 @@
+/* Flexoki Light palette mapped from Flexoki (MIT):
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/css/flexoki.css
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/vscode/Flexoki-Light-color-theme.json
+ * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/vscode/Flexoki-Dark-color-theme.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #100f0f;
+  --mine-hljs-background: #f2f0e5;
+  --mine-hljs-comment: #6f6e69;
+  --mine-hljs-keyword: #66800b;
+  --mine-hljs-title: #bc5215;
+  --mine-hljs-function: #bc5215;
+  --mine-hljs-attribute: #ad8301;
+  --mine-hljs-literal: #5e409d;
+  --mine-hljs-number: #5e409d;
+  --mine-hljs-property: #205ea6;
+  --mine-hljs-string: #24837b;
+  --mine-hljs-escape: #100f0f;
+  --mine-hljs-regexp: #24837b;
+  --mine-hljs-special: #af3029;
+  --mine-hljs-variable-special: #a02f6f;
+  --mine-hljs-addition: #66800b;
+  --mine-hljs-deletion: #af3029;
+}
+
+/* stylelint-enable color-hex-length */

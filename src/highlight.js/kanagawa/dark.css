@@ -1,0 +1,30 @@
+/* Kanagawa Wave palette mapped from Kanagawa (MIT):
+ * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/colors.lua
+ * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/themes.lua
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+@import url("../shared/rules.css");
+
+.hljs {
+  --mine-hljs-foreground: #dcd7ba;
+  --mine-hljs-background: #2a2a37;
+  --mine-hljs-comment: #727169;
+  --mine-hljs-keyword: #957fb8;
+  --mine-hljs-title: #7e9cd8;
+  --mine-hljs-function: #7e9cd8;
+  --mine-hljs-attribute: #e46876;
+  --mine-hljs-literal: #ffa066;
+  --mine-hljs-number: #d27e99;
+  --mine-hljs-property: #e6c384;
+  --mine-hljs-string: #98bb6c;
+  --mine-hljs-escape: #e46876;
+  --mine-hljs-regexp: #c0a36e;
+  --mine-hljs-special: #7fb4ca;
+  --mine-hljs-variable-special: #b8b4d0;
+  --mine-hljs-addition: #76946a;
+  --mine-hljs-deletion: #c34043;
+}
+
+/* stylelint-enable color-hex-length */

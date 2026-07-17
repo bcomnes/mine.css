@@ -1,0 +1,6 @@
+/* Delegate GitHub Dark syntax colors to Highlight.js. */
+@import url("highlight.js/styles/github-dark.css");
+
+.hljs {
+  --mine-hljs-background: #161b22;
+}

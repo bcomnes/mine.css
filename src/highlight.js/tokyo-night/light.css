@@ -1,0 +1,6 @@
+/* Delegate Tokyo Night Light syntax colors to Highlight.js. */
+@import url("highlight.js/styles/tokyo-night-light.css");
+
+.hljs {
+  --mine-hljs-background: #dcdee3;
+}

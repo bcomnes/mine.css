@@ -1,0 +1,334 @@
+/* Follow the browser preference by composing the fixed Catppuccin Highlight.js themes. */
+/* Catppuccin Latte palette mapped from Catppuccin (MIT):
+ * https://github.com/catppuccin/palette/blob/07d02aa110ef9eb7e7427afca5c73ba9cf7f8ebd/palette.json
+ */
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+/* Highlight.js exposes these class names, so they intentionally do not follow mine.css naming. */
+/* stylelint-disable selector-class-pattern */
+/* Match the structural rules shipped by Highlight.js so custom themes are drop-in compatible. */
+code.hljs {
+  padding-block: 3px;
+  padding-inline: 5px;
+}
+pre code.hljs {
+  display: block;
+
+  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
+  overflow-x: auto;
+  padding: 1em;
+}
+.hljs {
+  color: var(--mine-hljs-foreground);
+  background: var(--mine-hljs-background);
+}
+.hljs-subst,
+.hljs-params,
+.hljs-punctuation {
+  color: var(--mine-hljs-foreground);
+}
+.hljs-comment,
+.hljs-code,
+.hljs-formula,
+.hljs-quote {
+  color: var(--mine-hljs-comment);
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-operator,
+.hljs-template-tag,
+.hljs-type,
+.hljs-built_in {
+  color: var(--mine-hljs-keyword);
+  font-style: italic;
+}
+.hljs-type { font-weight: 700; }
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-section,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--mine-hljs-title);
+}
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-section {
+  font-weight: 700;
+}
+.hljs-title.function_,
+.hljs-function .hljs-title {
+  color: var(--mine-hljs-function);
+  font-weight: inherit;
+}
+.hljs-attr,
+.hljs-attribute {
+  color: var(--mine-hljs-attribute);
+}
+.hljs-literal,
+.hljs-symbol {
+  color: var(--mine-hljs-literal);
+  font-style: italic;
+}
+.hljs-number,
+.hljs-bullet {
+  color: var(--mine-hljs-number);
+}
+.hljs-property,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: var(--mine-hljs-property);
+}
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: var(--mine-hljs-string);
+}
+.hljs-char.escape_ {
+  color: var(--mine-hljs-escape);
+}
+.hljs-regexp,
+.hljs-meta,
+.hljs-link {
+  color: var(--mine-hljs-regexp);
+}
+.hljs-name,
+.hljs-selector-tag,
+.hljs-tag {
+  color: var(--mine-hljs-keyword);
+}
+.hljs-selector-pseudo {
+  color: var(--mine-hljs-special);
+}
+.hljs-variable.language_ {
+  color: var(--mine-hljs-variable-special);
+  font-style: italic;
+}
+.hljs-emphasis {
+  color: var(--mine-hljs-regexp);
+  font-style: italic;
+}
+.hljs-strong {
+  color: var(--mine-hljs-function);
+  font-weight: 700;
+}
+.hljs-addition {
+  color: var(--mine-hljs-addition);
+}
+.hljs-deletion {
+  color: var(--mine-hljs-deletion);
+}
+/* stylelint-enable selector-class-pattern */
+.hljs {
+  --mine-hljs-foreground: #4c4f69;
+  --mine-hljs-background: #e6e9ef;
+  --mine-hljs-comment: #7c7f93;
+  --mine-hljs-keyword: #8839ef;
+  --mine-hljs-title: #1e66f5;
+  --mine-hljs-function: #1e66f5;
+  --mine-hljs-attribute: #df8e1d;
+  --mine-hljs-literal: #fe640b;
+  --mine-hljs-number: #fe640b;
+  --mine-hljs-property: #209fb5;
+  --mine-hljs-string: #40a02b;
+  --mine-hljs-escape: #ea76cb;
+  --mine-hljs-regexp: #179299;
+  --mine-hljs-special: #04a5e5;
+  --mine-hljs-variable-special: #d20f39;
+  --mine-hljs-addition: #40a02b;
+  --mine-hljs-deletion: #d20f39;
+}
+/* stylelint-enable color-hex-length */
+@media (prefers-color-scheme: dark) {
+
+/* Catppuccin Mocha palette mapped from Catppuccin (MIT):
+ * https://github.com/catppuccin/palette/blob/07d02aa110ef9eb7e7427afca5c73ba9cf7f8ebd/palette.json
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+}
+@media (prefers-color-scheme: dark) {
+/* Highlight.js exposes these class names, so they intentionally do not follow mine.css naming. */
+/* stylelint-disable selector-class-pattern */
+
+/* Match the structural rules shipped by Highlight.js so custom themes are drop-in compatible. */
+code.hljs {
+  padding-block: 3px;
+  padding-inline: 5px;
+}
+
+pre code.hljs {
+  display: block;
+
+  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
+  overflow-x: auto;
+  padding: 1em;
+}
+
+.hljs {
+  color: var(--mine-hljs-foreground);
+  background: var(--mine-hljs-background);
+}
+
+.hljs-subst,
+.hljs-params,
+.hljs-punctuation {
+  color: var(--mine-hljs-foreground);
+}
+
+.hljs-comment,
+.hljs-code,
+.hljs-formula,
+.hljs-quote {
+  color: var(--mine-hljs-comment);
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-operator,
+.hljs-template-tag,
+.hljs-type,
+.hljs-built_in {
+  color: var(--mine-hljs-keyword);
+  font-style: italic;
+}
+
+.hljs-type { font-weight: 700; }
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-section,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--mine-hljs-title);
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-section {
+  font-weight: 700;
+}
+
+.hljs-title.function_,
+.hljs-function .hljs-title {
+  color: var(--mine-hljs-function);
+  font-weight: inherit;
+}
+
+.hljs-attr,
+.hljs-attribute {
+  color: var(--mine-hljs-attribute);
+}
+
+.hljs-literal,
+.hljs-symbol {
+  color: var(--mine-hljs-literal);
+  font-style: italic;
+}
+
+.hljs-number,
+.hljs-bullet {
+  color: var(--mine-hljs-number);
+}
+
+.hljs-property,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: var(--mine-hljs-property);
+}
+
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: var(--mine-hljs-string);
+}
+
+.hljs-char.escape_ {
+  color: var(--mine-hljs-escape);
+}
+
+.hljs-regexp,
+.hljs-meta,
+.hljs-link {
+  color: var(--mine-hljs-regexp);
+}
+
+.hljs-name,
+.hljs-selector-tag,
+.hljs-tag {
+  color: var(--mine-hljs-keyword);
+}
+
+.hljs-selector-pseudo {
+  color: var(--mine-hljs-special);
+}
+
+.hljs-variable.language_ {
+  color: var(--mine-hljs-variable-special);
+  font-style: italic;
+}
+
+.hljs-emphasis {
+  color: var(--mine-hljs-regexp);
+  font-style: italic;
+}
+
+.hljs-strong {
+  color: var(--mine-hljs-function);
+  font-weight: 700;
+}
+
+.hljs-addition {
+  color: var(--mine-hljs-addition);
+}
+
+.hljs-deletion {
+  color: var(--mine-hljs-deletion);
+}
+
+/* stylelint-enable selector-class-pattern */
+}
+@media (prefers-color-scheme: dark) {
+
+.hljs {
+  --mine-hljs-foreground: #cdd6f4;
+  --mine-hljs-background: #313244;
+  --mine-hljs-comment: #9399b2;
+  --mine-hljs-keyword: #cba6f7;
+  --mine-hljs-title: #89b4fa;
+  --mine-hljs-function: #89b4fa;
+  --mine-hljs-attribute: #f9e2af;
+  --mine-hljs-literal: #fab387;
+  --mine-hljs-number: #fab387;
+  --mine-hljs-property: #74c7ec;
+  --mine-hljs-string: #a6e3a1;
+  --mine-hljs-escape: #f5c2e7;
+  --mine-hljs-regexp: #94e2d5;
+  --mine-hljs-special: #89dceb;
+  --mine-hljs-variable-special: #f38ba8;
+  --mine-hljs-addition: #a6e3a1;
+  --mine-hljs-deletion: #f38ba8;
+}
+
+/* stylelint-enable color-hex-length */
+}
+/* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
+.hljs {
+  background-color: var(--mine-hljs-background);
+}
+@media print {
+  /* Screen syntax colors are unnecessary when printing code. */
+  .hljs,
+  .hljs *,
+  .hljs [class^="hljs-"],
+  .hljs [class*=" hljs-"] {
+    color: inherit;
+    background: transparent;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

@@ -10,8 +10,8 @@
   },
   "include": [
     "src/**/*.js",
-    "global*.js",
-    "root.layout.js",
+    "globals/**/*.js",
+    "layouts/**/*.js",
     "playwright.config.js",
     "types/**/*.d.ts"
   ],

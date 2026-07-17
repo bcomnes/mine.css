@@ -1,0 +1,43 @@
+/* GitHub Light and GitHub Dark palette mapped from GitHub (MIT):
+ * https://github.com/primer/primitives/blob/b447200fa097165c956c5833031c15608dbe6094/src/tokens/functional/color
+ * https://github.com/primer/github-vscode-theme/blob/cd78e5e4e7bcf132a6f428ae0f32264bb1b729cf/src/classic/colors.json
+ * https://github.com/primer/github-vscode-theme/blob/cd78e5e4e7bcf132a6f428ae0f32264bb1b729cf/src/classic/theme.js
+ */
+
+/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
+
+:root[data-mine-theme="github"] {
+  /* GitHub Light */
+  --light-text: #1f2328;
+  --light-background: #ffffff;
+  --light-layer-background: #f6f8fa;
+  --light-accent-background: #f6f8fa;
+  --light-accent-midground: #8c959f;
+  --light-control-border: #8c959f;
+  --light-accent-foreground: #57606a;
+  --light-link-text: #0969da;
+  --light-valid: #1a7f37;
+  --light-invalid: #cf222e;
+  --light-mark-background: #fff8c5;
+  --light-code-text: #24292f;
+  --light-code-background: #f6f8fa;
+  --light-code-border: #8c959f;
+
+  /* GitHub Dark */
+  --dark-text: #e6edf3;
+  --dark-background: #0d1117;
+  --dark-layer-background: #161b22;
+  --dark-accent-background: #161b22;
+  --dark-accent-midground: #6e7681;
+  --dark-control-border: #6e7681;
+  --dark-accent-foreground: #8b949e;
+  --dark-link-text: #58a6ff;
+  --dark-valid: #3fb950;
+  --dark-invalid: #f85149;
+  --dark-mark-background: #4b2900;
+  --dark-code-text: #c9d1d9;
+  --dark-code-background: #161b22;
+  --dark-code-border: #6e7681;
+}
+
+/* stylelint-enable color-hex-length */

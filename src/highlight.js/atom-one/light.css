@@ -1,0 +1,6 @@
+/* Delegate Atom One Light syntax colors to Highlight.js. */
+@import url("highlight.js/styles/atom-one-light.css");
+
+.hljs {
+  --mine-hljs-background: #eaeaeb;
+}
