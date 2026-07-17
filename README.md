@@ -18,12 +18,6 @@ remains available for explicitly opting into layout, utilities, and companion UI
 
 Check out the [style guide][guide] to see what it looks like.
 
-## Browser support
-
-The distributed stylesheet uses native CSS nesting and cascade layers. The
-package's Browserslist contract is `supports css-nesting`; older browsers
-should use a separately transpiled build.
-
 ## Install
 
 [![download style.css][dl-sans-img]][dl-sans-url]
@@ -59,7 +53,31 @@ The package root points to the main stylesheet. Because mine.css leaves package 
 @import 'mine.css/dist/top-bar.css';
 ```
 
-## Usage
+### npm and build tools
+
+```console
+npm install mine.css --save-dev
+```
+
+Browsers do not resolve npm package names directly, so use a CSS build tool to
+load the package from `node_modules` before serving it:
+
+```css
+/* app.css */
+@import 'mine.css';
+```
+
+Several tools support this bare package import:
+
+- [postcss-import](https://github.com/postcss/postcss-import) inlines CSS from
+  local files and npm packages.
+- [esbuild](https://esbuild.github.io/content-types/#css) bundles CSS and
+  resolves package imports from `node_modules`.
+- [@domstack/static](https://github.com/bcomnes/domstack#page-styles) uses
+  esbuild for its global, layout, and page stylesheets, so the same import works
+  without additional configuration.
+
+## Quick start
 
 ```html
 <!doctype html>
@@ -79,7 +97,19 @@ The package root points to the main stylesheet. Because mine.css leaves package 
 
 The best way to get familiar with the look and feel of `mine.css` is to visit the [style guide][guide]. Detailed examples of every HTML element (and how to write them in markdown) are available there.
 
-## Cascade layer
+## Upgrading
+
+See [MIGRATION.md](./MIGRATION.md) for version-specific changes and upgrade guidance.
+
+## Browser support
+
+The distributed stylesheet uses native CSS nesting and cascade layers. The
+package's Browserslist contract is `supports css-nesting`; older browsers
+should use a separately transpiled build.
+
+## Customization
+
+### Cascade layers
 
 The main stylesheet ships inside a named `mine` cascade layer, following the
 technique described in [Your CSS reset should be layered][css-reset-layer]. For
@@ -125,85 +155,46 @@ The same pattern works for color and syntax-theme sidecars. Keeping `sidecar`
 separate documents that these files are explicit additions while still making
 them easy for an `app` layer—or unlayered site CSS—to override.
 
-### Using Open Props
+### Layout and top-bar sidecars
 
-[Open Props][open-props] is an optional design-token library that can supply
-spacing, radii, shadows, colors, easing curves, and other primitives without
-replacing mine.css's document styles. Install it alongside mine.css:
+`mine.css` does not include page layout by default, but it ships a small companion stylesheet with a readable document measure and safe-area support for notched displays.
 
-```console
-npm install open-props
+```html
+<!-- CDN Production (specific release) -->
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/layout.css">
 ```
 
-Place its tokens in a foundational layer before `mine`, then import only the
-packs the application uses:
+With npm and a CSS bundler, place optional layout companions between the
+framework and application styles:
 
 ```css
-@layer props, mine, sidecar, app;
-
-@import 'open-props/sizes' layer(props);
-@import 'open-props/borders' layer(props);
-@import 'open-props/shadows' layer(props);
+@layer mine, sidecar, app;
 
 @import 'mine.css';
 @import 'mine.css/dist/layout.css' layer(sidecar);
+@import 'mine.css/dist/top-bar.css' layer(sidecar);
 
 @layer app {
-  .card {
-    padding: var(--size-4);
-    border-radius: var(--radius-3);
-    box-shadow: var(--shadow-2);
+  .mine-layout {
+    max-inline-size: 64em;
   }
 }
 ```
 
-Use `@import 'open-props/style' layer(props)` instead when the application
-benefits from the full token catalog. Import mine.css normally because its main
-stylesheet already declares `layer(mine)`.
+You can see this layout style in action on the [`mine.css`][guide] website.
 
-Treat Open Props as a source of primitives rather than a second document
-framework. Its normalize and button styles overlap mine.css's semantic element
-styles, and its class-based theme switches conflict with mine.css's deliberate
-use of `prefers-color-scheme`. Application rules may map selected Open Props
-onto mine.css custom properties from the later `app` layer when useful.
+The two classes are:
 
-## Testing
+- `safe-area-inset`: Adds at least a `1em` inline gutter and expands it where a device safe area requires more room.
+- `mine-layout`: Provides a self-contained, responsive document measure. Apply it to the main content container.
 
-```console
-npm ci
-npx playwright install chromium
-npm test
+The demo's sticky navigation is also available as an optional companion stylesheet. It is a namespaced reimplementation inspired by [top-bar.css](https://github.com/css-pkg/top-bar.css), is self-contained, and follows the same light/dark browser preference as the main stylesheet. With `viewport-fit=cover`, its translucent surface extends behind notches and other display cutouts while its controls remain inside the safe area.
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/top-bar.css">
 ```
 
-The test suite runs Stylelint, fast Node contract tests, and Chromium checks against the built style guide. Use `npm run test:playwright` to rebuild and run only the browser suite.
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the lint, type-check, watch, and release workflows.
-
-### Node
-
-```console
-npm install mine.css --save-dev
-```
-
-Browsers do not resolve npm package names directly, so use a CSS build tool to
-load the package from `node_modules` before serving it:
-
-```css
-/* app.css */
-@import 'mine.css';
-```
-
-Several tools support this bare package import:
-
-- [postcss-import](https://github.com/postcss/postcss-import) inlines CSS from
-  local files and npm packages.
-- [esbuild](https://esbuild.github.io/content-types/#css) bundles CSS and
-  resolves package imports from `node_modules`.
-- [@domstack/static](https://github.com/bcomnes/domstack#page-styles) uses
-  esbuild for its global, layout, and page stylesheets, so the same import works
-  without additional configuration.
-
-### CSS Variables
+### CSS variables
 
 You can override defaults directly with CSS variables. Here are the default variable settings for `mine.css`:
 
@@ -375,7 +366,51 @@ The theme agnostic variables are as follows:
 }
 ```
 
-## Following the user's color preference
+### Using Open Props
+
+[Open Props][open-props] is an optional design-token library that can supply
+spacing, radii, shadows, colors, easing curves, and other primitives without
+replacing mine.css's document styles. Install it alongside mine.css:
+
+```console
+npm install open-props
+```
+
+Place its tokens in a foundational layer before `mine`, then import only the
+packs the application uses:
+
+```css
+@layer props, mine, sidecar, app;
+
+@import 'open-props/sizes' layer(props);
+@import 'open-props/borders' layer(props);
+@import 'open-props/shadows' layer(props);
+
+@import 'mine.css';
+@import 'mine.css/dist/layout.css' layer(sidecar);
+
+@layer app {
+  .card {
+    padding: var(--size-4);
+    border-radius: var(--radius-3);
+    box-shadow: var(--shadow-2);
+  }
+}
+```
+
+Use `@import 'open-props/style' layer(props)` instead when the application
+benefits from the full token catalog. Import mine.css normally because its main
+stylesheet already declares `layer(mine)`.
+
+Treat Open Props as a source of primitives rather than a second document
+framework. Its normalize and button styles overlap mine.css's semantic element
+styles, and its class-based theme switches conflict with mine.css's deliberate
+use of `prefers-color-scheme`. Application rules may map selected Open Props
+onto mine.css custom properties from the later `app` layer when useful.
+
+## Color and appearance
+
+### Following the user's color preference
 
 `mine.css` deliberately follows the browser's `prefers-color-scheme` value and does not provide JavaScript or class-based light/dark overrides. This keeps one source of truth: the preference the user has already chosen in their operating system or browser.
 
@@ -395,108 +430,7 @@ Use the same media query for application-specific dark styles:
 }
 ```
 
-### Light and dark syntax highlighting
-
-Highlight.js themes are ordinary stylesheets, so load a light theme first and conditionally load its dark counterpart afterward.
-The order matters: the dark rules should win only when the browser reports a dark preference.
-
-With a CSS bundler and the `highlight.js` package installed:
-
-```css
-@import url("highlight.js/styles/github.css");
-@import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
-```
-
-To make the syntax theme's place in the cascade explicit, put both variants in
-the same layer between `mine.css` and application styles:
-
-```css
-@layer mine, syntax, app;
-
-@import 'mine.css';
-@import url("highlight.js/styles/github.css") layer(syntax);
-@import url("highlight.js/styles/github-dark-dimmed.css")
-  layer(syntax)
-  (prefers-color-scheme: dark);
-
-@layer app {
-  /* Application syntax overrides win without extra specificity. */
-  .hljs {
-    border-radius: 0;
-  }
-}
-```
-
-The equivalent HTML works without bundling:
-
-```html
-<link rel="stylesheet" href="/path/to/highlight.js/styles/github.css">
-<link rel="stylesheet" href="/path/to/highlight.js/styles/github-dark-dimmed.css" media="(prefers-color-scheme: dark)">
-```
-
-This follows the same browser or operating-system preference as `mine.css`; no theme-switching JavaScript or mode classes are needed.
-
-Users can control the preference without a site-specific toggle:
-
-- Firefox has a built-in **Settings → General → Language and Appearance → Website appearance** control with Automatic, Light, and Dark choices.
-- Chrome, Edge, Safari, and Firefox can follow the operating system or device appearance setting.
-- For a per-site override in browsers without a website-appearance control, [Dark Reader](https://darkreader.org/) supports Chrome, Firefox, Safari, and Edge. It analyzes and transforms page colors rather than changing `prefers-color-scheme`, so prefer the browser/OS setting when possible and use Dark Reader when you intentionally want that transformation.
-
-References: [MDN `prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-color-scheme), [Firefox website appearance](https://support.mozilla.org/en-US/kb/change-website-appearance-settings-firefox), [Chrome dark mode](https://support.google.com/chrome/answer/9275525), [Edge appearance](https://support.microsoft.com/en-us/edge/use-the-dark-theme-in-microsoft-edge), and [macOS Appearance](https://support.apple.com/guide/mac-help/use-a-light-or-dark-appearance-mchl52e1c2d2/mac).
-
-## Dark mode images
-
-Images can be swapped out using the `<picture>` tag.
-
-```html
-<picture>
-    <source srcset="mojave-night.jpg" media="(prefers-color-scheme: dark)">
-    <img src="mojave-day.jpg">
-</picture>
-```
-
-See [this webkit blogpost](https://webkit.org/blog/8840/dark-mode-support-in-webkit/) for more info on dark mode.
-
-## Layout
-
-`mine.css` does not include page layout by default, but it ships a small companion stylesheet with a readable document measure and safe-area support for notched displays.
-
-```html
-<!-- CDN Production (specific release) -->
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/layout.css">
-```
-
-With npm and a CSS bundler, place optional layout companions between the
-framework and application styles:
-
-```css
-@layer mine, sidecar, app;
-
-@import 'mine.css';
-@import 'mine.css/dist/layout.css' layer(sidecar);
-@import 'mine.css/dist/top-bar.css' layer(sidecar);
-
-@layer app {
-  .mine-layout {
-    max-inline-size: 64em;
-  }
-}
-```
-
-You can see this layout style in action on the [`mine.css`][guide] website.
-
-The two classes are:
-
-- `safe-area-inset`: Adds at least a `1em` inline gutter and expands it where a device safe area requires more room.
-- `mine-layout`: Provides a self-contained, responsive document measure. Apply it to the main content container.
-
-The demo's sticky navigation is also available as an optional companion stylesheet. It is a namespaced reimplementation inspired by [top-bar.css](https://github.com/css-pkg/top-bar.css), is self-contained, and follows the same light/dark browser preference as the main stylesheet. With `viewport-fit=cover`, its translucent surface extends behind notches and other display cutouts while its controls remain inside the safe area.
-
-```html
-<link rel="stylesheet" href="https://unpkg.com/mine.css@^10.0.0/dist/top-bar.css">
-```
-
-## Color themes
+### Color themes
 
 Color themes are optional, named token overrides. Load a theme after `mine.css` and select it with `data-mine-theme` on the document root. The theme still uses the framework's existing `prefers-color-scheme` behavior, so choosing a palette does not create a separate light/dark override.
 
@@ -627,6 +561,68 @@ For example, a site can pair the Ayu document palette with Rosé Pine syntax col
 Both adaptive sidecars still choose their light or dark palette from `prefers-color-scheme`.
 An application that changes both from one menu should update `data-mine-theme` and the syntax stylesheet's `href`.
 
+### Syntax highlighting
+
+Highlight.js themes are ordinary stylesheets, so load a light theme first and conditionally load its dark counterpart afterward.
+The order matters: the dark rules should win only when the browser reports a dark preference.
+
+With a CSS bundler and the `highlight.js` package installed:
+
+```css
+@import url("highlight.js/styles/github.css");
+@import url("highlight.js/styles/github-dark-dimmed.css") (prefers-color-scheme: dark);
+```
+
+To make the syntax theme's place in the cascade explicit, put both variants in
+the same layer between `mine.css` and application styles:
+
+```css
+@layer mine, syntax, app;
+
+@import 'mine.css';
+@import url("highlight.js/styles/github.css") layer(syntax);
+@import url("highlight.js/styles/github-dark-dimmed.css")
+  layer(syntax)
+  (prefers-color-scheme: dark);
+
+@layer app {
+  /* Application syntax overrides win without extra specificity. */
+  .hljs {
+    border-radius: 0;
+  }
+}
+```
+
+The equivalent HTML works without bundling:
+
+```html
+<link rel="stylesheet" href="/path/to/highlight.js/styles/github.css">
+<link rel="stylesheet" href="/path/to/highlight.js/styles/github-dark-dimmed.css" media="(prefers-color-scheme: dark)">
+```
+
+This follows the same browser or operating-system preference as `mine.css`; no theme-switching JavaScript or mode classes are needed.
+
+Users can control the preference without a site-specific toggle:
+
+- Firefox has a built-in **Settings → General → Language and Appearance → Website appearance** control with Automatic, Light, and Dark choices.
+- Chrome, Edge, Safari, and Firefox can follow the operating system or device appearance setting.
+- For a per-site override in browsers without a website-appearance control, [Dark Reader](https://darkreader.org/) supports Chrome, Firefox, Safari, and Edge. It analyzes and transforms page colors rather than changing `prefers-color-scheme`, so prefer the browser/OS setting when possible and use Dark Reader when you intentionally want that transformation.
+
+References: [MDN `prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-color-scheme), [Firefox website appearance](https://support.mozilla.org/en-US/kb/change-website-appearance-settings-firefox), [Chrome dark mode](https://support.google.com/chrome/answer/9275525), [Edge appearance](https://support.microsoft.com/en-us/edge/use-the-dark-theme-in-microsoft-edge), and [macOS Appearance](https://support.apple.com/guide/mac-help/use-a-light-or-dark-appearance-mchl52e1c2d2/mac).
+
+### Dark-mode images
+
+Images can be swapped out using the `<picture>` tag.
+
+```html
+<picture>
+    <source srcset="mojave-night.jpg" media="(prefers-color-scheme: dark)">
+    <img src="mojave-day.jpg">
+</picture>
+```
+
+See [this webkit blogpost](https://webkit.org/blog/8840/dark-mode-support-in-webkit/) for more info on dark mode.
+
 ## Accessibility
 
 The native `hidden` attribute stays authoritative even when an element receives
@@ -663,6 +659,20 @@ html {
   scroll-behavior: auto;
 }
 ```
+
+## Development
+
+### Testing
+
+```console
+npm ci
+npx playwright install chromium
+npm test
+```
+
+The test suite runs Stylelint, fast Node contract tests, and Chromium checks against the built style guide. Use `npm run test:playwright` to rebuild and run only the browser suite.
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the lint, type-check, watch, and release workflows.
 
 ## Thanks
 
