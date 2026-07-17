@@ -18,7 +18,7 @@ test and build commands before changing dependencies.
 Search for the affected API surface. Adjust paths to the project as needed:
 
 ```sh
-rg -n "mine\.css|theme-switcher|toggleTheme|light-mode|dark-mode|top-bar|font-size-scale|@layer|field-sizing|content-sized" .
+rg -n "mine\.css|theme-switcher|toggleTheme|light-mode|dark-mode|top-bar|font-size-scale|@layer|field-sizing|content-sized|borderless" .
 ```
 
 Identify:
@@ -44,7 +44,8 @@ distinguish from regressions.
 ## Apply the migration
 
 1. Update mine.css to v11 with the project's existing package manager and
-   update its lockfile.
+   update its lockfile. Confirm that its install environment satisfies the
+   declared Node.js 22-or-newer and npm 10-or-newer engines.
 2. Consume the package root as CSS. Remove imports of
    `dist/theme-switcher.js` and any expectation that the package root resolves
    to JavaScript.
@@ -78,15 +79,26 @@ distinguish from regressions.
    block display or scrolling to the table itself.
 10. Review assumptions affected by the wider `.mine-layout`, visible overflow,
     safe-area gutters, responsive type and prose measures, native button
-    appearance, media framing, and native CSS nesting.
+    appearance, media framing, transparent images in `figure.borderless`, and
+    native CSS nesting.
 11. Preserve native `hidden` behavior and use `.visually-hidden` for
     assistive-only content. Review fragment offsets and the motion defaults,
     including smooth in-page navigation and same-origin view transitions under
     `prefers-reduced-motion: no-preference`.
 12. Preserve named palette selection separately from light/dark mode. A
-   `data-mine-theme` value may select a sidecar such as Tron, but each named
-   theme must still follow `prefers-color-scheme` for its light and dark values.
-13. Keep optional Highlight.js palettes separate from document palettes. The adaptive Tron syntax sidecar lives at `dist/highlight.js/tron-legacy.css` and uses the same unscoped `.hljs-*` selectors as upstream Highlight.js. Load only one syntax stylesheet at a time, and switch its `<link href>` when the application owns syntax-theme selection. Its fixed light and dark counterparts can be imported directly when the application owns syntax-mode selection. Update both `data-mine-theme` and the syntax stylesheet link only when one control should change both palettes.
+    `data-mine-theme` value may select a sidecar such as Tron, but each named
+    theme must still follow `prefers-color-scheme` for its light and dark values.
+    Use the README's color-theme catalog for the maintained selectors and
+    sidecar filenames.
+13. Keep optional Highlight.js palettes separate from document palettes. The
+    adaptive Tron syntax sidecar lives at
+    `dist/highlight.js/tron-legacy/index.css` and uses the same unscoped
+    `.hljs-*` selectors as upstream Highlight.js. Load only one syntax
+    stylesheet at a time, and switch its `<link href>` when the application owns
+    syntax-theme selection. Its fixed `light.css` and `dark.css` counterparts
+    can be imported directly when the application owns syntax-mode selection.
+    Update both `data-mine-theme` and the syntax stylesheet link only when one
+    control should change both palettes.
 
 Keep edits scoped to the migration. Preserve application-specific branding and
 behavior unless it conflicts with the removed v10 API.
@@ -124,8 +136,8 @@ browser tests using its native commands. Then inspect representative content:
 - keyboard focus on links and form controls;
 - placeholders, empty temporal inputs, selects, multiple selects, validation
   states, content-sized inputs, textareas, and disabled controls;
-- fieldsets, code, keyboard keys, blockquotes, horizontal rules, framed figures,
-  unloaded video, audio, canvas, and iframes;
+- fieldsets, code, keyboard keys, blockquotes, horizontal rules, framed and
+  borderless figures, unloaded video, audio, canvas, and iframes;
 - wide tables in named, keyboard-focusable overflow regions;
 - fragment and footnote navigation with reduced motion enabled and disabled;
 - narrow mobile and wide desktop layouts;

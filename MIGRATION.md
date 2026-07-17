@@ -36,6 +36,7 @@ verification.
 | PostCSS-transpiled compatibility | Distributed CSS uses native CSS nesting |
 | Unlayered framework rules | The main stylesheet lives in the named `mine` cascade layer |
 | Viewport-dependent `--font-size-scale` | Bounded `--font-size-body` |
+| No declared Node.js or npm engines | Package metadata requires Node.js 22 or newer and npm 10 or newer |
 
 ## Replace JavaScript imports with CSS imports
 
@@ -216,6 +217,8 @@ The equivalent bundler imports are:
 v11 theme sidecars may use `data-mine-theme` to select a named palette. This is
 not a light/dark override: every named theme still supplies both palettes and
 lets `prefers-color-scheme` choose between them.
+The [color-theme catalog](./README.md#color-themes) lists every maintained
+family, selector, light/dark pairing, and upstream palette reference.
 
 For example, load and select the optional Tron theme with:
 
@@ -474,6 +477,11 @@ other embedded surfaces. Figures shrink-wrap their media, center themselves,
 and constrain long captions. Override authored dimensions or framing after
 mine.css where an embed needs different behavior.
 
+The existing `figure.borderless` opt-out removes the media border, padding, and
+shadow while retaining rounded corners. Borderless images now use a transparent
+background so an image's own transparency is not replaced by the framework's
+layer color.
+
 Other intentional refinements include:
 
 - accessible link colors and clearer focus treatment in both palettes;
@@ -501,9 +509,10 @@ If your supported browser set does not satisfy that query, transpile a separate
 application build with an appropriate CSS tool. Do not modify the installed
 package or assume that v11 includes a legacy build.
 
-The package's Node.js and npm engine requirements apply to developing and
-building mine.css itself. Loading the published CSS does not require Node.js in
-the browser.
+The package metadata requires Node.js 22 or newer and npm 10 or newer. Package
+managers may check those requirements while installing mine.css, even though
+the package's browser API is CSS-only. Loading the published CSS directly does
+not require Node.js in the browser.
 
 ## Verification checklist
 
@@ -523,8 +532,8 @@ Before completing the upgrade:
 - Check placeholders, empty and populated temporal inputs, selects, multiple
   selects, validation states, content-sized fields, textareas, and disabled
   controls in Safari as well as a Chromium browser.
-- Check fieldsets, code blocks, blockquotes, horizontal rules, framed figures,
-  unloaded video, audio, canvas, and iframes.
+- Check fieldsets, code blocks, blockquotes, horizontal rules, framed and
+  borderless figures, unloaded video, audio, canvas, and iframes.
 - Check wide tables through their named, keyboard-focusable overflow wrappers.
 - Check a narrow mobile viewport and a wide desktop viewport for unexpected
   overflow or line-length changes.
