@@ -2,7 +2,7 @@
 
 A mostly classless stylesheet for HTML documents and evolution of [style.css][style].
 
-[![latest version][npm-img]][npm-url] [![Actions Status][action-img]][action-url] [![downloads][downloads-img]][npm-url] [![Neocities][neocities-img]](https://mine-css.neocities.org)
+[![latest version][npm-img]][npm-url] [![Actions Status][action-img]][action-url] [![downloads][downloads-img]][npm-url] ![Neocities][neocities-img]
 
 [npm-img]: https://img.shields.io/npm/v/mine.css.svg
 [npm-url]: https://www.npmjs.com/package/mine.css
@@ -691,7 +691,7 @@ Responsive audio and canvas defaults draw on the practical remedies collected in
 [coyier-starter]: https://master.dev/blog/the-coyier-css-starter/
 [css-remedy]: https://github.com/jensimmons/cssremedy
 [css-reset-layer]: https://mayank.co/blog/css-reset-layer/
-[guide]: https://mine-css.neocities.org/guide/
+[guide]: ./guide/
 [open-props]: https://open-props.style/
 [atom-one-light]: https://github.com/atom/one-light-syntax
 [atom-one-dark]: https://github.com/atom/one-dark-syntax
