@@ -235,7 +235,7 @@ test('typography and layout remain bounded', () => {
   assert.doesNotMatch(links, /&:focus-visible/)
   assert.doesNotMatch(links, /outline-offset/)
   assert.doesNotMatch(textInput, /outline-offset/)
-  assert.match(documentStyles, /:target \{[\s\S]*scroll-margin-block-start: 3rem;/)
+  assert.match(documentStyles, /:target \{[\s\S]*scroll-margin-block-start: 2rem;/)
   assert.match(headings, /text-wrap: balance;/)
   assert.match(iframes, /iframe \{[\s\S]*display: block;[\s\S]*max-inline-size: 100%;/)
   assert.match(iframes, /border: 1px solid color-mix\(in srgb, var\(--accent-midground\) 70%, var\(--background\)\);/)
