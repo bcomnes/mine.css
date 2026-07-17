@@ -570,10 +570,16 @@ td,
 th { padding: 0; }
 
 table {
+  /* Preserve v10's closed overflow boundary: wide tables scroll themselves
+     instead of increasing the width of their document or layout container. */
+  display: block;
   margin-block: 0 1.25em;
   border-collapse: collapse;
   border-spacing: 0;
   inline-size: 100%;
+
+  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
+  overflow-x: auto;
 
   /* Preserve normal language-aware wrapping instead of inheriting the document's
      emergency breakout behavior. */

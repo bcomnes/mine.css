@@ -29,6 +29,7 @@ const flow = await readFile(new URL('./typography/flow.css', import.meta.url), '
 const typography = await readFile(new URL('./typography/index.css', import.meta.url), 'utf8')
 const media = await readFile(new URL('./media/index.css', import.meta.url), 'utf8')
 const tables = await readFile(new URL('./tables/index.css', import.meta.url), 'utf8')
+const tableStyles = await readFile(new URL('./tables/tables.css', import.meta.url), 'utf8')
 const tronLegacy = await readFile(new URL('./themes/tron-legacy.css', import.meta.url), 'utf8')
 const tronLegacyHighlight = await readFile(new URL('./highlight.js/tron-legacy/index.css', import.meta.url), 'utf8')
 const tronLegacyHighlightLight = await readFile(new URL('./highlight.js/tron-legacy/light.css', import.meta.url), 'utf8')
@@ -216,6 +217,10 @@ test('embedded media stays within the document measure', () => {
   assert.match(embeddedMedia, /audio,\ncanvas \{[\s\S]*display: block;[\s\S]*max-inline-size: 100%;/)
   assert.match(embeddedMedia, /audio \{[\s\S]*inline-size: 100%;/)
   assert.match(embeddedMedia, /canvas \{[\s\S]*block-size: auto;/)
+})
+
+test('wide tables contain their own horizontal overflow', () => {
+  assert.match(tableStyles, /table \{[\s\S]*display: block;[\s\S]*inline-size: 100%;[\s\S]*overflow-x: auto;/)
 })
 
 test('typography and layout remain bounded', () => {

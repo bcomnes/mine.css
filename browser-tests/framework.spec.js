@@ -109,6 +109,33 @@ for (const viewport of viewports) {
   })
 }
 
+test('contains independently scrollable homepage chrome and tables', async ({ page, siteURL }) => {
+  await page.setViewportSize({ width: 320, height: 800 })
+  await page.goto(siteURL, { waitUntil: 'domcontentloaded' })
+
+  const metrics = await page.evaluate(() => {
+    const topBar = document.querySelector('.mine-top-bar')
+    const themeTable = document.querySelector('main table')
+    if (!topBar || !themeTable) throw new Error('Homepage overflow fixtures are missing')
+
+    return {
+      bodyWidth: document.body.scrollWidth,
+      viewportWidth: document.documentElement.clientWidth,
+      topBarClientWidth: topBar.clientWidth,
+      topBarScrollWidth: topBar.scrollWidth,
+      themeTableClientWidth: themeTable.clientWidth,
+      themeTableDisplay: getComputedStyle(themeTable).display,
+      themeTableScrollWidth: themeTable.scrollWidth
+    }
+  })
+
+  expect(metrics.bodyWidth).toBe(metrics.viewportWidth)
+  expect(metrics.topBarScrollWidth).toBeGreaterThan(metrics.topBarClientWidth)
+  expect(metrics.themeTableDisplay).toBe('block')
+  expect(metrics.themeTableScrollWidth).toBeGreaterThan(metrics.themeTableClientWidth)
+  await expect(page.getByRole('table').first()).toBeVisible()
+})
+
 test('follows the browser color-scheme preference', async ({ page, siteURL }) => {
   await page.emulateMedia({ colorScheme: 'dark' })
   await gotoGuide(page, siteURL)
