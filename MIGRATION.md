@@ -454,11 +454,9 @@ table. Tables that fit their container need no wrapper.
 
 ## Account for layout and visual changes
 
-The optional `.mine-layout` measure grows from `46em` to `56em`. It uses
-logical sizing, includes padding in its width, tightens its block margin on
-narrow viewports, and no longer clips overflowing content. The
-`.safe-area-inset` utility now preserves its normal gutter when a device
-safe-area inset is smaller.
+The optional `.mine-layout` measure grows from `46em` to `56em`.
+It uses logical sizing, includes padding in its width, tightens its block margin on narrow viewports, no longer clips overflowing content, and protects its inline edges from device safe areas without requiring another class.
+The `.safe-area-inset` utility protects all four physical edges and preserves its normal inline gutter when a device safe-area inset is smaller.
 
 Review pages that depend on the old line length or clipping behavior,
 especially wide code blocks, tables, positioned descendants, and custom focus

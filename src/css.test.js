@@ -250,8 +250,8 @@ test('typography and layout remain bounded', () => {
   assert.match(variables, /round\(nearest, calc\(.+\), 1px\)/)
   assert.doesNotMatch(variables, /--font-size-scale:/)
   assert.doesNotMatch(layout, /overflow: hidden/)
-  assert.match(layout, /padding-right: max\(1em, env\(safe-area-inset-right\)\)/)
-  assert.match(layout, /padding-left: max\(1em, env\(safe-area-inset-left\)\)/)
+  assert.match(layout, /\.mine-layout,\n\.safe-area-inset \{[\s\S]*padding-right: max\(1em, env\(safe-area-inset-right\)\);[\s\S]*padding-left: max\(1em, env\(safe-area-inset-left\)\);/)
+  assert.match(layout, /\.safe-area-inset \{[\s\S]*padding-top: env\(safe-area-inset-top\);[\s\S]*padding-bottom: env\(safe-area-inset-bottom\);/)
   assert.match(layout, /box-sizing: border-box/)
 })
 

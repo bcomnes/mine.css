@@ -185,8 +185,8 @@ You can see this layout style in action on the [`mine.css`][guide] website.
 
 The two classes are:
 
-- `safe-area-inset`: Adds at least a `1em` inline gutter and expands it where a device safe area requires more room.
-- `mine-layout`: Provides a self-contained, responsive document measure. Apply it to the main content container.
+- `safe-area-inset`: Protects every physical viewport edge while retaining at least a `1em` inline gutter.
+- `mine-layout`: Provides a self-contained, responsive document measure with safe-area-aware inline gutters. Apply it to the main content container.
 
 The demo's sticky navigation is also available as an optional companion stylesheet. It is a namespaced reimplementation inspired by [top-bar.css](https://github.com/css-pkg/top-bar.css), is self-contained, and follows the same light/dark browser preference as the main stylesheet. With `viewport-fit=cover`, its translucent surface extends behind notches and other display cutouts while its controls remain inside the safe area.
 

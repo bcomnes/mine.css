@@ -109,6 +109,39 @@ for (const viewport of viewports) {
   })
 }
 
+test('keeps page content and top-bar controls inside display safe areas', async ({ page, siteURL }) => {
+  await page.setViewportSize({ width: 390, height: 800 })
+  const devtools = await page.context().newCDPSession(page)
+  await devtools.send('Emulation.setSafeAreaInsetsOverride', {
+    insets: { left: 48, right: 32 }
+  })
+  await page.goto(siteURL, { waitUntil: 'domcontentloaded' })
+
+  const metrics = await page.evaluate(() => {
+    const main = document.querySelector('main')
+    const topBar = document.querySelector('.mine-top-bar')
+    if (!main || !topBar) throw new Error('Safe-area fixtures are missing')
+
+    const mainStyles = getComputedStyle(main)
+    const topBarStyles = getComputedStyle(topBar)
+    return {
+      bodyWidth: document.body.scrollWidth,
+      mainPaddingLeft: mainStyles.paddingLeft,
+      mainPaddingRight: mainStyles.paddingRight,
+      topBarPaddingLeft: topBarStyles.paddingLeft,
+      topBarPaddingRight: topBarStyles.paddingRight,
+      viewportWidth: document.documentElement.clientWidth
+    }
+  })
+
+  expect(metrics.bodyWidth).toBe(metrics.viewportWidth)
+  expect(metrics.mainPaddingLeft).toBe('48px')
+  expect(metrics.mainPaddingRight).toBe('32px')
+  expect(metrics.topBarPaddingLeft).toBe(metrics.mainPaddingLeft)
+  expect(metrics.topBarPaddingRight).toBe(metrics.mainPaddingRight)
+  await devtools.detach()
+})
+
 test('contains independently scrollable homepage chrome and tables', async ({ page, siteURL }) => {
   await page.setViewportSize({ width: 320, height: 800 })
   await page.goto(siteURL, { waitUntil: 'domcontentloaded' })
