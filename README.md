@@ -1,6 +1,6 @@
 # mine.css ⛏️
 
-A mostly classless stylesheet for HTML documents and evolution of [style.css][style].
+A mostly classless stylesheet for HTML documents and evolution of [style.css and a few others](#thanks).
 
 [![latest version][npm-img]][npm-url] [![Actions Status][action-img]][action-url] [![downloads][downloads-img]][npm-url] ![Neocities][neocities-img]
 
@@ -676,7 +676,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the lint, type-check, watch, and re
 
 ## Thanks
 
-`mine.css` stands on the shoulders of giants from the excellent work found in [style.css][style]. Thank you!
+`mine.css` is a fork of [style.css][style] which has a ton of unique and interesting ideas and was beautifully executed. Thank you! Mine expanded functionality of style.css adding support for a wider range of html elements and generally attempts to broaden the utility of these ideas for a number applications I wanted them in.
 
 Modern document defaults in [The Coyier CSS Starter][coyier-starter] also informed the text wrapping, fragment navigation, focus, motion, and embedded-media refinements in this release.
 
