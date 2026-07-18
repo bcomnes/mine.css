@@ -551,8 +551,18 @@ dd {
   /* Bound prose without taking useful width away from code, tables, or media. */
   max-inline-size: 88ch;
 
-  /* Spend a little more layout work to avoid awkward final lines in prose. */
-  text-wrap: pretty;
+  /* Keep narrow columns full instead of letting whole-paragraph algorithms
+     create an apparent extra gutter on mobile. */
+  text-wrap: wrap;
+}
+
+@media (width >= 40rem) {
+  p,
+  li,
+  dd {
+    /* Spend a little more layout work to avoid awkward final lines in prose. */
+    text-wrap: pretty;
+  }
 }
 
 pre {

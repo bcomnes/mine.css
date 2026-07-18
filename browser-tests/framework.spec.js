@@ -57,10 +57,11 @@ for (const viewport of viewports) {
       const main = document.querySelector('main')
       const fileInput = document.querySelector('input[type="file"]')
       const blockquote = document.querySelector('blockquote')
+      const paragraph = document.querySelector('p')
       const textarea = document.querySelector('textarea')
       const video = document.querySelector('#blank-video')
       const iframe = document.querySelector('#demo-iframe')
-      if (!main || !fileInput || !blockquote || !textarea || !video || !iframe) throw new Error('Style guide fixtures are missing')
+      if (!main || !fileInput || !blockquote || !paragraph || !textarea || !video || !iframe) throw new Error('Style guide fixtures are missing')
       const blockquoteStyles = getComputedStyle(blockquote)
 
       return {
@@ -71,6 +72,7 @@ for (const viewport of viewports) {
         rootFont: root.fontSize,
         mainWidth: main.getBoundingClientRect().width,
         mainOverflow: getComputedStyle(main).overflow,
+        paragraphTextWrap: getComputedStyle(paragraph).textWrap,
         fileInputWidth: fileInput.getBoundingClientRect().width,
         iframeBackground: getComputedStyle(iframe).backgroundColor,
         iframeBorderRadius: getComputedStyle(iframe).borderRadius,
@@ -93,6 +95,7 @@ for (const viewport of viewports) {
     expect(Number.isInteger(Number.parseFloat(metrics.rootFont))).toBe(true)
     expect(metrics.mainOverflow).toBe('visible')
     expect(metrics.mainWidth).toBeLessThanOrEqual(metrics.viewportWidth)
+    expect(metrics.paragraphTextWrap).toBe(viewport.width < 640 ? 'wrap' : 'pretty')
     expect(metrics.fileInputWidth).toBeLessThanOrEqual(metrics.mainWidth)
     expect(metrics.iframeBackground).not.toBe('rgba(0, 0, 0, 0)')
     expect(metrics.iframeBorderRadius).toBe('7px')
