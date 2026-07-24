@@ -8,7 +8,8 @@ test('layout escapes data while preserving rendered Markdown children', async ()
   const markup = await RootLayout({
     vars: {
       title: '<script>alert(1)</script>',
-      siteName: 'mine.css'
+      siteName: 'mine.css',
+      version: '1.2.3'
     },
     scripts: ['/global.client.js'],
     styles: ['/global.css'],
@@ -25,6 +26,8 @@ test('layout escapes data while preserving rendered Markdown children', async ()
   assert.match(markup, /<link rel="stylesheet" href="?\/global\.css"?\s*\/>/)
   assert.match(markup, /<link\s+data-mine-hljs-stylesheet\s+rel="stylesheet"\s+href="\/highlight\.js\/default\/index\.css"\s+blocking="render"\s*>/)
   assert.match(markup, /<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">/)
+  assert.match(markup, /<a href="?\/"?><span class="mine-top-bar-label">mine\.css<\/span><\/a>\s*<small class="mine-top-bar-version">v1\.2\.3<\/small>/)
+  assert.doesNotMatch(markup, /<a[^>]*>(?:(?!<\/a>)[\s\S])*mine-top-bar-version(?:(?!<\/a>)[\s\S])*<\/a>/)
   assert.match(markup, /<select class="mine-top-bar-select" aria-label="color theme">/)
   for (const { value, label } of themeOptions) {
     assert.match(markup, new RegExp(`<option value=(?:"${value}"|${value})>${label}</option>`))

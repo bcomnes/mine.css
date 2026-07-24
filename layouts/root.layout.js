@@ -10,13 +10,15 @@ import { themeOptions } from '../globals/theme-options.js'
  * @typedef {object} RootLayoutVars
  * @property {string} siteName
  * @property {string} [title]
+ * @property {string} version
  */
 
 /** @type {LayoutFunction<RootLayoutVars, HtmlRenderable>} */
 export default function RootLayout ({
   vars: {
     title,
-    siteName
+    siteName,
+    version
   },
   scripts,
   styles,
@@ -51,6 +53,7 @@ export default function RootLayout ({
         <nav class="mine-top-bar">
           <div class="mine-top-bar-title">
             <a href="/"><span class="mine-top-bar-label">mine.css</span></a>
+            <small class="mine-top-bar-version">v${version}</small>
           </div>
           <a class="mine-top-bar-link" href="/guide/"><span class="mine-top-bar-label">guide</span></a>
           <a class="mine-top-bar-link mine-top-bar-link-current sans style-sans"><span class="mine-top-bar-label">sans</span></a>

@@ -136,6 +136,11 @@ select.mine-top-bar-select {
   font-weight: 600;
 }
 
+.mine-top-bar-version {
+  color: var(--accent-foreground, #777);
+  font-weight: 400;
+}
+
 .mine-top-bar-link { font-weight: 400; }
 
 .mine-top-bar-link-current { cursor: default; }

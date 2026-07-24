@@ -1,11 +1,40 @@
 /* global HTMLMediaElement, getComputedStyle, requestAnimationFrame */
 
+import { readFile } from 'node:fs/promises'
+
 import { expect, test } from './support.js'
 import { namedThemes, namedThemeValues } from '../globals/theme-options.js'
+
+const packageMetadata = /** @type {{ version: string }} */ (JSON.parse(
+  await readFile(new URL('../package.json', import.meta.url), 'utf8')
+))
 
 async function gotoGuide (page, siteURL) {
   await page.goto(`${siteURL}/guide/`, { waitUntil: 'domcontentloaded' })
 }
+
+test('shows the current package version in the top bar', async ({ page, siteURL }) => {
+  await page.goto(siteURL, { waitUntil: 'domcontentloaded' })
+
+  const version = page.locator('.mine-top-bar-version')
+  await expect(version).toHaveText(`v${packageMetadata.version}`)
+  await expect(page.locator('.mine-top-bar-title a .mine-top-bar-version')).toHaveCount(0)
+
+  const colors = await page.evaluate(() => {
+    const title = document.querySelector('.mine-top-bar-title a')
+    const version = document.querySelector('.mine-top-bar-version')
+    const navigationLink = document.querySelector('.mine-top-bar-link[href="/guide/"]')
+    if (!title || !version || !navigationLink) throw new Error('Top-bar version fixtures are missing')
+    return {
+      navigation: getComputedStyle(navigationLink).color,
+      title: getComputedStyle(title).color,
+      version: getComputedStyle(version).color
+    }
+  })
+
+  expect(colors.version).toBe(colors.navigation)
+  expect(colors.version).not.toBe(colors.title)
+})
 
 async function readThemePresentation (page) {
   return page.evaluate(() => {
@@ -23,9 +52,10 @@ async function readThemePresentation (page) {
     const highlightedCode = document.querySelector('.hljs')
     const textInput = document.querySelector('input[type="text"]')
     const codeBlock = document.querySelector('pre')
+    const legend = document.querySelector('legend')
     const themeControl = document.querySelector('.mine-top-bar-select')
     const video = document.querySelector('#blank-video')
-    if (!key || !highlightedCode || !textInput || !codeBlock || !themeControl || !video) throw new Error('Color-scheme fixtures are missing')
+    if (!key || !highlightedCode || !textInput || !codeBlock || !legend || !themeControl || !video) throw new Error('Color-scheme fixtures are missing')
     return {
       codeBorder: toRgb(getComputedStyle(codeBlock).borderColor),
       controlBorder: toRgb(getComputedStyle(textInput).borderColor),
@@ -33,6 +63,7 @@ async function readThemePresentation (page) {
       layer: styles.getPropertyValue('--dark-layer-background').trim(),
       keyBackground: getComputedStyle(key).backgroundImage,
       keyShadow: getComputedStyle(key).boxShadow,
+      legendBackground: toRgb(getComputedStyle(legend).backgroundColor),
       highlightedColor: getComputedStyle(highlightedCode).color,
       highlightedBackground: getComputedStyle(highlightedCode).backgroundColor,
       themeControlBorder: toRgb(getComputedStyle(themeControl).borderColor),
@@ -184,6 +215,7 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   expect(darkTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
   expect(darkTokens.keyBackground).toContain('linear-gradient(rgb(51, 51, 51)')
   expect(darkTokens.keyShadow).toContain('rgba(0, 0, 0, 0.45)')
+  expect(darkTokens.legendBackground).toEqual([31, 31, 31])
   expect(darkTokens.highlightedColor).toBe('rgb(173, 186, 199)')
   expect(darkTokens.highlightedBackground).toBe('rgb(34, 39, 46)')
   expect(darkTokens.videoBackground).toEqual([51, 51, 51])
@@ -202,6 +234,7 @@ test('follows the browser color-scheme preference', async ({ page, siteURL }) =>
   expect(lightTokens.controlBorder).toEqual([148, 148, 148])
   expect(lightTokens.themeControlBorder).toEqual(lightTokens.controlBorder)
   expect(lightTokens.controlShadow).toContain('rgba(255, 255, 255, 0.12)')
+  expect(lightTokens.legendBackground).toEqual([255, 255, 255])
   await topBar.hover()
   await page.waitForTimeout(150)
   expect(await topBar.evaluate(element => getComputedStyle(element).boxShadow)).toContain('rgba(0, 0, 0, 0.2)')
@@ -576,6 +609,7 @@ test('generates the guide table of contents from its headings', async ({ page, s
   await expect(contents).toHaveCount(1)
   await expect(contents.locator('a[href="#language-examples"]')).toHaveText('Language Examples')
   await expect(contents.locator('a[href="#additional-form-controls"]')).toHaveText('Additional Form Controls')
+  await expect(contents.locator('a[href="#fieldset"]')).toHaveText('Fieldset')
   await expect(contents.locator('a[href="#input-states"]')).toHaveText('Input States')
   await expect(contents.locator('a[href="#h1-heading-with-code-and-small-text"]')).toHaveCount(0)
 })

@@ -6,4 +6,9 @@ fieldset {
 
   /* A broad, low-contrast bevel recalls older panel styling without a hard edge. */
   box-shadow: var(--surface-shadow);
+
+  & > legend {
+    /* Mask the inset top shadow so it does not show through the legend text. */
+    background-color: var(--background);
+  }
 }
