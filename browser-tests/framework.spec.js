@@ -1415,8 +1415,10 @@ test('keeps mobile navigation usable around anchored content', async ({ page, si
     const themeControl = document.querySelector('.mine-top-bar-select')
     if (!nav || !target || !roundControl || !themeControl) throw new Error('Navigation fixtures are missing')
 
+    nav.scrollLeft = 0
+    roundControl.scrollIntoView({ block: 'nearest', inline: 'center' })
     const roundBounds = roundControl.getBoundingClientRect()
-    nav.scrollLeft = nav.scrollWidth
+    themeControl.scrollIntoView({ block: 'nearest', inline: 'center' })
     const themeBounds = themeControl.getBoundingClientRect()
 
     return {
