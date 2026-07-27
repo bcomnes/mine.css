@@ -12,6 +12,14 @@ input[type="search"] {
   inline-size: 20px;
 }
 
+/* Keep text-entry controls in the active type scheme; buttons retain native metrics. */
+input:not([type="button"], [type="file"], [type="image"], [type="reset"], [type="submit"]),
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
 select,
 textarea,
 input:not([type]),
@@ -133,7 +141,8 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 select:not([multiple]) {
-  /* Keep the authored box independent of whether a single-line control has content. */
+  /* Keep compact control metrics independent of document leading and field content. */
+  line-height: 1.3;
   min-block-size: calc(1lh + 0.8em + 2px);
 }
 
