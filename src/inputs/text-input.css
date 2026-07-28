@@ -148,10 +148,10 @@ select:not([multiple]) {
 
 input::-webkit-date-and-time-value {
   /* WebKit otherwise collapses this internal box while a temporal value is empty.
-     Keep the native picker intact and size only the engine-owned value box.
+     Match the control line box so the workaround does not make temporal inputs taller.
      https://bugs.webkit.org/show_bug.cgi?id=198959 */
   /* stylelint-disable-next-line property-layout-mappings */
-  height: 1.5em;
+  height: 1lh;
 }
 
 /* Tall controls expose directional gradients as a stripe, so use an even inset. */

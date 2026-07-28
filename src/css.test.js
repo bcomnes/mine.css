@@ -200,8 +200,8 @@ test('single-line controls keep compact, content-independent metrics', () => {
   }
 })
 
-test('WebKit temporal value boxes keep their height while empty', () => {
-  assert.match(textInput, /input::-webkit-date-and-time-value \{[\s\S]*height: 1\.5em;/)
+test('WebKit temporal value boxes match the single-line control height', () => {
+  assert.match(textInput, /input::-webkit-date-and-time-value \{[\s\S]*height: 1lh;/)
   assert.match(textInput, /bugs\.webkit\.org\/show_bug\.cgi\?id=198959/)
 })
 
