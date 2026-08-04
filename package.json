@@ -29,7 +29,7 @@
     "releasearoni": "^0.2.0",
     "stylelint": "^17.4.0",
     "stylelint-config-standard": "^40.0.0",
-    "typescript": "~6.0.3"
+    "typescript": "~7.0.2"
   },
   "engines": {
     "node": ">=22",
