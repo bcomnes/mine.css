@@ -118,12 +118,15 @@ code.hljs {
   /* purposely ignored */
 
 }
+
 .hljs {
   --mine-hljs-background: #f6f8fa;
 }
+
 @media (prefers-color-scheme: dark) {
 /* Delegate GitHub Dark syntax colors to Highlight.js. */
 }
+
 @media (prefers-color-scheme: dark) {
 pre code.hljs {
   display: block;
@@ -244,6 +247,7 @@ code.hljs {
 
 }
 }
+
 @media (prefers-color-scheme: dark) {
 
 .hljs {

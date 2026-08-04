@@ -6,11 +6,9 @@
 /* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
 
 /* Highlight.js exposes these class names, so they intentionally do not follow mine.css naming. */
-
 /* stylelint-disable selector-class-pattern */
 
 /* Match the structural rules shipped by Highlight.js so custom themes are drop-in compatible. */
-
 code.hljs {
   padding-block: 3px;
   padding-inline: 5px;

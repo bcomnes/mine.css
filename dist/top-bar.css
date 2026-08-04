@@ -8,7 +8,6 @@
  * continuous. Related engine work (not the exact reproduction):
  * https://crbug.com/1448813
  */
-
 @property --link-hover-strength {
   syntax: "<number>";
   inherits: false;
@@ -16,7 +15,6 @@
 }
 
 /* Keep compact navigation controls on one scrollable row instead of growing a tall header. */
-
 .mine-top-bar {
   box-sizing: border-box;
   display: flex;
@@ -70,7 +68,6 @@
 }
 
 /* Keep the theme menu compact while sharing the standard select surface. */
-
 select.mine-top-bar-select {
   max-inline-size: 7rem;
   inline-size: auto;
@@ -94,7 +91,6 @@ select.mine-top-bar-select {
 }
 
 /* Keep generous hit targets while drawing feedback tightly around their labels. */
-
 .mine-top-bar-label {
   --link-hover-strength: 0;
 
