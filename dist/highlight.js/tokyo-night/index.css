@@ -114,12 +114,15 @@ code.hljs {
 .hljs-strong {
   font-weight: bold
 }
+
 .hljs {
   --mine-hljs-background: #dcdee3;
 }
+
 @media (prefers-color-scheme: dark) {
 /* Delegate Tokyo Night Dark syntax colors to Highlight.js. */
 }
+
 @media (prefers-color-scheme: dark) {
 pre code.hljs {
   display: block;
@@ -236,6 +239,7 @@ code.hljs {
   font-weight: bold
 }
 }
+
 @media (prefers-color-scheme: dark) {
 
 .hljs {

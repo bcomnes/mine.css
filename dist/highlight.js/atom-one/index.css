@@ -90,12 +90,15 @@ hue-6-2: #c18401
 .hljs-link {
   text-decoration: underline
 }
+
 .hljs {
   --mine-hljs-background: #eaeaeb;
 }
+
 @media (prefers-color-scheme: dark) {
 /* Delegate Atom One Dark syntax colors to Highlight.js. */
 }
+
 @media (prefers-color-scheme: dark) {
 pre code.hljs {
   display: block;
@@ -188,6 +191,7 @@ hue-6-2: #e6c07b
   text-decoration: underline
 }
 }
+
 @media (prefers-color-scheme: dark) {
 
 .hljs {
