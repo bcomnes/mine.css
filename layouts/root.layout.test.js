@@ -14,9 +14,8 @@ test('layout escapes data while preserving rendered Markdown children', async ()
     scripts: ['/global.client.js'],
     styles: ['/global.css'],
     children: '<h1>Rendered Markdown</h1>',
-    // The layout does not inspect page metadata, but DOMStack includes it in every call.
     page: /** @type {any} */ ({}),
-    pages: []
+    data: {}
   })
 
   assert.match(markup, /<title>&lt;script&gt;alert\(1\)&lt;\/script&gt; \| mine\.css<\/title>/)

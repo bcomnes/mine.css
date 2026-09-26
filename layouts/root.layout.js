@@ -1,5 +1,5 @@
 /**
- * @import { LayoutFunction } from '@domstack/static'
+ * @import { LayoutFunction } from '@domstack/static/types.js'
  * @import { HtmlRenderable } from 'fragtml/types.js'
  */
 import { html, raw, render } from 'fragtml'

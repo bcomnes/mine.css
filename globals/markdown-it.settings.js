@@ -1,5 +1,5 @@
 /**
- * @import MarkdownIt from 'markdown-it'
+ * @import { MarkdownIt } from 'markdown-it'
  */
 import markdownItTOC from 'markdown-it-table-of-contents'
 
