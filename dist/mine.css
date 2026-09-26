@@ -48,6 +48,9 @@
     inset 0 -1px 0 rgb(0 0 0 / 4%),
     0 2px 5px rgb(0 0 0 / 11%);
 
+  /* Shared radius for standard framed surfaces and media. */
+  --radius: 7px;
+
   /* light colors */
   --light-text: hsl(0deg, 0%, 7%, 100%); /* #111 */
   --light-background: white;
@@ -659,6 +662,7 @@ audio {
 canvas {
   /* Preserve the bitmap's intrinsic ratio when its inline size is constrained. */
   block-size: auto;
+  border-radius: var(--radius);
 }
 }
 @layer mine {
@@ -667,7 +671,7 @@ video {
   display: block;
   max-inline-size: 100%;
   block-size: auto;
-  border-radius: 7px;
+  border-radius: var(--radius);
   background-color: var(--accent-background);
 }
 }
@@ -679,7 +683,7 @@ iframe {
 
   /* Frame embedded documents like the other raised surfaces in the system. */
   border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
-  border-radius: 7px;
+  border-radius: var(--radius);
   background-color: var(--accent-background);
   box-shadow: var(--surface-shadow);
 }
@@ -687,11 +691,16 @@ iframe {
 @layer mine {
 
 figure {
-  /* Let media establish the figure measure while containing oversized assets. */
+  /* Let sized media establish the figure measure while containing oversized assets. */
   inline-size: fit-content;
   max-inline-size: 100%;
   margin-block: 1em;
   margin-inline: auto;
+
+  /* Loading images and canvas-based media have no reliable intrinsic measure. */
+  &:where(:has(img:not([width], [height]), canvas, iframe, video, audio)) {
+    inline-size: 100%;
+  }
 
   /* Avoid inline-image baseline space inside the shrink-wrapped figure. */
   & picture,
@@ -700,7 +709,7 @@ figure {
   & img,
   & video {
     border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
-    border-radius: 7px;
+    border-radius: var(--radius);
     padding: 0.25em;
 
     /* Treat padded media as a lightly raised frame, consistent with code panels. */
@@ -772,7 +781,7 @@ input[type="url"],
 input[type="week"] {
   /* A thin boundary and inset lighting make textual and selection controls feel gently recessed. */
   border-color: var(--control-border);
-  border-radius: 7px;
+  border-radius: var(--radius);
   border-width: 1px;
   border-style: solid;
   padding: 0.4em;
@@ -949,7 +958,7 @@ label {
 }
 @layer mine {
 fieldset {
-  border-radius: 7px;
+  border-radius: var(--radius);
   border-style: solid;
   border-width: 1px;
   border-color: color-mix(in srgb, var(--accent-midground) 70%, var(--background));

@@ -13,4 +13,5 @@ audio {
 canvas {
   /* Preserve the bitmap's intrinsic ratio when its inline size is constrained. */
   block-size: auto;
+  border-radius: var(--radius);
 }

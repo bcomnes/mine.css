@@ -3,6 +3,6 @@ video {
   display: block;
   max-inline-size: 100%;
   block-size: auto;
-  border-radius: 7px;
+  border-radius: var(--radius);
   background-color: var(--accent-background);
 }

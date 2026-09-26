@@ -30,6 +30,9 @@
     inset 0 -1px 0 rgb(0 0 0 / 4%),
     0 2px 5px rgb(0 0 0 / 11%);
 
+  /* Shared radius for standard framed surfaces and media. */
+  --radius: 7px;
+
   /* light colors */
   --light-text: hsl(0deg, 0%, 7%, 100%); /* #111 */
   --light-background: white;

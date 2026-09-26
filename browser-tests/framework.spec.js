@@ -300,6 +300,7 @@ test('keeps audio controls and canvas content responsive', async ({ page, siteUR
     return {
       audioDisplay: getComputedStyle(audio).display,
       audioWidth: audioBounds.width,
+      canvasBorderRadius: getComputedStyle(canvas).borderRadius,
       canvasDisplay: getComputedStyle(canvas).display,
       canvasHeight: canvasBounds.height,
       canvasIntrinsicWidth: canvas.width,
@@ -308,6 +309,7 @@ test('keeps audio controls and canvas content responsive', async ({ page, siteUR
   })
 
   expect(presentation.audioDisplay).toBe('block')
+  expect(presentation.canvasBorderRadius).toBe('7px')
   expect(presentation.canvasDisplay).toBe('block')
   expect(presentation.audioWidth).toBeCloseTo(presentation.canvasWidth, 0)
   expect(presentation.canvasWidth).toBeLessThan(presentation.canvasIntrinsicWidth)
@@ -363,6 +365,51 @@ test('centers figures on their media and keeps borderless images transparent', a
   expect(presentation.figureWidth).toBe(presentation.imageWidth)
   expect(presentation.captionWidth).toBe(presentation.imageWidth)
   expect(Math.abs(presentation.figureCenter - presentation.bodyCenter)).toBeLessThan(1)
+})
+
+test('keeps loading media figures from collapsing', async ({ page, siteURL }) => {
+  await gotoGuide(page, siteURL)
+
+  const presentation = await page.evaluate(() => {
+    const main = document.querySelector('main')
+    if (!main) throw new Error('Main fixture is missing')
+
+    const imageFigure = document.createElement('figure')
+    const image = document.createElement('img')
+    image.alt = ''
+    const imageCaption = document.createElement('figcaption')
+    imageCaption.textContent = 'The image is still loading.'
+    imageFigure.append(image, imageCaption)
+
+    const canvasFigure = document.createElement('figure')
+    const canvasFrame = document.createElement('div')
+    canvasFrame.style.blockSize = '12rem'
+    canvasFrame.style.position = 'relative'
+    const canvas = document.createElement('canvas')
+    canvas.style.position = 'absolute'
+    canvas.style.inset = '0'
+    const canvasCaption = document.createElement('figcaption')
+    canvasCaption.textContent = 'The canvas has no intrinsic figure measure.'
+    canvasFrame.append(canvas)
+    canvasFigure.append(canvasFrame, canvasCaption)
+    main.append(imageFigure, canvasFigure)
+
+    const mainWidth = main.getBoundingClientRect().width
+    const imageFigureWidth = imageFigure.getBoundingClientRect().width
+    const canvasFigureWidth = canvasFigure.getBoundingClientRect().width
+    return {
+      imageCaptionWidth: imageCaption.getBoundingClientRect().width,
+      imageFigureWidth,
+      canvasCaptionWidth: canvasCaption.getBoundingClientRect().width,
+      canvasFigureWidth,
+      mainWidth
+    }
+  })
+
+  expect(presentation.imageFigureWidth).toBeGreaterThan(presentation.mainWidth / 2)
+  expect(presentation.imageCaptionWidth).toBeGreaterThan(0)
+  expect(presentation.canvasFigureWidth).toBeGreaterThan(presentation.mainWidth / 2)
+  expect(presentation.canvasCaptionWidth).toBeGreaterThan(0)
 })
 
 test('renders horizontal rules as theme-aware recessed hairlines', async ({ page, siteURL }) => {

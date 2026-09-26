@@ -1,9 +1,14 @@
 figure {
-  /* Let media establish the figure measure while containing oversized assets. */
+  /* Let sized media establish the figure measure while containing oversized assets. */
   inline-size: fit-content;
   max-inline-size: 100%;
   margin-block: 1em;
   margin-inline: auto;
+
+  /* Loading images and canvas-based media have no reliable intrinsic measure. */
+  &:where(:has(img:not([width], [height]), canvas, iframe, video, audio)) {
+    inline-size: 100%;
+  }
 
   /* Avoid inline-image baseline space inside the shrink-wrapped figure. */
   & picture,
@@ -12,7 +17,7 @@ figure {
   & img,
   & video {
     border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
-    border-radius: 7px;
+    border-radius: var(--radius);
     padding: 0.25em;
 
     /* Treat padded media as a lightly raised frame, consistent with code panels. */

@@ -1,5 +1,5 @@
 fieldset {
-  border-radius: 7px;
+  border-radius: var(--radius);
   border-style: solid;
   border-width: 1px;
   border-color: color-mix(in srgb, var(--accent-midground) 70%, var(--background));

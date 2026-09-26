@@ -675,6 +675,38 @@ An iframe keeps its authored dimensions while shrinking to fit narrower containe
 </figure>
 ```
 
+### <a id="media-that-is-still-loading" href="#media-that-is-still-loading">Media that is still loading</a>
+
+Figures keep a stable measure when their media has no intrinsic size yet, such as an image that is still loading or a canvas-based renderer.
+
+<figure class="borderless">
+  <div style="position: relative; block-size: 12rem; background: var(--accent-background);">
+    <canvas
+      aria-label="Canvas media loading placeholder"
+      style="position: absolute; inset: 0; inline-size: 100%; block-size: 100%; background: linear-gradient(135deg, var(--link-text), var(--valid));">
+      Canvas media loading placeholder.
+    </canvas>
+  </div>
+  <figcaption>
+    The figure remains readable while a canvas or image renderer is loading and has not established an intrinsic width.
+  </figcaption>
+</figure>
+
+```html
+<figure class="borderless">
+  <div style="position: relative; block-size: 12rem; background: var(--accent-background);">
+    <canvas
+      aria-label="Canvas media loading placeholder"
+      style="position: absolute; inset: 0; inline-size: 100%; block-size: 100%;">
+      Canvas media loading placeholder.
+    </canvas>
+  </div>
+  <figcaption>
+    The figure remains readable while a canvas or image renderer is loading and has not established an intrinsic width.
+  </figcaption>
+</figure>
+```
+
 ## <a id="extras" href="#extras">Extras</a>
 
 The following markup falls outside the [CommonMark](http://commonmark.org) specification and may require plugins or special options for your markdown parser of choice. We're using [markdown-it](https://github.com/markdown-it/markdown-it) and related [plugins](https://www.npmjs.com/browse/keyword/markdown-it) to show how the following elements look when using `style.css`.

@@ -5,7 +5,7 @@ iframe {
 
   /* Frame embedded documents like the other raised surfaces in the system. */
   border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
-  border-radius: 7px;
+  border-radius: var(--radius);
   background-color: var(--accent-background);
   box-shadow: var(--surface-shadow);
 }

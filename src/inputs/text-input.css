@@ -37,7 +37,7 @@ input[type="url"],
 input[type="week"] {
   /* A thin boundary and inset lighting make textual and selection controls feel gently recessed. */
   border-color: var(--control-border);
-  border-radius: 7px;
+  border-radius: var(--radius);
   border-width: 1px;
   border-style: solid;
   padding: 0.4em;
