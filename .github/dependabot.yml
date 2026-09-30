@@ -26,10 +26,6 @@ updates:
       playwright:
         patterns:
           - "@playwright/test"
-      postcss:
-        patterns:
-          - "postcss"
-          - "postcss-*"
       stylelint:
         patterns:
           - "stylelint"

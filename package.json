@@ -18,13 +18,11 @@
     "@playwright/test": "1.61.1",
     "@types/node": "^26.0.0",
     "@voxpelli/tsconfig": "^16.1.0",
-
     "fragtml": "^0.0.9",
     "highlight.js": "^11.2.0",
     "markdown-it-table-of-contents": "^1.2.0",
     "neostandard": "^0.13.0",
     "npm-run-all2": "^9.0.0",
-
     "releasearoni": "^0.2.0",
     "stylelint": "^17.4.0",
     "stylelint-config-standard": "^40.0.0",
@@ -38,12 +36,10 @@
   "keywords": [
     "css",
     "markdown",
-    "postcss",
     "style"
   ],
   "license": "MIT",
   "type": "module",
-
   "main": "dist/mine.css",
   "style": "dist/mine.css",
   "files": [
