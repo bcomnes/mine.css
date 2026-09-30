@@ -69,8 +69,6 @@ load the package from `node_modules` before serving it:
 
 Several tools support this bare package import:
 
-- [postcss-import](https://github.com/postcss/postcss-import) inlines CSS from
-  local files and npm packages.
 - [esbuild](https://esbuild.github.io/content-types/#css) bundles CSS and
   resolves package imports from `node_modules`.
 - [@domstack/static](https://github.com/bcomnes/domstack#page-styles) uses

@@ -1,13 +1,5 @@
-/* GitHub Light and GitHub Dark palette mapped from GitHub (MIT):
- * https://github.com/primer/primitives/blob/b447200fa097165c956c5833031c15608dbe6094/src/tokens/functional/color
- * https://github.com/primer/github-vscode-theme/blob/cd78e5e4e7bcf132a6f428ae0f32264bb1b729cf/src/classic/colors.json
- * https://github.com/primer/github-vscode-theme/blob/cd78e5e4e7bcf132a6f428ae0f32264bb1b729cf/src/classic/theme.js
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="github"] {
-  /* GitHub Light */
+/* src/themes/github.css */
+:root[data-mine-theme=github] {
   --light-text: #1f2328;
   --light-background: #ffffff;
   --light-layer-background: #f6f8fa;
@@ -22,8 +14,6 @@
   --light-code-text: #24292f;
   --light-code-background: #f6f8fa;
   --light-code-border: #8c959f;
-
-  /* GitHub Dark */
   --dark-text: #e6edf3;
   --dark-background: #0d1117;
   --dark-layer-background: #161b22;
@@ -39,7 +29,4 @@
   --dark-code-background: #161b22;
   --dark-code-border: #6e7681;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=github.css.map */

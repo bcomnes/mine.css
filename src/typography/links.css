@@ -8,10 +8,18 @@ a {
   --link-hover-strength: 0;
 
   /* Link and body colors differ by more than 3:1; interaction adds a second cue. */
+
+  /* Safari 15.3 and earlier expose this as the WebKit alias. */
+  /* stylelint-disable-next-line property-no-vendor-prefix, declaration-property-value-no-unknown */
+  -webkit-text-decoration-skip: ink;
   text-decoration-skip-ink: auto;
   color: var(--link-text);
   text-decoration: none;
   border-radius: 0.2em;
+
+  /* Safari still exposes box-decoration-break through the WebKit alias. */
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 
   /*

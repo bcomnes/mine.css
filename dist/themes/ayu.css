@@ -1,12 +1,5 @@
-/* Ayu Light and Ayu Dark palette mapped from Ayu (MIT):
- * https://github.com/ayu-theme/ayu-colors/blob/e3f44fdf2a1c83e3f183d4e8acd40c6a452dcb1c/themes/light.yaml
- * https://github.com/ayu-theme/ayu-colors/blob/e3f44fdf2a1c83e3f183d4e8acd40c6a452dcb1c/themes/dark.yaml
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="ayu"] {
-  /* Ayu Light */
+/* src/themes/ayu.css */
+:root[data-mine-theme=ayu] {
   --light-text: #5c6166;
   --light-background: #fcfcfc;
   --light-layer-background: #f8f9fa;
@@ -21,8 +14,6 @@
   --light-code-text: #5c6166;
   --light-code-background: #f8f9fa;
   --light-code-border: #828e9f;
-
-  /* Ayu Dark */
   --dark-text: #bfbdb6;
   --dark-background: #10141c;
   --dark-layer-background: #141821;
@@ -38,7 +29,4 @@
   --dark-code-background: #141821;
   --dark-code-border: #5a6378;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=ayu.css.map */

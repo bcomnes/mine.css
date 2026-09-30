@@ -1,12 +1,5 @@
-/* Tokyo Night Light and Tokyo Night palette mapped from Tokyo Night (MIT):
- * https://github.com/tokyo-night/tokyo-night-vscode-theme/blob/7c0f11eaef322f293621ca7befe462214b7ea468/themes/tokyo-night-light-color-theme.json
- * https://github.com/tokyo-night/tokyo-night-vscode-theme/blob/7c0f11eaef322f293621ca7befe462214b7ea468/themes/tokyo-night-color-theme.json
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="tokyo-night"] {
-  /* Tokyo Night Light */
+/* src/themes/tokyo-night.css */
+:root[data-mine-theme=tokyo-night] {
   --light-text: #363c4d;
   --light-background: #e6e7ed;
   --light-layer-background: #dcdee3;
@@ -21,8 +14,6 @@
   --light-code-text: #343b59;
   --light-code-background: #dcdee3;
   --light-code-border: #707280;
-
-  /* Tokyo Night */
   --dark-text: #a9b1d6;
   --dark-background: #1a1b26;
   --dark-layer-background: #1e202e;
@@ -38,7 +29,4 @@
   --dark-code-background: #1e202e;
   --dark-code-border: #787c99;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=tokyo-night.css.map */

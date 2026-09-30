@@ -1,1007 +1,821 @@
-/* variables */
+/* src/system-fonts-vars.css */
 @layer mine {
-/* Prefer standardized UI generics, then durable platform faces, then generics. */
-:root {
-  --system-sans:
-    ui-sans-serif, system-ui, -apple-system, "BlinkMacSystemFont", "Segoe UI",
-    roboto, "Helvetica Neue", sans-serif;
-  --system-mono:
-    ui-monospace, "SFMono-Regular", menlo, monaco, consolas, "Liberation Mono",
-    "Courier New", monospace;
-  --system-serif:
-    ui-serif, "New York", charter, constantia, georgia, serif;
-  --system-round:
-    ui-rounded, var(--system-sans);
-}
-}
-@layer mine {
-
-/* stylelint-disable color-function-notation */
-
-/* variable settings */
-:root {
-  /* font family */
-  --font-body: var(--system-sans);
-  --font-code: var(--system-mono);
-
-  /* Respect the reader's default size while allowing a slightly wider bounded scale. */
-  --font-size-body: clamp(1rem, calc(0.95rem + 0.2vi), 1.25rem);
-
-  @supports (font-size: round(1rem, 1px)) {
-    /* Snap the fluid value to whole CSS pixels while leaving clamp in charge
-       of the minimum and maximum. */
-    --font-size-body: clamp(
-      1rem,
-      round(nearest, calc(0.95rem + 0.2vi), 1px),
-      1.25rem
-    );
-  }
-
-  /* note: use unitless line heights
-   https://css-tricks.com/almanac/properties/l/line-height/#article-header-id-0 */
-  --line-height-body: 1.75;
-  --line-height-pre: 1.45;
-
-  /* Raised surfaces share one theme-neutral depth recipe. */
-  --surface-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 24%),
-    inset 0 -1px 0 rgb(0 0 0 / 4%),
-    0 2px 5px rgb(0 0 0 / 11%);
-
-  /* Shared radius for standard framed surfaces and media. */
-  --radius: 7px;
-
-  /* light colors */
-  --light-text: hsl(0deg, 0%, 7%, 100%); /* #111 */
-  --light-background: white;
-  --light-layer-background: hsl(0deg, 0%, 100%, 0%); /* #fff */
-  --light-accent-background: hsl(0deg, 0%, 95%, 100%); /* #f2f2f2 */
-
-  /* Decorative boundaries stay quiet; form controls use a distinct AA token. */
-  --light-accent-midground: hsl(0deg, 0%, 84%, 100%); /* #d6d6d6 */
-  --light-control-border: hsl(0deg, 0%, 58%, 100%); /* #949494 */
-  --light-accent-foreground: hsl(0deg, 0%, 40%, 100%); /* #666 */
-
-  /* Push links toward the lightest blue that still clears AA on white. */
-  --light-link-text: hsl(210deg, 100%, 45%, 100%); /* #0073e6 */
-  --light-valid: hsl(152deg, 60%, 34%, 100%); /* #238b5a */
-  --light-invalid: hsl(355deg, 70%, 48%, 100%); /* #d02533 */
-  --light-mark-background: hsl(60deg, 100%, 50%, 100%); /* #ff0 */
-  --light-code-text: var(--light-text);
-  --light-code-background: var(--light-accent-background);
-  --light-code-border: var(--light-accent-midground);
-
-  /* dark colors */
-  --dark-text: white;
-  --dark-background: hsl(0deg, 0%, 12%, 100%); /* #1f1f1f from safari */
-  --dark-layer-background: transparent;
-  --dark-accent-background: hsl(0deg, 0%, 20%, 100%); /* #333 */
-  --dark-accent-midground: hsl(0deg, 0%, 30%, 100%); /* #4d4d4d */
-  --dark-control-border: hsl(0deg, 0%, 42%, 100%); /* #6b6b6b */
-  --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%); /* #999 */
-  --dark-link-text: hsl(206deg, 100%, 70%); /* #66bdff */
-  --dark-valid: hsl(152deg, 55%, 62%, 100%); /* #69d3a2 */
-  --dark-invalid: hsl(355deg, 78%, 68%, 100%); /* #ed6e78 */
-  --dark-mark-background: hsl(58deg, 66%, 30%, 100%); /* #7f7c1a */
-  --dark-code-text: var(--dark-text);
-  --dark-code-background: var(--dark-accent-background);
-  --dark-code-border: var(--dark-accent-midground);
-
-  /* Semantic aliases default to light and are rebound by browser media preferences. */
-
-  /* main colors */
-  --text: var(--light-text);
-  --background: var(--light-background);
-
-  /* Reusable glass surface that follows the active page background. */
-  --translucent-background: color-mix(in srgb, var(--background) 75%, transparent);
-  --layer-background: var(--light-layer-background);
-  --accent-background: var(--light-accent-background);
-  --accent-midground: var(--light-accent-midground);
-  --accent-foreground: var(--light-accent-foreground);
-  --control-border: var(--light-control-border);
-
-  /* misc colors */
-  --link-text: var(--light-link-text);
-  --valid: var(--light-valid);
-  --invalid: var(--light-invalid);
-  --mark-background: var(--light-mark-background);
-  --code-text: var(--light-code-text);
-  --code-background: var(--light-code-background);
-  --code-border: var(--light-code-border);
-
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
   :root {
-    /* main colors */
-    --text: var(--dark-text);
-    --background: var(--dark-background);
-    --layer-background: var(--dark-layer-background);
-    --accent-background: var(--dark-accent-background);
-    --accent-midground: var(--dark-accent-midground);
-    --accent-foreground: var(--dark-accent-foreground);
-    --control-border: var(--dark-control-border);
-
-    /* misc colors */
-    --link-text: var(--dark-link-text);
-    --valid: var(--dark-valid);
-    --invalid: var(--dark-invalid);
-    --mark-background: var(--dark-mark-background);
-    --code-text: var(--dark-code-text);
-    --code-background: var(--dark-code-background);
-    --code-border: var(--dark-code-border);
-
-    color-scheme: dark;
+    --system-sans:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      "BlinkMacSystemFont",
+      "Segoe UI",
+      roboto,
+      "Helvetica Neue",
+      sans-serif;
+    --system-mono:
+      ui-monospace,
+      "SFMono-Regular",
+      menlo,
+      monaco,
+      consolas,
+      "Liberation Mono",
+      "Courier New",
+      monospace;
+    --system-serif:
+      ui-serif,
+      "New York",
+      charter,
+      constantia,
+      georgia,
+      serif;
+    --system-round: ui-rounded, var(--system-sans);
   }
 }
 
-@media print {
+/* src/variables.css */
+@layer mine {
   :root {
-    /* Force every active alias light so a dark browser preference cannot leak to paper. */
-    --print-accent-background: hsl(0deg, 0%, 83%, 100%); /* #d4d4d4 */
-    --print-accent-midground: hsl(0deg, 0%, 72%, 100%); /* #b8b8b8 */
-    --print-accent-foreground: hsl(0deg, 0%, 35%, 100%); /* #595959 */
+    --font-body: var(--system-sans);
+    --font-code: var(--system-mono);
+    --font-size-body: clamp(1rem, calc(0.95rem + 0.2vi), 1.25rem);
+    @supports (font-size: round(1rem, 1px)) {
+      --font-size-body: clamp( 1rem, round(nearest, calc(0.95rem + 0.2vi), 1px), 1.25rem );
+    }
+    --line-height-body: 1.75;
+    --line-height-pre: 1.45;
+    --surface-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 24%),
+      inset 0 -1px 0 rgb(0 0 0 / 4%),
+      0 2px 5px rgb(0 0 0 / 11%);
+    --radius: 7px;
+    --light-text: hsl(0deg, 0%, 7%, 100%);
+    --light-background: white;
+    --light-layer-background: hsl(0deg, 0%, 100%, 0%);
+    --light-accent-background: hsl(0deg, 0%, 95%, 100%);
+    --light-accent-midground: hsl(0deg, 0%, 84%, 100%);
+    --light-control-border: hsl(0deg, 0%, 58%, 100%);
+    --light-accent-foreground: hsl(0deg, 0%, 40%, 100%);
+    --light-link-text: hsl(210deg, 100%, 45%, 100%);
+    --light-valid: hsl(152deg, 60%, 34%, 100%);
+    --light-invalid: hsl(355deg, 70%, 48%, 100%);
+    --light-mark-background: hsl(60deg, 100%, 50%, 100%);
+    --light-code-text: var(--light-text);
+    --light-code-background: var(--light-accent-background);
+    --light-code-border: var(--light-accent-midground);
+    --dark-text: white;
+    --dark-background: hsl(0deg, 0%, 12%, 100%);
+    --dark-layer-background: transparent;
+    --dark-accent-background: hsl(0deg, 0%, 20%, 100%);
+    --dark-accent-midground: hsl(0deg, 0%, 30%, 100%);
+    --dark-control-border: hsl(0deg, 0%, 42%, 100%);
+    --dark-accent-foreground: hsl(0deg, 0%, 60%, 100%);
+    --dark-link-text: hsl(206deg, 100%, 70%);
+    --dark-valid: hsl(152deg, 55%, 62%, 100%);
+    --dark-invalid: hsl(355deg, 78%, 68%, 100%);
+    --dark-mark-background: hsl(58deg, 66%, 30%, 100%);
+    --dark-code-text: var(--dark-text);
+    --dark-code-background: var(--dark-accent-background);
+    --dark-code-border: var(--dark-accent-midground);
     --text: var(--light-text);
     --background: var(--light-background);
+    --translucent-background: color-mix(in srgb, var(--background) 75%, transparent);
     --layer-background: var(--light-layer-background);
-    --accent-background: var(--print-accent-background);
-    --accent-midground: var(--print-accent-midground);
-    --accent-foreground: var(--print-accent-foreground);
-    --control-border: var(--print-accent-midground);
+    --accent-background: var(--light-accent-background);
+    --accent-midground: var(--light-accent-midground);
+    --accent-foreground: var(--light-accent-foreground);
+    --control-border: var(--light-control-border);
     --link-text: var(--light-link-text);
     --valid: var(--light-valid);
     --invalid: var(--light-invalid);
     --mark-background: var(--light-mark-background);
     --code-text: var(--light-code-text);
-    --code-background: var(--print-accent-background);
-    --code-border: var(--print-accent-midground);
-    --surface-shadow: none;
-
+    --code-background: var(--light-code-background);
+    --code-border: var(--light-code-border);
     color-scheme: light;
   }
-}
-}
-@layer mine {
-/* Establish the public typography and box model before component rules consume it. */
-html {
-  box-sizing: border-box;
-  font-family: var(--font-body);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-
-  /* Let capable browsers tuck edge punctuation outside the text measure. */
-  hanging-punctuation: first allow-end last;
-
-  /* Keep literal tabs compact in source, samples, and editable text. */
-  tab-size: 2;
-}
-
-/* Let the optional layout stylesheet own page gutters instead of browser defaults. */
-body {
-  margin: 0;
-  background-color: var(--background);
-  color: var(--text);
-
-  /* Break otherwise unbreakable text only when it would escape its container. */
-  overflow-wrap: anywhere;
-}
-
-/* Inherit border-box so components can opt into another model when they need one.
-   https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-[hidden]:not([hidden="until-found" i]) {
-  /* Keep component display rules from accidentally revealing irrelevant content.
-     Preserve the searchable hidden-until-found state for supporting browsers. */
-  display: none !important;
-}
-
-.visually-hidden:not(:focus, :active) {
-  /* Keep assistive text available while reducing its visual box to one clipped pixel.
-     Focusable content such as skip links returns to normal flow when interacted with. */
-  position: absolute;
-  inline-size: 1px;
-  block-size: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-:focus-visible {
-  /* Separate native and customized focus rings from the focused element. */
-  outline-offset: 2px;
-}
-
-:target {
-  /* Leave enough preceding context when navigating directly to a fragment. */
-  scroll-margin-block-start: 2rem;
-}
-
-:target[tabindex="-1"]:focus {
-  /* Fragment destinations keep programmatic focus without painting a page-wide
-     block outline, matching the presentation before v11. */
-  outline: 0;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  /* Let same-origin navigations participate without requiring site JavaScript. */
-  @view-transition { navigation: auto; }
-
-  html {
-    /* Make intrinsic size keywords available to authored transitions. */
-    interpolate-size: allow-keywords;
-
-    /* Smooth fragment navigation even when a browser does not focus tapped links. */
-    scroll-behavior: smooth;
-  }
-}
-}
-@layer mine {
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 500;
-  line-height: 1.25;
-
-  /* Prefer similarly sized lines when a short heading wraps. */
-  text-wrap: balance;
-
-  /* rep the smallies */
-  & small {
-    color: var(--accent-foreground);
-    font-size: 0.7em;
-    font-weight: 400;
-  }
-
-  & code { font-size: 0.9em; }
-}
-
-h1,
-h2,
-h3 {
-  /* Tighter leading keeps large, balanced headings visually cohesive. */
-  line-height: 1.15;
-  margin-block: 2rem 1.25rem;
-}
-
-h4,
-h5,
-h6 {
-  /* Lower-level headings need less separation from their surrounding text. */
-  margin-block: 1.5rem 1rem;
-}
-
-h1 { font-size: 2.75em; }
-h2 { font-size: 2.25em; }
-h3 { font-size: 1.75em; }
-h4 { font-size: 1.5em; }
-h5 { font-size: 1.25em; }
-
-h6 {
-  font-size: 1em;
-  color: var(--accent-foreground);
-  letter-spacing: 0.025em;
-}
-}
-@layer mine {
-
-@property --link-hover-strength {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
-}
-
-a {
-  --link-hover-strength: 0;
-
-  /* Link and body colors differ by more than 3:1; interaction adds a second cue. */
-  -webkit-text-decoration-skip: ink;
-          text-decoration-skip-ink: auto;
-  color: var(--link-text);
-  text-decoration: none;
-  border-radius: 0.2em;
-  -webkit-box-decoration-break: clone;
-          box-decoration-break: clone;
-
-  /*
-   * Paper trail (observed in Chromium 149.0.7827.55 on 2026-07-16): directly
-   * transitioning background-color and box-shadow between transparent and
-   * currentcolor-based color-mix() values produced coarse intermediate frames
-   * and a final halo snap. Safari rendered the same transition smoothly, and
-   * endpoint-only tests passed in both engines.
-   *
-   * Animate one registered number instead, then derive both painted values from
-   * it so Blink has a primitive value to interpolate on every frame. Related
-   * currentColor/color-mix Blink work (not this exact transition reproduction):
-   * https://crbug.com/1448813
-   */
-  background-color: color-mix(
-    in srgb,
-    currentcolor calc(var(--link-hover-strength) * 8%),
-    transparent
-  );
-  box-shadow: 0 0 0 calc(var(--link-hover-strength) * 0.14em) color-mix(
-    in srgb,
-    currentcolor calc(var(--link-hover-strength) * 8%),
-    transparent
-  );
-  transition: --link-hover-strength 0.1s ease;
-
-  /* Restore the pre-v11 pointer behavior while leaving keyboard-only focus to
-     the browser's native indicator. */
-  &:active,
-  &:hover { outline: 0; }
-
-  &:active,
-  &:focus,
-  &:hover {
-    /* A soft halo adds a non-color cue without shifting surrounding text. */
-    --link-hover-strength: 1;
-  }
-}
-}
-@layer mine {
-
-ul,
-ol {
-  padding-inline-start: 2em;
-
-  & ol { list-style-type: lower-roman; }
-
-  & ul,
-  & ol {
-    margin-block: 0;
-
-    & ol { list-style-type: lower-alpha; }
-  }
-}
-
-li > p { margin-block-start: 1em; }
-}
-@layer mine {
-blockquote {
-  margin-block: 0 1rem;
-
-  /* Reset the browser's default inline indentation without assuming LTR. */
-  margin-inline: 0;
-  padding-inline: 1rem;
-  color: var(--accent-foreground);
-  border-inline-start: 4px solid var(--accent-midground);
-
-  & > :first-child { margin-block-start: 0; }
-  & > :last-child { margin-block-end: 0; }
-}
-}
-@layer mine {
-
-b,
-strong {
-  font-weight: 600;
-}
-
-mark {
-  background-color: var(--mark-background);
-  color: var(--text);
-}
-
-/* Prevent `sub` and `sup` elements from affecting the line height in
-   all browsers. */
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sub { inset-block-end: -0.25em; }
-sup { inset-block-start: -0.5em; }
-}
-@layer mine {
-/* 1. Correct the inheritance and scaling of font size in all browsers.
-   2. Correct the odd `em` font sizing in all browsers. */
-code,
-pre,
-kbd,
-samp {
-  font-family: var(--font-code); /* 1 */
-  font-size: 90%; /* 2 */
-  color: var(--code-text);
-}
-
-code {
-  padding-block: 0.2em;
-  padding-inline: 0.4em;
-  margin: 0;
-}
-
-pre,
-code {
-  background-color: var(--code-background);
-  border-radius: 5px;
-}
-
-a code { color: var(--link-text); }
-
-pre,
-samp { color: var(--code-text); }
-
-pre {
-  overflow: auto;
-  overflow-wrap: normal;
-  line-height: var(--line-height-pre);
-  border: 1px solid color-mix(in srgb, var(--code-border) 70%, var(--background));
-
-  /* Soft highlight and shade pairs give the panel depth without a dark frame. */
-  box-shadow: var(--surface-shadow);
-
-  & code {
-    background: transparent;
-    display: block;
-    padding: 0.5em;
-    line-height: inherit;
-    overflow-wrap: normal;
-    border-radius: unset;
-
-    &::before,
-    &::after { content: normal; }
-  }
-
-  & > code {
-    border: 0;
-    font-size: 1em;
-    white-space: pre;
-    word-break: normal;
-  }
-}
-}
-@layer mine {
-
-/* Keyboard kbd shortcut key style */
-
-kbd {
-  background-color: var(--layer-background);
-  background-image: linear-gradient(var(--layer-background), var(--accent-background) 75%);
-  background-repeat: repeat-x;
-  border: 1px solid var(--accent-midground);
-  border-radius: 2px;
-  box-shadow: 0 1px 0 var(--accent-midground); /* depth */
-
   @media (prefers-color-scheme: dark) {
-    /* Keep the illuminated face above a real shadow in the dark palette. */
-    background-image: linear-gradient(var(--accent-background), var(--layer-background) 75%);
-    box-shadow: 0 1px 0 rgb(0 0 0 / 45%);
+    :root {
+      --text: var(--dark-text);
+      --background: var(--dark-background);
+      --layer-background: var(--dark-layer-background);
+      --accent-background: var(--dark-accent-background);
+      --accent-midground: var(--dark-accent-midground);
+      --accent-foreground: var(--dark-accent-foreground);
+      --control-border: var(--dark-control-border);
+      --link-text: var(--dark-link-text);
+      --valid: var(--dark-valid);
+      --invalid: var(--dark-invalid);
+      --mark-background: var(--dark-mark-background);
+      --code-text: var(--dark-code-text);
+      --code-background: var(--dark-code-background);
+      --code-border: var(--dark-code-border);
+      color-scheme: dark;
+    }
   }
+  @media print {
+    :root {
+      --print-accent-background: hsl(0deg, 0%, 83%, 100%);
+      --print-accent-midground: hsl(0deg, 0%, 72%, 100%);
+      --print-accent-foreground: hsl(0deg, 0%, 35%, 100%);
+      --text: var(--light-text);
+      --background: var(--light-background);
+      --layer-background: var(--light-layer-background);
+      --accent-background: var(--print-accent-background);
+      --accent-midground: var(--print-accent-midground);
+      --accent-foreground: var(--print-accent-foreground);
+      --control-border: var(--print-accent-midground);
+      --link-text: var(--light-link-text);
+      --valid: var(--light-valid);
+      --invalid: var(--light-invalid);
+      --mark-background: var(--light-mark-background);
+      --code-text: var(--light-code-text);
+      --code-background: var(--print-accent-background);
+      --code-border: var(--print-accent-midground);
+      --surface-shadow: none;
+      color-scheme: light;
+    }
+  }
+}
 
-  color: var(--text);
-  display: inline-block;
-  line-height: 0.95em;
-  margin-block: 0;
-  margin-inline: 1px;
-  padding-block: 5px 1px;
-  padding-inline: 5px;
-}
-}
+/* src/document.css */
 @layer mine {
-hr {
-  /* A rounded hairline, contrasting bevel, and short shadow give the divider
-     the embossed depth common to early-2010s interface chrome. */
-  block-size: 1px;
-  margin-block: 2.5rem;
-  border: 0;
-  border-radius: 999px;
-  background-color: color-mix(
-    in srgb,
-    var(--accent-midground) 75%,
-    var(--text)
-  );
-  box-shadow:
-    0 1px 0 color-mix(in srgb, var(--accent-midground) 45%, var(--background)),
-    0 2px 3px rgb(0 0 0 / 14%);
-  overflow: visible;
+  html {
+    box-sizing: border-box;
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    hanging-punctuation: first allow-end last;
+    tab-size: 2;
+  }
+  body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  [hidden]:not([hidden=until-found i]) {
+    display: none !important;
+  }
+  .visually-hidden:not(:focus, :active) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  :focus-visible {
+    outline-offset: 2px;
+  }
+  :target {
+    scroll-margin-block-start: 2rem;
+  }
+  :target[tabindex="-1"]:focus {
+    outline: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @view-transition {
+      navigation: auto;
+    }
+    html {
+      interpolate-size: allow-keywords;
+      scroll-behavior: smooth;
+    }
+  }
 }
-}
+
+/* src/typography/headings.css */
 @layer mine {
-abbr[title] {
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
-}
-}
-@layer mine {
-
-dd { margin-inline-start: 0; }
-
-dl {
-  padding: 0;
-
-  & dt {
-    padding: 0;
-    margin-block-start: 1em;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+    line-height: 1.25;
+    text-wrap: balance;
+    & small {
+      color: var(--accent-foreground);
+      font-size: 0.7em;
+      font-weight: 400;
+    }
+    & code {
+      font-size: 0.9em;
+    }
+  }
+  h1,
+  h2,
+  h3 {
+    line-height: 1.15;
+    margin-block: 2rem 1.25rem;
+  }
+  h4,
+  h5,
+  h6 {
+    margin-block: 1.5rem 1rem;
+  }
+  h1 {
+    font-size: 2.75em;
+  }
+  h2 {
+    font-size: 2.25em;
+  }
+  h3 {
+    font-size: 1.75em;
+  }
+  h4 {
+    font-size: 1.5em;
+  }
+  h5 {
+    font-size: 1.25em;
+  }
+  h6 {
     font-size: 1em;
-    font-style: italic;
+    color: var(--accent-foreground);
+    letter-spacing: 0.025em;
+  }
+}
+
+/* src/typography/links.css */
+@layer mine {
+  @property --link-hover-strength { syntax: "<number>"; inherits: false; initial-value: 0; }
+  a {
+    --link-hover-strength: 0;
+    -webkit-text-decoration-skip: ink;
+    text-decoration-skip-ink: auto;
+    color: var(--link-text);
+    text-decoration: none;
+    border-radius: 0.2em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    background-color: color-mix(in srgb, currentcolor calc(var(--link-hover-strength) * 8%), transparent);
+    box-shadow: 0 0 0 calc(var(--link-hover-strength) * 0.14em) color-mix(in srgb, currentcolor calc(var(--link-hover-strength) * 8%), transparent);
+    transition: --link-hover-strength 0.1s ease;
+    &:active,
+    &:hover {
+      outline: 0;
+    }
+    &:active,
+    &:focus,
+    &:hover {
+      --link-hover-strength: 1;
+    }
+  }
+}
+
+/* src/typography/lists.css */
+@layer mine {
+  ul,
+  ol {
+    padding-inline-start: 2em;
+    & ol {
+      list-style-type: lower-roman;
+    }
+    & ul,
+    & ol {
+      margin-block: 0;
+      & ol {
+        list-style-type: lower-alpha;
+      }
+    }
+  }
+  li > p {
+    margin-block-start: 1em;
+  }
+}
+
+/* src/typography/blockquotes.css */
+@layer mine {
+  blockquote {
+    margin-block: 0 1rem;
+    margin-inline: 0;
+    padding-inline: 1rem;
+    color: var(--accent-foreground);
+    border-inline-start: 4px solid var(--accent-midground);
+    & > :first-child {
+      margin-block-start: 0;
+    }
+    & > :last-child {
+      margin-block-end: 0;
+    }
+  }
+}
+
+/* src/typography/emphasis.css */
+@layer mine {
+  b,
+  strong {
     font-weight: 600;
   }
-
-  & dd {
-    padding-inline: 1em;
-    margin-block-end: 1.25em;
+  mark {
+    background-color: var(--mark-background);
+    color: var(--text);
+  }
+  sub,
+  sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  sub {
+    inset-block-end: -0.25em;
+  }
+  sup {
+    inset-block-start: -0.5em;
   }
 }
-}
+
+/* src/typography/code.css */
 @layer mine {
-/* Use the same rhythm for typographic block elements. */
-p,
-blockquote,
-ul,
-ol,
-dl {
-  margin-block: 0 1.25em;
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-code);
+    font-size: 90%;
+    color: var(--code-text);
+  }
+  code {
+    padding-block: 0.2em;
+    padding-inline: 0.4em;
+    margin: 0;
+  }
+  pre,
+  code {
+    background-color: var(--code-background);
+    border-radius: 5px;
+  }
+  a code {
+    color: var(--link-text);
+  }
+  pre,
+  samp {
+    color: var(--code-text);
+  }
+  pre {
+    overflow: auto;
+    overflow-wrap: normal;
+    line-height: var(--line-height-pre);
+    border: 1px solid color-mix(in srgb, var(--code-border) 70%, var(--background));
+    box-shadow: var(--surface-shadow);
+    & code {
+      background: transparent;
+      display: block;
+      padding: 0.5em;
+      line-height: inherit;
+      overflow-wrap: normal;
+      border-radius: unset;
+      &::before,
+      &::after {
+        content: normal;
+      }
+    }
+    & > code {
+      border: 0;
+      font-size: 1em;
+      white-space: pre;
+      word-break: normal;
+    }
+  }
 }
 
-p,
-li,
-dd {
-  /* Bound prose without taking useful width away from code, tables, or media. */
-  max-inline-size: 88ch;
-
-  /* Keep narrow columns full instead of letting whole-paragraph algorithms
-     create an apparent extra gutter on mobile. */
-  text-wrap: wrap;
+/* src/typography/keyboard.css */
+@layer mine {
+  kbd {
+    background-color: var(--layer-background);
+    background-image: linear-gradient(var(--layer-background), var(--accent-background) 75%);
+    background-repeat: repeat-x;
+    border: 1px solid var(--accent-midground);
+    border-radius: 2px;
+    box-shadow: 0 1px 0 var(--accent-midground);
+    @media (prefers-color-scheme: dark) {
+      background-image: linear-gradient(var(--accent-background), var(--layer-background) 75%);
+      box-shadow: 0 1px 0 rgb(0 0 0 / 45%);
+    }
+    color: var(--text);
+    display: inline-block;
+    line-height: 0.95em;
+    margin-block: 0;
+    margin-inline: 1px;
+    padding-block: 5px 1px;
+    padding-inline: 5px;
+  }
 }
 
-@media (width >= 40rem) {
+/* src/typography/horizontal-rules.css */
+@layer mine {
+  hr {
+    block-size: 1px;
+    margin-block: 2.5rem;
+    border: 0;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--accent-midground) 75%, var(--text));
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--accent-midground) 45%, var(--background)), 0 2px 3px rgb(0 0 0 / 14%);
+    overflow: visible;
+  }
+}
+
+/* src/typography/abbreviations.css */
+@layer mine {
+  abbr[title] {
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+  }
+}
+
+/* src/typography/definitions.css */
+@layer mine {
+  dd {
+    margin-inline-start: 0;
+  }
+  dl {
+    padding: 0;
+    & dt {
+      padding: 0;
+      margin-block-start: 1em;
+      font-size: 1em;
+      font-style: italic;
+      font-weight: 600;
+    }
+    & dd {
+      padding-inline: 1em;
+      margin-block-end: 1.25em;
+    }
+  }
+}
+
+/* src/typography/flow.css */
+@layer mine {
+  p,
+  blockquote,
+  ul,
+  ol,
+  dl {
+    margin-block: 0 1.25em;
+  }
   p,
   li,
   dd {
-    /* Spend a little more layout work to avoid awkward final lines in prose. */
-    text-wrap: pretty;
+    max-inline-size: 88ch;
+    text-wrap: wrap;
+  }
+  @media (width >= 40rem) {
+    p,
+    li,
+    dd {
+      text-wrap: pretty;
+    }
+  }
+  pre {
+    margin-block: 1.25rem;
+  }
+  small {
+    font-size: 80%;
   }
 }
 
-pre {
-  /* Source blocks need leading space even after non-typographic demos. Root units
-     keep that rhythm aligned while the code itself renders at a smaller size. */
-  margin-block: 1.25rem;
-}
+/* src/typography/index.css */
+@layer mine;
 
-/* Add the correct font size in all browsers. */
-small { font-size: 80%; }
-}
+/* src/tables/tables.css */
 @layer mine {
-
-td,
-th { padding: 0; }
-
-table {
-  /* Preserve v10's closed overflow boundary: wide tables scroll themselves
-     instead of increasing the width of their document or layout container. */
-  display: block;
-  margin-block: 0 1.25em;
-  border-collapse: collapse;
-  border-spacing: 0;
-  inline-size: 100%;
-
-  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
-  overflow-x: auto;
-
-  /* Preserve normal language-aware wrapping instead of inheriting the document's
-     emergency breakout behavior. */
-  overflow-wrap: normal;
-  word-break: normal;
-
-  & th,
-  & td {
-    padding-block: 6px;
-    padding-inline: 13px;
-    border: 1px solid var(--accent-midground);
-  }
-
-  & th { font-weight: bold; }
-
-  & tr {
-    background-color: var(--layer-background);
-    border-block-start: 1px solid var(--accent-midground);
-
-    &:nth-child(2n) { background-color: var(--accent-background); }
-  }
-}
-
-caption {
-  /* Introduce the data before the reader reaches it and match secondary prose.
-     Logical caption-side values are not yet supported across our browser baseline. */
-  /* stylelint-disable-next-line value-keyword-layout-mappings */
-  caption-side: top;
-  padding-block-end: 0.5em;
-  color: var(--accent-foreground);
-  font-size: 0.9em;
-  text-align: start;
-}
-
-[role="region"][aria-labelledby][tabindex] {
-  /* Only make deliberately named, keyboard-focusable regions responsible for
-     containing wide tables. The table itself retains its native display role. */
-  max-inline-size: 100%;
-  overflow: auto;
-
-  &:focus-visible {
-    outline: 2px solid var(--link-text);
-  }
-}
-}
-@layer mine {
-img {
-  /* Preserve intrinsic proportions while containing large media in the text measure. */
-  max-inline-size: 100%;
-  block-size: auto;
-}
-}
-@layer mine {
-
-audio,
-canvas {
-  /* Keep replaced media out of the inline baseline and within its container. */
-  display: block;
-  max-inline-size: 100%;
-}
-
-audio {
-  /* Native controls are more useful when they fill the document measure. */
-  inline-size: 100%;
-}
-
-canvas {
-  /* Preserve the bitmap's intrinsic ratio when its inline size is constrained. */
-  block-size: auto;
-  border-radius: var(--radius);
-}
-}
-@layer mine {
-video {
-  /* Preserve the declared aspect ratio and show a quiet frame before media paints. */
-  display: block;
-  max-inline-size: 100%;
-  block-size: auto;
-  border-radius: var(--radius);
-  background-color: var(--accent-background);
-}
-}
-@layer mine {
-iframe {
-  /* Contain wide embeds without overriding their authored dimensions. */
-  display: block;
-  max-inline-size: 100%;
-
-  /* Frame embedded documents like the other raised surfaces in the system. */
-  border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
-  border-radius: var(--radius);
-  background-color: var(--accent-background);
-  box-shadow: var(--surface-shadow);
-}
-}
-@layer mine {
-
-figure {
-  /* Let sized media establish the figure measure while containing oversized assets. */
-  inline-size: fit-content;
-  max-inline-size: 100%;
-  margin-block: 1em;
-  margin-inline: auto;
-
-  /* Loading images and canvas-based media have no reliable intrinsic measure. */
-  &:where(:has(img:not([width], [height]), canvas, iframe, video, audio)) {
-    inline-size: 100%;
-  }
-
-  /* Avoid inline-image baseline space inside the shrink-wrapped figure. */
-  & picture,
-  & img { display: block; }
-
-  & img,
-  & video {
-    border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
-    border-radius: var(--radius);
-    padding: 0.25em;
-
-    /* Treat padded media as a lightly raised frame, consistent with code panels. */
-    box-shadow: var(--surface-shadow);
-  }
-
-  & img { background: var(--layer-background); }
-
-  &.borderless img,
-  &.borderless video {
-    border: none;
-    box-shadow: none;
+  td,
+  th {
     padding: 0;
   }
-
-  /* Borderless images should reveal their own transparency without losing the
-     figure's intentionally rounded media silhouette. */
-  &.borderless img { background: transparent; }
-}
-
-figcaption {
-  /* Keep long captions from widening a figure beyond its media. */
-  contain: inline-size;
-  font-style: italic;
-  font-size: 0.9em;
-  margin: 0;
-  color: var(--accent-foreground);
-}
-}
-@layer mine {
-
-input[type="search"] {
-  appearance: textfield;
-}
-
-/* Recolor the WebKit clear affordance without replacing its native behavior. */
-[type="search"]::-webkit-search-cancel-button {
-  appearance: none;
-  background-color: var(--accent-foreground);
-  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
-          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
-  background-size: 20px 20px;
-  block-size: 20px;
-  inline-size: 20px;
-}
-
-/* Keep text-entry controls in the active type scheme; buttons retain native metrics. */
-input:not([type="button"], [type="file"], [type="image"], [type="reset"], [type="submit"]),
-select,
-textarea {
-  color: inherit;
-  font: inherit;
-}
-
-select,
-textarea,
-input:not([type]),
-input[type="date"],
-input[type="datetime-local"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="time"],
-input[type="url"],
-input[type="week"] {
-  /* A thin boundary and inset lighting make textual and selection controls feel gently recessed. */
-  border-color: var(--control-border);
-  border-radius: var(--radius);
-  border-width: 1px;
-  border-style: solid;
-  padding: 0.4em;
-  color: var(--text);
-  background-color: var(--background);
-  background-image: linear-gradient(rgb(0 0 0 / 3%), transparent 0.6em);
-  box-shadow:
-    inset 0 1px 2px rgb(0 0 0 / 18%),
-    inset 0 -1px 0 rgb(255 255 255 / 12%),
-    0 1px 3px rgb(0 0 0 / 8%);
-  inline-size: 15.5em;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-
-  &::placeholder {
-    /* Avoid Safari's platform-dependent placeholder paint and opacity. */
+  table {
+    display: block;
+    margin-block: 0 1.25em;
+    border-collapse: collapse;
+    border-spacing: 0;
+    inline-size: 100%;
+    overflow-x: auto;
+    overflow-wrap: normal;
+    word-break: normal;
+    & th,
+    & td {
+      padding-block: 6px;
+      padding-inline: 13px;
+      border: 1px solid var(--accent-midground);
+    }
+    & th {
+      font-weight: bold;
+    }
+    & tr {
+      background-color: var(--layer-background);
+      border-block-start: 1px solid var(--accent-midground);
+      &:nth-child(2n) {
+        background-color: var(--accent-background);
+      }
+    }
+  }
+  caption {
+    caption-side: top;
+    padding-block-end: 0.5em;
     color: var(--accent-foreground);
-    -webkit-text-fill-color: var(--accent-foreground);
-    opacity: 1;
+    font-size: 0.9em;
+    text-align: start;
   }
-
-  &:focus-visible {
-    border-color: var(--accent-foreground);
-    outline: 2px solid var(--link-text);
+  [role=region][aria-labelledby][tabindex] {
+    max-inline-size: 100%;
+    overflow: auto;
+    &:focus-visible {
+      outline: 2px solid var(--link-text);
+    }
   }
+}
 
-  &:disabled {
-    /* Preserve legibility while making the non-interactive state visibly quieter. */
+/* src/tables/index.css */
+@layer mine;
+
+/* src/media/images.css */
+@layer mine {
+  img {
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+}
+
+/* src/media/embedded-media.css */
+@layer mine {
+  audio,
+  canvas {
+    display: block;
+    max-inline-size: 100%;
+  }
+  audio {
+    inline-size: 100%;
+  }
+  canvas {
+    block-size: auto;
+    border-radius: var(--radius);
+  }
+}
+
+/* src/media/video.css */
+@layer mine {
+  video {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--radius);
     background-color: var(--accent-background);
-    background-image: none;
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-  }
-
-  &:hover:not([disabled]) {
-    border-color: color-mix(in srgb, var(--accent-foreground) 65%, var(--background));
-  }
-
-  &:user-valid:is(
-    [required],
-    [pattern],
-    [min],
-    [max],
-    [minlength],
-    [maxlength],
-    [step],
-    [type="email"],
-    [type="url"]
-  ):not(:disabled, [readonly]) {
-    /* Confirm constrained values only after the browser records user interaction. */
-    --control-state: var(--valid);
-  }
-
-  &:user-invalid:not(:disabled, [readonly]) {
-    /* Avoid marking untouched required fields as errors while keeping invalid feedback native. */
-    --control-state: var(--invalid);
-  }
-
-  &:user-valid:is(
-    [required],
-    [pattern],
-    [min],
-    [max],
-    [minlength],
-    [maxlength],
-    [step],
-    [type="email"],
-    [type="url"]
-  ):not(:disabled, [readonly]),
-  &:user-invalid:not(:disabled, [readonly]) {
-    /* Carry the state color through the recessed lighting instead of adding a flat ring. */
-    border-color: var(--control-state);
-    background-image: linear-gradient(
-      color-mix(in srgb, var(--control-state) 8%, transparent),
-      transparent 0.7em
-    );
-    box-shadow:
-      inset 0 1px 2px color-mix(in srgb, var(--control-state) 22%, transparent),
-      inset 0 -1px 0 color-mix(in srgb, var(--control-state) 9%, transparent),
-      0 1px 3px color-mix(in srgb, var(--control-state) 11%, transparent);
   }
 }
 
-input.content-sized {
-  /* Opt into intrinsic growth without shrinking below the standard field or
-     escaping a narrow container. */
-  field-sizing: content;
-  inline-size: auto;
-  min-inline-size: min(15.5em, 100%);
+/* src/media/iframes.css */
+@layer mine {
+  iframe {
+    display: block;
+    max-inline-size: 100%;
+    border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
+    border-radius: var(--radius);
+    background-color: var(--accent-background);
+    box-shadow: var(--surface-shadow);
+  }
 }
 
-input:not([type]),
-input[type="date"],
-input[type="datetime-local"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="time"],
-input[type="url"],
-input[type="week"],
-select:not([multiple]) {
-  /* Keep compact control metrics independent of document leading and field content. */
-  line-height: 1.3;
-  min-block-size: calc(1lh + 0.8em + 2px);
+/* src/media/figures.css */
+@layer mine {
+  figure {
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    margin-block: 1em;
+    margin-inline: auto;
+    &:where(:has(img:not([width], [height]), canvas, iframe, video, audio)) {
+      inline-size: 100%;
+    }
+    & picture,
+    & img {
+      display: block;
+    }
+    & img,
+    & video {
+      border: 1px solid color-mix(in srgb, var(--accent-midground) 70%, var(--background));
+      border-radius: var(--radius);
+      padding: 0.25em;
+      box-shadow: var(--surface-shadow);
+    }
+    & img {
+      background: var(--layer-background);
+    }
+    &.borderless img,
+    &.borderless video {
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+    &.borderless img {
+      background: transparent;
+    }
+  }
+  figcaption {
+    contain: inline-size;
+    font-style: italic;
+    font-size: 0.9em;
+    margin: 0;
+    color: var(--accent-foreground);
+  }
 }
 
-input::-webkit-date-and-time-value {
-  /* WebKit otherwise collapses this internal box while a temporal value is empty.
-     Match the control line box so the workaround does not make temporal inputs taller.
-     https://bugs.webkit.org/show_bug.cgi?id=198959 */
-  /* stylelint-disable-next-line property-layout-mappings */
-  height: 1lh;
-}
+/* src/media/index.css */
+@layer mine;
 
-/* Tall controls expose directional gradients as a stripe, so use an even inset. */
-select[multiple]:not(:disabled),
-textarea:not(:disabled) {
-  background-image: none;
-  box-shadow:
-    inset 0 0 3px rgb(0 0 0 / 14%),
-    inset 0 -1px 0 rgb(255 255 255 / 12%),
-    0 1px 3px rgb(0 0 0 / 10%);
-}
-
-textarea:not([rows], [cols]) {
-  /* Let otherwise-unsized textareas grow with their content without overriding
-     an author's explicit rows or columns. */
-  field-sizing: content;
-  min-block-size: calc(5lh + 0.8em + 2px);
-}
-
-select[multiple] option {
-  /* Give listbox rows the same breathing room as text inside a field. */
-  border-block: 1px solid var(--background);
-  border-radius: 4px;
-  padding-block: calc(0.2em - 1px);
-  padding-inline: 0;
-
-  &:checked {
-    /* Match the soft link-hover tint instead of painting a heavy solid band. */
+/* src/inputs/text-input.css */
+@layer mine {
+  input[type=search] {
+    appearance: textfield;
+  }
+  [type=search]::-webkit-search-cancel-button {
+    appearance: none;
+    background-color: var(--accent-foreground);
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+    background-size: 20px 20px;
+    block-size: 20px;
+    inline-size: 20px;
+  }
+  input:not([type=button], [type=file], [type=image], [type=reset], [type=submit]),
+  select,
+  textarea {
+    color: inherit;
+    font: inherit;
+  }
+  select,
+  textarea,
+  input:not([type]),
+  input[type=date],
+  input[type=datetime-local],
+  input[type=email],
+  input[type=month],
+  input[type=number],
+  input[type=password],
+  input[type=search],
+  input[type=tel],
+  input[type=text],
+  input[type=time],
+  input[type=url],
+  input[type=week] {
+    border-color: var(--control-border);
+    border-radius: var(--radius);
+    border-width: 1px;
+    border-style: solid;
+    padding: 0.4em;
     color: var(--text);
-    background: color-mix(in srgb, var(--link-text) 8%, transparent);
-  }
-}
-
-select[multiple]:disabled option:checked {
-  color: var(--accent-foreground);
-  background: var(--accent-background);
-}
-}
-@layer mine {
-label {
-  /* Input labels */
-  font-weight: 600;
-
-  &.block {
-    display: block;
-  }
-
-  &.inline-block {
-    display: inline-block;
-  }
-
-  &.inline-flex {
-    display: inline-flex;
-  }
-
-  &.inline-grid {
-    display: inline-grid;
-  }
-}
-}
-@layer mine {
-fieldset {
-  border-radius: var(--radius);
-  border-style: solid;
-  border-width: 1px;
-  border-color: color-mix(in srgb, var(--accent-midground) 70%, var(--background));
-
-  /* A broad, low-contrast bevel recalls older panel styling without a hard edge. */
-  box-shadow: var(--surface-shadow);
-
-  & > legend {
-    /* Mask the inset top shadow so it does not show through the legend text. */
     background-color: var(--background);
+    background-image: linear-gradient(rgb(0 0 0 / 3%), transparent 0.6em);
+    box-shadow:
+      inset 0 1px 2px rgb(0 0 0 / 18%),
+      inset 0 -1px 0 rgb(255 255 255 / 12%),
+      0 1px 3px rgb(0 0 0 / 8%);
+    inline-size: 15.5em;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    &::placeholder {
+      color: var(--accent-foreground);
+      -webkit-text-fill-color: var(--accent-foreground);
+      opacity: 1;
+    }
+    &:focus-visible {
+      border-color: var(--accent-foreground);
+      outline: 2px solid var(--link-text);
+    }
+    &:disabled {
+      background-color: var(--accent-background);
+      background-image: none;
+      box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    }
+    &:hover:not([disabled]) {
+      border-color: color-mix(in srgb, var(--accent-foreground) 65%, var(--background));
+    }
+    &:user-valid:is([required], [pattern], [min], [max], [minlength], [maxlength], [step], [type=email], [type=url]):not(:disabled, [readonly]) {
+      --control-state: var(--valid);
+    }
+    &:user-invalid:not(:disabled, [readonly]) {
+      --control-state: var(--invalid);
+    }
+    &:user-valid:is([required], [pattern], [min], [max], [minlength], [maxlength], [step], [type=email], [type=url]):not(:disabled, [readonly]),
+    &:user-invalid:not(:disabled, [readonly]) {
+      border-color: var(--control-state);
+      background-image: linear-gradient(color-mix(in srgb, var(--control-state) 8%, transparent), transparent 0.7em);
+      box-shadow:
+        inset 0 1px 2px color-mix(in srgb, var(--control-state) 22%, transparent),
+        inset 0 -1px 0 color-mix(in srgb, var(--control-state) 9%, transparent),
+        0 1px 3px color-mix(in srgb, var(--control-state) 11%, transparent);
+    }
+  }
+  input.content-sized {
+    field-sizing: content;
+    inline-size: auto;
+    min-inline-size: min(15.5em, 100%);
+  }
+  input:not([type]),
+  input[type=date],
+  input[type=datetime-local],
+  input[type=email],
+  input[type=month],
+  input[type=number],
+  input[type=password],
+  input[type=search],
+  input[type=tel],
+  input[type=text],
+  input[type=time],
+  input[type=url],
+  input[type=week],
+  select:not([multiple]) {
+    line-height: 1.3;
+    min-block-size: calc(1lh + 0.8em + 2px);
+  }
+  input::-webkit-date-and-time-value {
+    height: 1lh;
+  }
+  select[multiple]:not(:disabled),
+  textarea:not(:disabled) {
+    background-image: none;
+    box-shadow:
+      inset 0 0 3px rgb(0 0 0 / 14%),
+      inset 0 -1px 0 rgb(255 255 255 / 12%),
+      0 1px 3px rgb(0 0 0 / 10%);
+  }
+  textarea:not([rows], [cols]) {
+    field-sizing: content;
+    min-block-size: calc(5lh + 0.8em + 2px);
+  }
+  select[multiple] option {
+    border-block: 1px solid var(--background);
+    border-radius: 4px;
+    padding-block: calc(0.2em - 1px);
+    padding-inline: 0;
+    &:checked {
+      color: var(--text);
+      background: color-mix(in srgb, var(--link-text) 8%, transparent);
+    }
+  }
+  select[multiple]:disabled option:checked {
+    color: var(--accent-foreground);
+    background: var(--accent-background);
   }
 }
-}
 
+/* src/inputs/label.css */
 @layer mine {
-
-input,
-select,
-textarea {
-  /* Fixed-size controls and their display helpers should behave consistently. */
-  max-inline-size: 100%;
-
-  &.block {
-    display: block;
-  }
-
-  &.inline-block {
-    display: inline-block;
-  }
-
-  &.inline-flex {
-    display: inline-flex;
-  }
-
-  &.inline-grid {
-    display: inline-grid;
+  label {
+    font-weight: 600;
+    &.block {
+      display: block;
+    }
+    &.inline-block {
+      display: inline-block;
+    }
+    &.inline-flex {
+      display: inline-flex;
+    }
+    &.inline-grid {
+      display: inline-grid;
+    }
   }
 }
 
-input[type="image"]:disabled {
-  /* Browsers disable activation without consistently painting a disabled state. */
-  opacity: 0.5;
-}
+/* src/inputs/fieldset.css */
+@layer mine {
+  fieldset {
+    border-radius: var(--radius);
+    border-style: solid;
+    border-width: 1px;
+    border-color: color-mix(in srgb, var(--accent-midground) 70%, var(--background));
+    box-shadow: var(--surface-shadow);
+    & > legend {
+      background-color: var(--background);
+    }
+  }
 }
 
+/* src/inputs/index.css */
+@layer mine {
+  input,
+  select,
+  textarea {
+    max-inline-size: 100%;
+    &.block {
+      display: block;
+    }
+    &.inline-block {
+      display: inline-block;
+    }
+    &.inline-flex {
+      display: inline-flex;
+    }
+    &.inline-grid {
+      display: inline-grid;
+    }
+  }
+  input[type=image]:disabled {
+    opacity: 0.5;
+  }
+}
+
+/* src/index.css */
 /*# sourceMappingURL=mine.css.map */

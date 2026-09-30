@@ -1,46 +1,28 @@
-/* Follow the browser preference by composing the fixed Night Owl Highlight.js themes. */
-/* Light Owl palette mapped from Night Owl (MIT):
- * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-Light-color-theme.json
- * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-color-theme.json
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-/* Highlight.js exposes these class names, so they intentionally do not follow mine.css naming. */
-/* stylelint-disable selector-class-pattern */
-
-/* Match the structural rules shipped by Highlight.js so custom themes are drop-in compatible. */
+/* src/highlight.js/shared/rules.css */
 code.hljs {
   padding-block: 3px;
   padding-inline: 5px;
 }
-
 pre code.hljs {
   display: block;
-
-  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
   overflow-x: auto;
   padding: 1em;
 }
-
 .hljs {
   color: var(--mine-hljs-foreground);
   background: var(--mine-hljs-background);
 }
-
 .hljs-subst,
 .hljs-params,
 .hljs-punctuation {
   color: var(--mine-hljs-foreground);
 }
-
 .hljs-comment,
 .hljs-code,
 .hljs-formula,
 .hljs-quote {
   color: var(--mine-hljs-comment);
 }
-
 .hljs-doctag,
 .hljs-keyword,
 .hljs-meta .hljs-keyword,
@@ -51,9 +33,9 @@ pre code.hljs {
   color: var(--mine-hljs-keyword);
   font-style: italic;
 }
-
-.hljs-type { font-weight: 700; }
-
+.hljs-type {
+  font-weight: 700;
+}
 .hljs-title,
 .hljs-title.class_,
 .hljs-title.class_.inherited__,
@@ -62,93 +44,76 @@ pre code.hljs {
 .hljs-template-variable {
   color: var(--mine-hljs-title);
 }
-
 .hljs-title,
 .hljs-title.class_,
 .hljs-title.class_.inherited__,
 .hljs-section {
   font-weight: 700;
 }
-
 .hljs-title.function_,
 .hljs-function .hljs-title {
   color: var(--mine-hljs-function);
   font-weight: inherit;
 }
-
 .hljs-attr,
 .hljs-attribute {
   color: var(--mine-hljs-attribute);
 }
-
 .hljs-literal,
 .hljs-symbol {
   color: var(--mine-hljs-literal);
   font-style: italic;
 }
-
 .hljs-number,
 .hljs-bullet {
   color: var(--mine-hljs-number);
 }
-
 .hljs-property,
 .hljs-selector-attr,
 .hljs-selector-class,
 .hljs-selector-id {
   color: var(--mine-hljs-property);
 }
-
 .hljs-string,
 .hljs-meta .hljs-string {
   color: var(--mine-hljs-string);
 }
-
 .hljs-char.escape_ {
   color: var(--mine-hljs-escape);
 }
-
 .hljs-regexp,
 .hljs-meta,
 .hljs-link {
   color: var(--mine-hljs-regexp);
 }
-
 .hljs-name,
 .hljs-selector-tag,
 .hljs-tag {
   color: var(--mine-hljs-keyword);
 }
-
 .hljs-selector-pseudo {
   color: var(--mine-hljs-special);
 }
-
 .hljs-variable.language_ {
   color: var(--mine-hljs-variable-special);
   font-style: italic;
 }
-
 .hljs-emphasis {
   color: var(--mine-hljs-regexp);
   font-style: italic;
 }
-
 .hljs-strong {
   color: var(--mine-hljs-function);
   font-weight: 700;
 }
-
 .hljs-addition {
   color: var(--mine-hljs-addition);
 }
-
 .hljs-deletion {
   color: var(--mine-hljs-deletion);
 }
 
-/* stylelint-enable selector-class-pattern */
-
+/* src/highlight.js/night-owl/light.css */
 .hljs {
   --mine-hljs-foreground: #403f53;
   --mine-hljs-background: #f0f0f0;
@@ -169,208 +134,171 @@ pre code.hljs {
   --mine-hljs-deletion: #e64d49;
 }
 
-/* stylelint-enable color-hex-length */
-
+/* node_modules/highlight.js/styles/night-owl.css */
 @media (prefers-color-scheme: dark) {
-/* Delegate Night Owl syntax colors to Highlight.js. */
+  pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+  }
+  code.hljs {
+    padding: 3px 5px;
+  }
+  .hljs {
+    background: #011627;
+    color: #d6deeb;
+  }
+  .hljs-keyword {
+    color: #c792ea;
+    font-style: italic;
+  }
+  .hljs-built_in {
+    color: #addb67;
+    font-style: italic;
+  }
+  .hljs-type {
+    color: #82aaff;
+  }
+  .hljs-literal {
+    color: #ff5874;
+  }
+  .hljs-number {
+    color: #F78C6C;
+  }
+  .hljs-regexp {
+    color: #5ca7e4;
+  }
+  .hljs-string {
+    color: #ecc48d;
+  }
+  .hljs-subst {
+    color: #d3423e;
+  }
+  .hljs-symbol {
+    color: #82aaff;
+  }
+  .hljs-class {
+    color: #ffcb8b;
+  }
+  .hljs-function {
+    color: #82AAFF;
+  }
+  .hljs-title {
+    color: #DCDCAA;
+    font-style: italic;
+  }
+  .hljs-params {
+    color: #7fdbca;
+  }
+  .hljs-comment {
+    color: #637777;
+    font-style: italic;
+  }
+  .hljs-doctag {
+    color: #7fdbca;
+  }
+  .hljs-meta {
+    color: #82aaff;
+  }
+  .hljs-meta .hljs-keyword {
+    color: #82aaff;
+  }
+  .hljs-meta .hljs-string {
+    color: #ecc48d;
+  }
+  .hljs-section {
+    color: #82b1ff;
+  }
+  .hljs-tag,
+  .hljs-name {
+    color: #7fdbca;
+  }
+  .hljs-attr {
+    color: #7fdbca;
+  }
+  .hljs-attribute {
+    color: #80cbc4;
+  }
+  .hljs-variable {
+    color: #addb67;
+  }
+  .hljs-bullet {
+    color: #d9f5dd;
+  }
+  .hljs-code {
+    color: #80CBC4;
+  }
+  .hljs-emphasis {
+    color: #c792ea;
+    font-style: italic;
+  }
+  .hljs-strong {
+    color: #addb67;
+    font-weight: bold;
+  }
+  .hljs-formula {
+    color: #c792ea;
+  }
+  .hljs-link {
+    color: #ff869a;
+  }
+  .hljs-quote {
+    color: #697098;
+    font-style: italic;
+  }
+  .hljs-selector-tag {
+    color: #ff6363;
+  }
+  .hljs-selector-id {
+    color: #fad430;
+  }
+  .hljs-selector-class {
+    color: #addb67;
+    font-style: italic;
+  }
+  .hljs-selector-attr,
+  .hljs-selector-pseudo {
+    color: #c792ea;
+    font-style: italic;
+  }
+  .hljs-template-tag {
+    color: #c792ea;
+  }
+  .hljs-template-variable {
+    color: #addb67;
+  }
+  .hljs-addition {
+    color: #addb67ff;
+    font-style: italic;
+  }
+  .hljs-deletion {
+    color: #EF535090;
+    font-style: italic;
+  }
 }
 
+/* src/highlight.js/night-owl/dark.css */
 @media (prefers-color-scheme: dark) {
-pre code.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 1em
-}
-code.hljs {
-  padding: 3px 5px
-}
-/*
-
-Night Owl for highlight.js (c) Carl Baxter <carl@cbax.tech>
-
-An adaptation of Sarah Drasner's Night Owl VS Code Theme
-https://github.com/sdras/night-owl-vscode-theme
-
-Copyright (c) 2018 Sarah Drasner
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-*/
-.hljs {
-  background: #011627;
-  color: #d6deeb
-}
-/* General Purpose */
-.hljs-keyword {
-  color: #c792ea;
-  font-style: italic
-}
-.hljs-built_in {
-  color: #addb67;
-  font-style: italic
-}
-.hljs-type {
-  color: #82aaff
-}
-.hljs-literal {
-  color: #ff5874
-}
-.hljs-number {
-  color: #F78C6C
-}
-.hljs-regexp {
-  color: #5ca7e4
-}
-.hljs-string {
-  color: #ecc48d
-}
-.hljs-subst {
-  color: #d3423e
-}
-.hljs-symbol {
-  color: #82aaff
-}
-.hljs-class {
-  color: #ffcb8b
-}
-.hljs-function {
-  color: #82AAFF
-}
-.hljs-title {
-  color: #DCDCAA;
-  font-style: italic
-}
-.hljs-params {
-  color: #7fdbca
-}
-/* Meta */
-.hljs-comment {
-  color: #637777;
-  font-style: italic
-}
-.hljs-doctag {
-  color: #7fdbca
-}
-.hljs-meta {
-  color: #82aaff
-}
-.hljs-meta .hljs-keyword {
-  color: #82aaff
-}
-.hljs-meta .hljs-string {
-  color: #ecc48d
-}
-/* Tags, attributes, config */
-.hljs-section {
-  color: #82b1ff
-}
-.hljs-tag,
-.hljs-name {
-  color: #7fdbca
-}
-.hljs-attr {
-  color: #7fdbca
-}
-.hljs-attribute {
-  color: #80cbc4
-}
-.hljs-variable {
-  color: #addb67
-}
-/* Markup */
-.hljs-bullet {
-  color: #d9f5dd
-}
-.hljs-code {
-  color: #80CBC4
-}
-.hljs-emphasis {
-  color: #c792ea;
-  font-style: italic
-}
-.hljs-strong {
-  color: #addb67;
-  font-weight: bold
-}
-.hljs-formula {
-  color: #c792ea
-}
-.hljs-link {
-  color: #ff869a
-}
-.hljs-quote {
-  color: #697098;
-  font-style: italic
-}
-/* CSS */
-.hljs-selector-tag {
-  color: #ff6363
-}
-.hljs-selector-id {
-  color: #fad430
-}
-.hljs-selector-class {
-  color: #addb67;
-  font-style: italic
-}
-.hljs-selector-attr,
-.hljs-selector-pseudo {
-  color: #c792ea;
-  font-style: italic
-}
-/* Templates */
-.hljs-template-tag {
-  color: #c792ea
-}
-.hljs-template-variable {
-  color: #addb67
-}
-/* diff */
-.hljs-addition {
-  color: #addb67ff;
-  font-style: italic
-}
-.hljs-deletion {
-  color: #EF535090;
-  font-style: italic
-}
+  .hljs {
+    --mine-hljs-background: #0b253a;
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-
-.hljs {
-  --mine-hljs-background: #0b253a;
-}
-}
-/* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
+/* src/highlight.js/shared/surface.css */
 .hljs {
   background-color: var(--mine-hljs-background);
 }
+
+/* src/highlight.js/shared/print.css */
 @media print {
-  /* Screen syntax colors are unnecessary when printing code. */
   .hljs,
   .hljs *,
-  .hljs [class^="hljs-"],
+  .hljs [class^=hljs-],
   .hljs [class*=" hljs-"] {
     color: inherit;
     background: transparent;
   }
 }
 
+/* src/highlight.js/night-owl/index.css */
 /*# sourceMappingURL=index.css.map */

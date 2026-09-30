@@ -1,14 +1,5 @@
-/* Atom One Light and Atom One Dark palette mapped from Atom One (MIT):
- * https://github.com/atom/one-light-syntax/blob/d84579027410c576086dfca14d934c4bd74b0438/styles/colors.less
- * https://github.com/atom/one-dark-syntax/blob/9c96f4454362267ac45322063e193ccf9d2debb1/styles/colors.less
- * https://github.com/atom/one-light-ui/blob/a27bce35088ecd323e44f5c2510bcf2d4e9efcf8/styles/ui-variables-custom.less
- * https://github.com/atom/one-dark-ui/blob/18c2143d41e17b337fff6dc7024562c4d999be17/styles/ui-variables-custom.less
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="atom-one"] {
-  /* Atom One Light */
+/* src/themes/atom-one.css */
+:root[data-mine-theme=atom-one] {
   --light-text: #383a42;
   --light-background: #fafafa;
   --light-layer-background: #eaeaeb;
@@ -23,8 +14,6 @@
   --light-code-text: #383a42;
   --light-code-background: #eaeaeb;
   --light-code-border: #696c77;
-
-  /* Atom One Dark */
   --dark-text: #abb2bf;
   --dark-background: #282c34;
   --dark-layer-background: #21252b;
@@ -40,7 +29,4 @@
   --dark-code-background: #21252b;
   --dark-code-border: #828997;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=atom-one.css.map */
