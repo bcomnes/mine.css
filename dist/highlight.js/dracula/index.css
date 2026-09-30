@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Dracula Highlight.js themes. */
-/* Alucard Classic palette mapped from Dracula (MIT):
+/* Follow the browser preference by composing the fixed Dracula Highlight.js themes. *//* Alucard Classic palette mapped from Dracula (MIT):
  * https://github.com/dracula/dracula-theme/blob/c988d3d1c9e40dffef7c28f4b99079523637d5d2/README.md
  * https://draculatheme.com/spec
  */
@@ -342,11 +341,11 @@ code.hljs {
 }
 
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-background: #343746;
 }
 }
+
 /* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
 .hljs {
   background-color: var(--mine-hljs-background);

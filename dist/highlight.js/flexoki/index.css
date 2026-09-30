@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Flexoki Highlight.js themes. */
-/* Flexoki Light palette mapped from Flexoki (MIT):
+/* Follow the browser preference by composing the fixed Flexoki Highlight.js themes. *//* Flexoki Light palette mapped from Flexoki (MIT):
  * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/css/flexoki.css
  * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/vscode/Flexoki-Light-color-theme.json
  * https://github.com/kepano/flexoki/blob/8d723bac4a9ac46adfdf99d42155286977aac72a/vscode/Flexoki-Dark-color-theme.json
@@ -329,7 +328,6 @@ pre code.hljs {
 }
 
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-foreground: #cecdc3;
   --mine-hljs-background: #1c1b1a;
@@ -352,6 +350,7 @@ pre code.hljs {
 
 /* stylelint-enable color-hex-length */
 }
+
 /* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
 .hljs {
   background-color: var(--mine-hljs-background);

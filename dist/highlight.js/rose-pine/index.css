@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Rosé Pine Highlight.js themes. */
-/* Delegate Rosé Pine Dawn syntax colors to Highlight.js. */
+/* Follow the browser preference by composing the fixed Rosé Pine Highlight.js themes. *//* Delegate Rosé Pine Dawn syntax colors to Highlight.js. */
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -107,15 +106,12 @@ code.hljs {
 .hljs-strong {
   font-weight: bold
 }
-
 .hljs {
   --mine-hljs-background: #f2e9e1;
 }
-
 @media (prefers-color-scheme: dark) {
 /* Delegate Rosé Pine syntax colors to Highlight.js. */
 }
-
 @media (prefers-color-scheme: dark) {
 pre code.hljs {
   display: block;
@@ -227,9 +223,7 @@ code.hljs {
   font-weight: bold
 }
 }
-
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-background: #1f1d2e;
 }

@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Solarized Highlight.js themes. */
-/* Delegate Solarized Light syntax colors to Highlight.js. */
+/* Follow the browser preference by composing the fixed Solarized Highlight.js themes. *//* Delegate Solarized Light syntax colors to Highlight.js. */
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -163,15 +162,12 @@ code.hljs {
 .hljs-meta-keyword {
   font-weight: bold
 }
-
 .hljs {
   --mine-hljs-background: #eee8d5;
 }
-
 @media (prefers-color-scheme: dark) {
 /* Delegate Solarized Dark syntax colors to Highlight.js. */
 }
-
 @media (prefers-color-scheme: dark) {
 pre code.hljs {
   display: block;
@@ -337,9 +333,7 @@ code.hljs {
   font-weight: bold
 }
 }
-
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-background: #073642;
 }

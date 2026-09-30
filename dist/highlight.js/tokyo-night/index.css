@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Tokyo Night Highlight.js themes. */
-/* Delegate Tokyo Night Light syntax colors to Highlight.js. */
+/* Follow the browser preference by composing the fixed Tokyo Night Highlight.js themes. *//* Delegate Tokyo Night Light syntax colors to Highlight.js. */
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -114,15 +113,12 @@ code.hljs {
 .hljs-strong {
   font-weight: bold
 }
-
 .hljs {
   --mine-hljs-background: #dcdee3;
 }
-
 @media (prefers-color-scheme: dark) {
 /* Delegate Tokyo Night Dark syntax colors to Highlight.js. */
 }
-
 @media (prefers-color-scheme: dark) {
 pre code.hljs {
   display: block;
@@ -239,9 +235,7 @@ code.hljs {
   font-weight: bold
 }
 }
-
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-background: #1e202e;
 }

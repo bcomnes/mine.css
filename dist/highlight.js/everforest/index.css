@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Everforest Highlight.js themes. */
-/* Everforest Light Medium palette mapped from Everforest (MIT):
+/* Follow the browser preference by composing the fixed Everforest Highlight.js themes. *//* Everforest Light Medium palette mapped from Everforest (MIT):
  * https://github.com/sainnhe/everforest/blob/85a86eb62409e3ec88713bff3d1b9d7374e112e4/palette.md
  */
 
@@ -325,7 +324,6 @@ pre code.hljs {
 }
 
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-foreground: #d3c6aa;
   --mine-hljs-background: #343f44;
@@ -348,6 +346,7 @@ pre code.hljs {
 
 /* stylelint-enable color-hex-length */
 }
+
 /* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
 .hljs {
   background-color: var(--mine-hljs-background);

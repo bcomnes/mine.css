@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Ayu Highlight.js themes. */
-/* Ayu Light palette mapped from Ayu (MIT):
+/* Follow the browser preference by composing the fixed Ayu Highlight.js themes. *//* Ayu Light palette mapped from Ayu (MIT):
  * https://github.com/ayu-theme/ayu-colors/blob/e3f44fdf2a1c83e3f183d4e8acd40c6a452dcb1c/themes/light.yaml
  * https://github.com/ayu-theme/ayu-colors/blob/e3f44fdf2a1c83e3f183d4e8acd40c6a452dcb1c/themes/dark.yaml
  */
@@ -327,7 +326,6 @@ pre code.hljs {
 }
 
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-foreground: #bfbdb6;
   --mine-hljs-background: #141821;
@@ -350,6 +348,7 @@ pre code.hljs {
 
 /* stylelint-enable color-hex-length */
 }
+
 /* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
 .hljs {
   background-color: var(--mine-hljs-background);

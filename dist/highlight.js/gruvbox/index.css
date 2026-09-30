@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Gruvbox Highlight.js themes. */
-/* Delegate Gruvbox Light Medium syntax colors to Highlight.js. */
+/* Follow the browser preference by composing the fixed Gruvbox Highlight.js themes. *//* Delegate Gruvbox Light Medium syntax colors to Highlight.js. */
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -163,15 +162,12 @@ code.hljs {
 .hljs-meta-keyword {
   font-weight: bold
 }
-
 .hljs {
   --mine-hljs-background: #ebdbb2;
 }
-
 @media (prefers-color-scheme: dark) {
 /* Delegate Gruvbox Dark Medium syntax colors to Highlight.js. */
 }
-
 @media (prefers-color-scheme: dark) {
 pre code.hljs {
   display: block;
@@ -337,9 +333,7 @@ code.hljs {
   font-weight: bold
 }
 }
-
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-background: #3c3836;
 }

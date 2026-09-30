@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Atom One Highlight.js themes. */
-/* Delegate Atom One Light syntax colors to Highlight.js. */
+/* Follow the browser preference by composing the fixed Atom One Highlight.js themes. *//* Delegate Atom One Light syntax colors to Highlight.js. */
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -90,15 +89,12 @@ hue-6-2: #c18401
 .hljs-link {
   text-decoration: underline
 }
-
 .hljs {
   --mine-hljs-background: #eaeaeb;
 }
-
 @media (prefers-color-scheme: dark) {
 /* Delegate Atom One Dark syntax colors to Highlight.js. */
 }
-
 @media (prefers-color-scheme: dark) {
 pre code.hljs {
   display: block;
@@ -191,9 +187,7 @@ hue-6-2: #e6c07b
   text-decoration: underline
 }
 }
-
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-background: #21252b;
 }

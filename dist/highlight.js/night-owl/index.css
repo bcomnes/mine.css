@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Night Owl Highlight.js themes. */
-/* Light Owl palette mapped from Night Owl (MIT):
+/* Follow the browser preference by composing the fixed Night Owl Highlight.js themes. *//* Light Owl palette mapped from Night Owl (MIT):
  * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-Light-color-theme.json
  * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-color-theme.json
  */
@@ -353,11 +352,11 @@ SOFTWARE.
 }
 
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-background: #0b253a;
 }
 }
+
 /* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
 .hljs {
   background-color: var(--mine-hljs-background);

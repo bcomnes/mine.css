@@ -1,5 +1,4 @@
-/* Follow the browser preference by composing the fixed Kanagawa Highlight.js themes. */
-/* Kanagawa Lotus palette mapped from Kanagawa (MIT):
+/* Follow the browser preference by composing the fixed Kanagawa Highlight.js themes. *//* Kanagawa Lotus palette mapped from Kanagawa (MIT):
  * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/colors.lua
  * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/themes.lua
  */
@@ -327,7 +326,6 @@ pre code.hljs {
 }
 
 @media (prefers-color-scheme: dark) {
-
 .hljs {
   --mine-hljs-foreground: #dcd7ba;
   --mine-hljs-background: #2a2a37;
@@ -350,6 +348,7 @@ pre code.hljs {
 
 /* stylelint-enable color-hex-length */
 }
+
 /* Adaptive sidecars use the paired Mine code surface without changing syntax tokens. */
 .hljs {
   background-color: var(--mine-hljs-background);
