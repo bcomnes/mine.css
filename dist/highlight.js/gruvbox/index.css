@@ -7,6 +7,13 @@ pre code.hljs {
 code.hljs {
   padding: 3px 5px;
 }
+/*!
+  Theme: Gruvbox light, medium
+  Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+  License: ~ MIT (or more permissive) [via base16-schemes-source]
+  Maintainer: @highlightjs/core-team
+  Version: 2021.09.0
+*/
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -122,6 +129,13 @@ code.hljs {
   code.hljs {
     padding: 3px 5px;
   }
+  /*!
+    Theme: Gruvbox dark, medium
+    Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+    License: ~ MIT (or more permissive) [via base16-schemes-source]
+    Maintainer: @highlightjs/core-team
+    Version: 2021.09.0
+  */
   pre code.hljs {
     display: block;
     overflow-x: auto;
@@ -247,24 +261,4 @@ code.hljs {
 }
 
 /* src/highlight.js/gruvbox/index.css */
-/*! Bundled license information:
-
-highlight.js/styles/base16/gruvbox-light-medium.css:
-  (*!
-    Theme: Gruvbox light, medium
-    Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
-    License: ~ MIT (or more permissive) [via base16-schemes-source]
-    Maintainer: @highlightjs/core-team
-    Version: 2021.09.0
-  *)
-
-highlight.js/styles/base16/gruvbox-dark-medium.css:
-  (*!
-    Theme: Gruvbox dark, medium
-    Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
-    License: ~ MIT (or more permissive) [via base16-schemes-source]
-    Maintainer: @highlightjs/core-team
-    Version: 2021.09.0
-  *)
-*/
 /*# sourceMappingURL=index.css.map */

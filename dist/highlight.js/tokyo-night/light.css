@@ -7,6 +7,14 @@ pre code.hljs {
 code.hljs {
   padding: 3px 5px;
 }
+/*!
+  Theme: Tokyo-night-light
+  origin: https://github.com/enkia/tokyo-night-vscode-theme
+  Description: Original highlight.js style
+  Author: (c) Henri Vandersleyen <hvandersleyen@gmail.com>
+  License: see project LICENSE
+  Touched: 2022
+*/
 .hljs-meta,
 .hljs-comment {
   color: #9699a3;
@@ -89,16 +97,4 @@ code.hljs {
 .hljs {
   --mine-hljs-background: #dcdee3;
 }
-/*! Bundled license information:
-
-highlight.js/styles/tokyo-night-light.css:
-  (*!
-    Theme: Tokyo-night-light
-    origin: https://github.com/enkia/tokyo-night-vscode-theme
-    Description: Original highlight.js style
-    Author: (c) Henri Vandersleyen <hvandersleyen@gmail.com>
-    License: see project LICENSE
-    Touched: 2022
-  *)
-*/
 /*# sourceMappingURL=light.css.map */

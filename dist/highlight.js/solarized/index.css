@@ -7,6 +7,13 @@ pre code.hljs {
 code.hljs {
   padding: 3px 5px;
 }
+/*!
+  Theme: Solarized Light
+  Author: Ethan Schoonover (modified by aramisgithub)
+  License: ~ MIT (or more permissive) [via base16-schemes-source]
+  Maintainer: @highlightjs/core-team
+  Version: 2021.09.0
+*/
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -122,6 +129,13 @@ code.hljs {
   code.hljs {
     padding: 3px 5px;
   }
+  /*!
+    Theme: Solarized Dark
+    Author: Ethan Schoonover (modified by aramisgithub)
+    License: ~ MIT (or more permissive) [via base16-schemes-source]
+    Maintainer: @highlightjs/core-team
+    Version: 2021.09.0
+  */
   pre code.hljs {
     display: block;
     overflow-x: auto;
@@ -247,24 +261,4 @@ code.hljs {
 }
 
 /* src/highlight.js/solarized/index.css */
-/*! Bundled license information:
-
-highlight.js/styles/base16/solarized-light.css:
-  (*!
-    Theme: Solarized Light
-    Author: Ethan Schoonover (modified by aramisgithub)
-    License: ~ MIT (or more permissive) [via base16-schemes-source]
-    Maintainer: @highlightjs/core-team
-    Version: 2021.09.0
-  *)
-
-highlight.js/styles/base16/solarized-dark.css:
-  (*!
-    Theme: Solarized Dark
-    Author: Ethan Schoonover (modified by aramisgithub)
-    License: ~ MIT (or more permissive) [via base16-schemes-source]
-    Maintainer: @highlightjs/core-team
-    Version: 2021.09.0
-  *)
-*/
 /*# sourceMappingURL=index.css.map */

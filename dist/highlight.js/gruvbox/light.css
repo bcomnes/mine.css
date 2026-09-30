@@ -7,6 +7,13 @@ pre code.hljs {
 code.hljs {
   padding: 3px 5px;
 }
+/*!
+  Theme: Gruvbox light, medium
+  Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+  License: ~ MIT (or more permissive) [via base16-schemes-source]
+  Maintainer: @highlightjs/core-team
+  Version: 2021.09.0
+*/
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -111,15 +118,4 @@ code.hljs {
 .hljs {
   --mine-hljs-background: #ebdbb2;
 }
-/*! Bundled license information:
-
-highlight.js/styles/base16/gruvbox-light-medium.css:
-  (*!
-    Theme: Gruvbox light, medium
-    Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
-    License: ~ MIT (or more permissive) [via base16-schemes-source]
-    Maintainer: @highlightjs/core-team
-    Version: 2021.09.0
-  *)
-*/
 /*# sourceMappingURL=light.css.map */

@@ -34,6 +34,7 @@ const builds = entries.map(([input, output]) => ({
   entryPoints: [join(src, input)],
   outfile: join(dist, output),
   sourcemap: true,
+  legalComments: 'inline',
   logLevel: 'warning'
 }))
 

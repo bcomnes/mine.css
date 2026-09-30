@@ -7,6 +7,16 @@ pre code.hljs {
 code.hljs {
   padding: 3px 5px;
 }
+/*!
+  Theme: GitHub
+  Description: Light theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-light
+  Current colors taken from GitHub's CSS
+*/
 .hljs {
   color: #24292e;
   background: #ffffff;
@@ -102,6 +112,15 @@ code.hljs {
   code.hljs {
     padding: 3px 5px;
   }
+  /*!
+    Theme: GitHub Dark Dimmed
+    Description: Dark dimmed theme as seen on github.com
+    Author: github.com
+    Maintainer: @Hirse
+    Updated: 2021-05-15
+
+    Colors taken from GitHub's CSS
+  */
   .hljs {
     color: #adbac7;
     background: #22272e;
@@ -200,29 +219,4 @@ code.hljs {
 }
 
 /* src/highlight.js/default/index.css */
-/*! Bundled license information:
-
-highlight.js/styles/github.css:
-  (*!
-    Theme: GitHub
-    Description: Light theme as seen on github.com
-    Author: github.com
-    Maintainer: @Hirse
-    Updated: 2021-05-15
-
-    Outdated base version: https://github.com/primer/github-syntax-light
-    Current colors taken from GitHub's CSS
-  *)
-
-highlight.js/styles/github-dark-dimmed.css:
-  (*!
-    Theme: GitHub Dark Dimmed
-    Description: Dark dimmed theme as seen on github.com
-    Author: github.com
-    Maintainer: @Hirse
-    Updated: 2021-05-15
-
-    Colors taken from GitHub's CSS
-  *)
-*/
 /*# sourceMappingURL=index.css.map */

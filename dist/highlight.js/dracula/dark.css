@@ -7,6 +7,13 @@ pre code.hljs {
 code.hljs {
   padding: 3px 5px;
 }
+/*!
+  Theme: Dracula
+  Author: Mike Barkmin (http://github.com/mikebarkmin) based on Dracula Theme (http://github.com/dracula)
+  License: ~ MIT (or more permissive) [via base16-schemes-source]
+  Maintainer: @highlightjs/core-team
+  Version: 2021.09.0
+*/
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -111,15 +118,4 @@ code.hljs {
 .hljs {
   --mine-hljs-background: #343746;
 }
-/*! Bundled license information:
-
-highlight.js/styles/base16/dracula.css:
-  (*!
-    Theme: Dracula
-    Author: Mike Barkmin (http://github.com/mikebarkmin) based on Dracula Theme (http://github.com/dracula)
-    License: ~ MIT (or more permissive) [via base16-schemes-source]
-    Maintainer: @highlightjs/core-team
-    Version: 2021.09.0
-  *)
-*/
 /*# sourceMappingURL=dark.css.map */

@@ -7,6 +7,10 @@ pre code.hljs {
 code.hljs {
   padding: 3px 5px;
 }
+/*!
+  Theme: Rose Pine
+  Origin: https://rosepinetheme.com/
+*/
 .hljs-meta,
 .hljs-comment {
   color: #9893a5;
@@ -89,12 +93,4 @@ code.hljs {
 .hljs {
   --mine-hljs-background: #f2e9e1;
 }
-/*! Bundled license information:
-
-highlight.js/styles/rose-pine-dawn.css:
-  (*!
-    Theme: Rose Pine
-    Origin: https://rosepinetheme.com/
-  *)
-*/
 /*# sourceMappingURL=light.css.map */

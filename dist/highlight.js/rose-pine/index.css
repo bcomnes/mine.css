@@ -7,6 +7,10 @@ pre code.hljs {
 code.hljs {
   padding: 3px 5px;
 }
+/*!
+  Theme: Rose Pine
+  Origin: https://rosepinetheme.com/
+*/
 .hljs-meta,
 .hljs-comment {
   color: #9893a5;
@@ -100,6 +104,10 @@ code.hljs {
   code.hljs {
     padding: 3px 5px;
   }
+  /*!
+    Theme: Rose Pine
+    Origin: https://rosepinetheme.com/
+  */
   .hljs-meta,
   .hljs-comment {
     color: #6e6a86;
@@ -203,13 +211,4 @@ code.hljs {
 }
 
 /* src/highlight.js/rose-pine/index.css */
-/*! Bundled license information:
-
-highlight.js/styles/rose-pine-dawn.css:
-highlight.js/styles/rose-pine.css:
-  (*!
-    Theme: Rose Pine
-    Origin: https://rosepinetheme.com/
-  *)
-*/
 /*# sourceMappingURL=index.css.map */
