@@ -286,8 +286,9 @@ test('package contract matches the modern distribution', () => {
 })
 
 test('the main source imports into one low-priority layer', () => {
-  const imports = framework.match(/@import url\([^)]*\) layer\(mine\);/g)
-  assert.ok(imports?.length)
+  const imports = framework.match(/@import url\([^)]*\)(?: layer\([^)]*\))?;/g) ?? []
+  assert.ok(imports.length)
+  assert.ok(imports.every(source => / layer\(mine\);$/.test(source)))
   assert.match(distribution, /@layer mine\s*\{/)
 
   /* Explicitly loaded companions retain their existing cascade behavior. */

@@ -1,8 +1,9 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises'
+import { fileURLToPath } from 'node:url'
 import { join, resolve } from 'node:path'
 import { build, context } from 'esbuild'
 
-const root = resolve(new URL('..', import.meta.url).pathname)
+const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const src = join(root, 'src')
 const dist = join(root, 'dist')
 
