@@ -38,6 +38,10 @@
   overflow-x: auto;
   scrollbar-width: none; /* Preserve scrolling without adding persistent chrome. */
   font-family: inherit;
+
+  /* Safari 9–17 expose backdrop filtering through the WebKit alias. */
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-backdrop-filter: contrast(100%) blur(10px);
   backdrop-filter: contrast(100%) blur(10px);
 
   /* Follow the active palette while exposing the glass surface for consumers. */

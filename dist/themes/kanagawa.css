@@ -1,12 +1,5 @@
-/* Kanagawa Lotus and Kanagawa Wave palette mapped from Kanagawa (MIT):
- * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/colors.lua
- * https://github.com/rebelot/kanagawa.nvim/blob/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3/lua/kanagawa/themes.lua
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="kanagawa"] {
-  /* Kanagawa Lotus */
+/* src/themes/kanagawa.css */
+:root[data-mine-theme=kanagawa] {
   --light-text: #545464;
   --light-background: #f2ecbc;
   --light-layer-background: #e7dba0;
@@ -21,8 +14,6 @@
   --light-code-text: #545464;
   --light-code-background: #e7dba0;
   --light-code-border: #716e61;
-
-  /* Kanagawa Wave */
   --dark-text: #dcd7ba;
   --dark-background: #1f1f28;
   --dark-layer-background: #2a2a37;
@@ -38,7 +29,4 @@
   --dark-code-background: #2a2a37;
   --dark-code-border: #727169;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=kanagawa.css.map */

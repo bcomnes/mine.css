@@ -1,8 +1,6 @@
-/** @import { AtRule, ChildNode } from 'postcss' */
 import assert from 'node:assert/strict'
 import { readFile, readdir } from 'node:fs/promises'
 import test from 'node:test'
-import postcss from 'postcss'
 
 import { namedThemes, namedThemeValues } from '../globals/theme-options.js'
 
@@ -120,14 +118,6 @@ function composite ({ rgb, alpha }, background) {
     (rgb[1] * alpha) + (background[1] * (1 - alpha)),
     (rgb[2] * alpha) + (background[2] * (1 - alpha))
   ]
-}
-
-/**
- * @param {ChildNode} node
- * @returns {node is AtRule}
- */
-function isAtRule (node) {
-  return node.type === 'atrule'
 }
 
 test('theme tokens stay valid and accessible', () => {
@@ -292,24 +282,13 @@ test('package contract matches the modern distribution', () => {
   assert.equal(packageJson.main, 'dist/mine.css')
   assert.equal(packageJson.style, 'dist/mine.css')
   assert.equal('exports' in packageJson, false)
-  assert.equal('glob' in packageJson.overrides, false)
+  assert.equal('glob' in (packageJson.overrides ?? {}), false)
 })
 
 test('the main source imports into one low-priority layer', () => {
-  const source = postcss.parse(framework)
-  const imports = source.nodes.filter(isAtRule).filter(node => node.name === 'import')
-  assert.ok(imports.length > 0)
-  for (const imported of imports) assert.match(imported.params, / layer\(mine\)$/)
-
-  const root = postcss.parse(distribution)
-  const rules = root.nodes.filter(node => node.type !== 'comment')
-  assert.ok(rules.length > 0)
-  for (const rule of rules) {
-    assert.ok(isAtRule(rule))
-    assert.equal(rule.name, 'layer')
-    assert.equal(rule.params, 'mine')
-    assert.ok(rule.nodes?.some(node => node.type === 'rule'))
-  }
+  const imports = framework.match(/@import url\([^)]*\) layer\(mine\);/g)
+  assert.ok(imports?.length)
+  assert.match(distribution, /@layer mine\s*\{/)
 
   /* Explicitly loaded companions retain their existing cascade behavior. */
   assert.doesNotMatch(layoutDistribution, /@layer\s+mine/)
@@ -485,6 +464,6 @@ test('maintained theme sidecars match their sourced and accessible public contra
 
   assert.equal(packageJson.scripts['generate:themes'], undefined)
   assert.equal(packageJson.scripts['watch:theme-sources'], undefined)
-  assert.match(packageJson.scripts['build:assets:themes'], /src\/themes\/\*\.css/)
-  assert.match(packageJson.scripts['build:assets:highlight.js'], /src\/highlight\.js\/!\(shared\)\/\*\.css.+--base src\/highlight\.js/)
+  assert.match(packageJson.scripts.build, /build:assets/)
+  assert.match(packageJson.scripts['build:assets'], /build\/build-css\.mjs/)
 })

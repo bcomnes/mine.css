@@ -1,12 +1,5 @@
-/* Solarized Light and Solarized Dark palette mapped from Solarized (MIT):
- * https://github.com/altercation/solarized/blob/62f656a02f93c5190a8753159e34b385588d5ff3/README.md
- * https://github.com/altercation/solarized/blob/62f656a02f93c5190a8753159e34b385588d5ff3/vim-colors-solarized/colors/solarized.vim
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="solarized"] {
-  /* Solarized Light */
+/* src/themes/solarized.css */
+:root[data-mine-theme=solarized] {
   --light-text: #586e75;
   --light-background: #fdf6e3;
   --light-layer-background: #eee8d5;
@@ -21,8 +14,6 @@
   --light-code-text: #073642;
   --light-code-background: #eee8d5;
   --light-code-border: #586e75;
-
-  /* Solarized Dark */
   --dark-text: #93a1a1;
   --dark-background: #002b36;
   --dark-layer-background: #073642;
@@ -38,7 +29,4 @@
   --dark-code-background: #073642;
   --dark-code-border: #839496;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=solarized.css.map */

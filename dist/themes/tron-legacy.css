@@ -1,13 +1,5 @@
-/* Palette adapted from bcomnes/zed-theme-tron-legacy (MIT): https://github.com/bcomnes/zed-theme-tron-legacy */
-/* stylelint-disable color-hex-length -- Preserve source palette notation. */
-
-/*
- * Named themes override source tokens, while mine.css continues to choose the
- * light or dark aliases from prefers-color-scheme. The data attribute makes it
- * safe to load several theme sidecars without applying all of them at once.
- */
-:root[data-mine-theme="tron"] {
-  /* Tron Legacy Light maps the editor palette onto mine.css's document roles. */
+/* src/themes/tron-legacy.css */
+:root[data-mine-theme=tron] {
   --light-text: #2d3e4f;
   --light-background: #f5f7fa;
   --light-layer-background: #e8ecf2;
@@ -22,8 +14,6 @@
   --light-code-text: #1a2530;
   --light-code-background: #e8ecf2;
   --light-code-border: #6b7e96;
-
-  /* Tron Legacy Dark keeps cyan links, cool gray surfaces, and a neon highlight. */
   --dark-text: #aec2e0;
   --dark-background: #14191f;
   --dark-layer-background: #1c2128;
@@ -39,7 +29,4 @@
   --dark-code-background: #1c2128;
   --dark-code-border: #647c9b;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=tron-legacy.css.map */

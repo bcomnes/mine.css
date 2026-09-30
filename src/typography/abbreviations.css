@@ -1,3 +1,6 @@
 abbr[title] {
+  /* Safari before 26.2 needs the WebKit shorthand for dotted decoration. */
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
