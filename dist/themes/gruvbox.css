@@ -1,11 +1,5 @@
-/* Gruvbox Light Medium and Gruvbox Dark Medium palette mapped from Gruvbox (MIT):
- * https://github.com/morhetz/gruvbox/blob/5d15b2765f59754d7ac263c88a0f6e3e58124951/colors/gruvbox.vim
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="gruvbox"] {
-  /* Gruvbox Light Medium */
+/* src/themes/gruvbox.css */
+:root[data-mine-theme=gruvbox] {
   --light-text: #3c3836;
   --light-background: #fbf1c7;
   --light-layer-background: #ebdbb2;
@@ -20,8 +14,6 @@
   --light-code-text: #3c3836;
   --light-code-background: #ebdbb2;
   --light-code-border: #665c54;
-
-  /* Gruvbox Dark Medium */
   --dark-text: #ebdbb2;
   --dark-background: #282828;
   --dark-layer-background: #3c3836;
@@ -37,7 +29,4 @@
   --dark-code-background: #3c3836;
   --dark-code-border: #7c6f64;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=gruvbox.css.map */

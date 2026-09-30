@@ -1,12 +1,5 @@
-/* Light Owl and Night Owl palette mapped from Night Owl (MIT):
- * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-Light-color-theme.json
- * https://github.com/sdras/night-owl-vscode-theme/blob/cc291eba7976b20d7c66bde6883c27b902196b07/themes/Night%20Owl-color-theme.json
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="night-owl"] {
-  /* Light Owl */
+/* src/themes/night-owl.css */
+:root[data-mine-theme=night-owl] {
   --light-text: #403f53;
   --light-background: #fbfbfb;
   --light-layer-background: #f0f0f0;
@@ -21,8 +14,6 @@
   --light-code-text: #403f53;
   --light-code-background: #f0f0f0;
   --light-code-border: #697098;
-
-  /* Night Owl */
   --dark-text: #d6deeb;
   --dark-background: #011627;
   --dark-layer-background: #0b253a;
@@ -38,7 +29,4 @@
   --dark-code-background: #0b253a;
   --dark-code-border: #5f7e97;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=night-owl.css.map */

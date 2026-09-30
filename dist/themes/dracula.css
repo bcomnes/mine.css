@@ -1,12 +1,5 @@
-/* Alucard Classic and Dracula Classic palette mapped from Dracula (MIT):
- * https://github.com/dracula/dracula-theme/blob/c988d3d1c9e40dffef7c28f4b99079523637d5d2/README.md
- * https://draculatheme.com/spec
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="dracula"] {
-  /* Alucard Classic */
+/* src/themes/dracula.css */
+:root[data-mine-theme=dracula] {
   --light-text: #1f1f1f;
   --light-background: #fffbeb;
   --light-layer-background: #efeddc;
@@ -21,8 +14,6 @@
   --light-code-text: #1f1f1f;
   --light-code-background: #efeddc;
   --light-code-border: #6c664b;
-
-  /* Dracula Classic */
   --dark-text: #f8f8f2;
   --dark-background: #282a36;
   --dark-layer-background: #343746;
@@ -38,7 +29,4 @@
   --dark-code-background: #343746;
   --dark-code-border: #6272a4;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=dracula.css.map */

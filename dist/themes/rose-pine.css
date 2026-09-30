@@ -1,12 +1,5 @@
-/* Rosé Pine Dawn and Rosé Pine Main palette mapped from Rosé Pine (MIT):
- * https://github.com/rose-pine/rose-pine-palette/blob/92af52b465ab6e47437aca223c9b8d3009a2023b/palette.json
- * https://github.com/rose-pine/rose-pine-palette/blob/92af52b465ab6e47437aca223c9b8d3009a2023b/README.md
- */
-
-/* stylelint-disable color-hex-length -- Preserve upstream palette notation. */
-
-:root[data-mine-theme="rose-pine"] {
-  /* Rosé Pine Dawn */
+/* src/themes/rose-pine.css */
+:root[data-mine-theme=rose-pine] {
   --light-text: #464261;
   --light-background: #faf4ed;
   --light-layer-background: #f2e9e1;
@@ -21,8 +14,6 @@
   --light-code-text: #464261;
   --light-code-background: #f2e9e1;
   --light-code-border: #797593;
-
-  /* Rosé Pine Main */
   --dark-text: #e0def4;
   --dark-background: #191724;
   --dark-layer-background: #1f1d2e;
@@ -38,7 +29,4 @@
   --dark-code-background: #1f1d2e;
   --dark-code-border: #6e6a86;
 }
-
-/* stylelint-enable color-hex-length */
-
 /*# sourceMappingURL=rose-pine.css.map */

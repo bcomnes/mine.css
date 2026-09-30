@@ -1,61 +1,42 @@
-/* Delegate Atom One Light syntax colors to Highlight.js. */
+/* node_modules/highlight.js/styles/atom-one-light.css */
 pre code.hljs {
   display: block;
   overflow-x: auto;
-  padding: 1em
+  padding: 1em;
 }
 code.hljs {
-  padding: 3px 5px
+  padding: 3px 5px;
 }
-/*
-
-Atom One Light by Daniel Gamage
-Original One Light Syntax theme from https://github.com/atom/one-light-syntax
-
-base:    #fafafa
-mono-1:  #383a42
-mono-2:  #686b77
-mono-3:  #a0a1a7
-hue-1:   #0184bb
-hue-2:   #4078f2
-hue-3:   #a626a4
-hue-4:   #50a14f
-hue-5:   #e45649
-hue-5-2: #c91243
-hue-6:   #986801
-hue-6-2: #c18401
-
-*/
 .hljs {
   color: #383a42;
-  background: #fafafa
+  background: #fafafa;
 }
 .hljs-comment,
 .hljs-quote {
   color: #a0a1a7;
-  font-style: italic
+  font-style: italic;
 }
 .hljs-doctag,
 .hljs-keyword,
 .hljs-formula {
-  color: #a626a4
+  color: #a626a4;
 }
 .hljs-section,
 .hljs-name,
 .hljs-selector-tag,
 .hljs-deletion,
 .hljs-subst {
-  color: #e45649
+  color: #e45649;
 }
 .hljs-literal {
-  color: #0184bb
+  color: #0184bb;
 }
 .hljs-string,
 .hljs-regexp,
 .hljs-addition,
 .hljs-attribute,
 .hljs-meta .hljs-string {
-  color: #50a14f
+  color: #50a14f;
 }
 .hljs-attr,
 .hljs-variable,
@@ -65,7 +46,7 @@ hue-6-2: #c18401
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-number {
-  color: #986801
+  color: #986801;
 }
 .hljs-symbol,
 .hljs-bullet,
@@ -73,24 +54,25 @@ hue-6-2: #c18401
 .hljs-meta,
 .hljs-selector-id,
 .hljs-title {
-  color: #4078f2
+  color: #4078f2;
 }
 .hljs-built_in,
 .hljs-title.class_,
 .hljs-class .hljs-title {
-  color: #c18401
+  color: #c18401;
 }
 .hljs-emphasis {
-  font-style: italic
+  font-style: italic;
 }
 .hljs-strong {
-  font-weight: bold
+  font-weight: bold;
 }
 .hljs-link {
-  text-decoration: underline
+  text-decoration: underline;
 }
+
+/* src/highlight.js/atom-one/light.css */
 .hljs {
   --mine-hljs-background: #eaeaeb;
 }
-
 /*# sourceMappingURL=light.css.map */

@@ -1,20 +1,5 @@
-/* Reimplementation inspired by top-bar.css (ISC License): https://github.com/css-pkg/top-bar.css */
-
-/*
- * Register the transition locally so this optional sidecar remains self-contained.
- * In Chromium 149.0.7827.55, directly transitioning currentcolor-based color-mix()
- * background and shadow values stepped through coarse frames and snapped at the
- * end; Safari was smooth. A registered number keeps Blink's interpolation
- * continuous. Related engine work (not the exact reproduction):
- * https://crbug.com/1448813
- */
-@property --link-hover-strength {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
-}
-
-/* Keep compact navigation controls on one scrollable row instead of growing a tall header. */
+/* src/top-bar.css */
+@property --link-hover-strength { syntax: "<number>"; inherits: false; initial-value: 0; }
 .mine-top-bar {
   box-sizing: border-box;
   display: flex;
@@ -22,42 +7,26 @@
   gap: 1rem;
   inline-size: 100%;
   margin-block: 0;
-
-  /*
-   * Let the glass surface reach physical display edges while keeping controls clear.
-   * Safe-area variables describe physical viewport edges, not writing-mode axes.
-   */
-
-  /* stylelint-disable property-layout-mappings */
   padding-top: env(safe-area-inset-top);
   padding-right: max(1rem, env(safe-area-inset-right));
   padding-left: max(1rem, env(safe-area-inset-left));
-  /* stylelint-enable property-layout-mappings */
-
-  /* TODO: Use overflow-inline once it fits this package's browser support floor. */
   overflow-x: auto;
-  scrollbar-width: none; /* Preserve scrolling without adding persistent chrome. */
+  scrollbar-width: none;
   font-family: inherit;
   -webkit-backdrop-filter: contrast(100%) blur(10px);
-          backdrop-filter: contrast(100%) blur(10px);
-
-  /* Follow the active palette while exposing the glass surface for consumers. */
-  background-color: var(
-    --translucent-background,
-    color-mix(in srgb, var(--background, white) 75%, transparent)
-  );
+  backdrop-filter: contrast(100%) blur(10px);
+  background-color: var( --translucent-background, color-mix(in srgb, var(--background, white) 75%, transparent) );
   transition: box-shadow 0.1s ease-in-out;
   position: sticky;
   inset-block-start: 0;
-  z-index: 1; /* Float over interactive content below. */
-
+  z-index: 1;
   &:hover {
     box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
   }
 }
-
-.mine-top-bar::-webkit-scrollbar { display: none; }
-
+.mine-top-bar::-webkit-scrollbar {
+  display: none;
+}
 .mine-top-bar-title,
 .mine-top-bar-link,
 .mine-top-bar-theme,
@@ -66,22 +35,17 @@
   padding-block: 1rem;
   font-size: 1rem;
 }
-
-/* Keep the theme menu compact while sharing the standard select surface. */
 select.mine-top-bar-select {
   max-inline-size: 7rem;
   inline-size: auto;
   min-block-size: 0;
   block-size: 1.65em;
   padding-block: 0;
-
-  /* Use the standard select surface at a compact navigation height. */
   border-color: var(--control-border, #949494);
   color: var(--text, #111);
   font: inherit;
   cursor: pointer;
 }
-
 .mine-top-bar-title,
 .mine-top-bar-title a,
 .mine-top-bar-link {
@@ -89,76 +53,56 @@ select.mine-top-bar-select {
   cursor: pointer;
   text-decoration: none;
 }
-
-/* Keep generous hit targets while drawing feedback tightly around their labels. */
 .mine-top-bar-label {
   --link-hover-strength: 0;
-
   border-radius: 0.2em;
-  background-color: color-mix(
-    in srgb,
-    currentcolor calc(var(--link-hover-strength) * 8%),
-    transparent
-  );
-  box-shadow: 0 0 0 calc(var(--link-hover-strength) * 0.14em) color-mix(
-    in srgb,
-    currentcolor calc(var(--link-hover-strength) * 8%),
-    transparent
-  );
+  background-color: color-mix(in srgb, currentcolor calc(var(--link-hover-strength) * 8%), transparent);
+  box-shadow: 0 0 0 calc(var(--link-hover-strength) * 0.14em) color-mix(in srgb, currentcolor calc(var(--link-hover-strength) * 8%), transparent);
   transition: --link-hover-strength 0.1s ease;
 }
-
 .mine-top-bar-title a,
 .mine-top-bar-link {
   background-color: transparent;
   box-shadow: none;
-
   &:active,
   &:focus,
   &:hover {
     background-color: transparent;
     box-shadow: none;
-
     .mine-top-bar-label {
       --link-hover-strength: 1;
     }
   }
 }
-
 .mine-top-bar-title,
 .mine-top-bar-title a {
-  /* Keep the site identity aligned with the active theme's link color. */
   color: var(--link-text, #08f);
   font-weight: 600;
 }
-
 .mine-top-bar-version {
   color: var(--accent-foreground, #777);
   font-weight: 400;
 }
-
-.mine-top-bar-link { font-weight: 400; }
-
-.mine-top-bar-link-current { cursor: default; }
-
+.mine-top-bar-link {
+  font-weight: 400;
+}
+.mine-top-bar-link-current {
+  cursor: default;
+}
 .mine-top-bar-link-current,
 .mine-top-bar-link-current:hover,
 .mine-top-bar-link:hover {
   color: var(--text, #111);
 }
-
-.mine-top-bar-right { margin-inline-start: auto; }
-
+.mine-top-bar-right {
+  margin-inline-start: auto;
+}
 :target {
-  /* Override the document default so fragments clear the sticky navigation. */
   scroll-margin-block-start: calc(4rem + env(safe-area-inset-top));
 }
-
 @media (width <= 32rem) {
   .mine-top-bar {
-    /* Reveal more controls before horizontal scrolling becomes necessary. */
     gap: 0.5rem;
   }
 }
-
 /*# sourceMappingURL=top-bar.css.map */
